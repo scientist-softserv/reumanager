@@ -13,12 +13,15 @@
             =link_to "Profile", edit_applicant_registration_path, :class => 'active'
           - else
             =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
+            =content_tag :li, link_to('Admin', rails_admin_path) 
       - else
         %li
           - if applicant_signed_in?
             =link_to "Profile", edit_applicant_registration_path, :class => 'active' unless current_applicant.submitted_at
           - else
             =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
+            =content_tag :li, link_to('Admin', rails_admin_path) 
+
 
       - if params[:controller] == 'applicants/academic_records'
         %li.active
