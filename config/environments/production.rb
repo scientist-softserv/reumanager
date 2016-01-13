@@ -63,9 +63,9 @@ Reuman::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/demo' }
+  config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/new_demo' }
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false, :host => 'localhost' }
-  Rails.application.routes.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/demo' }
+  Rails.application.routes.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/new_demo' }
 
-  config.action_controller.relative_url_root = '/demo'
+  config.action_controller.relative_url_root = '/new_demo'
 end

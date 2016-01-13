@@ -64,14 +64,14 @@ univeristy_url:
   name: university_url
   description: |
     Main URL for the parent organization, usually a university (e.g. http://ucsd.edu, http://www.rice.edu)
-  value: "http://www.reumanager.com/demo"
+  value: "http://www.reumanager.com/new_demo"
 department_url:
   name: department_url
   description: |
     Main URL for the organization, usually a department
-  value: "http://www.reumanager.com/demo"
+  value: "http://www.reumanager.com/new_demo"
 program_url:
   name: program_url
   description: |
     URL for the specific program
-  value: "http://www.reumanager.com/demo"
+  value: "http://www.reumanager.com/new_demo"

@@ -18,10 +18,10 @@ set :rvm_type, :system
 set :server_name, domain
 set :scm, :git
 set :default_env, {
-  "RAILS_RELATIVE_URL_ROOT" => "/demo"
+  "RAILS_RELATIVE_URL_ROOT" => "/new_demo"
 }
 
-set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/demo"
+set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/new_demo"
 
 default_run_options[:pty] = true
 
