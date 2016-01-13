@@ -22,7 +22,7 @@ gem 'paper_trail'
 gem 'rails_admin'
 gem 'redcarpet'
 gem 'rich', :git => "https://github.com/joeswann/rich.git"
-gem 'rvm-capistrano'
+gem 'rvm-capistrano', require: false
 # gem 'sqlite3'
 gem 'state_machine'
 gem 'whenever', :require => false
