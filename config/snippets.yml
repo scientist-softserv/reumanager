@@ -3,7 +3,7 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    General Description\n\nThe National Science Foundation's Research Experience for Undergraduates (NSF-REU) program provides undergraduate students access to state-of-the-art facilities, the opportunity to work with accomplished and experienced faculty mentors, and to participate in highly collaborative, cutting-edge research projects.
+    General Description <br><br>The National Science Foundation's Research Experience for Undergraduates (NSF-REU) program provides undergraduate students access to state-of-the-art facilities, the opportunity to work with accomplished and experienced faculty mentors, and to participate in highly collaborative, cutting-edge research projects.
 
 highlights:
   name: highlights
