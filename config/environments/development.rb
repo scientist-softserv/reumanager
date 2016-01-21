@@ -28,7 +28,7 @@ Reuman::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
 
   #config.action_mailer.default_url_options = { :host => 'localhost:3000/test' }
   Rails.application.routes.default_url_options = { :host => 'localhost:3000' }

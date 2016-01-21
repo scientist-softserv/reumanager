@@ -5,8 +5,8 @@ gem 'rails'
 
 gem 'airbrake'
 gem 'addressable'
-gem 'carmen-rails', github: 'jim/carmen-rails', :branch => 'master'
-gem 'client_side_validations', github: "tagliala/client_side_validations", :branch => "rails-4.2"
+gem 'carmen-rails', :github => 'jim/carmen-rails', :branch => 'master'
+gem 'client_side_validations', :github => "tagliala/client_side_validations", :branch => "rails-4.2"
 gem 'cocaine', :git => 'git://github.com/thoughtbot/cocaine.git'
 gem 'capistrano'
 gem 'devise'
@@ -22,7 +22,7 @@ gem 'paper_trail'
 gem 'rails_admin'
 gem 'redcarpet'
 gem 'rich', :git => "https://github.com/joeswann/rich.git"
-gem 'rvm-capistrano', require: false
+gem 'rvm-capistrano', :require => false
 # gem 'sqlite3'
 gem 'state_machine'
 gem 'whenever', :require => false
@@ -77,6 +77,6 @@ end
 group :test do
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'mocha', require: "mocha/api"
+  gem 'mocha', :require => "mocha/api"
   gem 'shoulda'
 end
