@@ -12,9 +12,22 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js/vendors
+//= require js/syntaxhighlighter/shCore
+//= require js/syntaxhighlighter/shBrushXml
+//= require js/syntaxhighlighter/shBrushJScript
+//= require js/DropdownHover
+//= require js/app
+//= require js/holder
+//= require js/index
 //= require bootstrap
 //= require bootstrap-datepicker
-//= require_tree .
+//= require academic_records
+//= require recommendations
+//= require registrations
+//= require rich
+//= require js/styleswitcher
+//= require js/styleswitcher_leadpage
 
 $(document).ready(function() {
 
