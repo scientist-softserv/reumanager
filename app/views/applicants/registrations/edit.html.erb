@@ -1,53 +1,39 @@
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<div class="panel panel-primary">
+  <div class="panel-heading">Contact Info</div>
+  <div class="panel-body">
 
-  <%= custom_error_messages! %>
-  <%= application_status if @user %>
 
-  <div class='row'>
-    <div class="span9">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => "form", :method => :put }) do |f| %>
 
-      <div class='row'>
-        <div class="span9">
-          <div class="inner">
-            <h2>Contact Info</h2>
-          </div> <!-- end  inner -->
-        </div>
+      <%= custom_error_messages! %>
+      <%= application_status if @user %>
 
-        <div class='span4'>
-          <div class="inner control-group">
-            <%= f.text_field :first_name, :placeholder => "First Name" %>
-          </div>
-        </div>
-        <div class='span4 offset1'>
-          <div class="inner control-group">
-            <%= f.text_field :last_name, :placeholer => "Last Name" %>
-          </div>
-        </div>
+      <div class="form-group">
 
-        <div class='span4'>
-          <div class="inner control-group">
-            <%= f.email_field :email, :placeholder => :Email %>
-          </div>
-        </div>
-        <div class='span4 offset1'>
-          <div class="inner control-group">
-            <%= f.text_field :phone, :placeholder => :Phone %>
-          </div>
-        </div>
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
 
-        <section class='address'>
-          <div class="span9">
-            <div class="inner">
-              <p>Please enter at least one postal address.</p>
-            </div>
-            <%= f.fields_for :addresses do |builder| %>
-              <%= render 'address_fields', f: builder %>
-            <% end %>
-            <div class="inner">
-              <%= link_to_add_fields "Add Location", f, :addresses %>
-            </div>
-          </div>
-        </section>
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, :class => "form-control", :placeholer => "Last Name" %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, :class => "form-control", :placeholder => :Email %>
+
+        <%= f.label :phone %>
+        <%= f.text_field :phone, :class => "form-control", :placeholder => :Phone %>
+
+      </div>
+
+      <p>Please enter at least one postal address.</p>
+
+      <div class="form-group">
+        <%= f.fields_for :addresses do |builder| %>
+          <%= render 'address_fields', f: builder %>
+        <% end %>
+
+        <%= link_to_add_fields "Add Location", f, :addresses %>
+
+      </div>
 
         <div class="span9">
           <div class="inner">

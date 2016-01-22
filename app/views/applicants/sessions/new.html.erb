@@ -1,18 +1,28 @@
 <div class='inner'>
-  <h2>Sign in</h2>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Sign up</div>
+    <div class="panel-body">
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form' } ) do |f| %>
 
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <div class='inline'>
-      <p><%= f.email_field :email, :placeholder => :Email %></p>
-      <p><%= f.password_field :password, :placeholder => :Password %>
-        <% if devise_mapping.rememberable? -%>
-        
-          <%= f.label :remember_me, :class => :checkbox do %>Remember Me <%= f.check_box :remember_me %><%- end -%>
-        <% end -%>
-      </p>
+        <%= custom_error_messages! %>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, :class => "form-control", :placeholder => "email address" %>
+
+          <%= f.label :password %>
+          <%= f.password_field :password, :class => "form-control", :placeholder => "password" %>
+          <% if devise_mapping.rememberable? -%>
+             <%= f.label :remember_me %> <%= f.check_box :remember_me %>
+          <% end -%>
+
+        </div>
+
+        <p id='submit'>
+          <%= f.submit "Sign in", :class => 'btn btn-ar btn-primary', :role => "button" %>
+        </p>
+        <%= render :partial => "applicants/shared/links" %>
+      <% end %>
     </div>
-
-    <p id='submit'><%= f.submit "Sign in", :class => 'btn' %></p>
-    <%= render :partial => "applicants/shared/links" %>
-  <% end %>
+  </div>
 </div>
