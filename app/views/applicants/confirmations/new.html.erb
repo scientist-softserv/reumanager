@@ -1,16 +1,23 @@
 <div class='inner'>
-  <h2>Resend confirmation instructions</h2>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Resend confirmation instructions</div>
+    <div class="panel-body">
 
-  <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-    <%= custom_error_messages! %>
+      <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+        <%= custom_error_messages! %>
 
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-    
-    <hr class='inner clear' / >
 
-    <%= f.submit "Resend confirmation instructions", :class => 'btn' %>
-  <% end %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, :class => "form-control" %>
+        </div>
 
-  <%= render :partial => "devise/shared/links" %>
+        <hr class='inner clear' / >
+
+        <%= f.submit "Resend confirmation instructions", :class => 'btn btn-ar btn-primary' %>
+      <% end %>
+
+      <%= render :partial => "devise/shared/links" %>
+    </div>
+  </div>
 </div>

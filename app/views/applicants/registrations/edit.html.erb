@@ -1,9 +1,9 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">Contact Info</div>
-  <div class="panel-body">
 
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => "form", :method => :put }) do |f| %>
 
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => "form", :method => :put }) do |f| %>
+    <div class="panel-heading">Contact Info</div>
+    <div class="panel-body">
 
       <%= custom_error_messages! %>
       <%= application_status if @user %>
@@ -24,6 +24,11 @@
 
       </div>
 
+    </div>
+
+    <div class="panel-heading">Addresses</div>
+    <div class="panel-body">
+
       <p>Please enter at least one postal address.</p>
 
       <div class="form-group">
@@ -31,89 +36,62 @@
           <%= render 'address_fields', f: builder %>
         <% end %>
 
+        <hr />
         <%= link_to_add_fields "Add Location", f, :addresses %>
 
       </div>
 
-        <div class="span9">
-          <div class="inner">
-            <h2>Personal Info</h2>
-          </div><!-- end  inner -->
-        </div>
+    </div>
 
-        <div class='span4'>
-          <div class="inner control-group">
-            <%= f.label :dob, "Date of Birth (YYYY-MM-DD)" %>
-            <%= f.text_field :dob, 'data-behaviour' => 'datepicker' %>
+    <div class="panel-heading">Personal Info</div>
+    <div class="panel-body">
+
+      <div class="form-group">
+
+        <%= f.label :dob, "Date of Birth (YYYY-MM-DD)" %>
+        <%= f.text_field :dob, 'data-behaviour' => 'datepicker', :class => "form-control" %>
+
+        <%= f.label :gender %>
+        <%= f.select :gender, options_for_select(%w{Male Female}, @applicant.gender), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+
+        <%= f.label :ethnicity %>
+        <%= f.select :ethnicity, options_for_select(%w{ Hispanic\ or\ Latino Not\ Hispanic\ or\ Latino }, @applicant.ethnicity), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+
+        <%= f.label :race %>
+        <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan\ Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+
+        <%= f.label :citizenship %>
+        <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name), @applicant.citizenship), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+
+        <%= f.label :disability %>
+        <%- if show_disability_input? -%>
+          <div id='disability_container' class='input-append'>
+            <%= f.text_field :disability, :class => "form-control" %>
+            <span class='add-on'>Please specify</span>
+            <button id='disability_cancel' class='btn btn-ar btn-primary btn-danger' type='button'>Cancel</button>
           </div>
-        </div>
-        <div class='span4 offset1'>
-          <div class="inner control-group">
-            <%= f.label :gender %>
-            <%= f.select :gender, options_for_select(%w{Male Female}, @applicant.gender), :include_blank => "Prefer to not respond" %>
-          </div>
-        </div>
-
-        <div class='span4'>
-          <div class="inner control-group">
-            <%= f.label :ethnicity %>
-            <%= f.select :ethnicity, options_for_select(%w{ Hispanic\ or\ Latino Not\ Hispanic\ or\ Latino }, @applicant.ethnicity), :include_blank => "Prefer to not respond" %>
-          </div>
-        </div>
-        <div class='span4 offset1'>
-          <div class="inner control-group">
-            <%= f.label :race %>
-            <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan\ Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), :include_blank => "Prefer to not respond" %>
-          </div>
-        </div>
-
-        <div class='span4'>
-          <div class="inner control-group">
-            <%= f.label :citizenship %>
-            <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name), @applicant.citizenship), :include_blank => "Prefer to not respond" %>
-          </div>
-        </div>
-        <div class='span4 offset1'>
-          <div class="inner control-group">
-            <%= f.label :disability %>
-            <%- if show_disability_input? -%>
-              <div id='disability_container' class='input-append'>
-                <%= f.text_field :disability %>
-                <span class='add-on'>Please specify</span>
-                <button id='disability_cancel' class='btn btn-danger' type='button'>Cancel</button>
-              </div>
-            <%- else -%>
-              <%= f.select :disability, options_for_select(%w{No Yes}, @applicant.disability), :include_blank => "Prefer to not respond" %>
-            <%- end -%>
-          </div>
-        </div>
-
-
-        <section class='personal_statement'>
-          <div class="span9">
-            <div class="inner">
-              <h2>Personal Statement</h2>
-              <%= f.text_area :statement, :class => 'span8', :rows => 6, :placeholder => "Please Complete a brief essay (up to 250 words) explaining why you are interested in our program and how the experience may help you achieve your future goals."  %>
-            </div> <!-- end  inner -->
-          </div>
-        </section>
-
-
-      </div><!-- end  span9 -->
-
-
-    </div><!-- end  span9 -->
-
-    <%= render "applicants/shared/nav" %>
-
-    <div class="span12">
-      <div class="inner">
-        <hr />
-        <p class='clear'><%= f.submit "Save Profile Data", :class => "btn btn-success" %></p>
-        <p><small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small></p>
+        <%- else -%>
+          <%= f.select :disability, options_for_select(%w{No Yes}, @applicant.disability), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%- end -%>
       </div>
     </div>
 
-  </div><!-- end  row -->
 
-<% end %>
+    <div class="panel-heading">Personal Statement</div>
+    <div class="panel-body">
+
+      <div class="form-group">
+        <%= f.text_area :statement, :class => 'form-control', :rows => 6, :placeholder => "Please Complete a brief essay (up to 250 words) explaining why you are interested in our program and how the experience may help you achieve your future goals."  %>
+      </div>
+    </div>
+
+    <%= render "applicants/shared/nav" %>
+
+    <div class="panel-body">
+      <hr />
+      <p class='clear'><%= f.submit "Save Profile Data", :class => "btn btn-ar btn-primary" %></p>
+      <p><small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small></p>
+    </div>
+
+  <% end %>
+</div>

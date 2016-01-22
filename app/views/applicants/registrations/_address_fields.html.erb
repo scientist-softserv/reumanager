@@ -1,7 +1,11 @@
 <fieldset>
-  <%= f.select :label, options_for_select(%w( Home School Other), f.object.label), :prompt => "Location Label", :class => "form-control" %>
+  <hr />
+  <%= f.label :label %>
+  <%= f.select :label, options_for_select(%w( Home School Other), f.object.label), { :prompt => "Location Label" }, { :class => "form-control" } %>
 
-  <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), :prompt => 'Permanent Address?', :class => "form-control" %>
+
+  <%= f.label :permanent %>
+  <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), { :prompt => 'Permanent Address?' }, { :class => "form-control" } %>
 
   <%= f.label :address %>
   <%= f.text_field :address, :class => "form-control", :placeholder => :Address %>
@@ -18,6 +22,7 @@
   <%= f.label :zip %>
   <%= f.text_field :zip, :class => "form-control", :placeholder => "Zip Code" %>
 
+  <br />
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove this location", '#', class: "remove_fields btn btn-mini btn-danger" %>
 
