@@ -6,7 +6,7 @@
 /* ---------------------------------------------------- */
 /* Imports */
 /* ---------------------------------------------------- */
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400|Open+Sans:400italic,400,600|Muli:300|Indie+Flower:400|Oswald:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400|Open+Sans:400italic,400,600|Muli:300|Indie+Flower:400|Oswald:400,700,300);
 /* ---------------------------------------------------- */
 /* Global Variables */
 /* ---------------------------------------------------- */
@@ -3270,7 +3270,7 @@ a.thumbnail.active {
   font-family: "Muli", sans-serif;
   word-spacing: -6px;
   -webkit-text-stroke: 0;
-  background-image: url("../img/colors/yellow2/logo.png");
+  background-image: url("/assets/img/colors/yellow2/logo.png");
   background-position: left center;
   background-repeat: no-repeat;
   padding-left: 45px;
@@ -3469,7 +3469,7 @@ a.thumbnail.active {
   margin: 0 2px;
 }
 .carousel-section {
-  background-image: url("../img/slide_back.jpg");
+  background-image: url("/assets/img/slide_back.jpg");
   margin-bottom: 40px;
   overflow: hidden;
 }
@@ -4217,7 +4217,7 @@ input.input-lg[type="text"] {
   box-shadow: none;
 }
 .bx-wrapper .bx-loading {
-  background-image: url("../img/bx_loader.gif");
+  background-image: url("/assets/img/bx_loader.gif");
 }
 .bx-wrapper .bx-caption {
   padding: 5px;
@@ -4232,11 +4232,11 @@ input.input-lg[type="text"] {
 }
 .bx-wrapper .bx-prev {
   left: 0px;
-  background: url("../img/controls.png") no-repeat 0 -32px;
+  background: url("/assets/img/controls.png") no-repeat 0 -32px;
 }
 .bx-wrapper .bx-next {
   right: 10px;
-  background: url("../img/controls.png") no-repeat -43px -32px;
+  background: url("/assets/img/controls.png") no-repeat -43px -32px;
 }
 .bx-wrapper .bx-viewport {
   box-shadow: none;
@@ -5187,7 +5187,7 @@ input.input-lg[type="text"] {
 /* Home Full */
 /*-------------------------------------------------------------------*/
 #header-full {
-  background-image: url("../img/back.jpg");
+  background-image: url("/assets/img/back.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
@@ -5397,7 +5397,7 @@ a.feature-icon:hover {
 }
 /* 404 2 */
 .paper-back {
-  background-image: url("../img/back.png");
+  background-image: url("/assets/img/back.png");
   background-repeat: repeat;
   position: fixed;
   height: 100%;
@@ -5408,7 +5408,7 @@ a.feature-icon:hover {
   right: 0;
 }
 .title-logo {
-  background-image: url("../img/colors/yellow2/logo50.png");
+  background-image: url("/assets/img/colors/yellow2/logo50.png");
   background-repeat: no-repeat;
   background-position: center top;
   font-size: 2.3em;
@@ -5485,7 +5485,7 @@ a.feature-icon:hover {
 /* ---------------------------------------------------- */
 .profile-header {
   min-height: 350px;
-  background-image: url("../img/back_profile.jpg");
+  background-image: url("/assets/img/back_profile.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
@@ -5528,7 +5528,7 @@ a.feature-icon:hover {
 /* ---------------------------------------------------- */
 .services-header {
   min-height: 350px;
-  background-image: url("../img/back_services.jpg");
+  background-image: url("/assets/img/back_services.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
@@ -5612,7 +5612,7 @@ a.feature-icon:hover {
   margin: 0 auto;
 }
 .paper-back-full {
-  background-image: url("../img/back.png");
+  background-image: url("/assets/img/back.png");
   background-repeat: repeat;
   padding-bottom: 30px;
 }
@@ -5699,7 +5699,7 @@ a.feature-icon:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("../img/coming_back.jpg");
+  background-image: url("/assets/img/coming_back.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
@@ -5755,7 +5755,7 @@ a.feature-icon:hover {
   display: block;
   margin: 0 0 20px 0;
   padding-left: 70px;
-  background-image: url("../img/logo50_white.png");
+  background-image: url("/assets/img/logo50_white.png");
   background-repeat: no-repeat;
   background-position: left center;
 }
@@ -5859,7 +5859,7 @@ a.feature-icon:hover {
   float: left;
   overflow: hidden;
   padding-left: 75px;
-  background-image: url("../img/colors/yellow2/logo_big.png");
+  background-image: url("/assets/img/colors/yellow2/logo_big.png");
   background-repeat: no-repeat;
   background-position: left center;
 }
@@ -6253,7 +6253,7 @@ a.feature-icon:hover {
   box-shadow: none;
 }
 .navbar-inverse .navbar-brand {
-  background-image: url("../img/logo_white.png");
+  background-image: url("/assets/img/logo_white.png");
 }
 .navbar-inverse .navbar-brand {
   color: #fff;
@@ -6591,7 +6591,7 @@ input[type="date"]:focus {
 }
 /*------------------*/
 .wrap-primary-plan {
-  background-image: url("../img/plan.jpg");
+  background-image: url("/assets/img/plan.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom center;
@@ -6833,7 +6833,7 @@ input[type="date"]:focus {
   border-top: solid 1px #ddd;
 }
 .wrap-polygons {
-  background-image: url("../img/back_polygons.jpg");
+  background-image: url("/assets/img/back_polygons.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -7131,7 +7131,7 @@ Image placeholders: placemi.com
   padding-top: 80px;
 }
 .road-splash {
-  background-image: url("../img/back_lead5.jpg");
+  background-image: url("/assets/img/back_lead5.jpg");
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -7349,7 +7349,7 @@ Image placeholders: placemi.com
 /* Home Shop */
 /* ---------------------------------------------------- */
 .sh-wrap-commerce {
-  background-image: url("../img/back_wrap_commerce.jpg");
+  background-image: url("/assets/img/back_wrap_commerce.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
