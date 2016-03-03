@@ -7,7 +7,7 @@ require "rvm/capistrano"
 
 set :application, "ucsd_eng" #matches names used in smf_template.erb
 set :repository,  "https://github.com/ucsd-ra/reumanager.git"
-set :branch, :rqi
+set :branch, "#{application}"
 set :domain, 'indra.ucsd.edu'
 set :deploy_to, "/var/www/#{application}" # I like this location
 set :deploy_via, :remote_cache
@@ -18,10 +18,10 @@ set :rvm_type, :system
 set :server_name, domain
 set :scm, :git
 set :default_env, {
-  "RAILS_RELATIVE_URL_ROOT" => "/rqi"
+  "RAILS_RELATIVE_URL_ROOT" => "/#{application}"
 }
 
-set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/rqi"
+set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/#{application}"
 
 default_run_options[:pty] = true
 
