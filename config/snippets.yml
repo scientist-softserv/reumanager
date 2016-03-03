@@ -3,39 +3,43 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    In the Engineering Center For Diabetes Research and Education (ECDRE) researchers at the Illinois Institute of Technology (IIT) collaborate with basic scientists and clinicians applying engineering techniques towards the understanding and treatment of diabetes and its complications. The Biomedical Engineering Department at IIT and ECDRE provides the foundation for this 10-week summer program. Students will be paired with faculty to complete a diabetes related research project working with a faculty mentor from IIT. Diabetes is a complex disease that can lead to a number of health complications. The projects offered in this program reflect this diversity, with topics in biomaterials for islet cell encapsulation, models of glucose metabolism, imaging techniques for prognosis/diagnosis of disease, regeneration strategies for the treatment of ulcers and ischemic limbs and vascular changes in diabetic retinopathy.
+    The Jacobs school of Engineering (JSOE) at UC San Diego hosts a summer Research Experience for Undergraduates (REU) summer program in Biomaterials. The objectives of the program are to train undergraduates in basic research through challenging biomaterial-related engineering projects performed with research mentors from engineering departments across JSOE. Research areas include tissue engineering and 3D printing, bio-inspired biomaterials, biomaterial-stem cell interaction, nanoparticles and drug delivery.
 
 highlights:
   name: highlights
   description: ''
   value: |
     <ul>
-      <li>Wide variety of research topics</li>
-      <li>Weekly seminars </li>
-      <li>Research ethics</li>
-      <li>Social programs</li>
-      <li>Outreach and mentoring of K-12 educational program</li>
+      <li>$5,000 stipend</li>
+      <li>On-campus housing</li>
+      <li>Travel to and from San Diego</li>
+      <li>Presentations at UC San Diego Research Symposium and BMES National Meeting</li>
+      <li>Weekly research development workshops/li>
+      <li>GRE preparation course</li>
+      <li>Field trips and social events</li>
     </ul>
 eligibility_requirements:
   name: eligibility_requirements
   description: ''
   value: |
     <ul>
-      <li>Students should have a declared engineering or science (biology, chemistry, mathematics, computer science, or physics) major.</li>
-      <li>Students should have a minimum GPA of 2.80/4.00.</li>
-      <li>Applicants must be US citizens or permanent residents.</li>
-      <li>Students from community colleges are encouraged to apply.</li>
+      <li>Full-time undergraduate student</li>
+      <li>U.S. citizen or permanent resident</li>
+      <li>Full-time availability during the program.</li>
+      <li>Lower division students in bioengineering, material science, chemical engineering, life sciences, or other related field are especially encouraged to apply</li>
+      <li>Women and underrepresented minorities are especially encouraged to apply</li>
     </ul>
 application_information:
   name: application_information
   description: ''
   value: |
     <ul>
-      <li>Academic Transcript</li>
-      <li>Letters of recommendation</li>
-      <li>Two essays to the application form. The essays should be no longer than one page in length, single spaced, and font no less than 10 pt. A) What are you future academic/career goals? Explain how participation in this REU program will help you achieve those goals. B) Describe an activity (hobby, sport, club, service, etc.) you enjoy outside of classes. Discuss how you got involved and what it requires from you.</li>
+      <li>Major components of the online application include: personal and academic information, a personal statement, a copy of your unofficial school transcript (as a pdf), and contact information for one reference</li>
+      <li>The person writing your letter of recommendation will be contacted via e-mail and will submit their letter online.</li>
+      <li>Once you begin an application, you can check the status of it any time by logging into this website.</li>
+      <li>All components of the application must be submitted before the deadline to be considered complete. Only complete applications will be reviewed.</li>
     </ul>
 acknowledgment_of_funding_soruces:
   name: acknowledgment_of_funding_soruces
   description: Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.
-  value: This program is supported by the National Science Foundation (EEC-1461215).
+  value: This program is supported by the National Science Foundation.
