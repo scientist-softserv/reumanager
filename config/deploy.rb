@@ -5,7 +5,7 @@ require "rvm/capistrano"
 #set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
-set :application, "rqi" #matches names used in smf_template.erb
+set :application, "ucsd_eng" #matches names used in smf_template.erb
 set :repository,  "https://github.com/ucsd-ra/reumanager.git"
 set :branch, :rqi
 set :domain, 'indra.ucsd.edu'
