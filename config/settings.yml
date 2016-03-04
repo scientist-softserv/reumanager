@@ -20,28 +20,28 @@ application_start:
   description: This is the 'opening date' for the application system. After this
     date, students can apply. This also controls what buttons are displayed in the
     navbar and on the homepage (e.g. Apply Now and Login).
-  value: 03-14-2016
+  value: 2016-03-14
 application_deadline:
   name: application_deadline
   description: This date determines when applications can no longer be created or
     updated. Similar to the above value, buttons to apply are removed after this
     date.
-  value: 04-15-2016
+  value: 2016-04-15
 notification_date:
   name: notification_date
   description: This date is used to let the applicants know when to expect a response.
     This is used in the confirmation emails.
-  value: 05-09-2016
+  value: 2016-05-09
 program_start_date:
   name: program_start_date
   description: This date is used in the header and confirmation emails to set when
     the NSFREU program begins.
-  value: 06-20-2016
+  value: 2016-06-20
 program_end_date:
   name: program_end_date
   description: Similar to the above value, this marks the end date for your NSFREU
     program.
-  value: 08-26-2016
+  value: 2016-08-26
 check_back_date:
   name: check_back_date
   description: |
