@@ -59,7 +59,7 @@ mail_from:
 funding_acknowlegement:
   name: funding_acknowlegement
   description: Who is supporting this program?
-  value: This program is supported by the NSF REU Program (Physics, Chemistry, and DMR) and the DoD ASSURE Program.
+  value: Demo program supported by ...
 univeristy_url:
   name: university_url
   description: |

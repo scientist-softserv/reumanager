@@ -29,6 +29,19 @@ role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
 
+namespace :rake do
+  desc "load settings from yml files"
+  task :load_settings do
+    on roles(:app) do
+      within "#{current_path}" do
+        with rails_env: :production do
+          execute :rake, "settings:load"
+        end
+      end
+    end
+  end
+end
+
 namespace :deploy do
   task :start do ; end
   task :stop do ; end

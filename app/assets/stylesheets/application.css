@@ -10,5 +10,11 @@
  *
  *= require_self
  *= require bootstrap-datepicker
- *= require_tree .
+ *= require css/preload
+ *= require css/vendors
+ *= require css/syntaxhighlighter/shCore
+ *= require css/style-blue3
+ *= require css/width-full
+ *= require academic_records
+ *= require recommendations
 */
