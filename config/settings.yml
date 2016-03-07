@@ -55,7 +55,7 @@ mail_from:
     This will be used in the reply-to value for emails sent from the
     application. This is also used in the footer as the email to contact for questions
     or comments about the website. TODO
-  value: ''
+  value: info@reumanager.com
 funding_acknowlegement:
   name: funding_acknowlegement
   description: Who is supporting this program?
