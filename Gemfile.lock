@@ -209,7 +209,7 @@ GEM
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
     multi_json (1.10.1)
-    mysql2 (0.3.20)
+    mysql2 (0.3.15)
     nested_form (0.3.2)
     net-http-spy (0.2.1)
     net-scp (1.1.2)
@@ -400,7 +400,7 @@ DEPENDENCIES
   meta_request
   mocha
   modernizr-rails
-  mysql2 (~> 0.3.17)
+  mysql2 (= 0.3.15)
   net-http-spy
   paper_trail
   paperclip

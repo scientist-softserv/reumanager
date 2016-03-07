@@ -3290,7 +3290,6 @@ a.thumbnail.active {
 .navbar-default .navbar-brand {
   font-size: 28px;
   font-weight: 300;
-  text-transform: lowercase;
   font-family: "Muli", sans-serif;
   word-spacing: -6px;
   -webkit-text-stroke: 0;

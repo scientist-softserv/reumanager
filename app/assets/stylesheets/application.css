@@ -18,3 +18,29 @@
  *= require academic_records
  *= require recommendations
 */
+
+#header_link_1, #header_link_2 {
+  text-align:left;
+  font-weight:normal;
+  margin:2px -7px 10px -7px;
+  padding:5px 5px 5px 15px;
+  font-size:1.6em;
+}
+
+#header_link_1 a, #header_link_2 a {
+  color: #fff;
+}
+
+.deadline {
+  text-align: center;
+  margin: 40px 0 0 0;
+}
+
+.app_button {
+  padding:2em;
+  text-align: center;
+}
+
+.navbar-default .navbar-brand {
+  text-transform: none;
+}
