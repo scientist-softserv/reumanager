@@ -4,8 +4,10 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  if defined?(Setting) && Setting.first
+  begin #if Setting && Setting.first
     config.mailer_sender = Setting[:mail_from]
+  rescue
+    puts "no mail setting"
   end
 
   # Configure the class responsible to send e-mails.
