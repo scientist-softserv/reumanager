@@ -9,8 +9,6 @@ admins = [{ email: 'aengler@ucsd.edu', first_name: 'Adma', last_name: 'Engler', 
 
 admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
 
-User.create(email: 'jmadison@reumanager.com', first_name: 'J', last_name: 'Madison', password: 'DemoApp')
-
 # Demo Applicants
 10.times do
   FactoryGirl.create(:applicant)
