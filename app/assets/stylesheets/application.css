@@ -44,3 +44,13 @@
 .navbar-default .navbar-brand {
   text-transform: none;
 }
+
+.alert-notice {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1
+}
+
+.field_with_errors input, .field_with_errors textarea, .field_with_errors select {
+  border: red 1px solid;
+}

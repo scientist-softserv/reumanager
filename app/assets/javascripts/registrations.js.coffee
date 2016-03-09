@@ -7,7 +7,7 @@ jQuery ->
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
-    $(this).parent().before($(this).data('fields').replace(regexp, time))
+    $(this).parent('.add-container').before($(this).data('fields').replace(regexp, time))
     $("[data-behaviour~='datepicker']").datepicker({ "format": "yyyy-mm-dd" });
     event.preventDefault()
 

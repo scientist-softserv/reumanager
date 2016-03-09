@@ -7,7 +7,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   def edit
     @applicant.set_state
     @applicant.addresses.build unless @applicant.addresses.count > 0
-
+    @applicant.validates_personal_info
     render :edit
   end
 
@@ -38,6 +38,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
 
       redirect_to @applicant.redirect_url
     else
+      @applicant.validates_personal_info
       render "edit"
     end
   end

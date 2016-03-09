@@ -11,8 +11,9 @@
       <%= f.fields_for :recommenders do |builder| %>
         <%= render 'recommender_fields', f: builder %>
       <% end %>
-
-      <%= link_to_add_fields "Add recommender", f, :recommenders %>
+      <div class='add-container'>
+        <%= link_to_add_fields "Add recommender", f, :recommenders %>
+      </div>
       <hr />
 
       <%= render "applicants/shared/nav" %>

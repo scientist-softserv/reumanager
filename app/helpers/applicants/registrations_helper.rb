@@ -43,7 +43,7 @@ module Applicants::RegistrationsHelper
                       :resource => resource.class.model_name.human.downcase)
 
     html = <<-HTML
-    <div id="error_explanation" onclick="$(this).slideUp();">
+    <div id="error_explanation" class='alert-danger' onclick="$(this).slideUp();">
       <h2>#{sentence}</h2>
       <ul>#{messages}</ul>
     </div>
@@ -60,7 +60,7 @@ module Applicants::RegistrationsHelper
                       :count => current_applicant.errors.count)
 
     html = <<-HTML
-    <div id="error_explanation" onclick="$(this).slideUp();">
+    <div id="error_explanation" class='alert-warning' onclick="$(this).slideUp();">
       <h2>#{sentence}</h2>
       <ul>#{messages}</ul>
     </div>
@@ -101,4 +101,3 @@ module Applicants::RegistrationsHelper
     current_applicant.disability && current_applicant.disability != 'No' && current_applicant.disability != ''
   end
 end
-

@@ -1,68 +1,33 @@
 <fieldset>
-  <div class="row">
+  <%= f.label :university %>
+  <%= f.text_field :university, :class => 'form-control'%>
+  <%= f.label :degree %>
+  <%= f.text_field :degree, :placeholder => :Degree, :class => 'form-control' %>
+  <%= f.label :start %>
+  <%= f.text_field :start, 'data-behaviour' => 'datepicker', :placeholder => 'Start (YYYY-MM-DD)', :class => 'form-control' %>
+  <%= f.label :finish %>
+  <%= f.text_field :finish, 'data-behaviour' => 'datepicker', :placeholder => 'Finish or Expected Finish (YYYY-MM-DD)', :class => 'form-control' %>
+  <%= f.label :major %>
+  <%= f.text_field :major, :placeholder => 'Computer Science', :class => 'form-control' %>
+  <%= f.label :minor %>
+  <%= f.text_field :minor, :placeholder => 'Literature', :class => 'form-control' %>
 
-    <div class="span4">
-      <div class="inner">
-        <%= f.text_field :university, :placeholder => :University %>
-      </div>
-    </div>
-
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.text_field :degree, :placeholder => :Degree %>
-      </div>
-    </div>
-
-
-    <div class="span4">
-      <div class="inner">
-        <%= f.text_field :start, 'data-behaviour' => 'datepicker', :placeholder => 'Start (YYYY-MM-DD)' %>
-      </div>
-    </div>
-
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.text_field :finish, 'data-behaviour' => 'datepicker', :placeholder => 'Finish or Expected Finish (YYYY-MM-DD)' %>
-      </div>
-    </div>
-
-    <div class="span4">
-      <div class="inner">
-        <%= f.text_field :major, :placeholder => :Major %>
-      </div>
-    </div>
-
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.text_field :minor, :placeholder => :Minor %>
-      </div>
-    </div>
-
-    <div class="span4">
-      <div class="inner control-group">
-        <%= f.select :gpa, gpa_range, {:include_blank => 'GPA'}, {:class => :span1} %> out of
-        <%= f.select :gpa_range, [4.0, 5.0, 10.0], {:include_blank => 'GPA Range'}, {:class => :span2} %>
-      </div>
-    </div>
-
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.label :transcript %>
-        <p>Attach a PDF or image of your transcript.</p>
-        <%= f.file_field :transcript %>
-        <%= content_tag :p, raw("Current attachment: #{link_to current_applicant.records.find_by_applicant_id(current_applicant).transcript_file_name, current_applicant.records.find_by_applicant_id(current_applicant).transcript.url}") unless f.object.new_record?  %>
-      </div>
-    </div>
-
-    <div class="span9">
-      <div class="inner">
-        <%= f.hidden_field :_destroy %>
-        <%= link_to "remove this record", '#', class: "remove_fields btn btn-mini btn-danger" %>
-      </div>
-    </div>
-
-
+  <%= f.label :gpa, 'GPA' %>
+  <div class="inner control-group">
+    <%= f.select :gpa, gpa_range, {:include_blank => ''}, {:class => :span1} %> out of
+    <%= f.select :gpa_range, [4.0, 5.0, 10.0], {:include_blank => 'GPA Range'}, {:class => :span2} %>
   </div>
+
+  <div class="inner">
+    <%= f.label :transcript %>
+    <p>Attach a PDF or image of your transcript.</p>
+    <%= f.file_field :transcript %>
+    <%= content_tag :p, raw("Current attachment: #{link_to current_applicant.records.find_by_applicant_id(current_applicant).transcript_file_name, current_applicant.records.find_by_applicant_id(current_applicant).transcript.url}") unless f.object.new_record?  %>
+  </div>
+
+  <br />
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove this record", '#', class: "remove_fields btn btn-mini btn-danger" %>
 
   <hr class="inner clear" />
 

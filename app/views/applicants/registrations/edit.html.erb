@@ -4,23 +4,23 @@
 
     <div class="panel-heading">Contact Info</div>
     <div class="panel-body">
+      <%= status_error_messages! if current_applicant %>
 
-      <%= custom_error_messages! %>
       <%= application_status if @user %>
 
       <div class="form-group">
 
         <%= f.label :first_name %>
-        <%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+        <%= f.text_field :first_name, :class => "form-control", :placeholder => "George" %>
 
         <%= f.label :last_name %>
-        <%= f.text_field :last_name, :class => "form-control", :placeholer => "Last Name" %>
+        <%= f.text_field :last_name, :class => "form-control", :placeholer => "Washington" %>
 
         <%= f.label :email %>
-        <%= f.email_field :email, :class => "form-control", :placeholder => :Email %>
+        <%= f.email_field :email, :class => "form-control", :placeholder => 'george@whitehouse.gov' %>
 
         <%= f.label :phone %>
-        <%= f.text_field :phone, :class => "form-control", :placeholder => :Phone %>
+        <%= f.text_field :phone, :class => "form-control", :placeholder => '555-555-5555' %>
 
       </div>
 
@@ -36,8 +36,10 @@
           <%= render 'address_fields', f: builder %>
         <% end %>
 
-        <hr />
-        <%= link_to_add_fields "Add Location", f, :addresses %>
+        <div class='add-container'>
+          <hr />
+          <%= link_to_add_fields "Add Location", f, :addresses %>
+        </div>
 
       </div>
 
@@ -58,7 +60,7 @@
         <%= f.select :ethnicity, options_for_select(%w{ Hispanic\ or\ Latino Not\ Hispanic\ or\ Latino }, @applicant.ethnicity), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
         <%= f.label :race %>
-        <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan\ Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
         <%= f.label :citizenship %>
         <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name), @applicant.citizenship), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>

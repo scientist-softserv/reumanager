@@ -1,88 +1,50 @@
-<%= form_for(current_applicant, :url => applicants_records_url, :html => { :method => :put, :multipart => true }) do |f| %>
+<div class="panel panel-primary">
+  <%= form_for(current_applicant, :url => applicants_records_url, :html => { :method => :put, :multipart => true }) do |f| %>
+    <div class="panel-heading">Academic Info</div>
+    <div class="panel-body">
+      <%= errors_for current_applicant %>
 
-  <%= errors_for current_applicant %>
+      <div class="form-group">
+        <%= f.label 'Current Academic Level' %>
+        <%= f.select :academic_level, options_for_select(%w{ Freshman Sophomore Junior Senior }), {:include_blank => ''}, { :class => "form-control" }%>
 
-  <div class='row'>
-    <div class="span9">
-
-      <div class='row'>
-        <div class="span9">
-          <div class="inner">
-            <h2>Academic Info</h2>
-          </div> <!-- end  inner -->
-        </div>
-
-        <section class='records'>
-          <div class="span9">
-            <div class="inner">
-              <%= f.select :academic_level, options_for_select(%w{ Freshman Sophomore Junior Senior }), :include_blank => 'Current Academic Level'%>
-            </div>
-          </div>
-
-          <div class="span9">
-            <%= f.fields_for :records do |builder| %>
-              <%= render 'record_fields', f: builder %>
-            <% end %>
-            <div class="inner"><%= link_to_add_fields "Add academic record", f, :records %></div>
-          </div>
-
-        </section>
-
-        <section class='gpa_comment'>
-          <div class="span9">
-            <div class="inner">
-              <h2>GPA Comments</h2>
-              <%= f.text_area :gpa_comment, :class => 'span8', :rows => 2, :placeholder => "Do you feel your GPA accurately reflects your academic abilities? Please comment on why or why not in the space provided."  %>
-            </div> <!-- end  inner -->
-          </div>
-        </section>
-
-        <section class='awards'>
-          <div class="span9">
-            <div class="inner">
-              <h2>Awards</h2>
-            </div> <!-- end  inner -->
-            <%= f.fields_for :awards do |builder| %>
-              <%= render 'award_fields', f: builder %>
-            <% end %>
-            <div class="inner"><%= link_to_add_fields "Add award", f, :awards %></div>
-          </div>
-        </section>
-
-        <section class='cpu_skills'>
-          <div class="span9">
-            <div class="inner">
-              <h2>Computer Skills</h2>
-              <%= f.text_area :cpu_skills, :class => 'span8', :rows => 2, :placeholder => "Please list any computer related skills (e.g. Application experience, programming ability, etc.)"  %>
-            </div> <!-- end  inner -->
-          </div>
-        </section>
-
-        <section class='lab_skills'>
-          <div class="span9">
-            <div class="inner">
-              <h2>Laboratory Skills</h2>
-              <%= f.text_area :lab_skills, :class => 'span8', :rows => 2, :placeholder => "Please list any laboratory related skills"  %>
-            </div> <!-- end  inner -->
-          </div>
-
-
-      </div> <!-- end .row -->
-    </div> <!-- end .span9 -->
-
-    <%= render "applicants/shared/nav" %>
-
-    <div class="span12">
-      <div class="inner">
-        <hr />
-        <p class='clear'><%= f.submit "Save Academic Info", :class => "btn btn-success" %></p>
-        <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
+        <%= f.fields_for :records do |builder| %>
+          <%= render 'record_fields', f: builder %>
+        <% end %>
+        <div class="add-container"><%= link_to_add_fields "Add academic record", f, :records %></div>
       </div>
     </div>
 
+    <div class="panel-heading">GPA Comments</div>
+    <div class="panel-body">
+      <%= f.text_area :gpa_comment, :class => 'form-control', :rows => 2, :placeholder => "Do you feel your GPA accurately reflects your academic abilities? Please comment on why or why not in the space provided."  %>
+    </div>
 
-  </div>
+    <div class="panel-heading">Awards</div>
+    <div class="panel-body">
+      <%= f.fields_for :awards do |builder| %>
+        <%= render 'award_fields', f: builder %>
+      <% end %>
+      <div class="add-container"><%= link_to_add_fields "Add award", f, :awards %></div>
+    </div>
 
+    <div class="panel-heading">Computer Skills</div>
+    <div class="panel-body">
+      <%= f.text_area :cpu_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any computer related skills (e.g. Application experience, programming ability, etc.)"  %>
+    </div>
 
+    <div class="panel-heading">Laboratory Skills</div>
+    <div class="panel-body">
+      <%= f.text_area :lab_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any laboratory related skills"  %>
+    </div>
 
-<% end %>
+    <%= render "applicants/shared/nav" %>
+
+    <div class="panel-body">
+      <hr />
+      <p class='clear'><%= f.submit "Save Academic Info", :class => "btn btn-success" %></p>
+      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
+    </div>
+
+  <% end %>
+</div>
