@@ -11,7 +11,7 @@ module ApplicationHelper
   def errors_for(object, message=nil)
     html = ""
     unless object.errors.blank?
-      html << "<div id='error_explanation' onclick='$(this).slideUp();'>\n"
+      html << "<div id='error_explanation' class='alert-danger' onclick='$(this).slideUp();'>\n"
       if message.blank?
         if object.new_record?
           html << "\t\t<h2>There was a problem creating the #{object.class.name.humanize.downcase}</h2>\n"
