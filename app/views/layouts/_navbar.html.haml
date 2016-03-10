@@ -15,7 +15,9 @@
             =link_to "Welcome", root_path, :class => 'active'
         - else
           %li
-            =link_to "Welcome", root_path, :class => 'active'
+            =link_to "Welcome", root_path
+        %li
+          = link_to 'Current Projects', "http://ecm.ucsd.edu/REU.html"
         - if params[:controller] == 'applicants/registrations' && params[:action] !=  'status'
           %li.active
             - if applicant_signed_in?
