@@ -122,6 +122,13 @@ RailsAdmin.config do |config|
           bindings[:view].render(:partial => 'applicant_recommendations', :locals => {:applicant => applicant, :recommendations => recommendations, :view_bindings => bindings[:view]})
         end
       end
+
+      field :demographic_info do
+        formatted_value do
+          applicant = bindings[:object]
+          bindings[:view].render(:partial => 'applicant_demographics', :locals => {:applicant => applicant, :view_bindings => bindings})
+        end
+      end
     end
 
     edit do

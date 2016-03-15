@@ -203,6 +203,10 @@ class Applicant < ActiveRecord::Base
     "No recommendation info."
   end
 
+  def demographic_info
+    'No demographic info'
+  end
+
   def recommender
     self.recommenders.last
   end
