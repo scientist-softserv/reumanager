@@ -102,9 +102,13 @@ RailsAdmin.config do |config|
           applicant = bindings[:object]
           records = applicant.records
           awards = applicant.awards
-
+          if(applicant.records.present?)
+            link_item = bindings[:view].link_to(applicant.records.last.transcript_file_name, applicant.transcript.url)
+          else
+            link_item = false
+          end
           bindings[:view].render(:partial => 'applicant_academic_records',
-                                 :locals => {:link => bindings[:view].link_to(applicant.records.last.transcript_file_name, applicant.transcript.url),
+                                 :locals => {:link => link_item,
                                              :applicant => applicant,
                                              :records => records,
                                              :awards => awards,
