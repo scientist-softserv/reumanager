@@ -4,7 +4,7 @@ class Applicants::RecommendationsController < ApplicationController
 
   # GET /recommendations/:token
   def edit
-    if @recommendation.nil?
+    if @recommendation.blank?
       flash[:notice] = 'Sorry, that url is invalid contact the person who sent it to you to get another'
       redirect_to :root
     end
