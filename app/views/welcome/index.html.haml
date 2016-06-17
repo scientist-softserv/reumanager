@@ -10,7 +10,10 @@
       - if expired?
         %h3.deadline
           The deadline for applications has passed. Please sign in to see existing application status.
-      - else
+        %h3
+          Please check back in #{ Setting.check_back_date.to_date.strftime("%B") } for Summer #{ Setting.check_back_date.to_date.year } Information
+
+ - else
         %h3.deadline
           Application Deadline #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]}
         .app_button
