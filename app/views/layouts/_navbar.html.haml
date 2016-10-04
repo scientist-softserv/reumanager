@@ -22,19 +22,19 @@
           - if applicant_signed_in?
             =link_to "Profile", edit_applicant_registration_path, :class => 'active' unless current_applicant.submitted_at
 
-          - else
+          - elsif started? && !expired?
             =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
             =content_tag :li, link_to('Admin', rails_admin_path) if !current_user
 
-
-        - if params[:controller] == 'applicants/academic_records'
-          %li.active
-            - if applicant_signed_in?
-              =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
-        - else
-          %li
-            - if applicant_signed_in?
-              =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
+        - if started? && !expired?
+          - if params[:controller] == 'applicants/academic_records'
+            %li.active
+              - if applicant_signed_in?
+                =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
+          - else
+            %li
+              - if applicant_signed_in?
+                =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
 
 
         - if params[:controller] == 'applicants/recommenders'
