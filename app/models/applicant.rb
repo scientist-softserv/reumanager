@@ -21,9 +21,9 @@ class Applicant < ActiveRecord::Base
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
 
-#  validates_presence_of :records, :if => :academic_records_controller?
+  #  validates_presence_of :records, :if => :academic_records_controller?
 
-#  validate :must_have_academic_record, :if => :academic_records_controller?
+  #  validate :must_have_academic_record, :if => :academic_records_controller?
   scope :applied, -> { with_state(:applied) }
   scope :personal_info, -> { with_state(:personal_info) }
   scope :academic_info, -> { with_state(:academic_info) }
@@ -39,13 +39,13 @@ class Applicant < ActiveRecord::Base
 
     # confirmed
     # personal info
-      # location_added
-      # peresonal statement
+    # location_added
+    # peresonal statement
     # academic info
-      # academic record
-      # awards
-      # cpu_skills
-      # lab_skills
+    # academic record
+    # awards
+    # cpu_skills
+    # lab_skills
     # recommender
     # submit
     # recommended (before/aft deadline)
@@ -111,6 +111,7 @@ class Applicant < ActiveRecord::Base
 
 
     event :complete_recommender_info do
+      transition :submitted => same, :if => lambda { |applicant| applicant.send_recommendations }
       transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_academic_info && applicant.validates_personal_info && applicant.validates_recommender_info }
     end
     event :incomplete_recommender_info do
@@ -203,6 +204,10 @@ class Applicant < ActiveRecord::Base
     "No recommendation info."
   end
 
+  def demographic_info
+    'No demographic info'
+  end
+
   def recommender
     self.recommenders.last
   end
@@ -233,8 +238,15 @@ class Applicant < ActiveRecord::Base
 
     Notification.application_submitted(self).deliver
 
+    send_recommendations
+  end
+
+  def send_recommendations
     self.recommendations.each do |recommendation|
-      Notification.recommendation_request(recommendation).deliver
+      if recommendation.request_sent_at.blank?
+        recommendation.update_attribute :request_sent_at, Time.now
+        Notification.recommendation_request(recommendation).deliver
+      end
     end
   end
 

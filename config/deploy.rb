@@ -63,6 +63,8 @@ namespace :deploy do
   desc "Symlink configs"
   task :symlink_configs, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/config/*.yml #{release_path}/config/"
+    run "mkdir -p #{release_path}/public/#{application}"
+    run "ln -nfs #{release_path}/public/system #{release_path}/public/#{application}/system"
   end
 end
 

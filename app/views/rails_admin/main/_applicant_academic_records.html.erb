@@ -2,7 +2,11 @@
 
 <ul>
   <%- records.map do |r| -%>
-    <li><%= raw %{#{applicant.academic_record(r)} #{link}} %></li>
+    <% if link %>
+      <li><%= raw %{#{applicant.academic_record(r)} #{link}} %></li>
+    <% else %>
+      <li><%= raw %{#{applicant.academic_record(r)}} %></li>
+    <% end %>
   <%- end -%>
 </ul>
 
