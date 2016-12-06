@@ -8,6 +8,15 @@ module ApplicationHelper
     end
   end
 
+  def started?
+    if Setting[:application_start].present?
+      start_at = Time.parse("#{Setting[:application_start]} 00:00:00 PST")
+      Time.now > start_at
+    else
+      false
+    end
+  end
+
   def errors_for(object, message=nil)
     html = ""
     unless object.errors.blank?

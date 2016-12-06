@@ -7,15 +7,24 @@
     .col-md-7
       = raw Snippet[:general_description]
     .col-md-12
-      %h3.deadline
-        Applications will be available in January 2017 for the Summer 2017 Program. Applications will be due on February 15, 2017 and Decisions sent to applicants by March 15, 2017.
-      .app_button
-        - if applicant_signed_in? && current_applicant.state == 'submitted'
-          = link_to "Check Status", applicant_status_url, :class => "btn btn-lg btn-success"
-        - elsif applicant_signed_in?
-          = link_to "Finish Application", edit_applicant_registration_path, :class => "btn btn-lg btn-success"
-        - else
-          = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
+      - if expired?
+        %h3.deadline
+          The deadline for applications has passed. Please sign in to see existing application status.
+      - elsif started?
+        %h3.deadline
+          Application Deadline #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]}
+        .app_button
+          - if applicant_signed_in? && current_applicant.state == 'submitted'
+            = link_to "Check Status", applicant_status_url, :class => "btn btn-lg btn-success"
+          - elsif applicant_signed_in?
+            = link_to "Finish Application", edit_applicant_registration_path, :class => "btn btn-lg btn-success"
+          - else
+            = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
+      - else
+        %h3.deadline
+          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2017 Program. Applications will be due on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b, %d")}.
+      
+
 
   .col-md-12
     %section.col-md-4
