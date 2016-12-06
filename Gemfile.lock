@@ -241,6 +241,8 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -407,6 +409,7 @@ DEPENDENCIES
   poltergeist
   protected_attributes
   pry
+  quiet_assets
   rails
   rails-observers
   rails_admin
@@ -427,3 +430,6 @@ DEPENDENCIES
   what_methods
   whenever
   wirble
+
+BUNDLED WITH
+   1.13.5

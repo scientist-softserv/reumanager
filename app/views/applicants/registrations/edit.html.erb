@@ -4,22 +4,23 @@
 
     <div class="panel-heading">Contact Info</div>
     <div class="panel-body">
+      <div class="col-md-12"><small class="pull-right">* Required</small></div>
       <%= status_error_messages! if current_applicant %>
 
       <%= application_status if @user %>
 
       <div class="form-group">
 
-        <%= f.label :first_name %>
+        <%= f.label :first_name %> *
         <%= f.text_field :first_name, :class => "form-control", :placeholder => "George" %>
 
-        <%= f.label :last_name %>
+        <%= f.label :last_name %> *
         <%= f.text_field :last_name, :class => "form-control", :placeholer => "Washington" %>
 
-        <%= f.label :email %>
+        <%= f.label :email %> *
         <%= f.email_field :email, :class => "form-control", :placeholder => 'george@whitehouse.gov' %>
 
-        <%= f.label :phone %>
+        <%= f.label :phone %> *
         <%= f.text_field :phone, :class => "form-control", :placeholder => '555-555-5555' %>
 
       </div>
@@ -50,22 +51,22 @@
 
       <div class="form-group">
 
-        <%= f.label :dob, "Date of Birth (YYYY-MM-DD)" %>
+        <%= f.label :dob, "Date of Birth (YYYY-MM-DD)" %> *
         <%= f.text_field :dob, 'data-behaviour' => 'datepicker', :class => "form-control" %>
 
-        <%= f.label :gender %>
+        <%= f.label :gender %> *
         <%= f.select :gender, options_for_select(%w{Male Female}, @applicant.gender), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
-        <%= f.label :ethnicity %>
+        <%= f.label :ethnicity %> *
         <%= f.select :ethnicity, options_for_select(%w{ Hispanic\ or\ Latino Not\ Hispanic\ or\ Latino }, @applicant.ethnicity), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
-        <%= f.label :race %>
+        <%= f.label :race %> *
         <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
-        <%= f.label :citizenship %>
+        <%= f.label :citizenship %> *
         <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name), @applicant.citizenship), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
 
-        <%= f.label :disability %>
+        <%= f.label :disability %> *
         <%- if show_disability_input? -%>
           <div id='disability_container' class='input-append'>
             <%= f.text_field :disability, :class => "form-control" %>
@@ -82,8 +83,26 @@
     <div class="panel-heading">Personal Statement</div>
     <div class="panel-body">
 
-      <div class="form-group">
+      <div class="form-group"> *
         <%= f.text_area :statement, :class => 'form-control', :rows => 6, :placeholder => "Please Complete a brief essay (up to 250 words) explaining why you are interested in our program and how the experience may help you achieve your future goals."  %>
+      </div>
+    </div>
+
+    <div class="panel-heading">How did you hear about us?</div>
+    <div class="panel-body">
+      <div class="radio"><label for=""><%= f.radio_button(:found_us, 'NSF REU Website') %>NSF REU Website</label></div>
+      <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Professor') %>Professor</label></div>
+      <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Undergraduate Program') %>Undergraduate Program</label></div>
+      <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Email') %>Email</label></div>
+      <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Other') %>Other</label></div>
+    </div>
+
+
+    <div class="panel-heading">Program Dates</div>
+    <div class="panel-body">
+      <div class="checkbox">
+        <%= f.check_box :acknowledged_dates %>
+        <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
       </div>
     </div>
 

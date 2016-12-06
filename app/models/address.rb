@@ -3,7 +3,7 @@ class Address < ActiveRecord::Base
   belongs_to :applicant, :class_name => "Applicant", :foreign_key => "applicant_id"
 
   validates :address,  :presence => true
-  validates :label,  :inclusion => { :in => %w( Home School Other ) }
+  validates :label,  :inclusion => { :in => %w(Home School Other) }
   validates :city,  :presence => true
   validates :state,  :presence => true
   validates :zip,  :presence => true

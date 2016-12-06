@@ -2,8 +2,13 @@ class Applicant < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, and :omniauthable
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable, :confirmable
-  attr_accessible :academic_level, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability, :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes, :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes, :statement, :recommenders, :current_status, :state
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :lockable, :timeoutable, :confirmable
+  attr_accessible :academic_level, :email, :password, :password_confirmation,
+                  :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
+                  :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
+                  :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
+                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates
 
   has_many :addresses, :class_name => "Address", :dependent => :destroy
   has_many :records, :class_name => "AcademicRecord", :dependent => :destroy
@@ -20,6 +25,16 @@ class Applicant < ActiveRecord::Base
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
+  validates :email, presence: true
+  validates :phone, presence: true
+  validates :dob, presence: true
+  validates :gender, presence: true
+  validates :ethnicity, presence: true
+  validates :race, presence: true
+  validates :citizenship, presence: true
+  validates :disability, presence: true
+
+
 
   #  validates_presence_of :records, :if => :academic_records_controller?
 
