@@ -25,14 +25,14 @@ class Applicant < ActiveRecord::Base
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
-  validates :email, presence: true
-  validates :phone, presence: true
-  validates :dob, presence: true
-  validates :gender, presence: true
-  validates :ethnicity, presence: true
-  validates :race, presence: true
-  validates :citizenship, presence: true
-  validates :disability, presence: true
+  validates :email, presence: true, on: :update
+  validates :phone, presence: true, on: :update
+  validates :dob, presence: true, on: :update
+  validates :gender, presence: true, on: :update
+  validates :ethnicity, presence: true, on: :update
+  validates :race, presence: true, on: :update
+  validates :citizenship, presence: true, on: :update
+  validates :disability, presence: true, on: :update
 
 
 
