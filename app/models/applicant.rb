@@ -8,7 +8,7 @@ class Applicant < ActiveRecord::Base
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
                   :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
-                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates
+                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :mentor1, :mentor2
 
   has_many :addresses, :class_name => "Address", :dependent => :destroy
   has_many :records, :class_name => "AcademicRecord", :dependent => :destroy
@@ -33,6 +33,9 @@ class Applicant < ActiveRecord::Base
   validates :race, presence: true, on: :update
   validates :citizenship, presence: true, on: :update
   validates :disability, presence: true, on: :update
+  validates :military, presence: true, on: :update
+  validates :mentor1, presence: true, on: :update
+  validates :mentor2, presence: true, on: :update
 
 
 
@@ -286,7 +289,7 @@ class Applicant < ActiveRecord::Base
   def validates_personal_info
     validates_presence_of :addresses, :message => "can't be blank.  Please add at least one address to your profile."
     validates_presence_of :phone, :message => "can't be blank. Please add at least one phone number to your profile."
-    validates_presence_of :statement, :message => "can't be blank. Please add at least one phone number to your profile."
+    validates_presence_of :statement, :message => "can't be blank. Your personal statement needs to be at least one sentance long."
 
     return true if self.errors.empty?
   end

@@ -53,11 +53,15 @@ module Applicants::RegistrationsHelper
   end
 
   def status_error_messages!
-    return "" if current_applicant.errors.empty?
+    #return "" if current_applicant.errors.empty?
+    applicant = @applicant || current_applicant
+    return "" if applicant.errors.empty?
 
-    messages = current_applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+    #messages = current_applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+    messages = applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
     sentence = I18n.t("errors.messages.not_saved_status",
-                      :count => current_applicant.errors.count)
+                      #:count => current_applicant.errors.count)
+                      :count => applicant.errors.count)
 
     html = <<-HTML
     <div id="error_explanation" class='alert-warning' onclick="$(this).slideUp();">

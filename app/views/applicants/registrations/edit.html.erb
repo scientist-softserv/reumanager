@@ -76,6 +76,9 @@
         <%- else -%>
           <%= f.select :disability, options_for_select(%w{No Yes}, @applicant.disability), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
         <%- end -%>
+
+        <%= f.label :are_you_a_veteran_of_the_USA_military? %> *
+        <%= f.select :military, options_for_select(%w{No Yes}, @applicant.military), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
       </div>
     </div>
 
@@ -97,6 +100,13 @@
       <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Other') %>Other</label></div>
     </div>
 
+    <div class="panel-heading">Preferred Mentor</div>
+    <div class="panel-body">
+      <%= f.label :mentor_choice_1 %> *
+      <%= f.select :mentor1, options_for_select(%w{ Adah\ Almutairi Shaochen\ Chen Shu\ Chien Karen\ Christman Stephanie\ Fraley Joanna\ McKittrick Robert\ Sah Michael\ Sailor Shyni\ Varghese Liangfang/ Zhang}, @applicant.mentor1), { :class => "form-control" } %>
+      <%= f.label :mentor_choice_2 %> *
+      <%= f.select :mentor2, options_for_select(%w{ Adah\ Almutairi Shaochen\ Chen Shu\ Chien Karen\ Christman Stephanie\ Fraley Joanna\ McKittrick Robert\ Sah Michael\ Sailor Shyni\ Varghese Liangfang/ Zhang}, @applicant.mentor2), { :class => "form-control" } %>
+    </div>
 
     <div class="panel-heading">Program Dates</div>
     <div class="panel-body">
