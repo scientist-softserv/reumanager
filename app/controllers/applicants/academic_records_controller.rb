@@ -4,7 +4,7 @@ class Applicants::AcademicRecordsController < ApplicationController
 
   def edit
     current_applicant.records.build unless current_applicant.records.count > 0
-    current_applicant.awards.build unless current_applicant.awards.count > 0
+    # current_applicant.awards.build unless current_applicant.awards.count > 0
 
     render :edit
   end
