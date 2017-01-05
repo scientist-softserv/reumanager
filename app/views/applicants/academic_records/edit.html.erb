@@ -6,7 +6,7 @@
 
       <div class="form-group">
         <%= f.label 'Current Academic Level' %>
-        <%= f.select :academic_level, options_for_select(%w{ Freshman Sophomore Junior Senior }, current_applicant.academic_level), {:include_blank => ''}, { :class => "form-control" }%>
+        <%= f.select :academic_level, options_for_select(%w{ Freshman Sophomore Junior }, current_applicant.academic_level), {:include_blank => ''}, { :class => "form-control" }%>
 
         <%= f.fields_for :records do |builder| %>
           <%= render 'record_fields', f: builder %>

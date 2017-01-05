@@ -8,7 +8,6 @@ class AcademicRecord < ActiveRecord::Base
     :size => { :in => 0..10.megabytes }
 
   validates :university, :presence => true
-  validates :degree, :presence => true
   validates :start, :presence => true
   validates :finish, :presence => true
   validates :gpa, :presence => true
