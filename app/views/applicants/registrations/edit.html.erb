@@ -55,16 +55,16 @@
         <%= f.text_field :dob, 'data-behaviour' => 'datepicker', :class => "form-control" %>
 
         <%= f.label :gender %> *
-        <%= f.select :gender, options_for_select(%w{Male Female}, @applicant.gender), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :gender, options_for_select(["Male", "Female", "I do not define my gender this way", "Prefer to not respond"], @applicant.gender), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :ethnicity %> *
-        <%= f.select :ethnicity, options_for_select(%w{ Hispanic\ or\ Latino Not\ Hispanic\ or\ Latino }, @applicant.ethnicity), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :ethnicity, options_for_select( ["Hispanic or Latino", "Not Hispanic or Latino", "Prefer to not respond"], @applicant.ethnicity), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :race %> *
-        <%= f.select :race, options_for_select(%w{ American\ Indian\ or\ Alaskan Caucasian Native Asian Black\ or\ African\ American Native\ Hawaiian\ or\ Pacific\ Islander}, @applicant.race), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :race, options_for_select(["American Indian or Alaskan Native", "Caucasian", "Asian", "Black or African American", "Native Hawaiian or Pacific Islander", "Prefer to not respond"], @applicant.race), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :citizenship %> *
-        <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name), @applicant.citizenship), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name) + ["Prefer to not respond"], @applicant.citizenship), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :disability %> *
         <%- if show_disability_input? -%>
@@ -74,11 +74,11 @@
             <button id='disability_cancel' class='btn btn-ar btn-primary btn-danger' type='button'>Cancel</button>
           </div>
         <%- else -%>
-          <%= f.select :disability, options_for_select(%w{No Yes}, @applicant.disability), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+          <%= f.select :disability, options_for_select(["No", "Yes", "Prefer to not respond"], @applicant.disability), { :include_blank => true }, { :class => "form-control" } %>
         <%- end -%>
 
         <%= f.label :are_you_a_veteran_of_the_USA_military? %> *
-        <%= f.select :military, options_for_select(%w{No Yes}, @applicant.military), { :include_blank => "Prefer to not respond" }, { :class => "form-control" } %>
+        <%= f.select :military, options_for_select(["No", "Yes", "Prefer to not respond"], @applicant.military), { :include_blank => true }, { :class => "form-control" } %>
       </div>
     </div>
 
@@ -87,7 +87,7 @@
     <div class="panel-body">
 
       <div class="form-group"> *
-        <%= f.text_area :statement, :class => 'form-control', :rows => 6, :placeholder => "Please Complete a brief essay (up to 250 words) explaining why you are interested in our program and how the experience may help you achieve your future goals."  %>
+        <%= f.text_area :statement, :class => 'form-control', :rows => 6, :placeholder => "Statement describing your research interests and personal goals for the internship"  %>
       </div>
     </div>
 
@@ -98,14 +98,6 @@
       <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Undergraduate Program') %>Undergraduate Program</label></div>
       <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Email') %>Email</label></div>
       <div class="radio"><label for=""><%= f.radio_button(:found_us, 'Other') %>Other</label></div>
-    </div>
-
-    <div class="panel-heading">Preferred Mentor</div>
-    <div class="panel-body">
-      <%= f.label :mentor_choice_1 %> *
-      <%= f.select :mentor1, options_for_select(%w{ Adah\ Almutairi Shaochen\ Chen Shu\ Chien Karen\ Christman Adam\ Engler Stephanie\ Fraley Joanna\ McKittrick Robert\ Sah Michael\ Sailor Shyni\ Varghese Liangfang\ Zhang}, @applicant.mentor1), { :class => "form-control" } %>
-      <%= f.label :mentor_choice_2 %> *
-      <%= f.select :mentor2, options_for_select(%w{ Adah\ Almutairi Shaochen\ Chen Shu\ Chien Karen\ Christman Adam\ Engler Stephanie\ Fraley Joanna\ McKittrick Robert\ Sah Michael\ Sailor Shyni\ Varghese Liangfang\ Zhang}, @applicant.mentor2), { :class => "form-control" } %>
     </div>
 
     <div class="panel-heading">Program Dates</div>

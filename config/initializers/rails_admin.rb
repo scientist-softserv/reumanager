@@ -88,12 +88,14 @@ RailsAdmin.config do |config|
         label "Personal Info"
         formatted_value do
           applicant = bindings[:object]
-          bindings[:view].raw %{<b>Email</b> #{applicant.email}<br />
-            <b>Phone</b> #{applicant.phone if applicant.phone}<br />
-            <b>Address</b>  #{applicant.address}
+          bindings[:view].raw %{<b>Email:</b> #{applicant.email}<br />
+            <b>Phone:</b> #{applicant.phone if applicant.phone}<br />
+            <b>Address:</b>  #{applicant.address}
 
-          <h4>Statement</h4>
-          #{Markdown.render applicant.statement if applicant.statement}}
+          <h4>Personal Statement</h4>
+          #{Markdown.render applicant.statement if applicant.statement}
+          <h4>Statement of Purpose</h4>
+          #{Markdown.render applicant.statement_of_purpose if applicant.statement_of_purpose}}
         end
       end
 

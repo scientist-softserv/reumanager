@@ -6,7 +6,7 @@
 
       <div class="form-group">
         <%= f.label 'Current Academic Level' %>
-        <%= f.select :academic_level, options_for_select(%w{ Freshman Sophomore Junior }, current_applicant.academic_level), {:include_blank => ''}, { :class => "form-control" }%>
+        <%= f.select :academic_level, options_for_select(["Junior", "Senior"], current_applicant.academic_level), {:include_blank => ''}, { :class => "form-control" }%>
 
         <%= f.fields_for :records do |builder| %>
           <%= render 'record_fields', f: builder %>
@@ -36,6 +36,11 @@
     <div class="panel-heading">Laboratory Skills</div>
     <div class="panel-body">
       <%= f.text_area :lab_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any laboratory related skills"  %>
+    </div>
+
+    <div class="panel-heading">Statement of Purpose</div>
+    <div class="panel-body">
+      <%= f.text_area :statement_of_purpose, :class => 'form-control', :rows => 6, :placeholder => "Please give us a statement of purpose for any past (or planned future) contributions to enhancing equity, diversity, and inclusion. This could include involvement in outreach, tutoring, mentoring, advising, or other programs designed to remove barriers facing women, minorities, veterans, people with disabilities or other individuals who are members of groups that been historically under-represented or under-served in higher education." %>
     </div>
 
     <%= render "applicants/shared/nav" %>

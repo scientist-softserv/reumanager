@@ -27,6 +27,13 @@
 
   <hr class='clear inner' />
 
+  <div class="panel-heading">Statement of Purpose</div>
+  <div class="panel-body">
+    <%= raw Markdown.render(current_applicant.statement_of_purpose) if current_applicant.statement_of_purpose %>
+  </div>
+
+  <hr class='clear inner' />
+
   <div class="panel-heading">Recommenders</div>
   <div class="panel-body">
     <ul>
@@ -59,6 +66,8 @@
 
       <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.cpu_skills)) if current_applicant.cpu_skills %></li>
       <li><b>Laboratory Skills</b> <%=raw(Markdown.render(current_applicant.lab_skills)) if current_applicant.lab_skills %></li>
+      <li><b>GPA Comments</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %>
+
     </ul>
   </div>
 </div>

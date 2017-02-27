@@ -8,7 +8,7 @@ class Applicant < ActiveRecord::Base
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
                   :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
-                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :mentor1, :mentor2
+                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :statement_of_purpose
 
   has_many :addresses, :class_name => "Address", :dependent => :destroy
   has_many :records, :class_name => "AcademicRecord", :dependent => :destroy
@@ -34,10 +34,6 @@ class Applicant < ActiveRecord::Base
   validates :citizenship, presence: true, on: :update
   validates :disability, presence: true, on: :update
   validates :military, presence: true, on: :update
-  validates :mentor1, presence: true, on: :update
-  validates :mentor2, presence: true, on: :update
-
-
 
   #  validates_presence_of :records, :if => :academic_records_controller?
 
@@ -120,7 +116,8 @@ class Applicant < ActiveRecord::Base
 
 
     event :complete_academic_info do
-      transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_application_completeness }
+      # remove this transition to prevent need to double submit on academic records page
+      # transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_application_completeness }
       transition all => :completed_academic_info, :if => lambda { |applicant| applicant.validates_academic_info && applicant.validates_personal_info }
     end
     event :incomplete_academic_info do
@@ -150,7 +147,7 @@ class Applicant < ActiveRecord::Base
     after_transition :on => :unsubmit_application, :do => lambda { |applicant| applicant.update_attribute :submitted_at, nil }
 
     event :recommendation_recieved do
-      transition :submitted => :complete, :if => lambda { |applicant| applicant.submitted? && applicant.recommendations.select {|rec| rec.received?}.size >= 2 }
+      transition :submitted => :complete, :if => lambda { |applicant| applicant.submitted? && applicant.recommendations.select {|rec| rec.received?}.size >= 1 }
     end
 
     after_transition :on => :recommendation_recieved, :do => :complete_application!
@@ -289,7 +286,7 @@ class Applicant < ActiveRecord::Base
   def validates_personal_info
     validates_presence_of :addresses, :message => "can't be blank.  Please add at least one address to your profile."
     validates_presence_of :phone, :message => "can't be blank. Please add at least one phone number to your profile."
-    validates_presence_of :statement, :message => "can't be blank. Your personal statement needs to be at least one sentance long."
+    validates_presence_of :statement, :message => "can't be blank. Your personal statement needs to be at least one sentence long."
 
     return true if self.errors.empty?
   end
@@ -300,9 +297,9 @@ class Applicant < ActiveRecord::Base
   end
 
   def validates_recommender_info
-    validates_presence_of :recommenders, :message => "can't be blank.  Please add at least two recommenders."
-    if self.recommenders.size < 2
-      self.errors.add(:base, 'Please have at least 2 recommenders')
+    validates_presence_of :recommenders, :message => "can't be blank.  Please add one recommender."
+    if self.recommenders.size < 1
+      self.errors.add(:base, 'Please have at least 1 recommenders')
     end
     return true if self.errors.empty? && !self.recommenders.blank? && self.recommenders.last.valid?
   end

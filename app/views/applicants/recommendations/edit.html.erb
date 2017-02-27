@@ -88,29 +88,23 @@
 
           <div>
             <label>Is your institution primarily an undergraduate institution?</label>&nbsp;<%= f.select :undergraduate_institution, %w{ No Yes } %>
-        </div>
+          </div>
 
-        <br />
+          <br />
 
-        <div>
-          <p>Please comment on the quality of the applicant's previous work, academic abilities, and potential as a researcher. If applicable, please comment on any circumstances that may be helpful in evaluating the applicant's academic performance.</p>
-          <p>You can copy and paste into the text box below.</p>
-        </div>
+          <div>
+            <p>Please comment on the quality of the applicant's previous work, academic abilities, and potential as a researcher. If applicable, please comment on any circumstances that may be helpful in evaluating the applicant's academic performance.</p>
+            <p>You can copy and paste into the text box below.</p>
+          </div>
 
-        <div><%= f.text_area :body, rows: 5 %></div>
+          <div><%= f.text_area :body, rows: 5 %></div>
         </div>
-    </div>
       </section>
-</div> <!-- end .row -->
-</div> <!-- end .span9 -->
-<div class="span12">
-  <div class="inner">
-    <hr />
-    <p class='clear'><%= f.submit "Submit Recommendation Info", :class => "btn btn-success" %></p>
-    <p><em>Thank you for taking the time to evaluate this applicant. Your opinion will be carefully considered during participant selection.</em></p>
-  </div>
-</div>
-
-</div> <!-- end .row -->
-
-    <% end %>
+      <div class="panel-body">
+        <hr />
+        <p class='clear'><%= f.submit "Submit Recommendation Info", :class => "btn btn-success" %></p>
+        <p><em>Thank you for taking the time to evaluate this applicant. Your opinion will be carefully considered during participant selection.</em></p>
+      </div>
+    </div>
+  <% end %>
+</div> <!-- end panel -->

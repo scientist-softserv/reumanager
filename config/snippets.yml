@@ -3,39 +3,43 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    The Jacobs school of Engineering (JSOE) at UC San Diego hosts a summer Research Experience for Undergraduates (REU) summer program in Biomaterials. The objectives of the program are to train undergraduates in basic research through challenging biomaterial-related engineering projects performed with research mentors from engineering departments across JSOE. Research areas include tissue engineering and 3D printing, bio-inspired biomaterials, biomaterial-stem cell interaction, nanoparticles and drug delivery.
-
+    GLADE (Geodynamics of the Lithosphere and Deep Earth) REU program provides undergraduate research opportunities in computational geodynamics. Research projects are related to numerical modeling and computer simulation of magmatic and tectonic phenomena caused by the dynamics of Earth’s deep interior, such as plate tectonics, mountain building, seafloor spreading, and volcanism. This research provides a unique blend of geological sciences, physics, engineering (fluid mechanics, continuum and solid mechanics), numerical methods and computational sciences, and employs some of the nation’s fastest supercomputers to achieve this. Examples of big scientific questions that can be addressed with computational geodynamics are 1) Why does Earth have plate tectonics and Venus does not? 2) Do planets outside our solar system have plate tectonics? 3) Is plate tectonics necessary for a planet to be habitable?
+    <p>REU participants are matched with host mentors from a nationwide network that includes UC San Diego, UC Davis, UT Austin, U. Maryland, UC Boulder, Univ. Illinois Urbana Champagne, Virginia Tech, Rice, U. Houston, Syracuse, Georgia Tech, Michigan State, Penn State, U. Kentucky, U. Minnesota, U. Hawaii, Penn St., Portland St., and more…</p>
 highlights:
   name: highlights
   description: ''
   value: |
     <ul>
-      <li>$5,000 stipend</li>
-      <li>On-campus housing</li>
-      <li>Travel to and from San Diego</li>
-      <li>Presentations at UC San Diego Research Symposium and BMES National Meeting</li>
-      <li>Weekly research development workshops/li>
-      <li>GRE preparation course</li>
-      <li>Field trips and social events</li>
+      <li>Participants received a competitive $4,000 stipend</li>
+      <li>Tour of San Diego Supercomputer Center (SDSC) and accounts on SDSC’s <em>Comet</em> supercomputer</li>
+      <li>Tutorials on high performance computing, numerical modeling, scientific visualization, and high performance computing</li>
+      <li>Intensive GRE prep course provided (tuition paid by GLADE REU program)</li>
+      <li>Travel support to orientation week in La Jolla, CA and accommodation provided</li>
+      <li>Travel support to host institution and an allowance for 8 weeks of housing</li>
+      <li>Travel support to home or home institution after completing 8 weeks of research</li>
+      <li>Travel support to attend 2017 Fall AGU meeting in New Orleans (Dec 11-15)</li>
+      <li>Assistance securing housing at the host institution</li>
     </ul>
 eligibility_requirements:
   name: eligibility_requirements
   description: ''
   value: |
     <ul>
-      <li>Full-time undergraduate student</li>
-      <li>U.S. citizen or permanent resident</li>
-      <li>Full-time availability during the program.</li>
-      <li>Lower division students in bioengineering, material science, chemical engineering, life sciences, or other related field are especially encouraged to apply</li>
-      <li>Women and underrepresented minorities are especially encouraged to apply</li>
+      <li>Women and members from underrepresented groups are encouraged to apply</li>
+      <li>Completed junior year with major in physical science or engineering (or equivalent) with a 3.0 GPA</li>
+      <li>Background in geoscience is not required</li>
+      <li>Computer programming experience (Matlab, Python, C, Fortran, C++, etc) recommended but not essential</li>
     </ul>
 application_information:
   name: application_information
   description: ''
   value: |
     <ul>
-      <li>Major components of the online application include: personal and academic information, a personal statement, a copy of your unofficial school transcript (as a pdf), and contact information for one reference</li>
-      <li>The person writing your letter of recommendation will be contacted via e-mail and will submit their letter online.</li>
+      <li>Statement describing your research interests and personal goals for the internship</li>
+      <li>Unofficial transcript(s) from any undergraduate institutions attended in past 3 years (as a pdf file)</li>
+      <li>Contact information for one reference to provide a letter of recommendation</li>
+      <li>Description of past research experience, computer skills, and any honors /awards</li>
+      <li>statement of purpose for any past (or planned future) contributions to enhancing equity, diversity, and inclusion. This could include involvement in outreach, tutoring, mentoring, advising, or other programs designed to remove barriers facing women, minorities, veterans, people with disabilities or other individuals who are members of groups that been historically under-represented or under-served in higher education.</li>
       <li>Once you begin an application, you can check the status of it any time by logging into this website.</li>
       <li>All components of the application must be submitted before the deadline to be considered complete. Only complete applications will be reviewed.</li>
     </ul>

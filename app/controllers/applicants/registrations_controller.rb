@@ -83,10 +83,11 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   end
 
   def remove_blank_attribs
-  #  debugger
-    params[:applicant][:addresses_attributes].each do |attribs|
-      # remove destroy flag unless it's set to true/1
-      attribs[1][:_destroy] = '1' if attribs[1][:address].blank? && attribs[1][:city].blank? && attribs[1][:zip].blank?
+    if params[:applicant].present? && params[:applicant][:addresses_attributes].present?
+      params[:applicant][:addresses_attributes].each do |attribs|
+        # remove destroy flag unless it's set to true/1
+        attribs[1][:_destroy] = '1' if attribs[1][:address].blank? && attribs[1][:city].blank? && attribs[1][:zip].blank?
+      end
     end
   end
 

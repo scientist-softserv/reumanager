@@ -23,3 +23,6 @@
 
 <h4>Computer Skills</h4>
 <%= raw(Markdown.render applicant.cpu_skills) if applicant.cpu_skills %>
+
+<h4>GPA Comments</h4>
+<%= raw(Markdown.render applicant.gpa_comment) if applicant.gpa_comment %>

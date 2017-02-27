@@ -17,7 +17,7 @@
           %li
             =link_to "Welcome", root_path
         %li
-          = link_to 'Current Projects', "http://ecm.ucsd.edu/REU.html"
+          = link_to 'Current Projects', "https://scripps.ucsd.edu/"
         %li{class: params[:controller] == 'applicants/registrations' && params[:action] !=  'status' ? 'active' : ''}
           - if applicant_signed_in?
             =link_to "Profile", edit_applicant_registration_path, :class => 'active' unless current_applicant.submitted_at
