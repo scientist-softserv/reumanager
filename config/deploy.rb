@@ -57,7 +57,7 @@ namespace :deploy do
 
   desc "Add config dir to shared folder"
   task :add_shared_config do
-    run "mkdir #{deploy_to}/shared/config"
+    run "mkdir -p #{deploy_to}/shared/config"
   end
 
   desc "Symlink configs"
