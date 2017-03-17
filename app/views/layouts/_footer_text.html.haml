@@ -13,8 +13,9 @@
             %li.pull-left
               =link_to "Profile", edit_applicant_registration_path, :class => 'active'
           - else
-            %li.pull-left
-              =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
+            - if expired? != true
+              %li.pull-left
+                =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
             %li.pull-left
               =link_to 'Admin', rails_admin_path
         - else
@@ -22,8 +23,9 @@
             %li.pull-left
               =link_to "Profile", edit_applicant_registration_path, :class => 'active' unless current_applicant.submitted_at
           - else
-            %li.pull-left
-              =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
+            - if expired? != true
+              %li.pull-left
+                =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
             %li.pull-left
               =link_to 'Admin', rails_admin_path
 

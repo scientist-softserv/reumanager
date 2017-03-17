@@ -1,44 +1,48 @@
-<div class="inner">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Sign up</div>
-    <div class="panel-body">
-      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form' } ) do |f| %>
+<%- if expired?  %>
+  <h3>The deadline for applications has passed. Please sign in to see existing application status.</h3>
+<% else %>
+  <div class="inner">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Sign up</div>
+      <div class="panel-body">
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form' } ) do |f| %>
 
-        <p>Please fill out the form below to begin the application process.</p>
-        <hr />
+          <p>Please fill out the form below to begin the application process.</p>
+          <hr />
 
-        <%= custom_error_messages! %>
+          <%= custom_error_messages! %>
 
-        <div class="form-group">
+          <div class="form-group">
 
-          <%= f.label :first_name, "First Name" %>
-          <%= f.text_field :first_name, :class => "form-control", :placeholder => "George" %>
+            <%= f.label :first_name, "First Name" %>
+            <%= f.text_field :first_name, :class => "form-control", :placeholder => "George" %>
 
-          <%= f.label :last_name, "Last Name" %>
-          <%= f.text_field :last_name, :class => "form-control", :placeholder => "Washington" %>
+            <%= f.label :last_name, "Last Name" %>
+            <%= f.text_field :last_name, :class => "form-control", :placeholder => "Washington" %>
 
-          <%= f.label :email %>
-          <%= f.email_field :email, :class => "form-control", :placeholder => "george@whitehouse.gov" %>
+            <%= f.label :email %>
+            <%= f.email_field :email, :class => "form-control", :placeholder => "george@whitehouse.gov" %>
 
-          <%= f.label :phone, "Phone" %>
-          <%= f.text_field :phone, :class => "form-control", :placeholder => "555-555-5555" %>
+            <%= f.label :phone, "Phone" %>
+            <%= f.text_field :phone, :class => "form-control", :placeholder => "555-555-5555" %>
 
-          <%= f.label :password %>
-          <%= f.password_field :password, :class => "form-control", :placeholder => "8 or more characters please" %>
+            <%= f.label :password %>
+            <%= f.password_field :password, :class => "form-control", :placeholder => "8 or more characters please" %>
 
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Same as in password" %>
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Same as in password" %>
 
-          <hr class='inner clear'>
+            <hr class='inner clear'>
 
-          <div class='span11'>
-            <p id='submit'>
-              <%= f.submit "Sign up", :class => 'btn btn-ar btn-primary' %>
-            </p>
-            <%= render :partial => "applicants/shared/links" %>
+            <div class='span11'>
+              <p id='submit'>
+                <%= f.submit "Sign up", :class => 'btn btn-ar btn-primary' %>
+              </p>
+              <%= render :partial => "applicants/shared/links" %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
