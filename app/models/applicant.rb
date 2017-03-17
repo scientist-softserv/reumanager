@@ -108,6 +108,24 @@ class Applicant < ActiveRecord::Base
       end
     end
 
+    state :accepted do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
+    state :rejected do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
+    state :withdrawn do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
     # StateMachine Event transitions
     event :complete_personal_info do
       transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_application_completeness }
