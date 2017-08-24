@@ -2,16 +2,14 @@
 development:
   adapter: mysql2
   database: reumanager_dev
-  username: oukrithy
-  password: 2413
+  username: root
   pool: 5
   timeout: 5000
 
 test:
   adapter: mysql2
   database: reumanager_test
-  username: oukrithy
-  password: 2413
+  username: root
   pool: 5
   timeout: 5000
 
