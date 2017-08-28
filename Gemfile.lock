@@ -15,11 +15,30 @@ GIT
       rails
 
 GIT
+  remote: git://github.com/notch8/client_side_validations.git
+  revision: aa2e11060fb90911e23e629ccd847e7e462e4805
+  branch: removed_repo
+  specs:
+    client_side_validations (4.1.0)
+
+GIT
   remote: git://github.com/thoughtbot/cocaine.git
   revision: 7a31ca8dc8e2337874a0e2b556603c1e4aae3586
   specs:
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+
+GIT
+  remote: https://github.com/joeswann/rich.git
+  revision: ff185a7c7dd81c05ae9d2a72725f6f3628af4ad9
+  specs:
+    rich (1.4.8.rc1)
+      jquery-rails
+      kaminari
+      mime-types
+      rack-raw-upload
+      rails (>= 3.2.0)
+      sass-rails
 
 GEM
   remote: http://gems.github.com/
@@ -72,7 +91,13 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    airbrake (4.1.0)
+      builder
+      multi_json
+    apartment (2.0.0)
+      activerecord (>= 3.1.2, < 6.0)
+      public_suffix (~> 2.0.5)
+      rack (>= 1.3.6)
     arel (8.0.0)
     awesome_print (1.8.0)
     bcrypt (3.1.11)
@@ -101,6 +126,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     carmen (1.0.2)
+    celluloid (0.15.2)
       activesupport (>= 3.0.0)
     chronic (0.10.2)
     client_side_validations (9.3.4)
@@ -230,8 +256,6 @@ GEM
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
     multi_json (1.12.1)
-    mysql2 (0.3.18)
-    nenv (0.3.0)
     nested_form (0.3.2)
     net-http-spy (0.2.1)
     net-scp (1.2.1)
@@ -256,8 +280,8 @@ GEM
       activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
       mime-types
-      mimemagic (~> 0.3.0)
-    poltergeist (1.16.0)
+    pg (0.21.0)
+    poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
@@ -431,6 +455,7 @@ DEPENDENCIES
   activemodel-serializers-xml
   activerecord-deprecated_finders
   addressable
+  apartment
   awesome_print
   better_errors
   binding_of_caller
@@ -460,10 +485,10 @@ DEPENDENCIES
   meta_request
   mocha
   modernizr-rails
-  mysql2 (= 0.3.18)
   net-http-spy
   paper_trail
   paperclip (~> 5.1)
+  pg
   poltergeist
   protected_attributes_continued
   pry

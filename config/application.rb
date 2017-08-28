@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'apartment/elevators/subdomain'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -8,7 +9,7 @@ Bundler.require(*Rails.groups)
 
 module Reuman
   class Application < Rails::Application
-    # ActiveSupport.halt_callback_chains_on_return_false = false
+    config.middleware.use Apartment::Elevators::Subdomain
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -54,5 +55,15 @@ module Reuman
     # Enable the asset pipeline
     config.assets.enabled = true
     config.load_defaults 5.1
+   end
+
+  class Apartment < ::Apartment::Elevators::Subdomain
+    def call(env)
+        super
+        rescue ::Apartment::TenantNotFound
+            [302, {'Location' => '/'}, []]
+    end
   end
+
+
 end
