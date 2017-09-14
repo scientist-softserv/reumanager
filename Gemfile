@@ -69,7 +69,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'bond'
   gem 'crack'
-  gem 'quiet_assets'
+#  gem 'quiet_assets'
   gem 'hirb-unicode'
   gem 'meta_request'
   gem 'rb-fchange', :require => false

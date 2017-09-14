@@ -1,4 +1,4 @@
-class CreateRecommenders < ActiveRecord::Migration
+class CreateRecommenders < ActiveRecord::Migration[4.2]
   def change
     create_table :recommenders do |t|
       t.string :first_name

@@ -1,4 +1,4 @@
-class DeviseCreateApplicants < ActiveRecord::Migration
+class DeviseCreateApplicants < ActiveRecord::Migration[4.2]
   def change
     create_table(:applicants) do |t|
 

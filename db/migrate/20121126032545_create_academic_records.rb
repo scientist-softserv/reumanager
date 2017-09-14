@@ -1,4 +1,4 @@
-class CreateAcademicRecords < ActiveRecord::Migration
+class CreateAcademicRecords < ActiveRecord::Migration[4.2]
   def change
     create_table :academic_records do |t|
       t.string :university
