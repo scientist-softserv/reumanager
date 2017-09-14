@@ -15,34 +15,34 @@ ActiveRecord::Schema.define(version: 20170901200320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "academic_records", id: :serial, force: :cascade do |t|
-    t.string "university", limit: 255
+  create_table "academic_records", force: :cascade do |t|
+    t.string "university"
     t.date "start"
     t.date "finish"
-    t.string "degree", limit: 255
+    t.string "degree"
     t.float "gpa"
     t.float "gpa_range", default: 4.0
     t.text "gpa_comment"
     t.integer "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "transcript_file_name", limit: 255
-    t.string "transcript_content_type", limit: 255
+    t.string "transcript_file_name"
+    t.string "transcript_content_type"
     t.integer "transcript_file_size"
     t.datetime "transcript_updated_at"
-    t.string "major", limit: 255
-    t.string "minor", limit: 255
+    t.string "major"
+    t.string "minor"
   end
 
-  create_table "addresses", id: :serial, force: :cascade do |t|
-    t.string "address", limit: 255
-    t.string "address2", limit: 255
-    t.string "city", limit: 255
-    t.string "state", limit: 255
-    t.string "zip", limit: 255
-    t.string "country", limit: 255
-    t.string "label", limit: 255
-    t.string "permanent", limit: 255
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "country"
+    t.string "label"
+    t.string "permanent"
     t.integer "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -65,41 +65,41 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.index ["grant_id"], name: "index_admin_accounts_on_grant_id"
   end
 
-  create_table "applicants", id: :serial, force: :cascade do |t|
-    t.string "first_name", limit: 255
-    t.string "last_name", limit: 255
-    t.string "phone", limit: 255
+  create_table "applicants", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
     t.date "dob"
-    t.string "citizenship", limit: 255
-    t.string "disability", limit: 255
-    t.string "gender", limit: 255
-    t.string "ethnicity", limit: 255
-    t.string "race", limit: 255
-    t.string "academic_level", limit: 255
+    t.string "citizenship"
+    t.string "disability"
+    t.string "gender"
+    t.string "ethnicity"
+    t.string "race"
+    t.string "academic_level"
     t.text "lab_skills"
     t.text "cpu_skills"
     t.text "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
-    t.string "email", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
-    t.string "reset_password_token", limit: 255
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip", limit: 255
-    t.string "last_sign_in_ip", limit: 255
-    t.string "confirmation_token", limit: 255
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email", limit: 255
+    t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0
-    t.string "unlock_token", limit: 255
+    t.string "unlock_token"
     t.datetime "locked_at"
-    t.string "authentication_token", limit: 255
-    t.string "state", limit: 255
+    t.string "authentication_token"
+    t.string "state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "gpa_comment"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.index ["unlock_token"], name: "index_applicants_on_unlock_token", unique: true
   end
 
-  create_table "awards", id: :serial, force: :cascade do |t|
-    t.string "title", limit: 255
+  create_table "awards", force: :cascade do |t|
+    t.string "title"
     t.date "date"
     t.text "description"
     t.integer "applicant_id"
@@ -150,20 +150,20 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.index ["grant_id"], name: "index_grant_snippets_on_grant_id"
   end
 
-  create_table "grants", id: :serial, force: :cascade do |t|
-    t.string "program_title", limit: 255
-    t.string "subdomain", limit: 255
+  create_table "grants", force: :cascade do |t|
+    t.string "program_title"
+    t.string "subdomain"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "contact_email"
     t.string "contact_password"
   end
 
-  create_table "rails_admin_histories", id: :serial, force: :cascade do |t|
+  create_table "rails_admin_histories", force: :cascade do |t|
     t.text "message"
-    t.string "username", limit: 255
+    t.string "username"
     t.integer "item"
-    t.string "table", limit: 255
+    t.string "table"
     t.integer "month", limit: 2
     t.bigint "year"
     t.datetime "created_at"
@@ -171,13 +171,13 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.index ["item", "table", "month", "year"], name: "index_rails_admin_histories"
   end
 
-  create_table "recommendations", id: :serial, force: :cascade do |t|
+  create_table "recommendations", force: :cascade do |t|
     t.integer "known_applicant_for"
-    t.string "known_capacity", limit: 255
-    t.string "overall_promise", limit: 255
-    t.string "undergraduate_institution", limit: 255
+    t.string "known_capacity"
+    t.string "overall_promise"
+    t.string "undergraduate_institution"
     t.text "body"
-    t.string "token", limit: 255
+    t.string "token"
     t.datetime "token_created_at"
     t.datetime "request_sent_at"
     t.datetime "received_at"
@@ -189,46 +189,46 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.index ["recommender_id"], name: "index_recommendations_on_recommender_id"
   end
 
-  create_table "recommenders", id: :serial, force: :cascade do |t|
-    t.string "first_name", limit: 255
-    t.string "last_name", limit: 255
-    t.string "title", limit: 255
-    t.string "department", limit: 255
-    t.string "organization", limit: 255
-    t.string "url", limit: 255
-    t.string "email", limit: 255
-    t.string "phone", limit: 255
+  create_table "recommenders", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "title"
+    t.string "department"
+    t.string "organization"
+    t.string "url"
+    t.string "email"
+    t.string "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "rich_rich_files", id: :serial, force: :cascade do |t|
+  create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "rich_file_file_name", limit: 255
-    t.string "rich_file_content_type", limit: 255
+    t.string "rich_file_file_name"
+    t.string "rich_file_content_type"
     t.integer "rich_file_file_size"
     t.datetime "rich_file_updated_at"
-    t.string "owner_type", limit: 255
+    t.string "owner_type"
     t.integer "owner_id"
     t.text "uri_cache"
-    t.string "simplified_type", limit: 255, default: "file"
-    t.string "rich_file_file_alt", limit: 255
-    t.string "rich_file_file_title", limit: 255
+    t.string "simplified_type", default: "file"
+    t.string "rich_file_file_alt"
+    t.string "rich_file_file_title"
   end
 
-  create_table "settings", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, default: "", null: false
+  create_table "settings", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.text "description"
-    t.string "value", limit: 255
+    t.string "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
     t.index ["name"], name: "index_settings_on_name"
   end
 
-  create_table "snippets", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, default: "", null: false
+  create_table "snippets", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.text "description"
     t.text "value"
     t.datetime "created_at"
@@ -236,34 +236,34 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.integer "grant_id"
   end
 
-  create_table "universities", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "subdomain", limit: 255
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
-    t.string "first_name", limit: 255, default: "", null: false
-    t.string "last_name", limit: 255, default: "", null: false
-    t.string "email", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
-    t.string "reset_password_token", limit: 255
+  create_table "users", force: :cascade do |t|
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip", limit: 255
-    t.string "last_sign_in_ip", limit: 255
-    t.string "confirmation_token", limit: 255
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email", limit: 255
+    t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0
-    t.string "unlock_token", limit: 255
+    t.string "unlock_token"
     t.datetime "locked_at"
-    t.string "authentication_token", limit: 255
+    t.string "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
