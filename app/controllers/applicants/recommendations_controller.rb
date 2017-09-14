@@ -3,7 +3,12 @@ class Applicants::RecommendationsController < ApplicationController
   before_action :find_recommendation, :except => [:resend_request]
 
   # GET /recommendations/:token
-  def edit; end
+  def edit
+    if @recommendation.blank?
+      flash[:notice] = 'Sorry, that url is invalid contact the person who sent it to you to get another'
+      redirect_to :root
+    end
+  end
 
   # POST /recommendations
   def resend_request

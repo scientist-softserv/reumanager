@@ -1,49 +1,32 @@
-<%= form_for(@applicant, :url => applicants_recommenders_url, :html => { :method => :put }) do |f| %>
+<div class="panel panel-primary">
+  <div class="panel-heading">Recomender Info</div>
+  <div class="panel-body">
 
-  <%= errors_for @applicant %>
+    <%= form_for(@applicant, :url => applicants_recommenders_url, :html => { :role => 'form', :method => :put }) do |f| %>
 
-  <div class='row'>
-    <div class="span12">
-      <div class="inner">
-        <h2>Recommender Info</h2>
-        <p><b>Please submit contact information for 2 letters of recommendation.</b></p>
+      <%= errors_for @applicant %>
+
+      <p><b>Please submit contact information for 2 letters of recommendation.</b></p>
+
+      <%= f.fields_for :recommenders do |builder| %>
+        <%= render 'recommender_fields', f: builder %>
+      <% end %>
+      <div class='add-container'>
+        <%= link_to_add_fields "Add recommender", f, :recommenders %>
       </div>
-    </div>
+      <hr />
 
+      <%= render "applicants/shared/nav" %>
 
-    <div class="span9">
+      <b>Please note that requests for letters of recommendation will not be sent until your application is complete.</b>
 
-      <div class='row'>
+      <p>
+        <%= f.submit "Save Recommendation Info", :class => "btn btn-ar btn-primary" %>
+      </p>
 
-        <section class='records'>
-          <div class="span9">
-            <%= f.fields_for :recommenders do |builder| %>
-              <%= render 'recommender_fields', f: builder %>
-            <% end %>
-            <div class="inner">
-              <%= link_to_add_fields "Add recommender", f, :recommenders %>
-              <hr />
-            </div>
-          </div>
-        </section>
+      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
 
-      </div> <!-- end .row -->
-    </div> <!-- end .span9 -->
+    <%- end -%>
 
-    <%= render "applicants/shared/nav" %>
-
-    <div class="span12">
-      <div class="inner">
-        <p class='clear'>
-          <b>Please note that requests for letters of recommendation will not be sent until your application is complete.</b>
-        </p>
-        <p>
-          <%= f.submit "Save Recommendation Info", :class => "btn btn-success" %>
-        </p>
-        <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
-      </div>
-    </div>
-
-
-  </div> <!-- end .row -->
-<%- end -%>
+  </div>
+</div>

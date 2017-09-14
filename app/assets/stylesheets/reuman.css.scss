@@ -1,27 +1,11 @@
-@import "bootstrap";
-@import "bootstrap-responsive";
-@import "font-awesome";
-
-input.text, input.title, input[type="email"], input[type="text"], input[type="password"] { }
-
-body { background-color:#eee; padding:0 0 4em; }
-body,h1,h2,h3,h4,h5,h6,p,li {color:#2C4056; font-weight:300;}
-
-i { width:inherit; }
-.clear {clear:both;}
-.navbar .nav > li > a:hover { }
-nav.navbar-inner { -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; border-top:0; padding:0;
-  a:hover { }}
-
-.navbar .nav > li > a:focus, .navbar .nav > li > a:hover { background-color:#f6f6f6;}
-
-header { background-color:#507AAA;
-  .header-inner {
-    padding:0 20px;
-    a { color: #eee;}
-    h1 { color:#eee; font-size:2em; font-weight: normal;  }
-    h2 { color:#eee; font-size:1.6em; font-weight: normal; }
-  }
+#header_link_1, #header_link_2 {
+  text-align:left;
+  font-weight:normal;
+  margin:2px -7px 10px -7px;
+  padding:5px 5px 5px 15px;
+  font-size:1.6em;
+  background-color: inherit;
+  color:#fff;
 }
 
 div.content { background-color:#fff; border: 1px solid #D4D4D4; margin:10px auto 0; background-image: -moz-linear-gradient(top, white, #F2F2F2);
@@ -101,6 +85,10 @@ footer.container { font-size:0.8em;
   margin: 40px 0 0 0;
 }
 
+.general-info {
+  margin-left: 15px;
+  width: 395px;
+}
 #homeText {
   color: blue;
 }

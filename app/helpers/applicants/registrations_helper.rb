@@ -43,7 +43,7 @@ module Applicants::RegistrationsHelper
                       :resource => resource.class.model_name.human.downcase)
 
     html = <<-HTML
-    <div id="error_explanation" onclick="$(this).slideUp();">
+    <div id="error_explanation" class='alert-danger' onclick="$(this).slideUp();">
       <h2>#{sentence}</h2>
       <ul>#{messages}</ul>
     </div>
@@ -53,14 +53,18 @@ module Applicants::RegistrationsHelper
   end
 
   def status_error_messages!
-    return "" if current_applicant.errors.empty?
+    #return "" if current_applicant.errors.empty?
+    applicant = @applicant || current_applicant
+    return "" if applicant.errors.empty?
 
-    messages = current_applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+    #messages = current_applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+    messages = applicant.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
     sentence = I18n.t("errors.messages.not_saved_status",
-                      :count => current_applicant.errors.count)
+                      #:count => current_applicant.errors.count)
+                      :count => applicant.errors.count)
 
     html = <<-HTML
-    <div id="error_explanation" onclick="$(this).slideUp();">
+    <div id="error_explanation" class='alert-warning' onclick="$(this).slideUp();">
       <h2>#{sentence}</h2>
       <ul>#{messages}</ul>
     </div>
@@ -101,4 +105,3 @@ module Applicants::RegistrationsHelper
     current_applicant.disability && current_applicant.disability != 'No' && current_applicant.disability != ''
   end
 end
-

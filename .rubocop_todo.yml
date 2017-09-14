@@ -377,14 +377,6 @@ Style/Semicolon:
   Exclude:
     - 'db/seeds.rb'
 
-# Offense count: 118
-# Cop supports --auto-correct.
-Style/SingleSpaceBeforeFirstArg:
-  Exclude:
-    - 'db/migrate/20120923015412_devise_create_users.rb'
-    - 'db/migrate/20120923015419_devise_create_applicants.rb'
-    - 'db/schema.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/SpaceAfterColon:

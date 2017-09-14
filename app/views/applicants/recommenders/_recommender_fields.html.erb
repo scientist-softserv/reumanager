@@ -1,66 +1,33 @@
 <fieldset>
-  <div class="inner">
-    <legend>Recommender</legend>
-  </div>
-  <div class="row">
+  <legend>Recommender</legend>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, :class => 'form-control', :placeholder => 'First Name' %>
 
-  <div class="span4">
-    <div class="inner">
-      <%= f.text_field :first_name, :placeholder => 'First Name' %>
-    </div>
-  </div>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, :class => 'form-control', :placeholder => 'Last Name' %>
 
-  <div class="span4 offset1">
-    <div class="inner">
-      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
-    </div>
-  </div>
+  <%= f.label :email %>
+  <%= f.text_field :email, :class => 'form-control', :placeholder => :Email %>
 
-  <div class="span4">
-    <div class="inner">
-      <%= f.text_field :email, :placeholder => :Email %>
-    </div>
-  </div>
+  <%= f.label :phone %>
+  <%= f.text_field :phone, :class => 'form-control', :placeholder => :Phone %>
 
-  <div class="span4 offset1">
-    <div class="inner">
-      <%= f.text_field :phone, :placeholder => :Phone %>
-    </div>
-  </div>
+  <%= f.label :url %>
+  <%= f.text_field :url, :class => 'form-control', :placeholder => :URL %>
+
+  <%= f.label :organization %>
+  <%= f.text_field :organization, :class => 'form-control', :placeholder => 'Organization or University' %>
+
+  <%= f.label :department %>
+  <%= f.text_field :department, :class => 'form-control', :placeholder => :Department %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, :class => 'form-control', :placeholder => :Title %>
+
+  <br />
   
-  <div class="span9">
-    <div class="inner">
-      <%= f.text_field :url, :placeholder => :URL %>
-    </div>
-  </div>    
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove this recommender", '#', class: "remove_fields btn btn-mini btn-danger" %>
 
-
-  <div class="span4">
-    <div class="inner">
-      <%= f.text_field :organization, :placeholder => 'Organization or University' %>
-    </div>
-  </div>
-
-  <div class="span4 offset1">
-    <div class="inner">
-      <%= f.text_field :department, :placeholder => :Department %>
-    </div>
-  </div>
-  
-  
-  <div class="span9">
-    <div class="inner">
-      <%= f.text_field :title, :placeholder => :Title %>
-    </div>
-  </div>
-
-  <div class="span9">
-    <div class="inner">
-      <%= f.hidden_field :_destroy %>
-      <%= link_to "remove this recommender", '#', class: "remove_fields btn btn-mini btn-danger" %>    
-    </div>
-  </div>
-  
- </div>
- <hr class="inner clearfix" />
+  <hr class="inner clearfix" />
 </fieldset>

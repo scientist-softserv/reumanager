@@ -2,8 +2,13 @@ class Applicant < ApplicationRecord
   # Include default devise modules. Others available are:
   # :token_authenticatable, and :omniauthable
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
-  # , :confirmable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :lockable, :timeoutable, :confirmable
+  attr_accessible :academic_level, :email, :password, :password_confirmation,
+                  :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
+                  :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
+                  :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
+                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :mentor1, :mentor2
 
   attr_accessible :academic_level, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability, :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes, :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes, :statement, :recommenders, :current_status, :state
 
@@ -22,10 +27,23 @@ class Applicant < ApplicationRecord
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
+  validates :email, presence: true, on: :update
+  validates :phone, presence: true, on: :update
+  validates :dob, presence: true, on: :update
+  validates :gender, presence: true, on: :update
+  validates :ethnicity, presence: true, on: :update
+  validates :race, presence: true, on: :update
+  validates :citizenship, presence: true, on: :update
+  validates :disability, presence: true, on: :update
+  validates :military, presence: true, on: :update
+  validates :mentor1, presence: true, on: :update
+  validates :mentor2, presence: true, on: :update
 
-#  validates_presence_of :records, :if => :academic_records_controller?
 
-#  validate :must_have_academic_record, :if => :academic_records_controller?
+
+  #  validates_presence_of :records, :if => :academic_records_controller?
+
+  #  validate :must_have_academic_record, :if => :academic_records_controller?
   scope :applied, -> { with_state(:applied) }
   scope :personal_info, -> { with_state(:personal_info) }
   scope :academic_info, -> { with_state(:academic_info) }
@@ -41,13 +59,13 @@ class Applicant < ApplicationRecord
 
     # confirmed
     # personal info
-      # location_added
-      # peresonal statement
+    # location_added
+    # peresonal statement
     # academic info
-      # academic record
-      # awards
-      # cpu_skills
-      # lab_skills
+    # academic record
+    # awards
+    # cpu_skills
+    # lab_skills
     # recommender
     # submit
     # recommended (before/aft deadline)
@@ -92,6 +110,24 @@ class Applicant < ApplicationRecord
       end
     end
 
+    state :accepted do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
+    state :rejected do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
+    state :withdrawn do
+      def redirect_url
+        Rails.application.routes.url_helpers.applicant_status_url
+      end
+    end
+
     # StateMachine Event transitions
     event :complete_personal_info do
       transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_application_completeness }
@@ -113,6 +149,7 @@ class Applicant < ApplicationRecord
 
 
     event :complete_recommender_info do
+      transition :submitted => same, :if => lambda { |applicant| applicant.send_recommendations }
       transition all => :completed_recommender_info, :if => lambda { |applicant| applicant.validates_academic_info && applicant.validates_personal_info && applicant.validates_recommender_info }
     end
     event :incomplete_recommender_info do
@@ -205,6 +242,10 @@ class Applicant < ApplicationRecord
     "No recommendation info."
   end
 
+  def demographic_info
+    'No demographic info'
+  end
+
   def recommender
     self.recommenders.last
   end
@@ -235,8 +276,15 @@ class Applicant < ApplicationRecord
 
     Notification.application_submitted(self).deliver
 
+    send_recommendations
+  end
+
+  def send_recommendations
     self.recommendations.each do |recommendation|
-      Notification.recommendation_request(recommendation).deliver
+      if recommendation.request_sent_at.blank?
+        recommendation.update_attribute :request_sent_at, Time.now
+        Notification.recommendation_request(recommendation).deliver
+      end
     end
   end
 
@@ -261,7 +309,7 @@ class Applicant < ApplicationRecord
   def validates_personal_info
     validates_presence_of :addresses, :message => "can't be blank.  Please add at least one address to your profile."
     validates_presence_of :phone, :message => "can't be blank. Please add at least one phone number to your profile."
-    validates_presence_of :statement, :message => "can't be blank. Please add at least one phone number to your profile."
+    validates_presence_of :statement, :message => "can't be blank. Your personal statement needs to be at least one sentance long."
 
     return true if self.errors.empty?
   end

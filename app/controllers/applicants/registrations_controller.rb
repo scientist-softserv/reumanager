@@ -7,7 +7,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   def edit
     @applicant.set_state
     @applicant.addresses.build unless @applicant.addresses.count > 0
-
+    @applicant.validates_personal_info
     render :edit
   end
 
@@ -37,6 +37,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
       @applicant.set_state
       redirect_to '/applicants/records'
     else
+      @applicant.validates_personal_info
       render "edit"
     end
   end
@@ -81,10 +82,12 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   end
 
   def remove_blank_attribs
+    if params[:applicant].present? && params[:applicant][:addresses_attributes].present?
   #  debugger
     params[:applicant][:addresses_attributes].to_unsafe_h.each do |attribs|
       # remove destroy flag unless it's set to true/1
       attribs[1][:_destroy] = '1' if attribs[1][:address].blank? && attribs[1][:city].blank? && attribs[1][:zip].blank?
+      end
     end
   end
 

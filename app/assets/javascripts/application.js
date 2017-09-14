@@ -12,24 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js/vendors
+//= require js/syntaxhighlighter/shCore
+//= require js/syntaxhighlighter/shBrushXml
+//= require js/syntaxhighlighter/shBrushJScript
+//= require js/DropdownHover
+//= require js/app
+//= require js/holder
+//= require js/index
 //= require bootstrap
 //= require bootstrap-datepicker
-//= require_tree .
-
-$(document).ready(function() {
-
-if(!Modernizr.input.placeholder){
-$("input").each(
-function(){
-if($(this).val()=="" && $(this).attr("placeholder")!=""){
-$(this).val($(this).attr("placeholder"));
-$(this).focus(function(){
-if($(this).val()==$(this).attr("placeholder")) $(this).val("");
-});
-$(this).blur(function(){
-if($(this).val()=="") $(this).val($(this).attr("placeholder"));
-});
-}
-});
-}
-});
+//= require academic_records
+//= require recommendations
+//= require registrations
+//= require rich
+//= require js/styleswitcher
+//= require js/styleswitcher_leadpage

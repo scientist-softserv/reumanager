@@ -1,50 +1,28 @@
 <fieldset>
-  <div class="row">
-    <div class="span4">
-      <div class="inner">
-        <%= f.select :label, options_for_select(%w( Home School Other), f.object.label), :prompt => "Location Label" %>
-      </div>
-    </div>
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), :prompt => 'Permanent Address?' %>
-      </div>
-    </div>
+  <hr />
+  <%= f.label :label %> *
+  <%= f.select :label, options_for_select(%w(Home School Other), f.object.label), { :prompt => "Location Label" }, { :class => "form-control" } %>
 
-    <div class="span9">
-      <div class="inner">
-        <%= f.text_field :address, :placeholder => :Address %>
-      </div>
-    </div>
+  <%= f.label :permanent %> *
+  <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), { :prompt => 'Permanent Address?' }, { :class => "form-control" } %>
 
-    <div class="span4">
-      <div class="inner">
-        <%= f.text_field :address2, :placeholder => 'Address Line 2' %>
-      </div>
-    </div>
-    <div class="span4 offset1">
-      <div class="inner">
-        <%= f.text_field :city, :placeholder => :City %>
-      </div>
-    </div>
+  <%= f.label :address %> *
+  <%= f.text_field :address, :class => "form-control", :placeholder => '1600 Pennsylvania Ave' %>
 
-    <div class='span4'>
-      <div class="inner">
-        <%= subregion_select f.object_name, :state, 'US', {selected: f.object.state ,  :prompt => 'State or Territory' } %>
-      </div>
-    </div>
-    <div class='span4 offset1'>
-      <div class="inner">
-        <%= f.text_field :zip, :placeholder => "Zip Code" %>
-      </div>
-    </div>
-  </div>
+  <%= f.label :address2, 'Apartment Number / Suite' %>
+  <%= f.text_field :address2, :class => "form-control", :placeholder => 'Apt # 5' %>
 
-  <div class="inner">
-    <%= f.hidden_field :_destroy %>
-    <%= link_to "remove this location", '#', class: "remove_fields btn btn-mini btn-danger" %>
-  </div>
+  <%= f.label :city %> *
+  <%= f.text_field :city, :class => "form-control", :placeholder => 'Washington DC' %>
 
-  <hr class="inner clear" />
+  <%= f.label :state %> *
+  <%= subregion_select f.object_name, :state, 'US', {selected: f.object.state ,  :prompt => 'State or Territoriy' }, :class => "form-control"  %>
+
+  <%= f.label :zip %> *
+  <%= f.text_field :zip, :class => "form-control", :placeholder => "20500" %>
+
+  <br />
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove this location", '#', class: "remove_fields btn btn-mini btn-danger" %>
 
 </fieldset>

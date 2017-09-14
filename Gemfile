@@ -20,6 +20,7 @@ gem 'haml'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'kaminari'
+gem 'modernizr-rails'
 gem 'pg'
 gem 'paperclip', '~> 5.1'
 gem 'paper_trail'
@@ -31,7 +32,7 @@ gem 'responders', '~> 2.0'
 gem 'rich', :git => "https://github.com/notch8/rich.git"
 gem 'mimemagic', '~> 0.3.2'
 # gem 'rich'
-gem 'rvm-capistrano', require: false
+gem 'rvm-capistrano', :require => false
 
 gem 'sqlite3'
 # gem 'state_machine'
@@ -68,6 +69,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'bond'
   gem 'crack'
+  gem 'quiet_assets'
   gem 'hirb-unicode'
   gem 'meta_request'
   gem 'rb-fchange', :require => false
@@ -92,6 +94,6 @@ end
 group :test do
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'mocha', require: "mocha/api"
+  gem 'mocha', :require => "mocha/api"
   gem 'shoulda'
 end

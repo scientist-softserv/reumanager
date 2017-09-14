@@ -5,10 +5,10 @@ require "rvm/capistrano"
 #set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
-set :application, "rqi" #matches names used in smf_template.erb
-set :repository,  "https://github.com/ucsd-ra/reumanager.git"
-set :branch, :rqi
-set :domain, 'indra.ucsd.edu'
+set :application, "biomaterials" #matches names used in smf_template.erb
+set :repository,  "https://github.com/notch8/reumanager.git"
+set :branch, "#{application}"
+set :domain, 'indra'
 set :deploy_to, "/var/www/#{application}" # I like this location
 set :deploy_via, :remote_cache
 set :user, "ubuntu"
@@ -18,16 +18,29 @@ set :rvm_type, :system
 set :server_name, domain
 set :scm, :git
 set :default_env, {
-  "RAILS_RELATIVE_URL_ROOT" => "/rqi"
+  "RAILS_RELATIVE_URL_ROOT" => "/#{application}"
 }
 
-set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/rqi"
+set :asset_env, "#{asset_env} RAILS_RELATIVE_URL_ROOT=/#{application}"
 
 default_run_options[:pty] = true
 
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
+
+namespace :rake do
+  desc "load settings from yml files"
+  task :load_settings do
+    on roles(:app) do
+      within "#{current_path}" do
+        with rails_env: :production do
+          execute :rake, "settings:load"
+        end
+      end
+    end
+  end
+end
 
 namespace :deploy do
   task :start do ; end
@@ -50,6 +63,8 @@ namespace :deploy do
   desc "Symlink configs"
   task :symlink_configs, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/config/*.yml #{release_path}/config/"
+    run "mkdir -p #{release_path}/public/#{application}"
+    run "ln -nfs #{release_path}/public/system #{release_path}/public/#{application}/system"
   end
 end
 

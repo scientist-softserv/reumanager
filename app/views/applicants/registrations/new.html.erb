@@ -1,37 +1,44 @@
 <div class="inner">
-  <h2>Sign up</h2>
-  <p>Please fill out the form below to begin the application process.</p>
-  <hr />
+  <div class="panel panel-primary">
+    <div class="panel-heading">Sign up</div>
+    <div class="panel-body">
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form' } ) do |f| %>
 
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-    <%= custom_error_messages! %>
-    
-    <div class="row">
-      <div class='span5'>
-        <%= f.label :first_name, "First Name" %>  <%= f.text_field :first_name %>
-      </div>
-      <div class='span5'>
-        <%= f.label :last_name, "Last Name" %> <%= f.text_field :last_name %>
-      </div>
-      <div class='span5'>
-        <%= f.label :email %> <%= f.email_field :email %>
-      </div>
-      <div class='span5'>
-        <%= f.label :phone, "Phone" %> <%= f.text_field :phone %>
-      </div>
-      <div class='span5'>
-        <%= f.label :password %> <%= f.password_field :password %>
-      </div>
-      <div class='span5'>
-        <%= f.label :password_confirmation %> <%= f.password_field :password_confirmation %>
-      </div>
+        <p>Please fill out the form below to begin the application process.</p>
+        <hr />
 
-      <hr class='inner clear'>
+        <%= custom_error_messages! %>
 
-      <div class='span11'>
-        <p id='submit'><%= f.submit "Sign up", :class => 'btn' %></p>
-        <%= render :partial => "applicants/shared/links" %>
-      </div>
+        <div class="form-group">
+
+          <%= f.label :first_name, "First Name" %>
+          <%= f.text_field :first_name, :class => "form-control", :placeholder => "George" %>
+
+          <%= f.label :last_name, "Last Name" %>
+          <%= f.text_field :last_name, :class => "form-control", :placeholder => "Washington" %>
+
+          <%= f.label :email %>
+          <%= f.email_field :email, :class => "form-control", :placeholder => "george@whitehouse.gov" %>
+
+          <%= f.label :phone, "Phone" %>
+          <%= f.text_field :phone, :class => "form-control", :placeholder => "555-555-5555" %>
+
+          <%= f.label :password %>
+          <%= f.password_field :password, :class => "form-control", :placeholder => "8 or more characters please" %>
+
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Same as in password" %>
+
+          <hr class='inner clear'>
+
+          <div class='span11'>
+            <p id='submit'>
+              <%= f.submit "Sign up", :class => 'btn btn-ar btn-primary' %>
+            </p>
+            <%= render :partial => "applicants/shared/links" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

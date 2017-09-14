@@ -1,22 +1,40 @@
 .row
-  .span8
-    .inner
+  .col-md-12
+    .col-md-12
       %h3 General Info
+    .col-md-5
+      = image_tag('REU2016.jpg', class: 'pull-left img-responsive center-block')
+    .col-md-7
       = raw Snippet[:general_description]
+    .col-md-12
       - if expired?
         %h3.deadline
           The deadline for applications has passed. Please sign in to see existing application status.
-      - else
+      - elsif started?
         %h3.deadline
           Application Deadline #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]}
         .app_button
           - if applicant_signed_in? && current_applicant.state == 'submitted'
-            = link_to "Check Status", applicant_status_url, :class => "btn btn-large btn-success"
+            = link_to "Check Status", applicant_status_url, :class => "btn btn-lg btn-success"
           - elsif applicant_signed_in?
-            = link_to "Finish Application", edit_applicant_registration_path, :class => "btn btn-large btn-success"
+            = link_to "Finish Application", edit_applicant_registration_path, :class => "btn btn-lg btn-success"
           - else
-            = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-large btn-success"
+            = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
+      - else
+        %h3.deadline
+          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2017 Program. Applications will be due on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b, %d")}.
+      
 
-  %aside.span4
-    .inner
-      =render :partial => "aside_text"
+
+  .col-md-12
+    %section.col-md-4
+      %h3 Program Highlights
+      = raw Snippet[:highlights]
+
+    %section.col-md-4
+      %h3 Eligibility Requirements
+      = raw Snippet[:eligibility_requirements]
+
+    %section.col-md-4
+      %h3 Application Information
+      = raw Snippet[:application_information]
