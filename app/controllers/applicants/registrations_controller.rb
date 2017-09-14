@@ -35,8 +35,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
       # Sign in the applicant bypassing validation in case the password changed
       sign_in @applicant, :bypass => true
       @applicant.set_state
-
-      redirect_to @applicant.redirect_url
+      redirect_to '/applicants/records'
     else
       render "edit"
     end
@@ -54,7 +53,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   def submit
     if current_applicant && current_applicant.submit_application && current_applicant.errors.empty?
       flash[:success] = "Application submitted."
-      redirect_to current_applicant.redirect_url
+      redirect_to root_path
     else
       flash[:error] = "You cannot submit your application until it is complete."
       redirect_to current_applicant.redirect_url

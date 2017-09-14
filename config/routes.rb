@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
+
+  get 'snippets/index'
+
+  get 'settings/index'
+
+  # resources :grant_settings
+  resources :admin_accounts
+  # resources :grant_snippets
+  resources :settings
+  resources :snippets
   resources :grants
+  resources :charges
+
 
   # mount Rich::Engine => '/rich', :as => 'rich'
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -33,5 +45,8 @@ Rails.application.routes.draw do
   get "closed" => "welcome#closed"
   get "thanks" => "welcome#thanks"
 
-  root :to => "welcome#index"
+  root :to => "grants#index"
+
+  # root "grants#index"
+
 end
