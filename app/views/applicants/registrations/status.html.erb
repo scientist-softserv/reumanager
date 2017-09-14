@@ -22,18 +22,10 @@
 
   <div class="panel-heading">Personal Statement</div>
   <div class="panel-body">
-    <%= raw Markdown.render(current_applicant.statement) if current_applicant.statement %>
+    <%= raw(Markdown.new(current_applicant.statement).to_html) if current_applicant.statement %>
   </div>
 
   <hr class='clear inner' />
-   <div class='span6'>
-      <div class='inner'>
-        <h2>Personal Statement</h2>
-        <%= raw Markdown.new(current_applicant.statement).to_html if current_applicant.statement %>
-      </div>
-    </div>
-
-    <hr class='clear inner' />
 
   <div class="panel-heading">Recommenders</div>
   <div class="panel-body">
@@ -65,8 +57,8 @@
         <li><b>Award</b> <%= award %></li>
       <%- end -%>
 
-      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.cpu_skills)) if current_applicant.cpu_skills %></li>
-      <li><b>Laboratory Skills</b> <%=raw(Markdown.render(current_applicant.lab_skills)) if current_applicant.lab_skills %></li>
+      <li><b>Computer Skills</b> <%=raw(Markdown.new(current_applicant.cpu_skills).to_html) if current_applicant.cpu_skills %></li>
+      <li><b>Laboratory Skills</b> <%=raw(Markdown.new(current_applicant.lab_skills).to_html) if current_applicant.lab_skills %></li>
     </ul>
   </div>
 </div>
