@@ -63,7 +63,7 @@ gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.5'
   gem 'awesome_print'
   gem "better_errors"
   gem 'binding_of_caller'

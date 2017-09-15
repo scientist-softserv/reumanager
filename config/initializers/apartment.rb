@@ -94,7 +94,7 @@ end
 # Rails.application.config.middleware.use Apartment::Elevators::Generic, lambda { |request|
 #   request.host.split('.').first
 # }
-Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'web', 'admin']
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'web', 'admin', '']
 
 # Rails.application.config.middleware.use Apartment::Elevators::Domain
 Rails.application.config.middleware.use Apartment::Elevators::Subdomain

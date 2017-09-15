@@ -103,6 +103,11 @@ ActiveRecord::Schema.define(version: 20170901200320) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "gpa_comment"
+    t.string "found_us"
+    t.boolean "acknowledged_dates", default: false
+    t.string "military"
+    t.string "mentor1"
+    t.string "mentor2"
     t.index ["authentication_token"], name: "index_applicants_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_applicants_on_confirmation_token", unique: true
     t.index ["email"], name: "index_applicants_on_email", unique: true

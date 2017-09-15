@@ -6,7 +6,7 @@
           Toggle navigation
           %i.fa.fa-bars
 
-      = link_to "#{Setting[:university].titleize}".html_safe, root_path, class: 'navbar-brand', id: 'ar-brand'
+      = link_to "#{Setting[:university]&.titleize}".html_safe, root_path, class: 'navbar-brand', id: 'ar-brand'
 
     %div{ :class => "collapse navbar-collapse", :id => "bs-example-navbar-collapse-1" }
       %ul.nav.navbar-nav.navbar-right
