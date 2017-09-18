@@ -53,8 +53,6 @@ Rails.application.routes.draw do
   get "closed" => "welcome#closed"
   get "thanks" => "welcome#thanks"
 
-  root :to => "grants#index"
-
-  # root "grants#index"
+  root :to => "welcome#index"
 
 end
