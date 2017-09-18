@@ -30,35 +30,39 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  if config.respond_to?(:action_mailer)
+  if config.respond_to?(:action_mailer)
+      config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.perform_caching = false
+      config.action_mailer.perform_caching = false
 
-  # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
+      # Print deprecation notices to the Rails logger.
+      config.active_support.deprecation = :log
 
-  # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+      # Raise an error on page load if there are pending migrations.
+      config.active_record.migration_error = :page_load
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
+      # Debug mode disables concatenation and preprocessing of assets.
+      # This option may cause significant delays in view rendering with a large
+      # number of complex assets.
+      config.assets.debug = true
 
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
+      # Suppress logger output for asset requests.
+      config.assets.quiet = true
 
-  #config.action_mailer.default_url_options = { :host => 'localhost:3000/test' }
-  Rails.application.routes.default_url_options = { :host => 'localhost:3000' }
+      #config.action_mailer.default_url_options = { :host => 'localhost:3000/test' }
+      Rails.application.routes.default_url_options = { :host => 'localhost:3000' }
 
-  config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/rqi' }
-  config.action_mailer.smtp_settings = {
-    :user_name => 'ucsd-95900766be562ebb',
-    :password => '8965336a5247320e',
-    :address => 'mailtrap.io',
-    :port => '2525',
-    :authentication => :plain
-  }
+      config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/rqi' }
+      config.action_mailer.smtp_settings = {
+        :user_name => 'ucsd-95900766be562ebb',
+        :password => '8965336a5247320e',
+        :address => 'mailtrap.io',
+        :port => '2525',
+        :authentication => :plain
+      }
+  end
+  end
   config.time_zone = 'Pacific Time (US & Canada)'
 
   # Raises error for missing translations
@@ -66,5 +70,7 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+#  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16']
 end

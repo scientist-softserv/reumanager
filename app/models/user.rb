@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :grant
+  belongs_to :grant, optional: true
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

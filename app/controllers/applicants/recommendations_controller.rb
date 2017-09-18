@@ -1,4 +1,6 @@
 class Applicants::RecommendationsController < ApplicationController
+  layout 'grant'
+
   before_action :authenticate_applicant!, only: :resend_request
   before_action :find_recommendation, :except => [:resend_request]
 

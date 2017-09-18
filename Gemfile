@@ -8,7 +8,7 @@ gem 'activemodel-serializers-xml'
 gem 'stripe'
 
 gem 'addressable'
-gem 'carmen-rails', github: 'notch8/carmen-rails', :branch => 'master'
+gem 'carmen-rails', git: 'https://github.com/notch8/carmen-rails.git', :branch => 'master'
 # gem 'client_side_validations', github: "notch8/client_side_validations", :branch => "removed_repo"
 gem 'client_side_validations', '~> 9.3', '>= 9.3.4'
 gem 'cocaine', :git => 'git://github.com/thoughtbot/cocaine.git'
@@ -34,7 +34,9 @@ gem 'mimemagic', '~> 0.3.2'
 # gem 'rich'
 gem 'rvm-capistrano', :require => false
 
-gem 'sqlite3'
+group :development, :test do
+  gem 'sqlite3'
+end
 # gem 'state_machine'
 # gem 'state-machine', :git => "https://github.com/seuros/state_machine.git"
 # gem 'state_machine', '~> 1.2'
@@ -45,10 +47,9 @@ gem 'apartment'
 
 # Old assets group
 gem 'bootstrap-sass', '~> 2.1'
-gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git => 'https://github.com/Nerian/bootstrap-datepicker-rails.git'
 
 gem 'coffee-rails'
-gem 'font-awesome-sass-rails'
 # gem 'libv8'
 gem 'modernizr-rails'
 # gem 'therubyracer'
@@ -61,6 +62,14 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 gem 'activerecord-deprecated_finders'
+
+# Refinery
+gem 'refinerycms', :git => "https://github.com/refinery/refinerycms.git", :branch => 'release/4.0.0'
+gem 'refinerycms-authentication-devise', '~> 2.0.0'
+# Add support for searching inside Refinery's admin interface.
+gem 'refinerycms-acts-as-indexed'
+# Add support for Refinery's custom fork of the visual editor WYMeditor.
+gem 'refinerycms-wymeditor'
 
 group :development do
   gem 'web-console', '~> 3.5'

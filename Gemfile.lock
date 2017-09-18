@@ -1,25 +1,25 @@
 GIT
-  remote: git://github.com/Nerian/bootstrap-datepicker-rails.git
+  remote: git://github.com/thoughtbot/cocaine.git
+  revision: 7a31ca8dc8e2337874a0e2b556603c1e4aae3586
+  specs:
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
+
+GIT
+  remote: https://github.com/Nerian/bootstrap-datepicker-rails.git
   revision: 94fc769914455f6f505b467011649d76b13ea112
   specs:
     bootstrap-datepicker-rails (1.7.1.1)
       railties (>= 3.0)
 
 GIT
-  remote: git://github.com/notch8/carmen-rails.git
+  remote: https://github.com/notch8/carmen-rails.git
   revision: e0ae34be84d9af1574617c2283b2da810dae9791
   branch: master
   specs:
     carmen-rails (1.0.1)
       carmen (~> 1.0.0)
       rails
-
-GIT
-  remote: git://github.com/thoughtbot/cocaine.git
-  revision: 7a31ca8dc8e2337874a0e2b556603c1e4aae3586
-  specs:
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
 
 GIT
   remote: https://github.com/notch8/rich.git
@@ -32,6 +32,53 @@ GIT
       rack-raw-upload
       rails (>= 3.2.0)
       sass-rails
+
+GIT
+  remote: https://github.com/refinery/refinerycms.git
+  revision: df0ce56f9fa6b755151189298dbee4d203d1f715
+  branch: release/4.0.0
+  specs:
+    refinerycms (4.0.0)
+      refinerycms-core (= 4.0.0)
+      refinerycms-images (= 4.0.0)
+      refinerycms-pages (= 4.0.0)
+      refinerycms-resources (= 4.0.0)
+    refinerycms-core (4.0.0)
+      actionpack (>= 5.1.0, < 5.2)
+      activerecord (>= 5.1.0, < 5.2)
+      awesome_nested_set (~> 3.0, >= 3.0.0)
+      coffee-rails (~> 4.0, >= 4.0.0)
+      decorators (~> 2.0.0)
+      font-awesome-sass (>= 4.3.0, < 5.0)
+      jquery-rails (>= 2.3.0)
+      jquery-ui-rails (~> 5.0.0)
+      railties (>= 5.1.0, < 5.2)
+      refinerycms-i18n (~> 4.0, >= 4.0.0)
+      sass-rails (>= 4.0, < 5.1)
+      truncate_html (~> 0.9)
+      will_paginate (~> 3.1.0)
+      zilch-authorisation
+    refinerycms-images (4.0.0)
+      activemodel-serializers-xml (~> 1.0.1)
+      dragonfly (~> 1.1.0)
+      globalize (>= 5.1.0.beta1, < 5.2)
+      refinerycms-core (= 4.0.0)
+    refinerycms-pages (4.0.0)
+      activemodel-serializers-xml (~> 1.0.1)
+      awesome_nested_set (~> 3.1.0)
+      babosa (!= 0.3.6)
+      diffy (~> 3.1.0)
+      friendly_id (>= 5.1.0, < 5.3)
+      globalize (>= 5.1.0.beta1, < 5.2)
+      refinerycms-core (= 4.0.0)
+      seo_meta (~> 3.0.0)
+      speakingurl-rails (~> 8.0.0)
+    refinerycms-resources (4.0.0)
+      activemodel-serializers-xml (~> 1.0.1)
+      acts_as_indexed (~> 0.8.0)
+      dragonfly (~> 1.1.0)
+      globalize (>= 5.1.0.beta1, < 5.2)
+      refinerycms-core (= 4.0.0)
 
 GIT
   remote: https://github.com/sferik/rails_admin.git
@@ -101,6 +148,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_indexed (0.8.3)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     apartment (2.0.0)
@@ -108,7 +156,10 @@ GEM
       public_suffix (~> 2.0.5)
       rack (>= 1.3.6)
     arel (8.0.0)
+    awesome_nested_set (3.1.3)
+      activerecord (>= 4.0.0, < 5.2)
     awesome_print (1.8.0)
+    babosa (1.0.2)
     bcrypt (3.1.11)
     better_errors (2.3.0)
       coderay (>= 1.0.0)
@@ -136,6 +187,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     carmen (1.0.2)
+      activesupport (>= 3.0.0)
     chronic (0.10.2)
     client_side_validations (9.3.4)
       jquery-rails (~> 4.3)
@@ -156,6 +208,8 @@ GEM
       safe_yaml (~> 1.0.0)
     database_cleaner (1.6.1)
     debug_inspector (0.0.3)
+    decorators (2.0.3)
+      railties (>= 4.0.0, < 5.2)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -163,7 +217,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    diffy (3.1.0)
     docile (1.1.5)
+    dragonfly (1.1.3)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack (>= 1.3)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -182,12 +241,17 @@ GEM
     ffi (1.9.18)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
-    font-awesome-sass-rails (3.0.2.2)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
+    font-awesome-sass (4.7.0)
+      sass (>= 3.2)
     formatador (0.2.5)
+    friendly_id (5.2.2)
+      activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    globalize (5.1.0.beta2)
+      activemodel (>= 4.2, < 5.2)
+      activerecord (>= 4.2, < 5.2)
+      request_store (~> 1.0)
     guard (2.14.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -333,6 +397,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-i18n (5.0.4)
+      i18n (~> 0.7)
+      railties (~> 5.0)
     rails-observers (0.1.5)
       activemodel (>= 4.0)
     railties (5.1.3)
@@ -348,12 +415,30 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
+    refinerycms-acts-as-indexed (3.0.0)
+      acts_as_indexed (~> 0.8.0)
+      decorators (~> 2.0)
+      refinerycms-core (>= 3.0.0, < 5.0)
+      stringex (~> 2.5.2)
+    refinerycms-authentication-devise (2.0.0)
+      actionmailer (>= 5.0.0, < 5.2)
+      devise (~> 4.0, >= 4.3.0)
+      friendly_id (~> 5.2.1)
+      refinerycms-core (>= 3.0.0, < 5.0)
+    refinerycms-i18n (4.0.1)
+      rails-i18n (~> 5.0.0)
+      routing-filter (>= 0.4.0)
+    refinerycms-wymeditor (2.0.0)
+      refinerycms-core (>= 4.0.0.dev, < 5.0)
     regexp_parser (0.4.4)
     remotipart (1.3.1)
     request_store (1.3.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    routing-filter (0.6.1)
+      actionpack (>= 4.2, < 5.2)
+      activesupport (>= 4.2, < 5.2)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -391,6 +476,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    seo_meta (3.0.0)
+      railties (>= 5.0.0)
     shellany (0.0.1)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
@@ -404,6 +491,8 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
     slop (3.6.0)
+    speakingurl-rails (8.0.2)
+      railties (>= 3.1)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -419,12 +508,14 @@ GEM
     state_machines-activerecord (0.5.0)
       activerecord (>= 4.1, < 5.2)
       state_machines-activemodel (>= 0.5.0)
+    stringex (2.5.2)
     stripe (3.3.1)
       faraday (~> 0.9)
     temple (0.8.0)
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    truncate_html (0.9.3)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -445,9 +536,11 @@ GEM
     what_methods (1.0.1)
     whenever (0.9.7)
       chronic (>= 0.6.3)
+    will_paginate (3.1.6)
     wirble (0.1.3)
     xpath (2.1.0)
       nokogiri (~> 1.3)
+    zilch-authorisation (0.0.1)
 
 PLATFORMS
   ruby
@@ -476,7 +569,6 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
-  font-awesome-sass-rails
   guard-livereload
   guard-rspec
   haml
@@ -503,6 +595,10 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   redcarpet
+  refinerycms!
+  refinerycms-acts-as-indexed
+  refinerycms-authentication-devise (~> 2.0.0)
+  refinerycms-wymeditor
   responders (~> 2.0)
   rich!
   rspec-rails (~> 3.6, >= 3.6.1)

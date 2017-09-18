@@ -1,4 +1,5 @@
 class Applicants::AcademicRecordsController < ApplicationController
+  layout 'grant'
   before_action :authenticate_applicant!
   before_action :set_state
 

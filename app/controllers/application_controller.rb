@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_subdomain?
-    request.subdomain.present? && (request.subdomain != 'www' || request.subdomain != 'admin')
+    request.subdomain.present? && (request.subdomain != 'www' && request.subdomain != 'admin' && request.subdomain != 'web')
   end
 
   def current_grant

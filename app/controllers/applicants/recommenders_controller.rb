@@ -1,4 +1,6 @@
 class Applicants::RecommendersController < ApplicationController
+  layout 'grant'
+
   before_action :authenticate_applicant!
   before_action :instantiate_applicant
 

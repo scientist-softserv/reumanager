@@ -18,3 +18,6 @@ admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; a
   FactoryGirl.create(:applicant_with_recommender_and_recommendation)
   FactoryGirl.create(:applicant_with_address_record_recommender_and_recommendation)
 end
+
+# Added by Refinery CMS Pages extension
+Refinery::Pages::Engine.load_seed

@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default yamm navbar-static-top" role="navigation" id="header">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <i class="fa fa-bars"></i>
+      </button>
+      <%= link_to "REU <span>Manager</span>".html_safe, refinery.root_path, class: 'navbar-brand', id: 'ar-brand' %>
+    </div> <!-- navbar-header -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <%= Refinery::Pages::MenuPresenter.new(refinery_menu_pages, self).to_html %>
+    </div><!-- navbar-collapse -->
+  </div><!-- container -->
+</nav>

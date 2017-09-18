@@ -1,4 +1,8 @@
 class Applicants::SessionsController < Devise::SessionsController
+  layout 'grant'
+
+  skip_before_action :verify_authenticity_token, :only => :create
+
   # GET /resource/sign_in
    def new
      super
