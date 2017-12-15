@@ -10,14 +10,14 @@ admins = [{ email: 'aengler@ucsd.edu', first_name: 'Adma', last_name: 'Engler', 
 admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
 
 # Demo Applicants
-10.times do
-  FactoryGirl.create(:applicant)
-  FactoryGirl.create(:applicant_with_address)
-  FactoryGirl.create(:applicant_with_address_and_record)
-  FactoryGirl.create(:applicant_with_address_record_and_recommender)
-  FactoryGirl.create(:applicant_with_recommender_and_recommendation)
-  FactoryGirl.create(:applicant_with_address_record_recommender_and_recommendation)
-end
+#10.times do
+#  FactoryGirl.create(:applicant)
+#  FactoryGirl.create(:applicant_with_address)
+#  FactoryGirl.create(:applicant_with_address_and_record)
+#  FactoryGirl.create(:applicant_with_address_record_and_recommender)
+#  FactoryGirl.create(:applicant_with_recommender_and_recommendation)
+#  FactoryGirl.create(:applicant_with_address_record_recommender_and_recommendation)
+#end
 
 # Added by Refinery CMS Pages extension
 Refinery::Pages::Engine.load_seed

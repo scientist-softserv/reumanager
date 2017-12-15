@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/thoughtbot/cocaine.git
-  revision: 7a31ca8dc8e2337874a0e2b556603c1e4aae3586
-  specs:
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
-
-GIT
   remote: https://github.com/Nerian/bootstrap-datepicker-rails.git
   revision: 94fc769914455f6f505b467011649d76b13ea112
   specs:
@@ -35,50 +28,50 @@ GIT
 
 GIT
   remote: https://github.com/refinery/refinerycms.git
-  revision: df0ce56f9fa6b755151189298dbee4d203d1f715
-  branch: release/4.0.0
+  revision: f30c98546ecbc1b487c47eafeb51454709db2bf9
+  branch: 4-0-stable
   specs:
-    refinerycms (4.0.0)
-      refinerycms-core (= 4.0.0)
-      refinerycms-images (= 4.0.0)
-      refinerycms-pages (= 4.0.0)
-      refinerycms-resources (= 4.0.0)
-    refinerycms-core (4.0.0)
+    refinerycms (4.0.1)
+      refinerycms-core (= 4.0.1)
+      refinerycms-images (= 4.0.1)
+      refinerycms-pages (= 4.0.1)
+      refinerycms-resources (= 4.0.1)
+    refinerycms-core (4.0.1)
       actionpack (>= 5.1.0, < 5.2)
       activerecord (>= 5.1.0, < 5.2)
       awesome_nested_set (~> 3.0, >= 3.0.0)
       coffee-rails (~> 4.0, >= 4.0.0)
-      decorators (~> 2.0.0)
+      decorators (~> 2.0, >= 2.0.0)
       font-awesome-sass (>= 4.3.0, < 5.0)
-      jquery-rails (>= 2.3.0)
-      jquery-ui-rails (~> 5.0.0)
+      jquery-rails (~> 4.3, >= 4.3.1)
+      jquery-ui-rails (~> 5.0, >= 5.0.0)
       railties (>= 5.1.0, < 5.2)
       refinerycms-i18n (~> 4.0, >= 4.0.0)
       sass-rails (>= 4.0, < 5.1)
       truncate_html (~> 0.9)
-      will_paginate (~> 3.1.0)
-      zilch-authorisation
-    refinerycms-images (4.0.0)
-      activemodel-serializers-xml (~> 1.0.1)
-      dragonfly (~> 1.1.0)
+      will_paginate (~> 3.1, >= 3.1.0)
+      zilch-authorisation (~> 0, >= 0.0.1)
+    refinerycms-images (4.0.1)
+      activemodel-serializers-xml (~> 1.0, >= 1.0.1)
+      dragonfly (~> 1.1, >= 1.1.0)
       globalize (>= 5.1.0.beta1, < 5.2)
-      refinerycms-core (= 4.0.0)
-    refinerycms-pages (4.0.0)
-      activemodel-serializers-xml (~> 1.0.1)
-      awesome_nested_set (~> 3.1.0)
+      refinerycms-core (= 4.0.1)
+    refinerycms-pages (4.0.1)
+      activemodel-serializers-xml (~> 1.0, >= 1.0.1)
+      awesome_nested_set (~> 3.1, >= 3.1.0)
       babosa (!= 0.3.6)
-      diffy (~> 3.1.0)
+      diffy (~> 3.1, >= 3.1.0)
       friendly_id (>= 5.1.0, < 5.3)
       globalize (>= 5.1.0.beta1, < 5.2)
-      refinerycms-core (= 4.0.0)
-      seo_meta (~> 3.0.0)
-      speakingurl-rails (~> 8.0.0)
-    refinerycms-resources (4.0.0)
-      activemodel-serializers-xml (~> 1.0.1)
+      refinerycms-core (= 4.0.1)
+      seo_meta (~> 3.0, >= 3.0.0)
+      speakingurl-rails (~> 8.0, >= 8.0.0)
+    refinerycms-resources (4.0.1)
+      activemodel-serializers-xml (~> 1.0, >= 1.0.1)
       acts_as_indexed (~> 0.8.0)
-      dragonfly (~> 1.1.0)
+      dragonfly (~> 1.1, >= 1.1.0)
       globalize (>= 5.1.0.beta1, < 5.2)
-      refinerycms-core (= 4.0.0)
+      refinerycms-core (= 4.0.1)
 
 GIT
   remote: https://github.com/sferik/rails_admin.git
@@ -98,8 +91,14 @@ GIT
       remotipart (~> 1.3)
       sass-rails (>= 4.0, < 6)
 
+GIT
+  remote: https://github.com/thoughtbot/cocaine.git
+  revision: 7a31ca8dc8e2337874a0e2b556603c1e4aae3586
+  specs:
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
+
 GEM
-  remote: http://gems.github.com/
   remote: https://rubygems.org/
   specs:
     actioncable (5.1.3)
@@ -217,7 +216,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
-    diffy (3.1.0)
+    diffy (3.2.0)
     docile (1.1.5)
     dragonfly (1.1.3)
       addressable (~> 2.3)
@@ -275,10 +274,6 @@ GEM
       temple (>= 0.8.0)
       tilt
     highline (1.7.8)
-    hirb (0.7.3)
-    hirb-unicode (0.0.5)
-      hirb (~> 0.5)
-      unicode-display_width (~> 0.1.1)
     http_parser.rb (0.6.0)
     i18n (0.8.6)
     jquery-rails (4.3.1)
@@ -500,7 +495,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.13)
     state_machines (0.5.0)
     state_machines-activemodel (0.5.0)
       activemodel (>= 4.1, < 5.2)
@@ -518,9 +512,10 @@ GEM
     truncate_html (0.9.3)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.3)
+      tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (0.1.1)
     validates_email_format_of (1.6.3)
       i18n
     warden (1.2.7)
@@ -572,7 +567,6 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   haml
-  hirb-unicode
   jquery-rails
   jquery-ui-rails
   kaminari
@@ -607,9 +601,9 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   shoulda
   simplecov
-  sqlite3
   state_machines-activerecord
   stripe
+  tzinfo-data
   uglifier
   validates_email_format_of
   web-console (~> 3.5)
@@ -618,4 +612,4 @@ DEPENDENCIES
   wirble
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

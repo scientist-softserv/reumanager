@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby23:0.9.20
+FROM phusion/passenger-ruby24:0.9.27
 
 RUN apt-get update -qq && apt-get install -y build-essential nodejs npm pv libsasl2-dev libpq-dev postgresql-client && \
     apt-get clean && \
