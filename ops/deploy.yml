@@ -1,49 +1,17 @@
 ---
 - name: Deploy
   hosts: all
-  become: true
-  vars_prompt:
-    - name: "registry_user"
-      prompt: "What is your registry email?"
-    - name: "registry_password"
-      prompt: "What is your registry password?"
 
+
+  gather_facts: False
   tasks:
-    - file:
-        path: "{{ compose_dir }}"
-        state: directory
+    - name: deploy app 
+      delegate_to: 127.0.0.1
+      uri: 
+        url: "{{ deploy_url }}"
+        method: POST
+        return_content: yes
+        body: { "push_data": { "tag": "{{ tag }}" }, "repository": { "repo_name":"registry.gitlab.com/notch8/ror-site/{{ app_name | regex_replace('-staging', '') }}" }}
+        body_format: json
+        status_code: 200
 
-    - name: Upload docker-compose files
-      synchronize:
-        src: ../docker-compose-prod.yml
-        dest: "{{ compose_dir }}/{{ project_name }}.yml"
-
-    - name: Login to registry
-      docker_login:
-        registry: "{{ registry_host }}"
-        username: "{{ registry_user }}"
-        password: "{{ registry_password }}"
-      register: authout
-
-    - debug: var=authout
-
-    - name: Restart service
-      command: "cd {{ compose_dir }} && docker-compose -f {{ project_name }}.yml pull web && docker-compose -f {{ project_name }}.yml up -d web"
-      environment:
-        TAG: "{{ tag }}"
-      register: output
-# TODO - ansible docker-service doesn't work with custom registery right now
-#    - name: Restart service
-#      docker_service:
-#        project_name: "{{ project_name }}"
-#        project_src: "{{ compose_dir }}"
-#        files:
-#          - "{{ project_name }}.yml"
-#        pull: yes
-#        services: web
-#        debug: yes
-#      environment:
-#        TAG: "{{ tag }}"
-#      register: output
-#
-    - debug: var=output

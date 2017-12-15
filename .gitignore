@@ -17,6 +17,7 @@ capybara-*.html
 .DS_Store
 # Rails
 .bundle
+.env.*
 db/*.sqlite3
 db/*.sqlite3-journal
 *.log

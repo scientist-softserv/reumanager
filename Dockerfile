@@ -19,8 +19,6 @@ ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
 ADD Gemfile* $APP_HOME/
 RUN bundle check || bundle install
 
-
-
 COPY . $APP_HOME
 RUN chown -R app $APP_HOME
 
