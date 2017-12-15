@@ -1,17 +1,18 @@
 ---
 - name: Set up Docker on host
   hosts: all
-  become: true
-  roles:
-    - docker.ubuntu
+
+
+  gather_facts: False
   tasks:
-    - name: Install Compose Module
-      pip: name=docker-compose
-    - name: Upload docker-compose files
-      synchronize: 
-        src: ../.env
-        dest: "{{ compose_dir }}/{{ project_name }}_env"
-
- 
-
+    - name: Provision via rancher
+      shell: "cd .. && rancher up -p -d -u -s {{ app_name }} -f docker-compose.{{ deploy_env }}.yml -e .env.{{ app_name | regex_replace('-staging', '') }}.{{ deploy_env }}"
+      register: result
+      delegate_to: 127.0.0.1
+      environment:
+        APP_NAME: "{{ app_name | regex_replace('-staging', '') }}"
+        TAG: "{{ tag }}"
+        RANCHER_ENVIRONMENT: "{{ rancher_env }}"
+    - debug: var=result.stdout_lines
 - include: deploy.yml
+

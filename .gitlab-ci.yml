@@ -1,4 +1,4 @@
-image: docker:latest
+image: $CI_REGISTRY_IMAGE/builder:latest
 services:
   - docker:dind
   - postgres:latest
@@ -21,14 +21,22 @@ variables:
   REGISTRY_URI: TODO/reumanager
   SITE_URI_BASE: TODO
 
+
+before_script:
+  - export REGISTRY_FULL=registry.gitlab.com/notch8/ror-site/$CI_COMMIT_REF_SLUG:${CI_COMMIT_SHA:0:8}
+  - export TAG=$CI_COMMIT_REF_SLUG
+  - eval $(ssh-agent -s)
+  - bash
+  - ssh-add <(echo "$SSH_PRIVATE_KEY") 
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
 build:
   stage: build
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG"
-  variables:
-    GIT_STRATEGY: fetch
+    - sc build
+    - sc push
   tags:
     - docker
 
@@ -36,7 +44,7 @@ test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
   script:
-    - cd /app && bundle exec rake db:create db:schema:load spec
+    - cd /home/app/webapp && bundle exec rake db:create db:schema:load spec
   tags:
     - docker
   variables:
@@ -44,39 +52,29 @@ test:
 
 review:
   stage: review
-  image: docker:latest
   type: deploy
   environment:
-    name: $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-    url: http://web.$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG.staging.$SITE_URI_BASE
+    name: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    url: http://web.$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.staging.$SITE_URI_BASE
     on_stop: stop_review
   only:
     - branches
   except:
     - master
   script:
-    - wget https://github.com/rancher/cli/releases/download/v0.4.1/rancher-linux-amd64-v0.4.1.tar.gz
-    - tar zxfv rancher-linux-amd64-v0.4.1.tar.gz
     - export RANCHER_ENVIRONMENT=staging
-    - export TAG=$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-    - ./rancher-v0.4.1/rancher up -p -d -u -c -s $TAG -f docker-compose-ci.yml
+    - sc provision ci
 
-  variables:
-    GIT_STRATEGY: fetch
-  tags:
+ tags:
     - docker
     - mysql
 
 stop_review:
   stage: review
   script:
-    - wget https://github.com/rancher/cli/releases/download/v0.4.1/rancher-linux-amd64-v0.4.1.tar.gz
-    - tar zxfv rancher-linux-amd64-v0.4.1.tar.gz
     - export RANCHER_ENVIRONMENT=staging
-    - ./rancher-v0.4.1/rancher rm $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
+    - rancher rm $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
 
-  variables:
-    GIT_STRATEGY: none
   when: manual
   environment:
     name: $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
@@ -86,11 +84,9 @@ staging:
   stage: staging
   type: deploy
   script:
-    - ./ops/deploy-app
+    - sc deploy staging 
   only:
     - master
-  variables:
-    GIT_STRATEGY: fetch
   tags:
     - docker
 
@@ -98,11 +94,9 @@ production:
   stage: production
   type: deploy
   script:
-    - ./ops/deploy-app
+    - sc deploy production
   when: manual
   only:
     - master
-  variables:
-    GIT_STRATEGY: fetch
   tags:
     - docker

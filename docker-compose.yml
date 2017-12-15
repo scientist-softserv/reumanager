@@ -4,6 +4,7 @@ services:
     image: postgres
     env_file:
       - .env
+      - .env.development
     ports:
       - "5432"
     volumes:
@@ -15,13 +16,15 @@ services:
       - .:/home/app/webapp
     env_file:
       - .env
+      - .env.development
+
     # Keep the stdin open, so we can attach to our app container's process
     # and do things such as byebug, etc:
     stdin_open: true
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
     tty: true
     ports:
-      - "80"
+      - "5555:80"
     depends_on:
       - postgres
 

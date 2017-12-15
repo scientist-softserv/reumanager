@@ -1,3 +1,6 @@
+[ci]
+XX.XXX.XXX.XXX
+
 [staging]
 XX.XXX.XXX.XXX ansible_user=centos
 
@@ -5,16 +8,38 @@ XX.XXX.XXX.XXX ansible_user=centos
 XX.XXX.XXX.XXX ansible_user=ubuntu
 
 [servers:children]
+ci
 staging
 production
 
 [servers:vars]
 registry_host=registry.gitlab.com
-compose_dir=/var/www
+
 project_name=reumanager
+
+[ci:vars]
+tag=staging-latest
+deploy_env=staging
+app_name=CHANGEME
+
+rancher_env=CHANGEME
+deploy_url=CHANGEME
+
 
 [staging:vars]
 tag=staging-latest
+deploy_env=staging
+app_name=CHANGEME
+
+rancher_env=CHANGEME
+deploy_url=CHANGEME
+
 
 [production:vars]
 tag=production-latest
+deploy_env=production
+app_name=CHANGEME
+
+rancher_env=CHANGEME
+deploy_url=CHANGEME
+
