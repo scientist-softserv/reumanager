@@ -3,9 +3,8 @@ class Grant < ActiveRecord::Base
 	has_many :settings
 	has_many :snippets
 	has_many :admin_accounts
-	# has_one :admin_account
-	# has_one :grant_setting
-	# has_one :grant_snippet
+	
+
 
 	validates :subdomain, exclusion: { in: %w(www admin), message: "%{value} is reserved"}
 	validates :subdomain, uniqueness: {:scope => :subdomain}

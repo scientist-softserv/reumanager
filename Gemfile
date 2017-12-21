@@ -1,4 +1,4 @@
-source 'http://gems.github.com'
+# source 'http://gems.github.com'
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.3'
@@ -14,6 +14,7 @@ gem 'client_side_validations', '~> 9.3', '>= 9.3.4'
 gem 'cocaine', :git => 'git://github.com/thoughtbot/cocaine.git'
 gem 'capistrano'
 gem 'devise'
+gem 'dotenv-rails'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'haml'

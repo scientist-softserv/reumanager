@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918192950) do
+ActiveRecord::Schema.define(version: 20170929220747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20170918192950) do
     t.datetime "updated_at"
     t.string "contact_email"
     t.string "contact_password"
+    t.string "coupon_code"
   end
 
   create_table "rails_admin_histories", id: :serial, force: :cascade do |t|

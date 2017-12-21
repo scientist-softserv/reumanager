@@ -4,11 +4,12 @@ app_title:
     Medicine, Multi-Scale Bioengineering, and Systems Biology)
   value: Example-
     Research Experiences in Diabetes for Undergraduates
+
 university:
   name: University
   description: This is used anywhere your university name is referenced.
   value: Example-
-    Illinois Institute of Technology
+    State Institute of Technology
 department:
   name: Department
   description: This is used anywhere your department name is referenced.
@@ -16,7 +17,7 @@ department:
     Biomedical Engineering
 department_postal_address:
   name: Department Postal Address
-  description: This is used anywhere the postal address is needed.  TODO
+  description:
   value:
 application_start:
   name: Application Start
@@ -47,17 +48,17 @@ program_end_date:
   value: 2018-08-05
 check_back_date:
   name: Check Back Date
-  description: |
+  description:
     Once the application process is closed (after the application deadline),
     this value will inform students when to check back for information about next
     year's application.
   value: 2018-09-01
 mail_from:
   name: Mail From
-  description: |
+  description:
     This will be used in the reply-to value for emails sent from the
     application. This is also used in the footer as the email to contact for questions
-    or comments about the website. TODO
+    or comments about the website.
   value:
 funding_acknowlegement:
   name: Funding Acknowlegement
@@ -67,7 +68,7 @@ funding_acknowlegement:
 univeristy_url:
   name: University Url
   description: |
-    Main URL for the parent organization, usually a university (e.g. http://ucsd.edu, http://www.rice.edu)
+    Main URL for the parent organization, usually a university (e.g. http://university.edu)
   value:
 department_url:
   name: Department Url
@@ -78,4 +79,4 @@ program_url:
   name: Program Url
   description: |
     URL for the specific program
-  value: 
+  value:
