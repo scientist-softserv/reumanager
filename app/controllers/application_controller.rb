@@ -4,12 +4,16 @@ class ApplicationController < ActionController::Base
   before_action :log_x_forwarded_by
   before_action :check_user_subdomain_combo
   helper_method :expired?
+  helper_method :is_subdomain?
+  helper_method :settings_filled_in?
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
   before_action :set_cache_buster
 
-
-
   protected
+
+  def settings_filled_in?
+    Setting[:application_start].present? && Setting[:program_start_date].present?
+  end
 
   # used to prevent seeing user info through history after sign-out.
   def set_cache_buster

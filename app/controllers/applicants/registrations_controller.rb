@@ -1,6 +1,4 @@
 class Applicants::RegistrationsController < Devise::RegistrationsController
-  layout 'grant'
-
   skip_before_action :verify_authenticity_token, :only => :create
   before_action :update_sanitized_params, if: :devise_controller?
   before_action :auth, :only => [:status, :update, :submit]

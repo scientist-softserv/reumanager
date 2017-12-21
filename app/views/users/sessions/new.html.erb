@@ -2,7 +2,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading">Sign in</div>
     <div class="panel-body">
-      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form' } ) do |f| %>
+      <%= form_for(resource, :as => resource_name, :url => main_app.user_session_path, :html => { :role => 'form' } ) do |f| %>
 
         <%= custom_error_messages! %>
 
@@ -21,7 +21,7 @@
         <p id='submit'>
           <%= f.submit "Sign in", :class => 'btn btn-ar btn-primary', :role => "button" %>
         </p>
-        <%= render :partial => "applicants/shared/links" %>
+        <%= render :partial => "users/links" %>
       <% end %>
     </div>
   </div>

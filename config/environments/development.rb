@@ -53,7 +53,7 @@ Rails.application.configure do
       #config.action_mailer.default_url_options = { :host => 'localhost:3000/test' }
       Rails.application.routes.default_url_options = { :host => 'localhost:3000' }
 
-      config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/rqi' }
+      config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'lvh.me:5555' }
       config.action_mailer.smtp_settings = {
         :user_name => 'ucsd-95900766be562ebb',
         :password => '8965336a5247320e',

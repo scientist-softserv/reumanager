@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def admin_page?
+    controller_name == 'settings' || controller_path.match('/users')
+  end
+
   def expired?
     if Setting[:application_deadline].present?
       expire_at = Time.parse("#{Setting[:application_deadline]} 23:59:59 PST")
@@ -66,7 +70,9 @@ module ApplicationHelper
   end
 
   def format_date_string(date_string)
-    date = Date.parse(date_string)
-    date.strftime('%m/%d/%Y')
+    if date_string
+      date = Date.parse(date_string)
+      date.strftime('%m/%d/%Y')
+    end
   end
 end

@@ -88,18 +88,3 @@ Apartment.configure do |config|
   #
   # config.prepend_environment = !Rails.env.production?
 end
-
-# Setup a custom Tenant switching middleware. The Proc should return the name of the Tenant that
-# you want to switch to.
-# Rails.application.config.middleware.use Apartment::Elevators::Generic, lambda { |request|
-#   request.host.split('.').first
-# }
-Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'web', 'admin', '']
-
-# Rails.application.config.middleware.use Apartment::Elevators::Domain
-Rails.application.config.middleware.use Apartment::Elevators::Subdomain
-Apartment::Elevators::Subdomain.prepend RescuedApartmentMiddleware
-# Rails.application.config.middleware.insert_before 'Warden::Manager', Apartment::Elevators::Subdomain
-
-
-# Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain

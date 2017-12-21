@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
 
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => "form", :method => :put }) do |f| %>
+  <%= form_for(resource, :as => resource_name, :url => main_app.applicant_registration_path, :html => { :role => "form", :method => :put }) do |f| %>
 
     <div class="panel-heading">Contact Info</div>
     <div class="panel-body">
@@ -112,7 +112,7 @@
     <div class="panel-body">
       <div class="checkbox">
         <%= f.check_box :acknowledged_dates %>
-        <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
+        <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting[:program_start_date])}, Program End Date: #{format_date_string(Setting[:program_end_date])}" %>
       </div>
     </div>
 

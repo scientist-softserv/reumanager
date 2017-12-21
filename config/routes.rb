@@ -7,12 +7,6 @@ Rails.application.routes.draw do
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
 
-
-
-  get 'snippets/index'
-
-  get 'settings/index'
-
   resources :admin_accounts
   resources :grants
   resources :settings

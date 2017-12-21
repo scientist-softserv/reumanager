@@ -2,7 +2,7 @@
 
   %aside#footer-widgets
     .row
-      .col-md-12
+      .col-md-8.col-md-offset-2
         %ul.list-unstyled
           - if params[:controller] == 'welcome'
             %li.pull-left
@@ -85,4 +85,4 @@
 
 %div#footer
   %span
-    © 2016. All rights reserved. XHTML1, CSS3, and Section 508 valid.
+    © 2015 - #{Time.now.year}. All rights reserved. XHTML1, CSS3, and Section 508 valid.

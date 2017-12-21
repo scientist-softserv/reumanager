@@ -1,10 +1,10 @@
 class SettingsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
+  before_action :check_user_subdomain_combo
+
   def index
-  
     @grant = current_grant
     @settings = Setting.all
-
   end
 
   def create

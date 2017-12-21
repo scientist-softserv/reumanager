@@ -6,6 +6,9 @@ class Setting < ApplicationRecord
 
   # Returns the value of the setting named name
   def self.[](name)
+    if name.is_a? Symbol
+      name = name.to_s.gsub('_', ' ').titleize
+    end
     name = name.to_s
     setting = find_by_name(name)
 
@@ -15,7 +18,7 @@ class Setting < ApplicationRecord
   def self.load_from_yaml(grant=nil)
     default_settings = YAML::load(File.open(Rails.root.join 'config', 'settings.yml'))
     default_settings.map do |s|
-     Setting.find_or_create_by(name:s[1]['name']) do |setting|
+     Setting.find_or_create_by(name: s[1]['name']) do |setting|
         setting.grant = grant
         setting.description = s[1]['description']
         setting.name = s[1]['name']

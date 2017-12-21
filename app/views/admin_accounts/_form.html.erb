@@ -12,60 +12,60 @@
   <% end %>
 
     <div class="field">
-      <%= form.label :admin1_email %>
+      <%= form.label :admin1_email, 'Admin 1 Email' %>
       <%= form.text_field :admin1_email, :class => 'form-control', id: :admin_account_admin1_email %>
     </div>
 
     <div class="field">
-      <%= form.label :admin1_pwd %>
-      <%= form.text_field :admin1_pwd, :class => 'form-control', id: :admin_account_admin1_pwd %>
+      <%= form.label :admin1_pwd, 'Admin 1 Password' %>
+      <%= form.password_field :admin1_pwd, :class => 'form-control', id: :admin_account_admin1_pwd %>
     </div>
 
     <div class="field">
-      <%= form.label :admin2_email %>
+      <%= form.label :admin2_email, 'Admin 2 Email' %>
       <%= form.text_field :admin2_email, :class => 'form-control', id: :admin_account_admin2_email %>
     </div>
 
     <div class="field">
-      <%= form.label :admin2_pwd %>
-      <%= form.text_field :admin2_pwd, :class => 'form-control', id: :admin_account_admin2_pwd %>
+      <%= form.label :admin2_pwd, 'Admin 2 Password' %>
+      <%= form.password_field :admin2_pwd, :class => 'form-control', id: :admin_account_admin2_pwd  %>
     </div>
 
     <div class="field">
-      <%= form.label :admin3_email %>
+      <%= form.label :admin3_email, 'Admin 3 Email' %>
       <%= form.text_field :admin3_email, :class => 'form-control', id: :admin_account_admin3_email %>
     </div>
 
     <div class="field">
-      <%= form.label :admin3_pwd %>
-      <%= form.text_field :admin3_pwd, :class => 'form-control', id: :admin_account_admin3_pwd %>
+      <%= form.label :admin3_pwd, 'Admin 3 Password' %>
+      <%= form.password_field :admin3_pwd, :class => 'form-control', id: :admin_account_admin3_pwd %>
     </div>
 
     <div class="field">
-      <%= form.label :admin4_email %>
+      <%= form.label :admin4_email, 'Admin 4 Email' %>
       <%= form.text_field :admin4_email, :class => 'form-control', id: :admin_account_admin4_email %>
     </div>
 
     <div class="field">
-      <%= form.label :admin4_pwd %>
-      <%= form.text_field :admin4_pwd, :class => 'form-control', id: :admin_account_admin4_pwd %>
+      <%= form.label :admin4_pwd, 'Admin 4 Password' %>
+      <%= form.password_field :admin4_pwd, :class => 'form-control', id: :admin_account_admin4_pwd %>
     </div>
 
     <div class="field">
-      <%= form.label :admin5_email %>
+      <%= form.label :admin5_email, 'Admin 5 Email' %>
       <%= form.text_field :admin5_email, :class => 'form-control', id: :admin_account_admin5_email %>
     </div>
 
     <div class="field">
-      <%= form.label :admin5_pwd %>
-      <%= form.text_field :admin5_pwd, :class => 'form-control', id: :admin_account_admin5_pwd %>
+      <%= form.label :admin5_pwd, 'Admin 5 Password' %>
+      <%= form.password_field :admin5_pwd, :class => 'form-control', id: :admin_account_admin5_pwd %>
     </div>
 
     <div class="field">
       <%= form.hidden_field :grant_id, :class => 'form-control', id: :admin_account_grant_id %>
     </div>
-
+    <br />
     <div class="actions">
-      <%= form.submit, :class => 'btn btn-ar btn-primary'%>
+      <%= form.submit "Add Admins", :class => 'btn btn-ar btn-primary'%>
     </div>
 <% end %>
