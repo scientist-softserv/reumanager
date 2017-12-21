@@ -1,6 +1,6 @@
 class GrantsController < ApplicationController
   before_action :set_grant, only: [:show, :edit, :update, :destroy]
-  before_action :amount_to_be_charged
+  skip_before_action :verify_authenticity_token
 
   # GET /grants
   def index
@@ -27,14 +27,16 @@ class GrantsController < ApplicationController
 
     if @grant.valid?
       customer = Stripe::Customer.create(
-        :email => 'amy.dyson@mac.com',
+        :email => params[:email],
         :source  => params[:stripeToken]
       )
+
+      coupon_amount = (@grant.coupon_code.upcase == "EXISTING" ? 20000 : 0)
 
       charge = Stripe::Charge.create(
 
         :customer    => customer.id,
-        :amount      => @amount,
+        :amount      => amount - coupon_amount,
         :description => 'Rails Stripe customer',
         :currency    => 'usd'
       )
@@ -50,7 +52,7 @@ class GrantsController < ApplicationController
 
     rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to new_charge_path
+    redirect_to new_grants_url
 
   end
 
@@ -76,13 +78,13 @@ class GrantsController < ApplicationController
     end
 
 
-    def amount_to_be_charged
-      @amount = 2500
+    def amount
+      @amount ||= 75000
     end
 
 
     # Only allow a trusted parameter "white list" through.
     def grant_params
-      params.require(:grant).permit(:program_title, :institution, :subdomain, :contact_email, :contact_password, :users_attributes => [:id, :email, :password])
+      params.require(:grant).permit(:program_title, :institution, :subdomain, :contact_email, :contact_password, :coupon_code, :users_attributes => [:id, :email, :password])
     end
 end

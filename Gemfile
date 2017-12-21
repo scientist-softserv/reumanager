@@ -24,6 +24,7 @@ gem 'coffee-rails'
 gem 'crack', group: [:development]
 gem 'database_cleaner', group: [:development, :test]
 gem 'devise'
+gem 'dotenv-rails'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'guard-livereload', group: [:development, :test]

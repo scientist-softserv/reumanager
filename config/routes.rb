@@ -13,12 +13,10 @@ Rails.application.routes.draw do
 
   get 'settings/index'
 
-  # resources :grant_settings
-  # resources :grant_snippets
+  resources :admin_accounts
+  resources :grants
   resources :settings
   resources :snippets
-  resources :grants
-  resources :charges
 
 
   # mount Rich::Engine => '/rich', :as => 'rich'

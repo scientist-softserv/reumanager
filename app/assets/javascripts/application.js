@@ -26,5 +26,4 @@
 //= require recommendations
 //= require registrations
 //= require rich
-//= require js/styleswitcher
-//= require js/styleswitcher_leadpage
+//= require charges

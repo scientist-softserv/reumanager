@@ -22,7 +22,7 @@
           <div class="container">
             <div class="row">
               <div class="col-xs-12" >
-                <h1 class="page-title"><%= @page.title %></h1>
+                <h1 class="page-title"><%#= @page.title %></h1>
               </div>
             </div>
           </div>
@@ -39,7 +39,9 @@
     <div id="back-top">
       <a href="#header"><i class="fa fa-arrow-up"></i></a>
     </div>
+    <script src="https://js.stripe.com/v3/"></script>
 
     <%= render "/refinery/javascripts" %>
+
   </body>
 </html>
