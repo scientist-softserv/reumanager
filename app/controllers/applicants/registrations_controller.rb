@@ -8,6 +8,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
     @applicant.set_state
     @applicant.addresses.build unless @applicant.addresses.count > 0
     @applicant.validates_personal_info
+
     render :edit
   end
 
