@@ -5,7 +5,6 @@ class AdminAccountsController < ApplicationController
   # GET /admin_accounts
   def index
     @grant = current_grant
-    @admin_accounts = AdminAccount.all
   end
 
   # GET /admin_accounts/1
@@ -15,7 +14,6 @@ class AdminAccountsController < ApplicationController
   # GET /admin_accounts/new
   def new
     @grant = current_grant
-    @admin_account = AdminAccount.new(grant_id: params[:grant_id])
   end
 
   # GET /admin_accounts/1/edit

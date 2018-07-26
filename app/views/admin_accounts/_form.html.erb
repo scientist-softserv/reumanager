@@ -1,10 +1,10 @@
-<%= form_with(model: admin_account, local: true) do |form| %>
-  <% if admin_account.errors.any? %>
+<%= form_with(model: grant, local: true) do |form| %>
+  <% if grant.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(admin_account.errors.count, "error") %> prohibited this admin_account from being saved:</h2>
+      <h2><%= pluralize(grant.errors.count, "error") %> prohibited this from being saved:</h2>
 
       <ul>
-      <% admin_account.errors.full_messages.each do |message| %>
+      <% grant.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -59,10 +59,6 @@
     <div class="field">
       <%= form.label :admin5_pwd, 'Admin 5 Password' %>
       <%= form.password_field :admin5_pwd, :class => 'form-control', id: :admin_account_admin5_pwd %>
-    </div>
-
-    <div class="field">
-      <%= form.hidden_field :grant_id, :class => 'form-control', id: :admin_account_grant_id %>
     </div>
     <br />
     <div class="actions">

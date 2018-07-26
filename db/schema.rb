@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "academic_records", force: :cascade do |t|
+  create_table "academic_records", id: :serial, force: :cascade do |t|
     t.string "university"
     t.date "start"
     t.date "finish"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "minor"
   end
 
-  create_table "addresses", force: :cascade do |t|
+  create_table "addresses", id: :serial, force: :cascade do |t|
     t.string "address"
     t.string "address2"
     t.string "city"
@@ -48,24 +48,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
-  create_table "admin_accounts", force: :cascade do |t|
-    t.string "admin1_email"
-    t.string "admin1_pwd"
-    t.string "admin2_email"
-    t.string "admin2_pwd"
-    t.string "admin3_email"
-    t.string "admin3_pwd"
-    t.string "admin4_email"
-    t.string "admin4_pwd"
-    t.string "admin5_email"
-    t.string "admin5_pwd"
-    t.bigint "grant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grant_id"], name: "index_admin_accounts_on_grant_id"
-  end
-
-  create_table "applicants", force: :cascade do |t|
+  create_table "applicants", id: :serial, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
@@ -115,7 +98,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["unlock_token"], name: "index_applicants_on_unlock_token", unique: true
   end
 
-  create_table "awards", force: :cascade do |t|
+  create_table "awards", id: :serial, force: :cascade do |t|
     t.string "title"
     t.date "date"
     t.text "description"
@@ -124,38 +107,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
-  create_table "grant_settings", force: :cascade do |t|
-    t.string "institute"
-    t.string "department"
-    t.string "department_postal_address"
-    t.date "application_start"
-    t.date "application_deadline"
-    t.date "notification_date"
-    t.date "program_start_date"
-    t.date "program_end_date"
-    t.date "checkback_date"
-    t.string "mail_from"
-    t.string "funded_by"
-    t.string "main_url"
-    t.string "department_url"
-    t.string "program_url"
-    t.bigint "grant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grant_id"], name: "index_grant_settings_on_grant_id"
-  end
-
-  create_table "grant_snippets", force: :cascade do |t|
-    t.text "general_desc"
-    t.text "highlights"
-    t.text "eligibility"
-    t.bigint "grant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["grant_id"], name: "index_grant_snippets_on_grant_id"
-  end
-
-  create_table "grants", force: :cascade do |t|
+  create_table "grants", id: :serial, force: :cascade do |t|
     t.string "program_title"
     t.string "subdomain"
     t.datetime "created_at"
@@ -165,7 +117,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "coupon_code"
   end
 
-  create_table "rails_admin_histories", force: :cascade do |t|
+  create_table "rails_admin_histories", id: :serial, force: :cascade do |t|
     t.text "message"
     t.string "username"
     t.integer "item"
@@ -177,7 +129,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["item", "table", "month", "year"], name: "index_rails_admin_histories"
   end
 
-  create_table "recommendations", force: :cascade do |t|
+  create_table "recommendations", id: :serial, force: :cascade do |t|
     t.integer "known_applicant_for"
     t.string "known_capacity"
     t.string "overall_promise"
@@ -195,7 +147,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["recommender_id"], name: "index_recommendations_on_recommender_id"
   end
 
-  create_table "recommenders", force: :cascade do |t|
+  create_table "recommenders", id: :serial, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "title"
@@ -346,7 +298,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
-  create_table "rich_rich_files", force: :cascade do |t|
+  create_table "rich_rich_files", id: :serial, force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "rich_file_file_name"
@@ -372,8 +324,8 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["seo_meta_id", "seo_meta_type"], name: "id_type_index_on_seo_meta"
   end
 
-  create_table "settings", force: :cascade do |t|
-    t.string "name", default: "", null: false
+  create_table "settings", id: :serial, force: :cascade do |t|
+    t.string "name", limit: 255, default: "", null: false
     t.text "description"
     t.string "value"
     t.datetime "created_at"
@@ -382,8 +334,8 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["name"], name: "index_settings_on_name"
   end
 
-  create_table "snippets", force: :cascade do |t|
-    t.string "name", default: "", null: false
+  create_table "snippets", id: :serial, force: :cascade do |t|
+    t.string "name", limit: 255, default: "", null: false
     t.text "description"
     t.text "value"
     t.datetime "created_at"
@@ -391,14 +343,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.integer "grant_id"
   end
 
-  create_table "universities", force: :cascade do |t|
-    t.string "name"
-    t.string "subdomain"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "email", default: "", null: false
@@ -430,7 +375,4 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "admin_accounts", "grants"
-  add_foreign_key "grant_settings", "grants"
-  add_foreign_key "grant_snippets", "grants"
 end
