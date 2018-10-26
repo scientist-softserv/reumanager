@@ -5,7 +5,7 @@ require "rvm/capistrano"
 #set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
-set :application, "glade" #matches names used in smf_template.erb
+set :application, "seti" #matches names used in smf_template.erb
 set :repository,  "https://github.com/notch8/reumanager.git"
 set :branch, "#{application}"
 set :domain, 'indra'
