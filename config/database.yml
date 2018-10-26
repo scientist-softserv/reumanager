@@ -1,15 +1,21 @@
-
+---
 development:
   adapter: mysql2
-  database: reumanager_dev
-  username: root
+  database: <%= ENV.fetch('MYSQL_DATABASE', 'reu_dev') %>
+  username: <%= ENV.fetch('MYSQL_USER', 'root') %>
+  password: <%= ENV.fetch('MYSQL_PASSWORD', 'testing123') %>
+  host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
+  port: <%= ENV.fetch('MYSQL_PORT', '3306') %>
   pool: 5
   timeout: 5000
 
 test:
   adapter: mysql2
-  database: reumanager_test
-  username: root
+  database: <%= ENV.fetch('MYSQL_TEST_DATABASE', 'reu_test') %>
+  username: <%= ENV.fetch('MYSQL_USER', 'root') %>
+  password: <%= ENV.fetch('MYSQL_PASSWORD', 'testing123') %>
+  host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
+  port: <%= ENV.fetch('MYSQL_PORT', '3306') %>
   pool: 5
   timeout: 5000
 

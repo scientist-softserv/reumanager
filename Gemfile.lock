@@ -104,9 +104,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     carmen (1.0.0)
       unicode_utils (~> 1.4.0)
     celluloid (0.15.2)
@@ -380,7 +377,6 @@ DEPENDENCIES
   bootstrap-sass (~> 2.1)
   capistrano
   capybara
-  capybara-webkit
   carmen-rails!
   client_side_validations!
   cocaine!
