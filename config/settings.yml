@@ -2,15 +2,15 @@ app_title:
   name: app_title
   description: A snippet of text that describes your program (e.g. REU in Regenerative
     Medicine, Multi-Scale Bioengineering, and Systems Biology)
-  value: GLADE REU program
+  value: SETI Institute
 university:
   name: university
   description: This is used anywhere your university name is referenced.
-  value: University of California, San Diego
+  value: SETI Institute
 department:
   name: department
   description: This is used anywhere your department name is referenced.
-  value: Scripps Institution of Oceanography
+  value:
 department_postal_address:
   name: department_postal_address
   description: This is used anywhere the postal address is needed.  TODO
@@ -20,35 +20,35 @@ application_start:
   description: This is the 'opening date' for the application system. After this
     date, students can apply. This also controls what buttons are displayed in the
     navbar and on the homepage (e.g. Apply Now and Login).
-  value: 2017-02-01
+  value: 2018-12-01
 application_deadline:
   name: application_deadline
   description: This date determines when applications can no longer be created or
     updated. Similar to the above value, buttons to apply are removed after this
     date.
-  value: 2017-04-01
+  value: 2019-02-01
 notification_date:
   name: notification_date
   description: This date is used to let the applicants know when to expect a response.
     This is used in the confirmation emails.
-  value: 2017-04-15
+  value: 2019-04-01
 program_start_date:
   name: program_start_date
   description: This date is used in the header and confirmation emails to set when
     the NSFREU program begins.
-  value: 2017-06-25
+  value: 2019-06-09
 program_end_date:
   name: program_end_date
   description: Similar to the above value, this marks the end date for your NSFREU
     program.
-  value: 2017-08-26
+  value: 2019-08-17
 check_back_date:
   name: check_back_date
   description: |
     Once the application process is closed (after the application deadline),
     this value will inform students when to check back for information about next
     year's application.
-  value: May 1, 2017
+  value: 2019-12-01
 mail_from:
   name: mail_from
   description: |
@@ -64,14 +64,14 @@ univeristy_url:
   name: university_url
   description: |
     Main URL for the parent organization, usually a university (e.g. http://ucsd.edu, http://www.rice.edu)
-  value: ''
+  value: https://seti.org
 department_url:
   name: department_url
   description: |
     Main URL for the organization, usually a department
-  value: https://scripps.ucsd.edu/
+  value: https://seti.org
 program_url:
   name: program_url
   description: |
     URL for the specific program
-  value: ''
+  value: https://www.seti.org/reu

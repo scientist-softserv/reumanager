@@ -15,13 +15,6 @@ GIT
       rails
 
 GIT
-  remote: git://github.com/tagliala/client_side_validations.git
-  revision: 0e3e8dcca005d409630ecd54ba8f1c590b72ecaa
-  branch: rails-4.2
-  specs:
-    client_side_validations (4.1.0)
-
-GIT
   remote: git://github.com/thoughtbot/cocaine.git
   revision: 7d917e1c063b2d903b7f3dd21cabfc7e573d8ac8
   specs:
@@ -109,6 +102,10 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     chronic (0.10.2)
+    client_side_validations (4.2.12)
+      jquery-rails (>= 3.1.2, < 5.0.0)
+      js_regex (~> 1.0, >= 1.0.19)
+      rails (>= 4.0.0, < 4.3.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cliver (0.3.2)
@@ -180,6 +177,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
+    js_regex (1.2.3)
+      regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.1)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
@@ -288,6 +287,7 @@ GEM
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
     redcarpet (3.0.0)
+    regexp_parser (0.5.0)
     remotipart (1.2.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -378,7 +378,7 @@ DEPENDENCIES
   capistrano
   capybara
   carmen-rails!
-  client_side_validations!
+  client_side_validations
   cocaine!
   coffee-rails
   crack

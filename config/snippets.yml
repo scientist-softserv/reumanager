@@ -3,47 +3,43 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    GLADE (Geodynamics of the Lithosphere and Deep Earth) REU program provides undergraduate research opportunities in computational geodynamics. Research projects are related to numerical modeling and computer simulation of magmatic and tectonic phenomena caused by the dynamics of Earth’s deep interior, such as plate tectonics, mountain building, seafloor spreading, and volcanism. This research provides a unique blend of geological sciences, physics, engineering (fluid mechanics, continuum and solid mechanics), numerical methods and computational sciences, and employs some of the nation’s fastest supercomputers to achieve this. Examples of big scientific questions that can be addressed with computational geodynamics are 1) Why does Earth have plate tectonics and Venus does not? 2) Do planets outside our solar system have plate tectonics? 3) Is plate tectonics necessary for a planet to be habitable?
-    <p>REU participants are matched with host mentors from a nationwide network that includes UC San Diego, UC Davis, UT Austin, U. Maryland, UC Boulder, Univ. Illinois Urbana Champagne, Virginia Tech, Rice, U. Houston, Syracuse, Georgia Tech, Michigan State, Penn State, U. Kentucky, U. Minnesota, U. Hawaii, Penn St., Portland St., and more…</p>
+    <p>The SETI Institute (<a href="https://www.seti.org">www.seti.org</a>), a non-profit private scientific research institution located in California’s Silicon Valley, invites you to apply for a summer Research Experience for Undergraduates program for highly motivated students interested in astrobiology research. You will work with scientists at the SETI Institute and at the nearby NASA Ames Research Center on projects spanning the field of astrobiology from microbiology to observational astronomy.</p>
+    <p>The program includes a week-long field trip to the SETI Institute’s Allen Telescope Array, located at the Hat Creek Radio Astronomy Observatory in Northern California, as well as a field experience at hydrothermal systems at nearby Lassen Volcanic National Park. Students will also participate in local field trips to places like the California Academy of Sciences and other nearby locations of scientific interest, and attend seminars, lectures, and discussions on astrobiology. You will live in dormitory housing near the campus of the NASA Ames Research Center and observatory facilities at Hat Creek. At the end of the summer you will give presentations on your research projects, and the best projects will be selected for submission to a national scientific conference, which the selected students will be funded to attend.</p>
 highlights:
   name: highlights
   description: ''
   value: |
+    <p>Astronomy and the Search for Extraterrestrial Intelligence (SETI)</p>
     <ul>
-      <li>Participants received a competitive $4,000 stipend</li>
-      <li>Tour of San Diego Supercomputer Center (SDSC) and accounts on SDSC’s <em>Comet</em> supercomputer</li>
-      <li>Tutorials on high performance computing, numerical modeling, scientific visualization, and high performance computing</li>
-      <li>Intensive GRE prep course provided (tuition paid by GLADE REU program)</li>
-      <li>Travel support to orientation week in La Jolla, CA and accommodation provided</li>
-      <li>Travel support to host institution and an allowance for 8 weeks of housing</li>
-      <li>Travel support to home or home institution after completing 8 weeks of research</li>
-      <li>Travel support to attend 2017 Fall AGU meeting in New Orleans (Dec 11-15)</li>
-      <li>Assistance securing housing at the host institution</li>
+      <li>Meteor showers and their parent comets</li>
+      <li>SETI and radio astronomy</li>
+      <li>Extrasolar planets</li>
+    </ul>
+    <p>Planetary Science and the Search for Life in the Solar System</p>
+    <ul>
+      <li>Asteroid dynamics</li>
+      <li>Mars geomorphology and spectroscopy</li>
+      <li>Survival of microbes under extreme conditions</li>
     </ul>
 eligibility_requirements:
   name: eligibility_requirements
   description: ''
   value: |
     <ul>
-      <li>Women and members from underrepresented groups are encouraged to apply</li>
-      <li>Completed junior year with major in physical science or engineering (or equivalent) with a 3.0 GPA</li>
-      <li>Background in geoscience is not required</li>
-      <li>Computer programming experience (Matlab, Python, C, Fortran, C++, etc) recommended but not essential</li>
+      <li>Full-time undergraduate student</li>
+      <li>U.S. citizen or U.S. permanent resident (i.e., green card)</li>
     </ul>
 application_information:
   name: application_information
   description: ''
   value: |
     <ul>
-      <li>Statement describing your research interests and personal goals for the internship</li>
-      <li>Unofficial transcript(s) from any undergraduate institutions attended in past 3 years (as a pdf file)</li>
-      <li>Contact information for one reference to provide a letter of recommendation</li>
-      <li>Description of past research experience, computer skills, and any honors /awards</li>
-      <li>statement of purpose for any past (or planned future) contributions to enhancing equity, diversity, and inclusion. This could include involvement in outreach, tutoring, mentoring, advising, or other programs designed to remove barriers facing women, minorities, veterans, people with disabilities or other individuals who are members of groups that been historically under-represented or under-served in higher education.</li>
-      <li>Once you begin an application, you can check the status of it any time by logging into this website.</li>
-      <li>All components of the application must be submitted before the deadline to be considered complete. Only complete applications will be reviewed.</li>
+      <li>Fill out the application questions, including personal statement descriptions of your experience, contact information for two people who will provide recommendations, and indication of the mentors and projects within our program that are of interest to you.</li>
+      <li>Upload your academic transcript(s) from all undergraduate institutions you have attended. Please do not upload password-protected documents.</li>
+      <li>Those providing recommendations for you must upload their letters themselves.</li>
     </ul>
 acknowledgment_of_funding_soruces:
   name: acknowledgment_of_funding_soruces
   description: Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.
-  value: This program is supported by the National Science Foundation.
+  value: |
+    The REU program is funded by the National Science Foundation. We acknowledge partnership from the SETI Institute, from the CAMPARE program at California State University, and from NASA.

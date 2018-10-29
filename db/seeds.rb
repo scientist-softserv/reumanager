@@ -2,11 +2,18 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Admins
-admins = [{ email: 'dr.stegman@gmail.com', first_name: 'Dave', last_name: 'Stegman', password: 'REUappUCSD'},
-          { email: 'crystal@notch8.com', first_name: 'Crystal', last_name: 'Richardson', password: 'REUappUCSD' },
-          { email: 'rob@notch8.com', first_name: 'Rob', last_name: 'Kaufman', password: 'testing123' }]
+admins = [
+  { email: 'matt@seti.org', first_name: 'Matthew', last_name: 'Tiscareno', password: 'REUappSETI'},
+  { email: 'kelly@notch8.com', first_name: 'Kelly', last_name: 'Chess', password: 'REUappSETI' },
+  { email: 'rob@notch8.com', first_name: 'Rob', last_name: 'Kaufman', password: 'testing123' }
+]
 
-admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
+admins.each do |user|
+  User.new(user).tap do |a|
+    a.confirmed_at = DateTime.now
+    a.save
+  end
+end
 
 # Demo Applicants
 10.times do
