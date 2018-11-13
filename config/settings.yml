@@ -2,7 +2,7 @@ app_title:
   name: app_title
   description: A snippet of text that describes your program (e.g. REU in Regenerative
     Medicine, Multi-Scale Bioengineering, and Systems Biology)
-  value: SETI Institute
+  value: SETI Institute Research Experience for Undergraduates
 university:
   name: university
   description: This is used anywhere your university name is referenced.
@@ -31,7 +31,7 @@ notification_date:
   name: notification_date
   description: This date is used to let the applicants know when to expect a response.
     This is used in the confirmation emails.
-  value: 2019-04-01
+  value: 2019-04-30
 program_start_date:
   name: program_start_date
   description: This date is used in the header and confirmation emails to set when

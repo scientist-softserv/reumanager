@@ -6,7 +6,10 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   def edit
     @applicant.set_state
-    @applicant.addresses.build unless @applicant.addresses.count > 0
+    if @applicant.addresses.count == 0
+      @applicant.addresses.build
+      @applicant.addresses.build
+    end
     @applicant.validates_personal_info
 
     render :edit

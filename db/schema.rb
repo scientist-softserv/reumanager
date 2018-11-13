@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220213737) do
+ActiveRecord::Schema.define(version: 20181113155837) do
 
   create_table "academic_records", force: true do |t|
     t.string   "university"
@@ -62,12 +62,12 @@ ActiveRecord::Schema.define(version: 20170220213737) do
     t.text     "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                            default: "",    null: false
+    t.string   "encrypted_password",               default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                    default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20170220213737) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0
+    t.integer  "failed_attempts",                  default: 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
@@ -85,11 +85,25 @@ ActiveRecord::Schema.define(version: 20170220213737) do
     t.datetime "updated_at"
     t.text     "gpa_comment"
     t.string   "found_us"
-    t.boolean  "acknowledged_dates",     default: false
+    t.boolean  "acknowledged_dates",               default: false
     t.string   "military"
     t.string   "mentor1"
     t.string   "mentor2"
     t.text     "statement_of_purpose"
+    t.string   "cell_phone"
+    t.boolean  "member_of_lgbt_community"
+    t.string   "fathers_highest_education"
+    t.string   "mothers_highest_education"
+    t.string   "veteran_information"
+    t.string   "research_interest_1"
+    t.string   "research_interest_2"
+    t.string   "research_interest_3"
+    t.string   "research_interest_4"
+    t.string   "research_interest_5"
+    t.text     "research_experience"
+    t.text     "leadership_experience"
+    t.text     "programming_experience"
+    t.text     "previous_math_science_experience"
   end
 
   add_index "applicants", ["authentication_token"], name: "index_applicants_on_authentication_token", unique: true, using: :btree
@@ -150,6 +164,11 @@ ActiveRecord::Schema.define(version: 20170220213737) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
   end
 
   create_table "rich_rich_files", force: true do |t|

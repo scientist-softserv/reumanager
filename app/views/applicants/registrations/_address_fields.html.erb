@@ -1,24 +1,24 @@
 <fieldset>
   <hr />
-  <%= f.label :label %> *
-  <%= f.select :label, options_for_select(%w(Home School Other), f.object.label), { :prompt => "Location Label" }, { :class => "form-control" } %>
+  <%= f.label :label, '* Label for this address' %>
+  <%= f.select :label, options_for_select(%w(Home School Other), f.object.label), {}, { :class => "form-control" } %>
 
-  <%= f.label :permanent %> *
-  <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), { :prompt => 'Permanent Address?' }, { :class => "form-control" } %>
+  <%= f.label :permanent, '* Is this your permanent address?' %>
+  <%= f.select :permanent, options_for_select(["Yes", "No"], f.object.permanent), {}, { :class => "form-control" } %>
 
-  <%= f.label :address %> *
+  <%= f.label :address, '* Street address' %>
   <%= f.text_field :address, :class => "form-control", :placeholder => '1600 Pennsylvania Ave' %>
 
   <%= f.label :address2, 'Apartment Number / Suite' %>
   <%= f.text_field :address2, :class => "form-control", :placeholder => 'Apt # 5' %>
 
-  <%= f.label :city %> *
+  <%= f.label :city, '* City' %>
   <%= f.text_field :city, :class => "form-control", :placeholder => 'Washington DC' %>
 
-  <%= f.label :state %> *
+  <%= f.label :state, '* State' %>
   <%= subregion_select f.object_name, :state, 'US', {selected: f.object.state ,  :prompt => 'State or Territoriy' }, :class => "form-control"  %>
 
-  <%= f.label :zip %> *
+  <%= f.label :zip, '* Zip' %>
   <%= f.text_field :zip, :class => "form-control", :placeholder => "20500" %>
 
   <br />

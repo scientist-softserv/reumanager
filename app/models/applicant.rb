@@ -2,13 +2,38 @@ class Applicant < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, and :omniauthable
 
+  EDUCATION_LEVELS = [
+    'less than high school',
+    'high school diploma',
+    'some college',
+    'associates degree',
+    'bachalors degree',
+    'masters degree',
+    'doctorate degree'
+  ]
+
+  RESEARCH_INTERESTS = [
+    'interest 1',
+    'interest 2',
+    'interest 3',
+    'interest 4',
+    'interest 5',
+    'interest 6',
+    'interest 7',
+    'interest 8',
+    'interest 9',
+  ]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
   attr_accessible :academic_level, :email, :password, :password_confirmation,
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
                   :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
-                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :statement_of_purpose
+                  :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :statement_of_purpose,
+                  :cell_phone, :member_of_lgbt_community, :veteran_information, :fathers_highest_education, :mothers_highest_education,
+                  :i_will_be_18, :research_interest_1, :research_interest_2, :research_interest_3, :research_interest_4, :research_interest_5,
+                  :research_experience, :leadership_experience, :programming_experience, :previous_math_science_experience
 
   has_many :addresses, :class_name => "Address", :dependent => :destroy
   has_many :records, :class_name => "AcademicRecord", :dependent => :destroy

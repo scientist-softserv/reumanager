@@ -24,8 +24,23 @@
   <%= f.label :title %>
   <%= f.text_field :title, :class => 'form-control', :placeholder => :Title %>
 
+  <%= f.label :address, 'Street address' %>
+  <%= f.text_field :address, :class => "form-control", :placeholder => '1600 Pennsylvania Ave' %>
+
+  <%= f.label :city, 'City' %>
+  <%= f.text_field :city, :class => "form-control", :placeholder => 'Washington DC' %>
+
+  <%= f.label :state, 'State' %>
+  <%= subregion_select f.object_name, :state, 'US', {selected: f.object.state ,  :prompt => 'State or Territoriy' }, :class => "form-control"  %>
+
+  <%= f.label :zip, 'Zip' %>
+  <%= f.text_field :zip, :class => "form-control", :placeholder => "20500" %>
+
+  <%= f.label :country %>
+  <%= f.select :country, options_for_select(['United States'] + Carmen::Country.all.map(&:name) + ["Prefer to not respond"], f.object.country), { :include_blank => true }, { :class => "form-control" } %>
+
   <br />
-  
+
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove this recommender", '#', class: "remove_fields btn btn-mini btn-danger" %>
 
