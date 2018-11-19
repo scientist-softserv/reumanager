@@ -3,13 +3,13 @@ class Applicant < ActiveRecord::Base
   # :token_authenticatable, and :omniauthable
 
   EDUCATION_LEVELS = [
-    'less than high school',
-    'high school diploma',
-    'some college',
-    'associates degree',
-    'bachalors degree',
-    'masters degree',
-    'doctorate degree'
+    "Less than high school",
+    "High school diploma",
+    "Some college",
+    "Associates degree",
+    "Bachelor's degree",
+    "Master's degree",
+    "Doctorate degree"
   ]
 
   RESEARCH_INTERESTS = [
