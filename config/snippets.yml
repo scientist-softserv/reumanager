@@ -3,21 +3,26 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    <p>The SETI Institute (<a href="https://www.seti.org">www.seti.org</a>), a non-profit private scientific research institution located in California’s Silicon Valley, invites you to apply for a summer Research Experience for Undergraduates program for highly motivated students interested in astrobiology research. You will work with scientists at the SETI Institute and at the nearby NASA Ames Research Center on projects spanning the field of astrobiology from microbiology to observational astronomy.</p>
-    <p>The program includes a week-long field trip to the SETI Institute’s Allen Telescope Array, located at the Hat Creek Radio Astronomy Observatory in Northern California, as well as a field experience at hydrothermal systems at nearby Lassen Volcanic National Park. Students will also participate in local field trips to places like the California Academy of Sciences and other nearby locations of scientific interest, and attend seminars, lectures, and discussions on astrobiology. You will live in dormitory housing near the campus of the NASA Ames Research Center and observatory facilities at Hat Creek. At the end of the summer you will give presentations on your research projects, and the best projects will be selected for submission to a national scientific conference, which the selected students will be funded to attend.</p>
+    <p>The SETI Institute (<a href="https://www.seti.org">www.seti.org</a>), a non-profit private scientific research institution located in California’s Silicon Valley, invites you to apply for a summer Research Experience for Undergraduates program for highly motivated students interested in astronomy, astrobiology, and planetary science research. You will work with scientists at the SETI Institute and at the nearby NASA Ames Research Center on projects spanning the field of astrobiology from microbiology to observational astronomy.</p>
+    <p>The program includes a week-long field trip including a collaborative project at the SETI Institute’s Allen Telescope Array, located at the Hat Creek Radio Astronomy Observatory in Northern California, as well as a field experience studying hydrothermal systems at nearby Lassen Volcanic National Park. Students will also participate in local field trips to places such as historic Lick Observatory and the NASA Ames Wind Tunnel facility and other nearby locations of scientific interest, and attend seminars, lectures, and discussions on astronomy, astrobiology, and planetary science. Students will live in dormitory housing at the NASA Ames Research Center. At the end of the summer, students will give presentations on their research projects, and many projectsApplications will be due will be selected for submission to a national scientific conference, which the selected students will be funded to attend.</p>
+    <p>It is wise to apply to many internship programs, not just ours!</p>  
+    <p>Here is a list of REU programs:</p>
+    <p>(<a href="https://www.nsf.gov/crssprgm/reu/reu_search.jsp</a>)</p>
+    <p>Here is a list of NASA internship opportunities:</p>
+    <p>(<a href="https://intern.nasa.gov/ossi/web/public/guest/searchOpps</a>)</p>
 highlights:
   name: highlights
   description: ''
   value: |
-    <p>Astronomy and the Search for Extraterrestrial Intelligence (SETI)</p>
+    <p>Astronomy and the Search for Extraterrestrial Intelligence (SETI), including but not limited to</p>
     <ul>
-      <li>Meteor showers and their parent comets</li>
+      <li>Planetary formation</li>
       <li>SETI and radio astronomy</li>
       <li>Extrasolar planets</li>
     </ul>
-    <p>Planetary Science and the Search for Life in the Solar System</p>
+    <p>Planetary Science and the Search for Life in the Solar System, including but not limited to</p>
     <ul>
-      <li>Asteroid dynamics</li>
+      <li>Saturn’s rings</li>
       <li>Mars geomorphology and spectroscopy</li>
       <li>Survival of microbes under extreme conditions</li>
     </ul>
@@ -28,6 +33,8 @@ eligibility_requirements:
     <ul>
       <li>Full-time undergraduate student</li>
       <li>U.S. citizen or U.S. permanent resident (i.e., green card)</li>
+      <li Has completed sophomore year before the summer of the internship</li>
+      <li will still be an undergraduate during the fall term following the summer of the internship</li>
     </ul>
 application_information:
   name: application_information
