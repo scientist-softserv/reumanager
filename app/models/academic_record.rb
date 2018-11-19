@@ -13,6 +13,7 @@ class AcademicRecord < ActiveRecord::Base
   validates :finish, :presence => true
   validates :gpa, :presence => true
   validates :gpa_range, :presence => true
+  validates :major, :presence => true
 
   def to_s
     record = "#{self.start.strftime("%Y.%m")} - #{self.finish.strftime("%Y.%m")} studying #{self.degree} at #{self.university}"
