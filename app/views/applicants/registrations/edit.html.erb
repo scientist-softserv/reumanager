@@ -28,6 +28,11 @@
 
         <%= f.label :citizenship, '* Citizenship' %>
         <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name) + ["Prefer to not respond"], @applicant.citizenship), { :include_blank => true }, { :class => "form-control" } %>
+
+        <div class="checkbox">
+          <%= f.check_box :green_card_holder %>
+          <%= f.label :green_card_holder, 'If your citizenship is not United States, are you a United States permanent resident (i.e., green card holder)?' %>
+        </div>
       </div>
 
     </div>
@@ -74,17 +79,17 @@
         <%= f.label :race, '* Race' %>
         <%= f.select :race, options_for_select(["American Indian or Alaskan Native", "White", "Asian", "Black or African American", "Native Hawaiian or Pacific Islander", "Prefer to not respond"], @applicant.race), { :include_blank => true }, { :class => "form-control" } %>
 
-        <%= f.label :fathers_highest_education, 'Father's highest education' %>
+        <%= f.label :fathers_highest_education, "Father's Highest Education" %>
         <%= f.select :fathers_highest_education, options_for_select(Applicant::EDUCATION_LEVELS, @applicant.fathers_highest_education), { :include_blank => true }, { :class => "form-control" } %>
 
-        <%= f.label :mothers_highest_education, 'Mother's highest education %>
+        <%= f.label :mothers_highest_education, "Mother's Highest Education" %>
         <%= f.select :mothers_highest_education, options_for_select(Applicant::EDUCATION_LEVELS, @applicant.mothers_highest_education), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :disability, '* Disability' %>
         <%- if show_disability_input? -%>
           <div id='disability_container' class='input-append'>
             <%= f.text_field :disability, :class => "form-control" %>
-            <span class='add-on'>Please specify</span>
+            <span class='add-on'>Please provide a brief description of your disability</span>
             <button id='disability_cancel' class='btn btn-ar btn-primary btn-danger' type='button'>Cancel</button>
           </div>
         <%- else -%>
@@ -117,7 +122,8 @@
     </div>
 
     <div class="panel-heading">Program Dates</div>
-    <p> Please Note: We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
+      <br>
+      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
     <div class="panel-body">
       <div class="checkbox">
         <%= f.check_box :acknowledged_dates %>
