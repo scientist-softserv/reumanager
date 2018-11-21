@@ -50,6 +50,11 @@ class Applicant < ActiveRecord::Base
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
+  validates :acknowledged_dates, presence: true
+  validates :leadership_experience, presence: true
+  validates :programming_experience, presence: true
+  validates :research_experience, presence: true
+  validates :research_interest_1, presence: true
   validates :email, presence: true, on: :update
   validates :phone, presence: true, on: :update
   validates :dob, presence: true, on: :update
@@ -59,6 +64,7 @@ class Applicant < ActiveRecord::Base
   validates :citizenship, presence: true, on: :update
   validates :disability, presence: true, on: :update
   validates :military, presence: true, on: :update
+
 
   #  validates_presence_of :records, :if => :academic_records_controller?
 
