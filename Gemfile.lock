@@ -351,6 +351,11 @@ GEM
     validates_email_format_of (1.5.3)
     warden (1.2.3)
       rack (>= 1.0)
+    web-console (2.3.0)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     websocket-driver (0.3.2)
     what_methods (1.0.1)
     whenever (0.9.0)
@@ -423,6 +428,7 @@ DEPENDENCIES
   state_machine
   uglifier
   validates_email_format_of
+  web-console
   what_methods
   whenever
   wirble
