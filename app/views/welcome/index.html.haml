@@ -6,6 +6,18 @@
       = image_tag('seti-reu-2019.jpg', class: 'pull-left img-responsive center-block')
     .col-md-6
       = raw Snippet[:general_description]
+      %p 
+        It is wise to apply to many internship programs, not just ours!
+      %p 
+        %strong
+          Here is a list of REU programs:
+      %p 
+        = link_to "https://www.nsf.gov/crssprgm/reu/reu_search.jsp"
+      %p 
+        %strong
+          Here is a list of NASA internship opportunities:
+      %p 
+        = link_to "https://intern.nasa.gov/ossi/web/public/guest/searchOpps"
     .col-md-12
       - if expired?
         %h3.deadline
@@ -25,7 +37,9 @@
           Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2019 Program. Applications will be due at 11:59pm Pacific Time on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b %d")}.
         %br  
         %p
-          Please Note: We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.
+          %strong
+            Please Note:
+          We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.
 
 
   .col-md-12

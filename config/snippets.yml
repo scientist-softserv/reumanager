@@ -3,13 +3,8 @@ general_description:
   description: This is the text used as a general description for your program.
     It is displayed on the front page under the main image.
   value: |
-    <p>The SETI Institute (<a href="https://www.seti.org">www.seti.org</a>), a non-profit private scientific research institution located in California’s Silicon Valley, invites you to apply for a summer Research Experience for Undergraduates program for highly motivated students interested in astronomy, astrobiology, and planetary science research. You will work with scientists at the SETI Institute and at the nearby NASA Ames Research Center on projects spanning the field of astrobiology from microbiology to observational astronomy.</p>
+    <p>The SETIiii Institute (<a href="https://www.seti.org">www.seti.org</a>), a non-profit private scientific research institution located in California’s Silicon Valley, invites you to apply for a summer Research Experience for Undergraduates program for highly motivated students interested in astronomy, astrobiology, and planetary science research. You will work with scientists at the SETI Institute and at the nearby NASA Ames Research Center on projects spanning the field of astrobiology from microbiology to observational astronomy.</p>
     <p>The program includes a week-long field trip including a collaborative project at the SETI Institute’s Allen Telescope Array, located at the Hat Creek Radio Astronomy Observatory in Northern California, as well as a field experience studying hydrothermal systems at nearby Lassen Volcanic National Park. Students will also participate in local field trips to places such as historic Lick Observatory and the NASA Ames Wind Tunnel facility and other nearby locations of scientific interest, and attend seminars, lectures, and discussions on astronomy, astrobiology, and planetary science. Students will live in dormitory housing at the NASA Ames Research Center. At the end of the summer, students will give presentations on their research projects, and many projectsApplications will be due will be selected for submission to a national scientific conference, which the selected students will be funded to attend.</p>
-    <p>It is wise to apply to many internship programs, not just ours!</p>  
-    <p>Here is a list of REU programs:</p>
-    <p>(<a href="https://www.nsf.gov/crssprgm/reu/reu_search.jsp</a>)</p>
-    <p>Here is a list of NASA internship opportunities:</p>
-    <p>(<a href="https://intern.nasa.gov/ossi/web/public/guest/searchOpps</a>)</p>
 highlights:
   name: highlights
   description: ''
