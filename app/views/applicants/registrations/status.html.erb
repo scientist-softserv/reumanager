@@ -66,6 +66,7 @@
 </div>
 
 <% if current_applicant.state == 'completed_recommender_info' %>
+  <strong>Please note, the submission of this application will be final.</strong>
   <%= content_tag :div, content_tag(:p, link_to("Submit Application", submit_application_path, :class => "btn btn-success")), :class => 'inner' %>
 <% elsif expired? %>
   <h3>The application deadline has past</h3>
