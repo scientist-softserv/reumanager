@@ -3,6 +3,7 @@
   <% site_bar = render('/refinery/site_bar', :head => true) -%>
   <head>
     <%= render "/refinery/head" %>
+    <%= csrf_meta_tags %>
   </head>
   <!-- Preloader -->
   <div id="preloader">

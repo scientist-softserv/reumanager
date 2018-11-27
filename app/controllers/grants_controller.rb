@@ -22,8 +22,11 @@ class GrantsController < ApplicationController
 
   # POST /grants
   def create
-
     @grant = Grant.new(grant_params)
+    @user = User.new(params[:grant][:users])
+    @user.is_super_admin = true 
+    @user.save
+    @grant.users << User.last
 
     if @grant.valid?
       customer = Stripe::Customer.create(
