@@ -8,11 +8,12 @@ class AcademicRecord < ActiveRecord::Base
     content_type: { content_type: ['application/pdf','image/jpg', 'image/jpeg', 'image/gif', 'image/png'] },
     :size => { :in => 0..10.megabytes }
 
-  validates :university, :presence => true
-  validates :start, :presence => true
-  validates :finish, :presence => true
   validates :gpa, :presence => true
   validates :gpa_range, :presence => true
+  validates :finish, :presence => true
+  validates :major, :presence => true
+  validates :start, :presence => true
+  validates :university, :presence => true
 
   def to_s
     record = "#{self.start.strftime("%Y.%m")} - #{self.finish.strftime("%Y.%m")} studying #{self.degree} at #{self.university}"

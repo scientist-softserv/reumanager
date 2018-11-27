@@ -62,6 +62,7 @@ group :development do
   gem 'rb-inotify', :require => false
   gem 'ruby_gntp'
   gem 'simplecov'
+  gem 'web-console'
   gem 'what_methods'
 	gem 'wirble'
 end

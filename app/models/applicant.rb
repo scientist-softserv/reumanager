@@ -3,13 +3,13 @@ class Applicant < ActiveRecord::Base
   # :token_authenticatable, and :omniauthable
 
   EDUCATION_LEVELS = [
-    'less than high school',
-    'high school diploma',
-    'some college',
-    'associates degree',
-    'bachalors degree',
-    'masters degree',
-    'doctorate degree'
+    "Less than high school",
+    "High school diploma",
+    "Some college",
+    "Associates degree",
+    "Bachelor's degree",
+    "Master's degree",
+    "Doctorate degree"
   ]
 
   RESEARCH_INTERESTS = [
@@ -26,7 +26,7 @@ class Applicant < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
-  attr_accessible :academic_level, :email, :password, :password_confirmation,
+  attr_accessible :academic_level, :email, :green_card_holder, :password, :password_confirmation,
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
                   :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
@@ -50,6 +50,11 @@ class Applicant < ActiveRecord::Base
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
+  validates :acknowledged_dates, presence: true
+  validates :leadership_experience, presence: true
+  validates :programming_experience, presence: true
+  validates :research_experience, presence: true
+  validates :research_interest_1, presence: true
   validates :email, presence: true, on: :update
   validates :phone, presence: true, on: :update
   validates :dob, presence: true, on: :update
@@ -59,6 +64,7 @@ class Applicant < ActiveRecord::Base
   validates :citizenship, presence: true, on: :update
   validates :disability, presence: true, on: :update
   validates :military, presence: true, on: :update
+
 
   #  validates_presence_of :records, :if => :academic_records_controller?
 
@@ -343,8 +349,8 @@ class Applicant < ActiveRecord::Base
 
   def validates_recommender_info
     validates_presence_of :recommenders, :message => "can't be blank.  Please add one recommender."
-    if self.recommenders.size < 1
-      self.errors.add(:base, 'Please have at least 1 recommenders')
+    if self.recommenders.size < 2
+      self.errors.add(:base, 'Please have at least 2 recommenders')
     end
     return true if self.errors.empty? && !self.recommenders.blank? && self.recommenders.last.valid?
   end

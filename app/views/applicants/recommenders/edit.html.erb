@@ -1,21 +1,22 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">Recommender Info</div>
+  <div class="panel-heading">Recommender Information</div>
   <div class="panel-body">
 
     <%= form_for(@applicant, :url => applicants_recommenders_url, :html => { :role => 'form', :method => :put }) do |f| %>
 
       <%= errors_for @applicant %>
 
-      <p><b>Please submit contact information for 1 letter of recommendation.</b></p>
+      <p><b>Please submit contact information for 2 letters of recommendation.</b></p>
+      
+      <div class="form-group">
+        <%= f.fields_for :recommenders do |builder| %>
+          <%= render 'recommender_fields', f: builder %>
+        <% end %>
 
-      <%= f.fields_for :recommenders do |builder| %>
-        <%= render 'recommender_fields', f: builder %>
-      <% end %>
-      <div class='add-container'>
-        <b>Please note that only ONE letter of recommendation is read for your application. Do NOT add a second recommender unless your first recommender did not respond or needs to be modified.</b>
-        <p>
+        <b>Please note that only up to TWO letters of recommendation are read for your application. Do NOT add a third recommender unless one of your first two recommenders did not respond or needs to be modified.</b>
+        <div class='add-container'>
           <%= link_to_add_fields "Add recommender", f, :recommenders %>
-        </p>
+        </div>
       </div>
       <hr />
 
@@ -27,7 +28,7 @@
         <%= f.submit "Save Recommendation Info", :class => "btn btn-ar btn-primary" %>
       </p>
 
-      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
+      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue your application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
 
     <%- end -%>
 
