@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20181129051624) do
     t.string   "race"
     t.string   "academic_level"
     t.text     "lab_skills"
-    t.text     "cpu_skills"
     t.text     "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
