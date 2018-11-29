@@ -1,27 +1,53 @@
 <fieldset>
-  <%= f.label :university %>
-  <%= f.text_field :university, :class => 'form-control'%>
-  <%= f.label :start %>
-  <%= f.text_field :start, 'data-behaviour' => 'datepicker', :placeholder => 'Start (YYYY-MM-DD)', :class => 'form-control' %>
-  <%= f.label :finish %>
-  <%= f.text_field :finish, 'data-behaviour' => 'datepicker', :placeholder => 'Finish or Expected Finish (YYYY-MM-DD)', :class => 'form-control' %>
-  <%= f.label :major %>
-  <%= f.text_field :major, :placeholder => 'Computer Science', :class => 'form-control' %>
-  <%= f.label :minor %>
-  <%= f.text_field :minor, :placeholder => 'Literature', :class => 'form-control' %>
-
-  <%= f.label :gpa, 'GPA' %>
-  <div class="inner control-group">
-    <%= f.select :gpa, gpa_range, {:include_blank => ''}, {:class => :span1} %> out of
-    <%= f.select :gpa_range, [4.0, 5.0, 10.0], {:include_blank => 'GPA Range'}, {:class => :span2} %>
+  <div class="panel-heading">Research Interest</div>
+  <div class="panel-body">
+    <%= f.label :research_interest_1, 'First Choice' %>
+    <%= f.select :research_interest_1, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_1), { :include_blank => true }, { :class => "form-control" } %>
+    <%= f.label :research_interest_2, 'Second Choice' %>
+    <%= f.select :research_interest_2, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_2), { :include_blank => true }, { :class => "form-control" } %>
+    <%= f.label :research_interest_3, 'Third Choice' %>
+    <%= f.select :research_interest_3, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_3), { :include_blank => true }, { :class => "form-control" } %>
   </div>
 
-  <div class="inner">
-    <%= f.label :transcript %>
-    <p>Attach a PDF or image of your transcript.</p>
-    <%= f.file_field :transcript %>
-    <%= content_tag :p, raw("Current attachment: #{link_to current_applicant.records.find_by_applicant_id(current_applicant).transcript_file_name, current_applicant.records.find_by_applicant_id(current_applicant).transcript.url}") unless f.object.new_record?  %>
+  <div class="panel-heading">Experience</div>
+  <div class="panel-body">
+    <%= f.label :research_experience %>
+    <%= f.text_area :research_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any research related experience."  %>
+
+    <%= f.label :leadership_experience %>
+    <%= f.text_area :leadership_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any leadership related experience (it does not need to be academic)."  %>
+
+    <%= f.label :programming_experience %>
+    <%= f.text_area :programming_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any programming related experience, with mention of specific programming languages as appropriate (C / C++, Fortran, HTML, IDL, Java, Javascript, MATLAB, Python, Etc.)"  %>
+    
+    <%= f.label :cpu_skills, 'Computer Skills' %>
+    <%= f.text_area :cpu_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any computer related skills (Windows, Unix/Linux, Macintosh, Microsoft Office (or equivalent), Photoshop (or equivalent))"  %>
   </div>
+
+  <div class="panel-heading">Academic Information</div>
+    <%= f.label :university %>
+    <%= f.text_field :university, :class => 'form-control'%>
+    <%= f.label :start %>
+    <%= f.text_field :start, 'data-behaviour' => 'datepicker', :placeholder => 'Start (YYYY-MM-DD)', :class => 'form-control' %>
+    <%= f.label :finish %>
+    <%= f.text_field :finish, 'data-behaviour' => 'datepicker', :placeholder => 'Finish or Expected Finish (YYYY-MM-DD)', :class => 'form-control' %>
+    <%= f.label :major %>
+    <%= f.text_field :major, :placeholder => 'Computer Science', :class => 'form-control' %>
+    <%= f.label :minor %>
+    <%= f.text_field :minor, :placeholder => 'Literature', :class => 'form-control' %>
+
+    <%= f.label :gpa, 'GPA' %>
+    <div class="inner control-group">
+      <%= f.select :gpa, gpa_range, {:include_blank => ''}, {:class => :span1} %> out of
+      <%= f.select :gpa_range, [4.0, 5.0, 10.0], {:include_blank => 'GPA Range'}, {:class => :span2} %>
+    </div>
+
+    <div class="inner">
+      <%= f.label :transcript %>
+      <p>Attach a PDF or image of your transcript.</p>
+      <%= f.file_field :transcript %>
+      <%= content_tag :p, raw("Current attachment: #{link_to current_applicant.records.find_by_applicant_id(current_applicant).transcript_file_name, current_applicant.records.find_by_applicant_id(current_applicant).transcript.url}") unless f.object.new_record?  %>
+    </div>
 
   <br />
   <%= f.hidden_field :_destroy %>
