@@ -26,7 +26,7 @@ class Applicant < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
-  attr_accessible :academic_level, :email, :green_card_holder, :password, :password_confirmation,
+  attr_accessible :academic_level, :email, :green_card_holder, :password, :password_confirmation, :confirmed_at,
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :cpu_skills, :gpa_comment, :lab_skills, :addresses_attributes,
                   :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
@@ -50,11 +50,11 @@ class Applicant < ActiveRecord::Base
   validates_associated :addresses, :awards, :records, :recommenders
   validates_presence_of :first_name, :on => :create, :message => "can't be blank"
   validates_presence_of :last_name, :on => :create, :message => "can't be blank"
-  validates :acknowledged_dates, presence: true
-  validates :leadership_experience, presence: true
-  validates :programming_experience, presence: true
-  validates :research_experience, presence: true
-  validates :research_interest_1, presence: true
+  validates :acknowledged_dates, presence: true, on: :update
+  validates :leadership_experience, presence: true, on: :update
+  validates :programming_experience, presence: true, on: :update
+  validates :research_experience, presence: true, on: :update
+  validates :research_interest_1, presence: true, on: :update
   validates :email, presence: true, on: :update
   validates :phone, presence: true, on: :update
   validates :dob, presence: true, on: :update
