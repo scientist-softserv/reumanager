@@ -123,7 +123,6 @@
 
     <div class="panel-heading">Program Dates</div>
       <br>
-<<<<<<< HEAD
       <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
     <div class="panel-body">
       <div class="checkbox">
@@ -131,20 +130,6 @@
         <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
       </div>
     </div>
-||||||| merged common ancestors
-      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
-=======
-      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date. We require all interns to be present for the entire program, including the first day. However, we are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
-    <div class="panel-body">
-      <div class="form-group">
-        <div class="checkbox">
-          <%= f.check_box :acknowledged_dates %>
-          <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
-        </div>
-      </div>
-    </div>
-
->>>>>>> Add back in acknowledged dates
 
     <%= render "applicants/shared/nav" %>
 
