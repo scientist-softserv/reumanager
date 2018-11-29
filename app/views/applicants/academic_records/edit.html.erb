@@ -1,7 +1,6 @@
 <div class="panel panel-primary">
   <%= form_for(current_applicant, :url => applicants_records_url, :html => { :method => :put, :multipart => true }) do |f| %>
-    <div class="panel-heading">Academic Information</div>
-    <div class="panel-body">
+    = link_to "Click here to view the full list of mentors and projects for Summer 2019."
       <p>Complete one of these for each college or university you have attended</p>
       <%= errors_for current_applicant %>
 
@@ -11,7 +10,6 @@
         <% end %>
         <div class="add-container"><%= link_to_add_fields "Add institution", f, :records %></div>
       </div>
-    </div>
 
     <div class="panel-heading">GPA Comments</div>
     <div class="panel-body">
@@ -24,33 +22,6 @@
         <%= render 'award_fields', f: builder %>
       <% end %>
       <div class="add-container"><%= link_to_add_fields "Add award", f, :awards %></div>
-    </div>
-
-    <div class="panel-heading">Research Interest</div>
-      = link_to "Click here to view the full list of mentors and projects for Summer 2019."
-    <div class="panel-body">
-
-      <%= f.label :research_interest_1, 'First Choice' %>
-      <%= f.select :research_interest_1, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_1), { :include_blank => true }, { :class => "form-control" } %>
-      <%= f.label :research_interest_2, 'Second Choice' %>
-      <%= f.select :research_interest_2, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_2), { :include_blank => true }, { :class => "form-control" } %>
-      <%= f.label :research_interest_3, 'Third Choice' %>
-      <%= f.select :research_interest_3, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_3), { :include_blank => true }, { :class => "form-control" } %>
-    </div>
-
-    <div class="panel-heading">Experience</div>
-    <div class="panel-body">
-      <%= f.label :research_experience %>
-      <%= f.text_area :research_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any research related experience."  %>
-
-      <%= f.label :leadership_experience %>
-      <%= f.text_area :leadership_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any leadership related experience (it does not need to be academic)."  %>
-
-      <%= f.label :programming_experience %>
-      <%= f.text_area :programming_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any programming related experience, with mention of specific programming languages as appropriate"  %>
-
-      <%= f.label :cpu_skills, 'Computer Skills' %>
-      <%= f.text_area :cpu_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any computer related skills (Windows, Unix/Linux, Macintosh, Microsoft Office (or equivalent), Photoshop (or equivalent), C / C++, Fortran, HTML, IDL, Java, Javascript, MATLAB, Python, Etc.)"  %>
     </div>
 
     <%= render "applicants/shared/nav" %>

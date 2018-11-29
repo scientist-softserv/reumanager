@@ -129,6 +129,10 @@
         <%= f.check_box :acknowledged_dates %>
         <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
       </div>
+      <div class="checkbox">
+        <%= f.check_box :acknowledged_dates %>
+        <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
+      </div>
     </div>
 
     <%= render "applicants/shared/nav" %>

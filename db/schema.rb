@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181121064429) do
+ActiveRecord::Schema.define(version: 20181129051624) do
 
   create_table "academic_records", force: true do |t|
     t.string   "university"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20181121064429) do
     t.datetime "transcript_updated_at"
     t.string   "major"
     t.string   "minor"
+    t.string   "research_interest_1"
+    t.string   "research_interest_2"
+    t.string   "research_interest_3"
+    t.text     "cpu_skills"
+    t.text     "research_experience"
+    t.text     "leadership_experience"
+    t.text     "programming_experience"
   end
 
   create_table "addresses", force: true do |t|
@@ -62,12 +69,12 @@ ActiveRecord::Schema.define(version: 20181121064429) do
     t.text     "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
-    t.string   "email",                            default: "",    null: false
-    t.string   "encrypted_password",               default: "",    null: false
+    t.string   "email",                     default: "",    null: false
+    t.string   "encrypted_password",        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0
+    t.integer  "sign_in_count",             default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -76,7 +83,7 @@ ActiveRecord::Schema.define(version: 20181121064429) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                  default: 0
+    t.integer  "failed_attempts",           default: 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
@@ -85,7 +92,7 @@ ActiveRecord::Schema.define(version: 20181121064429) do
     t.datetime "updated_at"
     t.text     "gpa_comment"
     t.string   "found_us"
-    t.boolean  "acknowledged_dates",               default: false
+    t.boolean  "acknowledged_dates",        default: false
     t.string   "military"
     t.string   "mentor1"
     t.string   "mentor2"
@@ -95,15 +102,6 @@ ActiveRecord::Schema.define(version: 20181121064429) do
     t.string   "fathers_highest_education"
     t.string   "mothers_highest_education"
     t.string   "veteran_information"
-    t.string   "research_interest_1"
-    t.string   "research_interest_2"
-    t.string   "research_interest_3"
-    t.string   "research_interest_4"
-    t.string   "research_interest_5"
-    t.text     "research_experience"
-    t.text     "leadership_experience"
-    t.text     "programming_experience"
-    t.text     "previous_math_science_experience"
     t.boolean  "green_card_holder"
   end
 
