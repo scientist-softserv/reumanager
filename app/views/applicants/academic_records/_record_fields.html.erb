@@ -1,12 +1,31 @@
 <fieldset>
   <div class="panel-heading">Research Interest</div>
   <div class="panel-body">
+    <%= link_to "Click here to view the full list of mentors and projects for Summer 2019.", 'https://www.seti.org/seti-institute-reu-mentors-2019' %>
+    <div class="small-font">
+      <li><strong>Pascal Lee:</strong>  Study of Noctis Landing as a proposed first landing site / exploration zone for humans on Mars</li>
+      <li><strong>Ann Marie Cody:</strong>  Exoplanets and their Formation: the Kepler View</li>
+      <li><strong>Uma Gorti:</strong>  Surface density distributions of gas and dust in disks from  ALMA emission maps and line profiles</li>
+      <li><strong>Virginia Gulick:</strong>  Fluvial and hydrothermal studies using high-resolution images, Digital Elevation Maps, and spectral data</li>
+      <li><strong>Virginia Gulick:</strong>  Developing science analysis algorithms for future planetary missions</li> 
+      <li><strong>Virginia Gulick:</strong>  Developing collaborative science and crowdsourcing websites</li></li> 
+      <li><strong>Peter Jenniskens:</strong>  How the comet crumbles</li>
+      <li><strong>Friedemann Freund:</strong>  Electrostatic Charging: a Universal Problem</li>
+      <li><strong>David Summers:</strong>  Microbial detection at low levels by iodine-125 radiolabeling</li>
+      <li><strong>David Summers:</strong>  Biosignature detection</li>
+      <li><strong>Franck Marchis:</strong>  The Study of Asteroids with the eVscope Network</li>
+      <li><strong>Kathryn Bywater:</strong>  Nanopore technology for the detection of biosignatures</li>
+      <li><strong>Andrew Siemion:</strong>  SETI research</li>
+      <li><strong>Matthew Tiscareno:</strong>  Cassini imaging of Saturn’s rings</li>
+    <div>
+    <br>
     <%= f.label :research_interest_1, 'First Choice' %>
     <%= f.select :research_interest_1, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_1), { :include_blank => true }, { :class => "form-control" } %>
     <%= f.label :research_interest_2, 'Second Choice' %>
     <%= f.select :research_interest_2, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_2), { :include_blank => true }, { :class => "form-control" } %>
     <%= f.label :research_interest_3, 'Third Choice' %>
     <%= f.select :research_interest_3, options_for_select(AcademicRecord::RESEARCH_INTERESTS, f.object.research_interest_3), { :include_blank => true }, { :class => "form-control" } %>
+    <br>
   </div>
 
   <div class="panel-heading">Experience</div>
@@ -25,6 +44,7 @@
   </div>
 
   <div class="panel-heading">Academic Information</div>
+    <p>Complete one of these for each college or university you have attended</p>
     <%= f.label :university %>
     <%= f.text_field :university, :class => 'form-control'%>
     <%= f.label :start %>

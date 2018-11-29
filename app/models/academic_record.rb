@@ -1,15 +1,17 @@
 class AcademicRecord < ActiveRecord::Base
 
   RESEARCH_INTERESTS = [
-    'interest 1',
-    'interest 2',
-    'interest 3',
-    'interest 4',
-    'interest 5',
-    'interest 6',
-    'interest 7',
-    'interest 8',
-    'interest 9',
+    'Pascal Lee',
+    'Ann Marie Cody',
+    'Uma Gorti',
+    'Virginia Gulick',
+    'Peter Jenniskens',
+    'Friedemann Freund',
+    'David Summers',
+    'Franck Marchis',
+    'Kathryn Bywater',
+    'Andrew Siemion',
+    'Matthew Tiscareno',
   ]
 
   attr_accessible :academic_level, :cpu_skills, :degree, :finish, :gpa, :gpa_comment, :gpa_range, :leadership_experience, :programming_experience, :research_experience, :research_interest_1, :research_interest_2, :research_interest_3, :start, :university, :major, :minor
