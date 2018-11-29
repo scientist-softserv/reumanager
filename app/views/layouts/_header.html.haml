@@ -7,4 +7,4 @@
     -#   - if Setting[:department]
     -#     | , #{link_to(Setting[:department], Setting[:department_url])}
     %h2{ :id => "header_link_2" }
-      = link_to("#{Setting[:app_title]} (#{Setting[:program_start_date].to_date.strftime("%B %d, %Y")} - #{Setting[:program_end_date].to_date.strftime("%B %d, %Y")})", Setting[:program_url])
+      = link_to("#{Setting[:app_title]}", Setting[:program_url])

@@ -1,7 +1,5 @@
 <div class="panel panel-primary">
   <%= form_for(current_applicant, :url => applicants_records_url, :html => { :method => :put, :multipart => true }) do |f| %>
-    = link_to "Click here to view the full list of mentors and projects for Summer 2019."
-      <p>Complete one of these for each college or university you have attended</p>
       <%= errors_for current_applicant %>
 
       <div class="form-group">
