@@ -28,6 +28,11 @@
 
         <%= f.label :citizenship, '* Citizenship' %>
         <%= f.select :citizenship, options_for_select(['United States'] + Carmen::Country.all.map(&:name) + ["Prefer to not respond"], @applicant.citizenship), { :include_blank => true }, { :class => "form-control" } %>
+
+        <div class="checkbox">
+          <%= f.check_box :green_card_holder %>
+          <%= f.label :green_card_holder, 'If your citizenship is not United States, are you a United States permanent resident (i.e., green card holder)?' %>
+        </div>
       </div>
 
     </div>
@@ -36,6 +41,7 @@
     <div class="panel-body">
 
       <p>Please enter at least your permanent address and your school mailing address.</p>
+      <p>If your school mailing address is also your permanent address, please enter it in both locations.</p>
 
       <div class="form-group">
         <%= f.fields_for :addresses do |builder| %>
@@ -51,7 +57,7 @@
 
     </div>
 
-    <div class="panel-heading">Personal Info</div>
+    <div class="panel-heading">Personal Information</div>
     <div class="panel-body">
 
       <div class="form-group">
@@ -71,30 +77,30 @@
         <%= f.select :ethnicity, options_for_select( ["Hispanic or Latino", "Not Hispanic or Latino", "Prefer to not respond"], @applicant.ethnicity), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :race, '* Race' %>
-        <%= f.select :race, options_for_select(["American Indian or Alaskan Native", "Caucasian", "Asian", "Black or African American", "Native Hawaiian or Pacific Islander", "Prefer to not respond"], @applicant.race), { :include_blank => true }, { :class => "form-control" } %>
+        <%= f.select :race, options_for_select(["American Indian or Alaskan Native", "White", "Asian", "Black or African American", "Native Hawaiian or Pacific Islander", "Prefer to not respond"], @applicant.race), { :include_blank => true }, { :class => "form-control" } %>
 
-        <%= f.label :fathers_highest_education %>
+        <%= f.label :fathers_highest_education, "Father's Highest Education" %>
         <%= f.select :fathers_highest_education, options_for_select(Applicant::EDUCATION_LEVELS, @applicant.fathers_highest_education), { :include_blank => true }, { :class => "form-control" } %>
 
-        <%= f.label :mothers_highest_education %>
+        <%= f.label :mothers_highest_education, "Mother's Highest Education" %>
         <%= f.select :mothers_highest_education, options_for_select(Applicant::EDUCATION_LEVELS, @applicant.mothers_highest_education), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :disability, '* Disability' %>
         <%- if show_disability_input? -%>
           <div id='disability_container' class='input-append'>
             <%= f.text_field :disability, :class => "form-control" %>
-            <span class='add-on'>Please specify</span>
+            <span class='add-on'>Please provide a brief description of your disability</span>
             <button id='disability_cancel' class='btn btn-ar btn-primary btn-danger' type='button'>Cancel</button>
           </div>
         <%- else -%>
           <%= f.select :disability, options_for_select(["No", "Yes", "Prefer to not respond"], @applicant.disability), { :include_blank => true }, { :class => "form-control" } %>
         <%- end -%>
 
-        <%= f.label :are_you_a_veteran_of_the_USA_military?, '* Are you a verteran of the USA military?' %>
+        <%= f.label :are_you_a_veteran_of_the_USA_military?, '* Are you a veteran of the USA military?' %>
         <%= f.select :military, options_for_select(["No", "Yes", "Prefer to not respond"], @applicant.military), { :include_blank => true }, { :class => "form-control" } %>
 
         <%= f.label :veteran_information %>
-        <%= f.select :veteran_information, options_for_select(['VET-100', 'VET-100a'], @applicant.military), { :include_blank => true }, { :class => "form-control" } %>
+        <%= f.select :veteran_information, options_for_select(['VETS-100', 'VETS-100a'], @applicant.military), { :include_blank => true }, { :class => "form-control" } %>
       </div>
     </div>
 
@@ -116,6 +122,8 @@
     </div>
 
     <div class="panel-heading">Program Dates</div>
+      <br>
+      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
     <div class="panel-body">
       <div class="checkbox">
         <%= f.check_box :acknowledged_dates %>

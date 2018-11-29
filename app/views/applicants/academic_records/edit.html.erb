@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <%= form_for(current_applicant, :url => applicants_records_url, :html => { :method => :put, :multipart => true }) do |f| %>
-    <div class="panel-heading">Academic Info</div>
+    <div class="panel-heading">Academic Information</div>
     <div class="panel-body">
       <p>Complete one of these for each college or university you have attended</p>
       <%= errors_for current_applicant %>
@@ -9,7 +9,7 @@
         <%= f.fields_for :records do |builder| %>
           <%= render 'record_fields', f: builder %>
         <% end %>
-        <div class="add-container"><%= link_to_add_fields "Add academic record", f, :records %></div>
+        <div class="add-container"><%= link_to_add_fields "Add institution", f, :records %></div>
       </div>
     </div>
 
@@ -27,6 +27,7 @@
     </div>
 
     <div class="panel-heading">Research Interest</div>
+      = link_to "Click here to view the full list of mentors and projects for Summer 2019."
     <div class="panel-body">
 
       <%= f.label :research_interest_1, 'First Choice' %>
@@ -35,30 +36,21 @@
       <%= f.select :research_interest_2, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_2), { :include_blank => true }, { :class => "form-control" } %>
       <%= f.label :research_interest_3, 'Third Choice' %>
       <%= f.select :research_interest_3, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_3), { :include_blank => true }, { :class => "form-control" } %>
-      <%= f.label :research_interest_4, 'Fourth Choice' %>
-      <%= f.select :research_interest_4, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_4), { :include_blank => true }, { :class => "form-control" } %>
-      <%= f.label :research_interest_5, 'Fifth Choice' %>
-      <%= f.select :research_interest_5, options_for_select(Applicant::RESEARCH_INTERESTS, f.object.research_interest_5), { :include_blank => true }, { :class => "form-control" } %>
-
     </div>
 
     <div class="panel-heading">Experience</div>
     <div class="panel-body">
-      <%= f.label :previous_math_science_experience %>
-      <%= f.text_area :previous_math_science_experience, :class => 'form-control', :rows => 2, :placeholder => "Describe your previous math and science experience."  %>
-
       <%= f.label :research_experience %>
       <%= f.text_area :research_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any research related experience."  %>
 
       <%= f.label :leadership_experience %>
-      <%= f.text_area :leadership_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any leadership related experience."  %>
+      <%= f.text_area :leadership_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any leadership related experience (it does not need to be academic)."  %>
 
       <%= f.label :programming_experience %>
-      <%= f.text_area :programming_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any programming related experience."  %>
+      <%= f.text_area :programming_experience, :class => 'form-control', :rows => 2, :placeholder => "Please list any programming related experience, with mention of specific programming languages as appropriate"  %>
 
       <%= f.label :cpu_skills, 'Computer Skills' %>
-      <%= f.text_area :cpu_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any computer related skills (e.g. Application experience, programming ability, etc.)"  %>
-
+      <%= f.text_area :cpu_skills, :class => 'form-control', :rows => 2, :placeholder => "Please list any computer related skills (Windows, Unix/Linux, Macintosh, Microsoft Office (or equivalent), Photoshop (or equivalent), C / C++, Fortran, HTML, IDL, Java, Javascript, MATLAB, Python, Etc.)"  %>
     </div>
 
     <%= render "applicants/shared/nav" %>
@@ -66,7 +58,7 @@
     <div class="panel-body">
       <hr />
       <p class='clear'><%= f.submit "Save Academic Info", :class => "btn btn-success" %></p>
-      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue you application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
+      <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue your application at anytime, however, it will not be accepted until all the above data has been submitted.</strong></small>
     </div>
 
   <% end %>
