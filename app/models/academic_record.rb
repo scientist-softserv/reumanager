@@ -1,20 +1,5 @@
 class AcademicRecord < ActiveRecord::Base
-
-  RESEARCH_INTERESTS = [
-    'Pascal Lee',
-    'Ann Marie Cody',
-    'Uma Gorti',
-    'Virginia Gulick',
-    'Peter Jenniskens',
-    'Friedemann Freund',
-    'David Summers',
-    'Franck Marchis',
-    'Kathryn Bywater',
-    'Andrew Siemion',
-    'Matthew Tiscareno',
-  ]
-
-  attr_accessible :academic_level, :cpu_skills, :degree, :finish, :gpa, :gpa_comment, :gpa_range, :leadership_experience, :programming_experience, :research_experience, :research_interest_1, :research_interest_2, :research_interest_3, :start, :university, :major, :minor
+  attr_accessible :academic_level, :degree, :finish, :gpa, :gpa_comment, :gpa_range, :start, :university, :major, :minor
   belongs_to :applicant, :class_name => "Applicant", :foreign_key => "applicant_id"
   attr_accessible :transcript
   has_attached_file :transcript, :url => ":rails_relative_url_root/system/:class/:attachment/:id_partition/:style/:filename"
@@ -25,11 +10,7 @@ class AcademicRecord < ActiveRecord::Base
   validates :finish, presence: true
   validates :gpa, presence: true
   validates :gpa_range, presence: true
-  validates :leadership_experience, presence: true
   validates :major, presence: true
-  validates :programming_experience, presence: true
-  validates :research_experience, presence: true
-  validates :research_interest_1, presence: true
   validates :start, presence: true
   validates :university, presence: true
 

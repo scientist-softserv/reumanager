@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181129051624) do
+ActiveRecord::Schema.define(version: 20181130153330) do
 
   create_table "academic_records", force: true do |t|
     t.string   "university"
@@ -30,13 +30,6 @@ ActiveRecord::Schema.define(version: 20181129051624) do
     t.datetime "transcript_updated_at"
     t.string   "major"
     t.string   "minor"
-    t.string   "research_interest_1"
-    t.string   "research_interest_2"
-    t.string   "research_interest_3"
-    t.text     "cpu_skills"
-    t.text     "research_experience"
-    t.text     "leadership_experience"
-    t.text     "programming_experience"
   end
 
   create_table "addresses", force: true do |t|
@@ -114,6 +107,19 @@ ActiveRecord::Schema.define(version: 20181129051624) do
     t.string   "title"
     t.date     "date"
     t.text     "description"
+    t.integer  "applicant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "interests", force: true do |t|
+    t.string   "research_interest_1"
+    t.string   "research_interest_2"
+    t.string   "research_interest_3"
+    t.text     "cpu_skills"
+    t.text     "research_experience"
+    t.text     "leadership_experience"
+    t.text     "programming_experience"
     t.integer  "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"

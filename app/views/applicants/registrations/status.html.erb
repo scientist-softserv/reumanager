@@ -56,8 +56,7 @@
       <%- current_applicant.awards.each do |award| -%>
         <li><b>Award</b> <%= award %></li>
       <%- end -%>
-
-      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.cpu_skills)) if current_applicant.cpu_skills %></li>
+      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest.cpu_skills %></li>
       <li><b>Laboratory Skills</b> <%=raw(Markdown.render(current_applicant.lab_skills)) if current_applicant.lab_skills %></li>
       <li><b>GPA Comments</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %>
 
