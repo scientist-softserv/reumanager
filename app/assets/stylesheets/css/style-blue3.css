@@ -2542,8 +2542,8 @@ textarea.form-control:focus {
 .checkbox-inline input[type="checkbox"]:focus + label::before {
   border-color: #6695e2;
 }
-.checkbox input[type="checkbox"]:checked + label::after,
-.checkbox-inline input[type="checkbox"]:checked + label::after {
+.checkbox input[type="checkbox"][id]:checked + label::after,
+.checkbox-inline input[type="checkbox"][id]:checked + label::after {
   content: "";
   background-color: #6695e2;
   width: 10px;

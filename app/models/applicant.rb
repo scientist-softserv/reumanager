@@ -17,7 +17,7 @@ class Applicant < ActiveRecord::Base
   attr_accessible :academic_level, :email, :green_card_holder, :password, :password_confirmation, :confirmed_at,
                   :remember_me, :first_name, :last_name, :phone, :dob, :citizenship, :disability,
                   :gender, :ethnicity, :race, :gpa_comment, :lab_skills, :addresses_attributes,
-                  :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes,
+                  :awards_attributes, :records_attributes, :recommendations_attributes, :recommenders_attributes, :interest_attributes,
                   :statement, :recommenders, :current_status, :state, :found_us, :acknowledged_dates, :military, :statement_of_purpose,
                   :cell_phone, :member_of_lgbt_community, :veteran_information, :fathers_highest_education, :mothers_highest_education,
                   :i_will_be_18
@@ -25,11 +25,13 @@ class Applicant < ActiveRecord::Base
   has_many :addresses, :class_name => "Address", :dependent => :destroy
   has_many :records, :class_name => "AcademicRecord", :dependent => :destroy
   has_many :awards, :class_name => "Award", :dependent => :destroy
+  has_one :interest, dependent: :destroy
   has_many :recommendations, :dependent => :destroy
   has_many :recommenders, :through => :recommendations,  :dependent => :restrict_with_exception
 
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :awards, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  accepts_nested_attributes_for :interest, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :records, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :recommendations, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :recommenders, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }

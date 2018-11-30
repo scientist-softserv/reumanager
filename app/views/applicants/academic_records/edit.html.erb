@@ -3,6 +3,12 @@
       <%= errors_for current_applicant %>
 
       <div class="form-group">
+        <%= f.fields_for :interest do |builder| %>
+          <%= render 'interest_fields', f: builder %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
         <%= f.fields_for :records do |builder| %>
           <%= render 'record_fields', f: builder %>
         <% end %>
