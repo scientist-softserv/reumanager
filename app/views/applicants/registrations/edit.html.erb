@@ -85,11 +85,11 @@
         <%= f.label :mothers_highest_education, "Mother's Highest Education" %>
         <%= f.select :mothers_highest_education, options_for_select(Applicant::EDUCATION_LEVELS, @applicant.mothers_highest_education), { :include_blank => true }, { :class => "form-control" } %>
 
-        <%= f.label :disability, '* Disability' %>
+        <%= f.label :disability, '* Disability (this may involve hearing, vision, mobility, learning disabilities, mental illness, neurotypicality, chronic illness, or other) ' %>
         <%- if show_disability_input? -%>
           <div id='disability_container' class='input-append'>
             <%= f.text_field :disability, :class => "form-control" %>
-            <span class='add-on'>Please provide a brief description of your disability</span>
+            <span class='add-on'>If you answered yes, please provide a brief description of your disability</span>
             <button id='disability_cancel' class='btn btn-ar btn-primary btn-danger' type='button'>Cancel</button>
           </div>
         <%- else -%>

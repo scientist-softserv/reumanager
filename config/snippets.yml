@@ -26,10 +26,12 @@ eligibility_requirements:
   description: ''
   value: |
     <ul>
-      <li>Full-time undergraduate student</li>
       <li>U.S. citizen or U.S. permanent resident (i.e., green card)</li>
-      <li> Has completed sophomore year before the summer of the internship</li>
-      <li> Will still be an undergraduate during the fall term following the summer of the internship</li>
+      <li>Full-time undergraduate student</li>
+      <ul>
+        <li> Has completed sophomore year before the summer of the internship</li>
+        <li> Will still be an undergraduate during the fall term following the summer of the internship</li>
+      </ul>
     </ul>
 application_information:
   name: application_information
