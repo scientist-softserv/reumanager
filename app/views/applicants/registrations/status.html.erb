@@ -56,7 +56,7 @@
       <%- current_applicant.awards.each do |award| -%>
         <li><b>Award</b> <%= award %></li>
       <%- end -%>
-      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest.cpu_skills %></li>
+      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest %></li>
       <li><b>Laboratory Skills</b> <%=raw(Markdown.render(current_applicant.lab_skills)) if current_applicant.lab_skills %></li>
       <li><b>GPA Comments</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %>
 
@@ -75,7 +75,7 @@
 <% if !expired? %>
   <div class="inner">
     <%= content_tag :p, link_to("Edit Application Data", edit_applicant_registration_path(current_applicant), :class => "btn btn-mini btn-ar btn-primary") + raw("&nbsp;&nbsp;&nbsp;") unless current_applicant.submitted_at %>
-    <p>Changed your mind? <%= link_to "Delete your application", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "btn btn-mini btn-danger" %></p>
+    <p>Please note deleting your application will delete your account too <%= link_to "Delete your application", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "btn btn-mini btn-danger" %></p>
     <% unless current_applicant.state == 'complete' || current_applicant.state == 'submitted' %>
       <small><strong>You can <%= link_to "logout", destroy_applicant_session_path, :method => :delete %> and continue your application at anytime<%= ", however, it will not be accepted until all the above data has been submitted" %>.</strong></small>
     <%- end -%>

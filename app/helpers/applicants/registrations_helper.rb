@@ -77,7 +77,7 @@ module Applicants::RegistrationsHelper
     case current_applicant.state
     when 'completed_recommender_info'
       status = "Ready to submit"
-      message = "<p>Your application is ready to submit.  Please review your data and click the #{link_to "submit button", submit_application_path } when you are ready to submit your application.</p>"
+      message = "<p>Your application is ready to submit.  Please review your data and click the #{link_to "submit button", submit_application_path } when you are ready to submit your application. Please note, the submission of this application will be final.</p>"
     when 'submitted'
       status = "Application submitted"
       message = "<p>Your application has been submitted and your recommendation request has been sent. You will receive further updates
