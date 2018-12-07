@@ -7,25 +7,62 @@
     <%= application_status if current_applicant %>
   </div>
 
-  <div class="panel-heading">Contact Info</div>
+  <div class="panel-heading">Contact Information</div>
     <div class="panel-body">
 
     <ul class="form-group">
-      <li><b>Name</b>  <%= current_applicant.name if current_applicant.name %></li>
-      <li><b>Email</b> <%= current_applicant.email %></li>
-      <li><b>Phone</b> <%= current_applicant.phone if current_applicant.phone %></li>
-      <li><b>Address</b>  <%= current_applicant.address %></li>
+      <li><b>Name:</b>  <%= current_applicant.name if current_applicant.name %></li>
+      <li><b>Email:</b> <%= current_applicant.email %></li>
+      <li><b>Phone:</b> <%= current_applicant.phone if current_applicant.phone %></li>
+      <li><b>Cell Phone:</b> <%= current_applicant.cell_phone if current_applicant.cell_phone %></li>
+      <li><b>Citizenship:</b>  <%= current_applicant.citizenship %></li><br />
+
+      <%- current_applicant.addresses.each do |address| -%>
+        <%- if address.to_s.present? -%>
+          <li><b>Label:</b> <%= address.label %></li>
+          <li><b>Is this address permanent?</b> <%= address.permanent %></li>
+          <li><b>Street Address:</b> <%= address.address %></li>
+          <li><b>Apartment:</b> <%= address.address2 %></li>
+          <li><b>City:</b> <%= address.city %></li>
+          <li><b>State:</b> <%= address.state %></li>
+          <li><b>Zip:</b> <%= address.zip %></li><br />
+        <%- end -%>
+      <%- end -%>
+    </ul>
+
+  </div>
+
+  <div class="panel-heading">Personal Information</div>
+    <div class="panel-body">
+
+    <ul class="form-group">
+      <li><b>Date of Birth:</b>  <%= current_applicant.dob %></li>
+      <li><b>Gender:</b> <%= current_applicant.gender %></li>
+      <li><b>Ethnicity:</b> <%= current_applicant.ethnicity %></li>
+      <li><b>Race:</b>  <%= current_applicant.race %></li>
+      <li><b>Father's Highest Education:</b>  <%= current_applicant.fathers_highest_education %></li>
+      <li><b>Mother's Highest Education:</b>  <%= current_applicant.mothers_highest_education %></li>
+      <li><b>Disability:</b>  <%= current_applicant.disability %></li>
+      <li><b>Are you a veteran of the USA military?</b>  <%= current_applicant.military %></li>
+      <li><b>Veteran Information:</b>  <%= current_applicant.veteran_information %></li>
     </ul>
   </div>
 
-  <hr class='clear inner' />
-
   <div class="panel-heading">Personal Statement</div>
-  <div class="panel-body">
-    <%= raw Markdown.render(current_applicant.statement) if current_applicant.statement %>
+    <div class="panel-body">
+
+    <ul class="form-group">
+      <li><%= current_applicant.statement if current_applicant.statement %></li>
+    </ul>
   </div>
 
-  <hr class='clear inner' />
+  <div class="panel-heading">How did you hear about us?</div>
+    <div class="panel-body">
+
+    <ul class="form-group">
+      <li><%= current_applicant.found_us %></li>
+    </ul>
+  </div>
 
   <div class="panel-heading">Recommenders</div>
   <div class="panel-body">
@@ -38,28 +75,47 @@
       <%- end -%>
     </ul>
     <%=link_to "Add a Recommender", applicants_recommenders_url, :class => 'btn btn-default' %>
-
   </div>
 
-  <hr class='clear inner' />
-
-  <div class="panel-heading">Academic Info</div>
+  <div class="panel-heading">Research Interest</div>
   <div class="panel-body">
 
-    <ul>
+    <ul class="form-group">
+      <li><b>Research Interest 1:</b> <%= current_applicant.interest.research_interest_1 if current_applicant.interest %></li>
+      <li><b>Research Interest 2:</b> <%= current_applicant.interest.research_interest_2 if current_applicant.interest %></li>
+      <li><b>Research Interest 3:</b> <%= current_applicant.interest.research_interest_3 if current_applicant.interest %></li>
+    </ul>
+  </div>
+
+  <div class="panel-heading">Academic Information</div>
+  <div class="panel-body">
+
+    <ul class="form-group">
       <%- current_applicant.records.each do |record| -%>
         <%- if record.to_s.present? -%>
           <li><%= raw record.to_s %></li>
+          <li><b>Major:</b> <%= record.major %></li>
+          <li><b>Minor:</b> <%= record.minor %></li>
+          <li><b>GPA:</b> <%= record.gpa %></li><br />
         <%- end -%>
       <%- end -%>
 
-      <%- current_applicant.awards.each do |award| -%>
-        <li><b>Award</b> <%= award %></li>
-      <%- end -%>
-      <li><b>Computer Skills</b> <%=raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest %></li>
-      <li><b>Laboratory Skills</b> <%=raw(Markdown.render(current_applicant.lab_skills)) if current_applicant.lab_skills %></li>
-      <li><b>GPA Comments</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %>
+      <li><b>GPA Comments:</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %></li>
 
+      <%- current_applicant.awards.each do |award| -%>
+        <li><b>Award:</b> <%= award %></li>
+      <%- end -%>
+    </ul>
+  </div>
+
+  <div class="panel-heading">Skills and Experience</div>
+  <div class="panel-body">
+
+    <ul class="form-group">
+      <li><b>Research Experience:</b> <%= raw(Markdown.render(current_applicant.interest.research_experience)) if current_applicant.interest %>
+      <li><b>Leadership Experience:</b> <%=raw(Markdown.render(current_applicant.interest.leadership_experience)) if current_applicant.interest %></li>
+      <li><b>Programming Experience:</b> <%= raw(Markdown.render(current_applicant.interest.programming_experience)) if current_applicant.interest %>
+      <li><b>Computer Skills:</b> <%= raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest %>
     </ul>
   </div>
 </div>
