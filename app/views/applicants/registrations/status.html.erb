@@ -81,9 +81,9 @@
   <div class="panel-body">
 
     <ul class="form-group">
-      <li><b>Research Interest 1:</b> <%= raw(Markdown.render(current_applicant.interest.research_interest_1)) if current_applicant.interest %></li>
-      <li><b>Research Interest 2:</b> <%= raw(Markdown.render(current_applicant.interest.research_interest_2)) if current_applicant.interest %></li>
-      <li><b>Research Interest 3:</b> <%= raw(Markdown.render(current_applicant.interest.research_interest_3)) if current_applicant.interest %></li>
+      <li><b>Research Interest 1:</b> <%= current_applicant.interest.research_interest_1 if current_applicant.interest %></li>
+      <li><b>Research Interest 2:</b> <%= current_applicant.interest.research_interest_2 if current_applicant.interest %></li>
+      <li><b>Research Interest 3:</b> <%= current_applicant.interest.research_interest_3 if current_applicant.interest %></li>
     </ul>
   </div>
 
