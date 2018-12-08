@@ -47,3 +47,11 @@ acknowledgment_of_funding_soruces:
   description: Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.
   value: |
     The REU program is funded by the National Science Foundation. We acknowledge partnership from the SETI Institute, from the CAMPARE program at California State University, and from NASA.
+submit_application_heading:
+  name: submit_application_heading
+  description: ''
+  value: |
+ready_to_submit_message:
+  name: ready_to_submit_message
+  description: ''
+  value: |
