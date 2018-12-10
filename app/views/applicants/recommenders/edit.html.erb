@@ -7,7 +7,8 @@
       <%= errors_for @applicant %>
 
       <p><b>Please submit contact information for 2 letters of recommendation.</b></p>
-      
+      <p><b>PLEASE NOTE:  Your references CANNOT submit their letters of recommendation until AFTER you have fully submitted your application.  At that point, your references will receive an email from us containing the instructions they need to submit their letters.</b></p>
+
       <div class="form-group">
         <%= f.fields_for :recommenders do |builder| %>
           <%= render 'recommender_fields', f: builder %>
@@ -22,7 +23,7 @@
 
       <%= render "applicants/shared/nav" %>
 
-      <b>Please note that requests for letters of recommendation will not be sent until your application is complete.</b>
+      <b>PLEASE NOTE:  Your references CANNOT submit their letters of recommendation until AFTER you have fully submitted your application.  At that point, your references will receive an email from us containing the instructions they need to submit their letters.</b>
 
       <p>
         <%= f.submit "Save Recommendation Info", :class => "btn btn-ar btn-primary" %>
