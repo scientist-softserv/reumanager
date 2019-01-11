@@ -15,7 +15,13 @@
       <li><b>Email:</b> <%= current_applicant.email %></li>
       <li><b>Phone:</b> <%= current_applicant.phone if current_applicant.phone %></li>
       <li><b>Cell Phone:</b> <%= current_applicant.cell_phone if current_applicant.cell_phone %></li>
-      <li><b>Citizenship:</b>  <%= current_applicant.citizenship %></li><br />
+      <li><b>Citizenship:</b>  <%= current_applicant.citizenship %></li>
+
+      <%- if current_applicant.green_card_holder == true -%>
+        <li><b>Green Card:</b> Yes</li><br />
+        <%- else -%>
+          <li><b>Green Card:</b> No</li><br />
+      <%- end -%>
 
       <%- current_applicant.addresses.each do |address| -%>
         <%- if address.to_s.present? -%>
@@ -38,6 +44,13 @@
     <ul class="form-group">
       <li><b>Date of Birth:</b>  <%= current_applicant.dob %></li>
       <li><b>Gender:</b> <%= current_applicant.gender %></li>
+
+      <%- if current_applicant.member_of_lgbt_community == true -%>
+        <li><b>LGBT Community:</b> Yes</li>
+        <%- else -%>
+          <li><b>LGBT Community:</b> No</li>
+      <%- end -%>
+
       <li><b>Ethnicity:</b> <%= current_applicant.ethnicity %></li>
       <li><b>Race:</b>  <%= current_applicant.race %></li>
       <li><b>Father's Highest Education:</b>  <%= current_applicant.fathers_highest_education %></li>
@@ -71,6 +84,7 @@
         <li>
           <%= raw recommender %><br />
           <%= recommendation_received_label(recommender) %>
+          <%= recommender.address %> <%= recommender.city %>, <%= recommender.state %> <%= recommender.zip %> <%= recommender.country %>
         </li>
       <%- end -%>
     </ul>
@@ -96,7 +110,7 @@
           <li><%= raw record.to_s %></li>
           <li><b>Major:</b> <%= record.major %></li>
           <li><b>Minor:</b> <%= record.minor %></li>
-          <li><b>GPA:</b> <%= record.gpa %></li><br />
+          <li><b>GPA:</b> <%= record.gpa %> out of <%= record.gpa_range %></li><br />
         <%- end -%>
       <%- end -%>
 
