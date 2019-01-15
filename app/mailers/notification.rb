@@ -9,13 +9,15 @@ class Notification < ActionMailer::Base
 
   def recommendation_request(recommendation)
     @recommendation = recommendation
-    @url = Rails.configuration.action_mailer[:default_url_options][:host] + applicants_recommendations_edit_path(token: recommendation.token)
+    @url = applicants_recommendations_edit_url(token: recommendation.token)
+    @url_display = @url.gsub(/https+:\/\//, "")
     mail(:to => recommendation.recommender.email, :subject => "REU recommendation request for #{recommendation.applicant.name}")
   end
 
   def recommendation_follow_up_request(recommendation)
     @recommendation = recommendation
-    @url = Rails.configuration.action_mailer[:default_url_options][:host] + applicants_recommendations_edit_path(token: recommendation.token)
+    @url = applicants_recommendations_edit_url(token: recommendation.token)
+    @url_display = @url.gsub(/https+:\/\//, "")
     mail(:to => recommendation.recommender.email, :subject => "REU follow-up recommendation request for #{recommendation.applicant.name}")
   end
 
