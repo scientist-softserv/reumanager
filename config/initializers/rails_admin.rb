@@ -1,3 +1,4 @@
+# coding: utf-8
 # RailsAdmin config file. Generated on September 22, 2012 18:58
 # See github.com/sferik/rails_admin for more informations
 require Rails.root.join('lib', 'admin_accept')
@@ -34,12 +35,12 @@ RailsAdmin.config do |config|
     show_in_app
     accept do
       visible do
-        ["Applicant", "Applied", "Submitted", "Complete", "MissedDeadline", "Withdrawn", "Rejected", "Accepted"].include?(bindings[:abstract_model].model.to_s)
+        ["Applied", "Submitted", "Complete", "MissedDeadline", "Withdrawn", "Rejected", "Accepted"].include?(bindings[:abstract_model].model.to_s)
       end
     end
     reject do
       visible do
-        ["Applicant", "Applied", "Submitted", "Complete", "MissedDeadline", "Withdrawn", "Rejected", "Accepted"].include?(bindings[:abstract_model].model.to_s)
+        ["Applied", "Submitted", "Complete", "MissedDeadline", "Withdrawn", "Rejected", "Accepted"].include?(bindings[:abstract_model].model.to_s)
       end
     end
   end
@@ -109,14 +110,14 @@ RailsAdmin.config do |config|
             <h4>How did you hear about us?</h4>
             #{Markdown.render applicant.found_us if applicant.found_us}
             <h4>Research Interest:</h4>
-            <b>Research Interest 1:</b> #{applicant.interest.research_interest_1}<br />
-            <b>Research Interest 2:</b> #{applicant.interest.research_interest_2}<br />
-            <b>Research Interest 3:</b> #{applicant.interest.research_interest_3}<br />
+            <b>Research Interest 1:</b> #{applicant.interest.try(:research_interest_1)}<br />
+            <b>Research Interest 2:</b> #{applicant.interest.try(:research_interest_2)}<br />
+            <b>Research Interest 3:</b> #{applicant.interest.try(:research_interest_3)}<br />
             <h4>Skills and Experience:</h4>
-            <b>CPU Skills:</b> #{applicant.interest.cpu_skills}<br />
-            <b>Research Experience:</b> #{applicant.interest.research_experience}<br />
-            <b>Leadership Experience:</b> #{applicant.interest.leadership_experience}<br />
-            <b>Programming Experience:</b> #{applicant.interest.programming_experience}<br />".html_safe
+            <b>CPU Skills:</b> #{applicant.interest.try(:cpu_skills)}<br />
+            <b>Research Experience:</b> #{applicant.interest.try(:research_experience)}<br />
+            <b>Leadership Experience:</b> #{applicant.interest.try(:leadership_experience)}<br />
+            <b>Programming Experience:</b> #{applicant.interest.try(:programming_experience)}<br />".html_safe
         end
       end
 
@@ -196,6 +197,7 @@ RailsAdmin.config do |config|
   }
 
   config.model Applicant do
+    visible false
     weight 0
     instance_exec(&applicant_config)
   end
