@@ -162,24 +162,6 @@ RailsAdmin.config do |config|
 
       field :recommender do
         label "Recommenders"
-        formatted_value do
-          applicant = bindings[:object]
-          applicant.recommenders.map do |recommender|
-  	        "<b>First Name:</b> #{recommender.first_name}<br />
-            <b>Last Name:</b> #{recommender.last_name}<br />
-            <b>Title:</b> #{recommender.title}<br />
-            <b>Department:</b> #{recommender.department}<br />
-            <b>Organization:</b> #{recommender.organization}<br />
-            <b>URL:</b> #{recommender.url}<br />
-            <b>Email:</b> #{recommender.email}<br />
-            <b>Phone:</b> #{recommender.phone}<br />
-            <b>Address:</b> #{recommender.address}<br />
-            <b>City:</b> #{recommender.city}<br />
-            <b>State:</b> #{recommender.state}<br />
-            <b>Zip:</b> #{recommender.state}<br />
-            <b>Country:</b> #{recommender.country}<br />"
-          end.join('</br>').html_safe
-        end
       end
     end
 
