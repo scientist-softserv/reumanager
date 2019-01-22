@@ -18,6 +18,8 @@ RailsAdmin.config do |config|
 
   config.default_items_per_page = 50
 
+  config.label_methods = [:for_admin, :name, :title, :to_s]
+
   config.actions do
     # root actions
     dashboard                     # mandatory
@@ -88,79 +90,22 @@ RailsAdmin.config do |config|
       field :personal_info do
         label "Personal Information and Research Interest"
         formatted_value do
-          applicant = bindings[:object]
-            "<b>Name:</b> #{applicant.name if applicant.name}<br />
-            <b>Email:</b> #{applicant.email if applicant.email}<br />
-            <b>Phone:</b> #{applicant.phone if applicant.phone}<br />
-            <b>Cell Phone:</b> #{applicant.cell_phone if applicant.cell_phone}<br />
-            <b>DOB:</b>  #{applicant.dob if applicant.dob}<br />
-            <b>Gender:</b>  #{applicant.gender if applicant.gender}<br />
-            <b>LGBT Community:</b>  #{applicant.member_of_lgbt_community if applicant.member_of_lgbt_community}<br />
-            <b>Ethnicity:</b>  #{applicant.ethnicity if applicant.ethnicity}<br />
-            <b>Race:</b>  #{applicant.race if applicant.race}<br />
-            <b>Father's Highest Education:</b>  #{applicant.fathers_highest_education if applicant.fathers_highest_education}<br />
-            <b>Mother's Highest Education:</b>  #{applicant.mothers_highest_education if applicant.mothers_highest_education}<br />
-            <b>Disability:</b>  #{applicant.disability if applicant.disability}<br />
-            <b>Citizenship:</b>  #{applicant.citizenship if applicant.citizenship}<br />
-            <b>Green Card:</b>  #{applicant.green_card_holder if applicant.green_card_holder}<br />
-            <b>Military:</b>  #{applicant.military if applicant.military}<br />
-            <b>Veteran Info:</b>  #{applicant.veteran_information if applicant.veteran_information}<br />
-            <h4>Personal Statement</h4>
-            #{Markdown.render applicant.statement if applicant.statement}
-            <h4>How did you hear about us?</h4>
-            #{Markdown.render applicant.found_us if applicant.found_us}
-            <h4>Research Interest:</h4>
-            <b>Research Interest 1:</b> #{applicant.interest.try(:research_interest_1)}<br />
-            <b>Research Interest 2:</b> #{applicant.interest.try(:research_interest_2)}<br />
-            <b>Research Interest 3:</b> #{applicant.interest.try(:research_interest_3)}<br />
-            <h4>Skills and Experience:</h4>
-            <b>CPU Skills:</b> #{applicant.interest.try(:cpu_skills)}<br />
-            <b>Research Experience:</b> #{applicant.interest.try(:research_experience)}<br />
-            <b>Leadership Experience:</b> #{applicant.interest.try(:leadership_experience)}<br />
-            <b>Programming Experience:</b> #{applicant.interest.try(:programming_experience)}<br />".html_safe
+          bindings[:object].for_admin_html
         end
       end
 
-      field :address do
+      field :addresses do
         label "Address"
-        formatted_value do
-          applicant = bindings[:object]
-          applicant.addresses.map do |address|
-            "<b>Label:</b> #{address.label}<br />
-            <b>Is this address permanent?</b> #{address.permanent}<br />
-            <b>Street Address:</b> #{address.address}<br />
-            <b>Apartment:</b> #{address.address2}<br />
-            <b>City:</b> #{address.city}<br />
-            <b>State:</b> #{address.state}<br />
-            <b>Zip:</b> #{address.zip}<br />"
-          end.join('</br>').html_safe
-        end
       end
 
       field :academic_info do
         label "Acedemic Information"
         formatted_value do
-          applicant = bindings[:object]
-          academic_information = applicant.records.map do |record|
-            "<b>University:</b> #{record.university}<br />
-            <b>Start:</b> #{record.start}<br />
-            <b>Finish:</b> #{record.finish}<br />
-            <b>Major:</b> #{record.major}<br />
-            <b>Minor:</b> #{record.minor}<br />
-            <b>GPA:</b> #{record.gpa} out of #{record.gpa_range}<br />"
-          end.join('<br />')
-          academic_information += "<br /><b>GPA Comments:</b> #{Markdown.render applicant.gpa_comment}"
-
-          academic_information += applicant.awards.map do |award|
-            "<b>Title:</b> #{award.title}<br />
-            <b>Date:</b> #{award.date}<br />
-            <b>Description:</b> #{award.description}<br />"
-          end.join('<br />')
-          academic_information.html_safe
+          bindings[:object].acedemic_info_html
         end
       end
 
-      field :recommender do
+      field :recommenders do
         label "Recommenders"
       end
     end

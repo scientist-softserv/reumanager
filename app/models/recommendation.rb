@@ -41,6 +41,18 @@ class Recommendation < ActiveRecord::Base
     known_applicant_for_enum[known_applicant_for] if known_applicant_for
   end
 
+  def for_admin
+    str = <<-HTML
+      <b>Aplicant Known For:</b> #{self.known_applicant_for}<br />
+      <b>Known Capacity:</b> #{self.known_capacity}<br />
+      <b>Overall Promise:</b> #{self.overall_promise}<br />
+      <b>Undergraduate Institution:</b> #{self.undergraduate_institution}<br />
+      <b>Received_at:</b> #{self.received_at.try(:strftime, '%m/%d/%Y')}<br />
+      <b>Body:</b> #{self.body}<br />
+    HTML
+    str.html_safe
+  end
+
   private
 
   def remove_orphaned_recommenders

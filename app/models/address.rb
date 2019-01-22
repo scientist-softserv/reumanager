@@ -12,4 +12,18 @@ class Address < ActiveRecord::Base
   def to_s
     "#{self.address},#{' ' + self.address2 + ',' if self.address2} #{self.city}, #{self.state} #{self.zip}"
   end
+
+  def for_admin
+    str = <<-HTML
+      <br>
+      <b>Label:</b> #{self.label}<br>
+      <b>Is this address permanent?</b> #{self.permanent}<br>
+      <b>Street Address:</b> #{self.address}<br>
+      <b>Apartment:</b> #{self.address2}<br>
+      <b>City:</b> #{self.city}<br>
+      <b>State:</b> #{self.state}<br>
+      <b>Zip:</b> #{self.zip}<br>
+    HTML
+    str.html_safe
+  end
 end
