@@ -19,34 +19,29 @@ class Recommender < ActiveRecord::Base
   end
 
   def to_s
-    recommendations = self.recommendations.map do |r|
-      next if r.received_at.blank?
-      <<-HTML
-        <b>Aplicant Known For:</b> #{r.known_applicant_for}<br />
-        <b>Known Capacity:</b> #{r.known_capacity}<br />
-        <b>Overall Promise:</b> #{r.overall_promise}<br />
-        <b>Undergraduate Institution:</b> #{r.undergraduate_institution}<br />
-        <b>Received_at:</b> #{r.received_at.try(:strftime, '%m/%d/%Y')}<br />
-        <b>Body:</b> #{r.body}<br />
-      HTML
-    end
+    "#{self.name} (#{self.email})<br /> #{self.title}, #{self.department}, #{self.organization}"
+  end
+
+  def for_admin
+    recommendations = self.recommendations.map(&:for_admin)
     str = <<-HTML
-      <b>First Name:</b> #{self.first_name}<br />
-      <b>Last Name:</b> #{self.last_name}<br />
-      <b>Title:</b> #{self.title}<br />
-      <b>Department:</b> #{self.department}<br />
-      <b>Organization:</b> #{self.organization}<br />
-      <b>URL:</b> #{self.url}<br />
-      <b>Email:</b> #{self.email}<br />
-      <b>Phone:</b> #{self.phone}<br />
-      <b>Address:</b> #{self.address}<br />
-      <b>City:</b> #{self.city}<br />
-      <b>State:</b> #{self.state}<br />
-      <b>Zip:</b> #{self.state}<br />
-      <b>Country:</b> #{self.country}<br />
-      <hr>
-      #{recommendations.present? ? "<h4>Recommendation from #{self.name}</h4><br>" : ''}
-      #{recommendations.present? ? recommendations.join("<hr>\n") : ''}
+      <div>
+        <strong>Recommender: #{self.name}</strong><br>
+        <b>Title:</b> #{self.title}<br />
+        <b>Department:</b> #{self.department}<br />
+        <b>Organization:</b> #{self.organization}<br />
+        <b>URL:</b> #{self.url}<br />
+        <b>Email:</b> #{self.email}<br />
+        <b>Phone:</b> #{self.phone}<br />
+        <b>Address:</b> #{self.address}<br />
+        <b>City:</b> #{self.city}<br />
+        <b>State:</b> #{self.state}<br />
+        <b>Zip:</b> #{self.state}<br />
+        <b>Country:</b> #{self.country}<br />
+        <hr>
+        #{recommendations.present? ? "<strong>Recommendation from #{self.name}</strong>" : ''}
+        #{recommendations.present? ? recommendations.join("<hr>\n") : ''}
+      </div>
     HTML
     str.html_safe
   end

@@ -235,8 +235,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def name
-    name = ""
-    name += "#{self.first_name} #{self.last_name}"
+    "#{self.first_name} #{self.last_name}"
   end
 
   # I needed to create a method in order to return a custom field in rails admim.
@@ -344,6 +343,52 @@ class Applicant < ActiveRecord::Base
     validates_personal_info
     validates_academic_info
     validates_recommender_info
+  end
+
+  def acedemic_info_html
+    str = <<-HTML
+      <strong>Acedemic Records</strong><br>
+      #{self.records.map(&:for_admin).join('<br />')}
+      <b>GPA Comments:</b> #{Markdown.render(self.gpa_comment)}<br>
+      <strong>Awards</strong><br>
+      #{self.awards.map(&:for_admin).join('<br />')}
+    HTML
+    str.html_safe
+  end
+
+  def for_admin_html
+    str = <<-HTML
+      <b>Name:</b> #{self.try(:name)}<br>
+      <b>Email:</b> #{self.try(:email)}<br>
+      <b>Phone:</b> #{self.try(:phone)}<br>
+      <b>Cell Phone:</b> #{self.try(:cell_phone)}<br>
+      <b>DOB:</b>  #{self.try(:dob)}<br>
+      <b>Gender:</b>  #{self.try(:gender)}<br>
+      <b>LGBT Community:</b>  #{self.try(:member_of_lgbt_community)}<br>
+      <b>Ethnicity:</b>  #{self.try(:ethnicity)}<br>
+      <b>Race:</b>  #{self.try(:race)}<br>
+      <b>Father's Highest Education:</b>  #{self.try(:fathers_highest_education)}<br>
+      <b>Mother's Highest Education:</b>  #{self.try(:mothers_highest_education)}<br>
+      <b>Disability:</b>  #{self.try(:disability)}<br>
+      <b>Citizenship:</b>  #{self.try(:citizenship)}<br>
+      <b>Green Card:</b>  #{self.try(:green_card_holder)}<br>
+      <b>Military:</b>  #{self.try(:military)}<br>
+      <b>Veteran Info:</b>  #{self.try(:veteran_information)}<br>
+      <h4>Personal Statement</h4>
+      #{Markdown.render self.try(:statement)}
+      <h4>How did you hear about us?</h4>
+      #{Markdown.render self.try(:found_us)}
+      <h4>Research Interests:</h4>
+      <b>Research Interest 1:</b> #{self.interest.try(:research_interest_1)}<br>
+      <b>Research Interest 2:</b> #{self.interest.try(:research_interest_2)}<br>
+      <b>Research Interest 3:</b> #{self.interest.try(:research_interest_3)}<br>
+      <h4>Skills and Experience:</h4>
+      <b>CPU Skills:</b> #{self.interest.try(:cpu_skills)}<br>
+      <b>Research Experience:</b> #{self.interest.try(:research_experience)}<br>
+      <b>Leadership Experience:</b> #{self.interest.try(:leadership_experience)}<br>
+      <b>Programming Experience:</b> #{self.interest.try(:programming_experience)}<br>
+    HTML
+    str.html_safe
   end
 
 end
