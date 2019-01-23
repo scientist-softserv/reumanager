@@ -22,7 +22,7 @@ class Interest < ActiveRecord::Base
   validates :research_interest_1, presence: true
 
   def to_s
-    "#{self.interest}"
+    "Interests for #{self.applicant.name}"
   end
 
 end
