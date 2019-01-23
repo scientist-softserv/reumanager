@@ -108,6 +108,10 @@ RailsAdmin.config do |config|
       field :recommenders do
         label "Recommenders"
       end
+
+      field :recommendations do
+        label "Recommendations"
+      end
     end
 
     edit do

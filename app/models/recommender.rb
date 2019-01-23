@@ -23,7 +23,6 @@ class Recommender < ActiveRecord::Base
   end
 
   def for_admin
-    recommendations = self.recommendations.map(&:for_admin)
     str = <<-HTML
       <div>
         <strong>Recommender: #{self.name}</strong><br>
@@ -38,9 +37,6 @@ class Recommender < ActiveRecord::Base
         <b>State:</b> #{self.state}<br />
         <b>Zip:</b> #{self.state}<br />
         <b>Country:</b> #{self.country}<br />
-        <hr>
-        #{recommendations.present? ? "<strong>Recommendation from #{self.name}</strong>" : ''}
-        #{recommendations.present? ? recommendations.join("<hr>\n") : ''}
       </div>
     HTML
     str.html_safe
