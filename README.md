@@ -13,7 +13,7 @@ gem install stack_car
 sc up
 
 ```
-
+```bash
 When creating a new instance of REU:
 create a new branch that will be the 'master' of the new app
 docker-compose build
@@ -21,6 +21,7 @@ sc up
 docker-compose exec web bash
 rake db:create db:migrate
 rake db:seed settings:load
+```
 
 # Deploy a new release
 
