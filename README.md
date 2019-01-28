@@ -1,6 +1,6 @@
 # Docker development setup
 
-1) Install Docker.app 
+1) Install Docker.app
 
 2) gem install stack_car
 
@@ -12,6 +12,15 @@
 gem install stack_car
 sc up
 
+```
+```bash
+When creating a new instance of REU:
+create a new branch that will be the 'master' of the new app
+docker-compose build
+sc up
+docker-compose exec web bash
+rake db:create db:migrate
+rake db:seed settings:load
 ```
 
 # Deploy a new release
@@ -52,7 +61,7 @@ RAILS_ENV=production bundle exec rake assets:precompile RAILS_RELATIVE_URL_ROOT=
 
 # Docker development setup
 
-1) Install Docker.app 
+1) Install Docker.app
 
 2) Get .env file from team member or copy it from .env-example and fill it out
 
