@@ -83,7 +83,7 @@ class Applicants::RegistrationsController < Devise::RegistrationsController
   # ie if password or email was changed
   # extend this as needed
   def needs_password?(applicant, params)
-    applicant.email != params[:applicant][:email] || !params[:applicant][:password].blank?
+    applicant.email != params[:applicant][:email] && !params[:applicant][:password].blank?
   end
 
   def remove_blank_attribs
