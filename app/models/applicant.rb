@@ -375,9 +375,9 @@ class Applicant < ActiveRecord::Base
       <b>Military:</b>  #{self.try(:military)}<br>
       <b>Veteran Info:</b>  #{self.try(:veteran_information)}<br>
       <h4>Personal Statement</h4>
-      #{Markdown.render self.try(:statement)}
+      #{self.try(:statement)}
       <h4>How did you hear about us?</h4>
-      #{Markdown.render self.try(:found_us)}
+      #{self.try(:found_us)}
       <h4>Research Interests:</h4>
       <b>Research Interest 1:</b> #{self.interest.try(:research_interest_1)}<br>
       <b>Research Interest 2:</b> #{self.interest.try(:research_interest_2)}<br>
