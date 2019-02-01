@@ -34,7 +34,6 @@ GIT
       sass-rails
 
 GEM
-  remote: http://gems.github.com/
   remote: https://rubygems.org/
   specs:
     actionmailer (4.1.8)
