@@ -66,4 +66,4 @@
               = user_signed_in? ? link_to("Logout", destroy_user_session_path, :method => :delete) : link_to("Logout", destroy_applicant_session_path, :method => :delete)
             - else
               = link_to "Login", new_applicant_session_url, :class => 'active'
-        =content_tag :li, link_to('Admin', rails_admin_path) if current_user
+        =content_tag :li, link_to('Admin', rails_admin_path)
