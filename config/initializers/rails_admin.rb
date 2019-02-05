@@ -84,6 +84,10 @@ RailsAdmin.config do |config|
         label "Started on"
         date_format :short
       end
+      field :updated_at do
+        label "Updated on"
+        date_format :short
+      end
     end
 
     show do
