@@ -12,12 +12,7 @@ FactoryGirl.define do
     academic_level { %w{ Freshman Sophomore Junior Senior }[rand(4)] }
     statement { Faker::Lorem.sentences(rand(3) + 7).join(" ") }
     lab_skills { Faker::Lorem.sentences(rand(3) + 2).join(" ") }
-    cpu_skills { Faker::Lorem.sentences(rand(3) + 2).join(" ") }
-
     acknowledged_dates { true }
-    leadership_experience { Faker::Lorem.sentences(rand(3) + 2).join(" ") }
-    programming_experience { Faker::Lorem.sentences(rand(3) + 2).join(" ") }
-    research_experience { Faker::Lorem.sentences(rand(3) + 7).join(" ") }
     citizenship { "United States" }
     dob { "2018-11-26" }
     gender { "Male" }
@@ -25,7 +20,6 @@ FactoryGirl.define do
     race { "White" }
     disability { "Disability" }
     military { "No" }
-    research_interest_1 { Faker::Lorem.sentences(rand(3) + 2).join(" ") }
 
     factory :applicant_with_address do
       after(:create) do |applicant|
