@@ -71,5 +71,5 @@ Reuman::Application.configure do
   config.action_mailer.smtp_settings = { :enable_starttls_auto => false, :host => 'localhost' }
   Rails.application.routes.default_url_options = { :protocol => 'https',  :host => 'reumanager.com/seti' }
 
-  config.action_controller.relative_url_root = '/seti'
+  config.action_controller.relative_url_root = 'https://www.reumanager.com/seti'
 end

@@ -46,5 +46,5 @@ Reuman::Application.configure do
   }
   config.time_zone = 'Pacific Time (US & Canada)'
 
-  # config.action_controller.relative_url_root = '/demo'
+  config.action_controller.relative_url_root = 'http://localhost:3000'
 end

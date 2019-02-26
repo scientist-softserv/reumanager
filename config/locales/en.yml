@@ -14,3 +14,5 @@ en:
       accept:
         done: Accepted
         menu: Accept
+      generate_pdf:
+        menu: Export PDF
