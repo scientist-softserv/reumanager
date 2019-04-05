@@ -72,3 +72,4 @@ gem 'web-console', '~> 3.5', group: [:development]
 gem 'what_methods', group: [:development]
 gem 'whenever', :require => false
 gem 'wirble', group: [:development]
+gem 'webpacker'

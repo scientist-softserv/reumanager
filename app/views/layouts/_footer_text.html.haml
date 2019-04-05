@@ -18,7 +18,7 @@
               %li.pull-left
                 =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
               %li.pull-left
-                =link_to 'Admin', rails_admin_path
+                =link_to 'Admin', admin_dashboard_path
           - else
             - if applicant_signed_in?
               %li.pull-left
@@ -27,9 +27,9 @@
               %li.pull-left
                 =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
               %li.pull-left
-                =link_to 'Admin', rails_admin_path
-  
-  
+                =link_to 'Admin', admin_dashboard_path
+
+
           - if params[:controller] == 'applicants/academic_records'
             - if applicant_signed_in?
               %li.pull-left
@@ -38,8 +38,8 @@
             - if applicant_signed_in?
               %li.pull-left
                 =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
-  
-  
+
+
           - if params[:controller] == 'applicants/recommenders'
             - if applicant_signed_in?
               %li.pull-left
@@ -48,8 +48,8 @@
             - if applicant_signed_in?
               %li.pull-left
                 =link_to "Recommendation", applicants_recommenders_url, :class => 'active' unless current_applicant.submitted_at
-  
-  
+
+
           - if params[:controller] == 'applicants/registrations' && params[:action] ==  'status'
             - if applicant_signed_in?
               %li.pull-left
@@ -58,7 +58,7 @@
             - if applicant_signed_in?
               %li.pull-left
                 =link_to "Status", applicant_status_url, :class => 'active'
-  
+
           - if params[:controller] == 'applicants/sessions'
             - if applicant_signed_in? || user_signed_in? #|| user_signed_in?
               %li.pull-left
@@ -73,8 +73,8 @@
             - else
               %li.pull-left
                 = link_to "Login", new_applicant_session_url, :class => 'active'
-  
-  
+
+
         %div.col-md-11
           %p
             If you have any comments, questions, or suggestions, please contact us at
