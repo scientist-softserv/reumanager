@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :program_admins
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
   # If you would like to change where this extension is mounted, simply change the
   # configuration option `mounted_path` to something different in config/initializers/refinery/core.rb
   #
-  # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
-  mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
 
   resources :admin_accounts
   resources :grants
@@ -16,8 +13,8 @@ Rails.application.routes.draw do
   # mount Rich::Engine => '/rich', :as => 'rich'
   # mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  namespace :admin do
-    devise_for :program_admin
+  devise_for :program_admins
+  namespace :program do
     get 'dashboard' => 'dashboard#index'
   end
 
@@ -49,6 +46,11 @@ Rails.application.routes.draw do
 
   get "closed" => "welcome#closed"
   get "thanks" => "welcome#thanks"
+
+  # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
+  # constraints subdomain: 'www' do
+  #   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+  # end
 
   root :to => "welcome#index"
 

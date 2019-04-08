@@ -18,7 +18,7 @@
               %li.pull-left
                 =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
               %li.pull-left
-                =link_to 'Admin', admin_dashboard_path
+                =link_to 'Admin', program_dashboard_path
           - else
             - if applicant_signed_in?
               %li.pull-left
@@ -27,7 +27,7 @@
               %li.pull-left
                 =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
               %li.pull-left
-                =link_to 'Admin', admin_dashboard_path
+                =link_to 'Admin', program_dashboard_path
 
 
           - if params[:controller] == 'applicants/academic_records'

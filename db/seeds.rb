@@ -4,14 +4,23 @@
 grant = Grant.create(program_title: 'Test Program', subdomain: 'test')
 
 Apartment::Tenant.switch('test') do
-  # Admins
-  admins = [
-    { email: 'kelly@notch8.com', first_name: 'Kelly', last_name: 'Chess', password: 'testing123', grant: grant },
-    { email: 'rob@notch8.com', first_name: 'Rob', last_name: 'Kaufman', password: 'testing123', grant: grant }
-  ]
-
-  admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
+  ProgramAdmin.create(
+    email: 'admin@test.com',
+    first_name: 'Test',
+    last_name: 'Admin',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    confirmed_at: Time.now
+  )
 end
+
+# Admins
+admins = [
+  { email: 'kelly@notch8.com', first_name: 'Kelly', last_name: 'Chess', password: 'testing123', is_super_admin: true },
+  { email: 'rob@notch8.com', first_name: 'Rob', last_name: 'Kaufman', password: 'testing123', grant: grant, is_super_admin: true }
+]
+
+admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
 
 puts 'test tenant created please use "test.lvh.me" to reach the app'
 

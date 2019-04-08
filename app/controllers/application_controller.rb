@@ -23,9 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_deadline
-    if expired?
-      redirect_to closed_url
-    end
+    redirect_to closed_url if expired?
   end
 
   def log_x_forwarded_by
@@ -41,23 +39,20 @@ class ApplicationController < ActionController::Base
   end
 
   def is_subdomain?
-    request.subdomain.present? && (request.subdomain != 'www' && request.subdomain != 'admin' && request.subdomain != 'web')
+    request.subdomain.present? && %w[www web].exclude?(request.subdomain)
   end
 
   def current_grant
     return @grant if @grant.present?
-
     if is_subdomain?
       @grant = Grant.where(subdomain: request.subdomain).first
-      if @grant.blank?
-        raise Apartment::TenantNotFound
-      end
+      raise Apartment::TenantNotFound if @grant.blank?
     end
-    return @grant
+    @grant
   end
 
   def tenant_not_found
-      redirect_to 'lvh.me:3000'
+    redirect_to root
   end
 
   def check_user_subdomain_combo
@@ -65,12 +60,12 @@ class ApplicationController < ActionController::Base
     if current_user.present? && is_subdomain?
       # and user is a member of the grant for that subdomain
       if current_grant.users.include?(current_user)
-        return true
+        true
       else
         render plain: '403 Forbidden', status: 403
       end
     else
-      return true
+      true
     end
   end
 

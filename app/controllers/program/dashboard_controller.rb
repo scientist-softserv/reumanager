@@ -1,4 +1,4 @@
-module Admin
+module Program
   class DashboardController < AdminController
     def index
     end
