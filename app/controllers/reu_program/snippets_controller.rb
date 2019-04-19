@@ -1,5 +1,5 @@
 module ReuProgram
-  class SnipetsController < AdminController
+  class SnippetsController < AdminController
     def index
     end
 

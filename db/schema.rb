@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190405200720) do
+ActiveRecord::Schema.define(version: 20190419225737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,13 @@ ActiveRecord::Schema.define(version: 20190405200720) do
     t.index ["email"], name: "index_applicants_on_email", unique: true
     t.index ["reset_password_token"], name: "index_applicants_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_applicants_on_unlock_token", unique: true
+  end
+
+  create_table "application_forms", force: :cascade do |t|
+    t.json "form_schema"
+    t.json "form_ui_schema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "awards", id: :serial, force: :cascade do |t|

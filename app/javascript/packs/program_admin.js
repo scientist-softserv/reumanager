@@ -15,5 +15,6 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+require('bootstrap')
 require('bootstrap/dist/css/bootstrap.min.css')
 console.log('Hello World from Webpacker')
