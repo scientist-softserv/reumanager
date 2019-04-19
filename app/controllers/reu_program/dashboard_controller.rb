@@ -1,4 +1,4 @@
-module Program
+module ReuProgram
   class DashboardController < AdminController
     def index
     end

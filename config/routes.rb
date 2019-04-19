@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   # mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :program_admins
-  namespace :program do
+  namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
+    resources :settings, except: %i[destroy]
+    resources :snippets, except: %i[destroy]
+    resources :applicants, except: %i[destroy]
+    resource :applicant_form, except: %i[destroy]
   end
 
   namespace :applicants do
@@ -49,7 +53,7 @@ Rails.application.routes.draw do
 
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   # constraints subdomain: 'www' do
-  #   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+    # mount Refinery::Core::Engine, at: '/reu_info' # Refinery::Core.mounted_path
   # end
 
   root :to => "welcome#index"

@@ -29,5 +29,6 @@ RUN chown -R app $APP_HOME
 ADD ops/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 RUN rm -f /etc/service/nginx/down
+RUN alias be="bundle exec"
 
 CMD ["/sbin/my_init"]

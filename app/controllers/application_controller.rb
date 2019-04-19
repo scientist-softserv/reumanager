@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
   before_action :set_cache_buster
 
+  helper_method :current_grant
+
   protected
 
   def settings_filled_in?
