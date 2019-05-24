@@ -13,6 +13,16 @@ gem install stack_car
 sc up
 
 ```
+# REU Manager v3
+
+### Development setup
+1. `sc up` or docker-compose up
+2. in the conainter run `bundle exec rake db:create db:migrate db:seed settings:load`
+3. in a browser go to test.lvh.me:3000
+
+
+# REU Manager v2
+
 ```bash
 When creating a new instance of REU:
 create a new branch that will be the 'master' of the new app

@@ -67,7 +67,7 @@
                   = user_signed_in? ? link_to("Logout", destroy_user_session_path, :method => :delete) : link_to("Logout", destroy_applicant_session_path, :method => :delete)
                 - else
                   = link_to "Login", main_app.new_applicant_session_url, :class => 'active'
-            =content_tag :li, link_to('Admin', program_dashboard_path)
+            =content_tag :li, link_to('Admin', reu_program_dashboard_path)
 
     - else
       %div{ :class => "collapse navbar-collapse", :id => "bs-example-navbar-collapse-1" }
