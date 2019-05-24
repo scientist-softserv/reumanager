@@ -1,7 +1,7 @@
 class Setting < ApplicationRecord
   belongs_to :grant
   attr_accessor :display_name
-  attr_accessible :name, :description, :value, :display_name
+  # attr_accessible :name, :description, :value, :display_name
   validates_uniqueness_of :name
 
   # Returns the value of the setting named name

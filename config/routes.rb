@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy]
     resources :applicants, except: %i[destroy]
-    resource :application_form, except: %i[destroy]
+    resources :application_forms, except: %i[destroy]
   end
 
   namespace :applicants do

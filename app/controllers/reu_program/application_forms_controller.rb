@@ -1,21 +1,27 @@
 module ReuProgram
   class ApplicationFormsController < AdminController
-    before_action :load_form
+    before_action :load_form, except: %i[index]
 
-    def show
+    def index
+      @forms = ApplicationForm.all
     end
 
-    def edit
-    end
+    def show; end
+
+    def edit; end
 
     def update
+      @form.assign_attributes(form_params)
     end
 
     private
 
+    def form_params
+      params.require(:application_form).permit!
+    end
+
     def load_form
-      @form = ApplicationForm.last
-      @form ||= ApplicationForm.create
+      @form = ApplicationForm.find(params[:id])
     end
   end
 end

@@ -1,8 +1,7 @@
 class Snippet < ApplicationRecord
   belongs_to :grant
-  attr_accessible :description, :name, :value, :display_name
-  attr_accessor :display_name
-  cattr_accessor :available_snippets
+  # attr_accessible :description, :name, :value, :display_name
+  attr_accessor :display_name, :available_snippets
 
   validates_uniqueness_of :name
 
