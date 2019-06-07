@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '5.1.3'
 
 gem 'apartment'
+gem 'bootstrap'
 gem 'capistrano'
 gem 'coffee-rails'
 gem 'devise'

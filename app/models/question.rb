@@ -12,7 +12,7 @@ class Question < ApplicationRecord
         self.config[str_name] ||= opts[:default]
         self.config[str_name]
       end
-      if opts[:options].is_a?(Array) || opts[:options].any?
+      if opts[:options].respond_to?(:any?) && opts[:options]&.any?
         opts[:options] << 'default'
         validates str_name, inclusion: { in: opts[:options] }
       end
@@ -24,7 +24,7 @@ class Question < ApplicationRecord
   end
 
   define_property :title, hint: 'Question text'
-  define_property :description, 'Hint to user about what the question is asking for. optional'
+  define_property :description, hint: 'Hint to user about what the question is asking for. optional'
   define_property :required, default: false, hing: 'Mark the field as required'
 
   validates :title, :description, presence: true

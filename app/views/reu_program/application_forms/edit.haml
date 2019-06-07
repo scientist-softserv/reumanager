@@ -1,0 +1,9 @@
+= simple_form_for [:reu_program, @form] do |f|
+  = f.input :name
+  = f.nested_fields_for :sections do |sf|
+    = sf.input :title
+    = sf.input :repeating
+    = sf.nested_fields_for :questions do |qf|
+      %p Question
+  = f.add_nested_fields_link :sections
+  = f.submit 'Save Form', class: 'btn btn-primary'

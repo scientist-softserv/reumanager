@@ -25,5 +25,5 @@
 //= require academic_records
 //= require recommendations
 //= require registrations
-//= require rich
+// require rich
 //= require charges

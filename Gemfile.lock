@@ -50,11 +50,17 @@ GEM
       public_suffix (~> 2.0.5)
       rack (>= 1.3.6)
     arel (8.0.0)
+    autoprefixer-rails (9.6.0)
+      execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
     babosa (1.0.2)
     bcrypt (3.1.12)
     bindex (0.5.0)
+    bootstrap (4.3.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
     builder (3.2.3)
     capistrano (2.15.9)
       highline
@@ -195,6 +201,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.21.0)
+    popper_js (1.14.5)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -332,6 +339,15 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.1)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     seo_meta (3.0.0)
       railties (>= 5.0.0)
     simple_form (4.1.0)
@@ -383,6 +399,7 @@ PLATFORMS
 
 DEPENDENCIES
   apartment
+  bootstrap
   capistrano
   coffee-rails
   database_cleaner
