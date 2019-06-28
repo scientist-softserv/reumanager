@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   # mount Rich::Engine => '/rich', :as => 'rich'
   # mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  devise_for :program_admins
+  devise_for :program_admins,
+             controllers: {
+               sessions: 'program_admins/sessions',
+               registrations: 'program_admins/registrations'
+             }
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
     resources :settings, except: %i[destroy]

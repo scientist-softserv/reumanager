@@ -12,9 +12,5 @@ module ReuProgram
         redirect_to new_program_admin_session_path
       end
     end
-
-    def after_sign_in_path_for(resource)
-      reu_program_dashboard_path
-    end
   end
 end
