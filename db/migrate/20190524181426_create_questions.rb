@@ -4,6 +4,7 @@ class CreateQuestions < ActiveRecord::Migration[5.1]
       t.string :kind, null: false, default: 'Questions::ShortText'
       t.jsonb :config, null: false, default: {}
       t.integer :section_id, index: true
+      t.integer :order, default: 0, null: false
 
       t.timestamps
     end

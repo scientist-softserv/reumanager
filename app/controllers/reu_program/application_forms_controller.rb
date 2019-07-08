@@ -14,6 +14,11 @@ module ReuProgram
       @form.assign_attributes(form_params)
     end
 
+    def update_attributes
+      @form.assign_attributes(form_params)
+      render partial: 'edit_form', layout: false
+    end
+
     private
 
     def form_params

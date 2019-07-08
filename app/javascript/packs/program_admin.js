@@ -15,8 +15,7 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require('bootstrap')
 require('bootstrap/dist/css/bootstrap.min.css')
-window.Rails = require('rails-ujs');
-Rails.start();
-console.log('Hello World from Webpacker')
+import 'jquery'
+import 'jquery-ujs'
+import 'bootstrap'

@@ -7,4 +7,11 @@ class ApplicationForm < ApplicationRecord
   }
 
   validates :name, presence: true
+
+  accepts_nested_attributes_for :sections, allow_destroy: true
+
+  after_create do
+    self.sections.create(title: 'Profile')
+    Questions::ShortText.create(section: self.sections.first)
+  end
 end

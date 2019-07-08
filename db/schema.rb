@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20190524204957) do
     t.string "kind", default: "Questions::ShortText", null: false
     t.jsonb "config", default: {}, null: false
     t.integer "section_id"
+    t.integer "order", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_questions_on_section_id"
