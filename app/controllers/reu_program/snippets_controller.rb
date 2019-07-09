@@ -1,6 +1,8 @@
 module ReuProgram
   class SnippetsController < AdminController
+    
     def index
+      @snippets = Snippet.all
     end
 
     def show
