@@ -36,8 +36,8 @@ application_information:
       Letters of recommendation
       Two essays to the application form. The essays should be no longer than one page in length, single spaced, and font no less than 10 pt. A) What are you future academic/career goals? Explain how participation in this REU program will help you achieve those goals. B) Describe an activity (hobby, sport, club, service, etc.) you enjoy outside of classes. Discuss how you got involved and what it requires from you.
 
-acknowledgment_of_funding_soruces:
-  name: Acknowledgment Of Funding Soruces
+acknowledgment_of_funding_sources:
+  name: Acknowledgment Of Funding Sources
   description: Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.
   value: Example-
 
