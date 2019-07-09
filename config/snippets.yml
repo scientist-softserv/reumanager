@@ -48,8 +48,8 @@ application_information:
     </ul>
     <p>Note: Only U.S. citizens or permanent residents are eligible to receive financial aid, but non-citizens selected to be Cal-Bridge scholars may receive all the other benefits of the program. In addition, sometimes private donations make it possible to give financial aid to non-citizens, and all eligible students are encouraged to apply.</p>
 
-acknowledgment_of_funding_soruces:
-  name: acknowledgment_of_funding_soruces
+acknowledgment_of_funding_sourcess:
+  name: acknowledgment_of_funding_sources
   description: Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.
   value: |
     <p>The Cal-Bridge program is supported by the National Science Foundation under an S-STEM Grant No. DUE-1356133.</p>
