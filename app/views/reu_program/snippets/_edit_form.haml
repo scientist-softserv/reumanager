@@ -1,0 +1,15 @@
+%h2 Edit Snippet
+= simple_form_for [:reu_program, @snippet] do |f|
+  =f.input :name
+  %hr
+  =f.input :description
+  %hr
+  =f.input :value
+  %hr
+  =f.submit 'Save Snippet', class: 'btn btn-primary'
+  
+// :javascript
+//   function updateForm(e) {
+//       var data = new FormData(document.querySelector('.edit_snippet'))
+//       $('.edit_snippet :input, .edit_snippet select').prop('readonly', true)
+//   }
