@@ -1,0 +1,16 @@
+.row
+  .col-3
+  .col-6
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Value
+      %tbody
+        - @snippets.each do |snippet|
+          %tr
+            %td= snippet.name
+            %td= snippet.description
+            %td= snippet.value
+    .col-3
