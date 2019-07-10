@@ -11,7 +11,7 @@ services:
       - 'postgres:/var/lib/postgresql/data'
   web:
     build: .
-    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
+    image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
     volumes:
       - .:/home/app/webapp
     env_file:
