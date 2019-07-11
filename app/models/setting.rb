@@ -1,17 +1,12 @@
 class Setting < ApplicationRecord
   belongs_to :grant
   attr_accessor :display_name
-  # attr_accessible :name, :description, :value, :display_name
   validates_uniqueness_of :name
 
   # Returns the value of the setting named name
-  def self.[](name)
-    if name.is_a? Symbol
-      name = name.to_s.gsub('_', ' ').titleize
-    end
-    name = name.to_s
-    setting = find_by_name(name)
-
+  def self.[](lookup)
+    name = lookup.to_s.tr('_', ' ').titleize
+    setting = self.where('name = ? OR name = :name', lookup.to_s, name).first
     setting ? setting.value : nil
   end
 
@@ -30,5 +25,4 @@ class Setting < ApplicationRecord
   def display_name
     name.gsub('_',' ').titleize
   end
-
 end
