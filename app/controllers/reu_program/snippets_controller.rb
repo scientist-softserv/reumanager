@@ -1,5 +1,6 @@
 module ReuProgram
   class SnippetsController < AdminController
+    before_action :authenticate_program_admin!, except: [:index]
     
     def index
       @snippets = Snippet.all
@@ -15,7 +16,7 @@ module ReuProgram
     end
 
     def edit
-      @snippet = current_program_admin.snippets.find(params[:id])
+      @snippet = Snippet.find(params[:id])
     end
 
     def update
