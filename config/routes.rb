@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     get "snippets/:id" => "snippets#edit", as: :snippets_edit
     put "snippets/:id" => "snippets#update", as: :snippets_update
     resources :settings, except: %i[destroy]
-    resources :snippets, except: %i[destroy]
+    resources :snippets, except: %i[destroy] do
+      member do
+        patch :update_attributes
+      end
+    end
     resources :applicants, except: %i[destroy]
     resources :application_forms, except: %i[destroy] do
       member do
