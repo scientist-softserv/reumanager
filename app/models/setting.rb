@@ -6,7 +6,7 @@ class Setting < ApplicationRecord
   # Returns the value of the setting named name
   def self.[](lookup)
     name = lookup.to_s.tr('_', ' ').titleize
-    setting = self.where('name = ? OR name = :name', lookup.to_s, name).first
+    setting = self.where('name = ? OR name = ?', lookup.to_s, name).first
     setting ? setting.value : nil
   end
 

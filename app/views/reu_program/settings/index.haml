@@ -1,16 +1,21 @@
 .row
- .col-3
- .col-6
-  %table.table{:border => 1}
-   %thead
-    %tr
-     %th Name:
-     %th Description:
-     %th Value
-     %tbody
-     - @settings.each do |setting|
-      %tr
-       %td= setting.name
-       %td= setting.description
-       %td= setting.value
-   .col-3
+  .col-3
+  .col-6
+    %h2 Setttings
+  .col-3
+.row
+  .col-3
+  .col-6
+    %table.table
+      %thead
+        %tr
+          %th Name:
+          %th Description:
+          %th Value
+      %tbody
+        - @settings.each do |setting|
+          %tr
+            %td= setting.name
+            %td= setting.description
+            %td= setting.value
+  .col-3
