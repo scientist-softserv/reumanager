@@ -8,6 +8,7 @@ class Section < ApplicationRecord
 
   def add_question=(new_value)
     return if Question::TYPES.values.exclude?(new_value)
-    self.questions << new_value.constantize.new
+    max_order_number = self.questions.to_a.map(&:order).max
+    self.questions << new_value.constantize.new(order: (max_order_number || 0) + 1)
   end
 end

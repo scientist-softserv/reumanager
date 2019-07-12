@@ -1,4 +1,4 @@
-%strong Short Text
+%strong Select Question
 .row
   .col
     = f.input :title, as: :string
@@ -9,6 +9,4 @@
     = f.input :description, as: :text, hint: f.object.description_hint
 .row
   .col
-    = f.input :format, collection: f.object.format_options, hint: f.object.format_hint
-  .col
-    = f.input :min_length, as: :integer, hint: f.object.min_length_hint
+    = f.input :options, as: :text, hint: f.object.options_hint

@@ -19,3 +19,4 @@ require('bootstrap/dist/css/bootstrap.min.css')
 import 'jquery'
 import 'jquery-ujs'
 import 'bootstrap'
+import 'nested_form_fields'

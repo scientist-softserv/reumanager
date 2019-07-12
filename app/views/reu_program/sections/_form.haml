@@ -1,0 +1,48 @@
+= simple_form_for [:reu_program, @form, @section], html: { class: 'section_form' } do |f|
+  .row
+    .col
+      = f.input :title, as: :string
+    .col
+      = f.input :repeating
+  - unless f.object.new_record?
+    = f.nested_fields_for :questions do |qf|
+      = qf.input_field :order, as: :hidden
+      - if qf.object.is_a?(Questions::ShortText)
+        = render partial: 'reu_program/questions/short_text', locals: { f: qf }
+      - if qf.object.is_a?(Questions::LongText)
+        = render partial: 'reu_program/questions/long_text', locals: { f: qf }
+      - if qf.object.is_a?(Questions::Boolean)
+        = render partial: 'reu_program/questions/boolean', locals: { f: qf }
+      - if qf.object.is_a?(Questions::Select)
+        = render partial: 'reu_program/questions/select', locals: { f: qf }
+    %hr
+    = f.input :add_question, collection: Question::TYPES, input_html: { data: { target: 'addQuestion' } }
+  %hr
+  = f.submit 'Save Section', class: 'btn btn-primary'
+
+- unless @section.new_record?
+  :javascript
+    (function() {
+      var $addQuestionInputs = $('[data-target="addQuestion"]')
+
+      function updateForm(e) {
+        var data = new FormData(document.querySelector('.section_form'))
+        $('.section_form :input, .section_form select').prop('readonly', true)
+        $.ajax({
+          url: '#{update_attributes_reu_program_application_form_section_path(@form.id, @section.id)}',
+          method: 'patch',
+          data: data,
+          processData: false,
+          contentType: false,
+          success: function(res) {
+            $addQuestionInputs.off('change', updateForm)
+            $('.edit-application-form-container').html(res)
+          },
+          fail: function(err) {
+            alert('failed to update form')
+          }
+        })
+      }
+
+      $addQuestionInputs.on('change', updateForm)
+    })()

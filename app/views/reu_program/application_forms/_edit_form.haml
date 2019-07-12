@@ -1,46 +1,24 @@
 %h2 Edit Application Form
 = simple_form_for [:reu_program, @form] do |f|
   = f.input :name
-  = f.nested_fields_for :sections do |sf|
-    - section_index = sf.index.to_i + 1
-    %hr
-    %h3 Section #{section_index}
-    = sf.input :title, as: :string
-    = sf.input :repeating
-    = sf.nested_fields_for :questions do |qf|
-      - question_index = qf.index.to_i + 1
-      %h5 Question #{question_index}
-      = qf.input_field :order, as: :hidden, input_html: { value: question_index }
-      - if qf.object.is_a?(Questions::ShortText)
-        = render partial: 'reu_program/application_forms/questions/short_text', locals: { f: qf }
-    %hr
-    = sf.input :add_question, collection: Question::TYPES, input_html: { data: { target: 'addQuestion' } }
-  = f.add_nested_fields_link :sections
+  .row
+    .col
+      %h3 Sections
+    .col
+      = link_to 'New Section', new_reu_program_application_form_section_path(@form), class: 'btn btn-primary float-right'
+  %table.table
+    %thead
+      %th Title
+      %th Repeating
+      %th.text-right Actions
+    %tbody
+      - index = 0
+      - f.object.sections.each do |section|
+        %tr
+          %td= section.title
+          %td= section.repeating ? 'Yes' : 'No'
+          %td.text-right
+            = link_to 'Show', reu_program_application_form_section_path(@form, section)
+            = link_to 'Edit', edit_reu_program_application_form_section_path(@form, section)
   %hr
   = f.submit 'Save Form', class: 'btn btn-primary'
-
-:javascript
-  (function() {
-    var $addQuestionInputs = $('[data-target="addQuestion"]')
-
-    function updateForm(e) {
-      var data = new FormData(document.querySelector('.edit_application_form'))
-      $('.edit_application_form :input, .edit_application_form select').prop('readonly', true)
-      $.ajax({
-        url: '#{update_attributes_reu_program_application_form_path(@form)}',
-        method: 'patch',
-        data: data,
-        processData: false,
-        contentType: false,
-        success: function(res) {
-          $addQuestionInputs.off('change', updateForm)
-          $('.edit-application-form-container').html(res)
-        },
-        fail: function(err) {
-          alert('failed to update form')
-        }
-      })
-    }
-
-    $addQuestionInputs.on('change', updateForm)
-  })()
