@@ -30,7 +30,9 @@ module ReuProgram
 
     def update_attributes
       @section.assign_attributes(section_params)
-      # @section.questions.each_with_index { |q, i| q.order = i + 1 }
+      @section.handle_add_question
+      @section.errors.clear
+      @section.questions.each { |q| q.errors.clear }
       render partial: 'form', layout: false
     end
 

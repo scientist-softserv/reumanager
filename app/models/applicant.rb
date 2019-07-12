@@ -4,7 +4,8 @@ class Applicant < ApplicationRecord
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
 
   belongs_to :applicant_datum
-  alias_attribute :data, :applicant_datum
+
+  delegate :data, to: :applicant_datum
 
   enum state: {
     'Started' => 'started',
@@ -15,7 +16,8 @@ class Applicant < ApplicationRecord
     'Rejected' => 'rejected'
   }
 
-  after_initialize do
+  def data=(new_value)
     self.applicant_datum = ApplicantDatum.new if self.applicant_datum.blank?
+    self.applicant_datum.data = new_value
   end
 end

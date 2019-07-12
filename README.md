@@ -16,9 +16,10 @@ sc up
 # REU Manager v3
 
 ### Development setup
-1. `sc up` or docker-compose up
-2. in the conainter run `bundle exec rake db:create db:migrate db:seed settings:load`
-3. in a browser go to test.lvh.me:3000
+1. Pull image `docker-compose pull web`
+2. `sc up` or docker-compose up
+3. in the container run `bundle exec rake db:create db:migrate db:seed`
+4. in a browser go to test.lvh.me:3000
 
 to get to the new admin go to http://test.lvh.me:3000/reu_program/dashboard.
 the seeds setup a program admin for you. email: admin@test.com password: testing123

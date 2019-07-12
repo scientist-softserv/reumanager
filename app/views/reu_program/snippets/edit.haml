@@ -1,5 +1,19 @@
-%h2 Edit Snippet
-= simple_form_for [:reu_program, @snippet] do |f|
-  = f.input :value
-  %hr
-  = f.submit 'Save Snippet', class: 'btn btn-primary'
+.row
+  .col-2
+  .col-8
+    %h2 Edit Snippet
+    = simple_form_for [:reu_program, @snippet] do |f|
+      .row
+        .col
+          %p
+            %strong Name:
+            = f.object.name
+      .row
+        .col
+          %p
+            %strong Description:
+            = f.object.description
+      = f.input :value
+      %hr
+      = f.submit 'Save Snippet', class: 'btn btn-primary'
+  .col-2

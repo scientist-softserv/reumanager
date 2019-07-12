@@ -18,5 +18,9 @@ module Questions
     def options_hint
       self.enum_array_hint
     end
+
+    def default_name
+      'Select Question'
+    end
   end
 end

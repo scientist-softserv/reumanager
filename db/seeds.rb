@@ -12,12 +12,83 @@ Apartment::Tenant.switch('test') do
     password_confirmation: 'testing123',
     confirmed_at: Time.now
   )
+
+  Applicant.create(
+    email: 'applicant@test.com',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    data: {
+      profile: {
+        first_name: 'John',
+        last_name: 'Doe',
+        date_of_birth: 18.years.ago,
+        phone: '2223334444'
+      },
+      addresses: [
+        {
+          type: 'primary',
+          street: '123 University Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        },
+        {
+          type: 'permanent',
+          street: '123 Home Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        }
+      ],
+      academic_record: {
+        university: 'Monsters University',
+        major: 'Software Engineering',
+        minior: 'Scaring',
+        gpa: '3.8'
+      }
+    }
+  )
+
+  Applicant.create(
+    email: 'applicant+1@test.com',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    data: {
+      profile: {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        date_of_birth: 19.years.ago,
+        phone: '2223334444'
+      },
+      addresses: [
+        {
+          type: 'primary',
+          street: '123 University Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        },
+        {
+          type: 'permanent',
+          street: '123 Home Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        }
+      ],
+      academic_record: {
+        university: 'Monsters University',
+        major: 'Software Engineering',
+        minior: 'Scaring',
+        gpa: '3.9'
+      }
+    }
+  )
 end
 
 # Admins
 admins = [
-  { email: 'kelly@notch8.com', first_name: 'Kelly', last_name: 'Chess', password: 'testing123', is_super_admin: true },
-  { email: 'rob@notch8.com', first_name: 'Rob', last_name: 'Kaufman', password: 'testing123', grant: grant, is_super_admin: true }
+  { email: 'super-admin@test.com', first_name: 'super', last_name: 'admin', password: 'testing123', grant: grant, is_super_admin: true }
 ]
 
 admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
@@ -25,4 +96,4 @@ admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; a
 puts 'test tenant created please use "test.lvh.me" to reach the app'
 
 # Added by Refinery CMS Pages extension
-Refinery::Pages::Engine.load_seed
+# Refinery::Pages::Engine.load_seed
