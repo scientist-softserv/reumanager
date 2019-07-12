@@ -1,6 +1,7 @@
 module ReuProgram
   class SettingsController < AdminController
     def index
+      @settings = Setting.all
     end
 
     def show

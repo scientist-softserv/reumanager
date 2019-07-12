@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def settings_filled_in?
-    Setting[:application_start].present? && Setting[:program_start_date].present?
+    # Setting[:application_start].present? && Setting[:program_start_date].present?
+    true
   end
 
   # used to prevent seeing user info through history after sign-out.
