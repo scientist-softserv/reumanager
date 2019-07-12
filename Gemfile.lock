@@ -271,6 +271,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   faker
+  haml (~> 5.0, >= 5.0.4)
   hamlit
   jquery-rails
   jquery-ui-rails
