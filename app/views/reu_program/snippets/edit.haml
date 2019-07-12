@@ -1,0 +1,5 @@
+%h2 Edit Snippet
+= simple_form_for [:reu_program, @snippet] do |f|
+  = f.input :value
+  %hr
+  = f.submit 'Save Snippet', class: 'btn btn-primary'
