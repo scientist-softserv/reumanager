@@ -20,12 +20,8 @@ module ReuProgram
     end
 
     def update
-      @snippet.update_attributes(snippet_params)
-    end
-
-    def update_attributes
-      @snippet.assign_attributes(snippet_params)
-      render partial: 'edit_form', layout: false
+      @snippet.update(snippet_params)
+      redirect_to action: "index"
     end
 
     def destroy
