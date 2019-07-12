@@ -1,0 +1,7 @@
+%h2 Edit Setting
+= simple_form_for [:reu_program, @setting] do |f|
+  = f.input :value
+  %hr
+  = f.submit 'Save Setting', class: 'btn btn-primary'
+  
+  
