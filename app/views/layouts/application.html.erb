@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<%= render "/refinery/html_tag" %>
-  <% site_bar = render('/refinery/site_bar', :head => true) -%>
   <head>
-    <%= render "/refinery/head" %>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
   </head>
   <!-- Preloader -->
   <div id="preloader">
       <div id="status">&nbsp;</div>
   </div>
 
-  <body id="<%= canonical_id @page %>">
-    <%= site_bar -%>
+  <body>
     <div id='flash'>
       <%= content_tag 'div', (flash[:alert]), :class => 'alert alert-warning', :id => 'alert', :onclick => "$(this).slideUp();" if flash[:alert] %>
       <%= content_tag 'div', (flash[:error]), :class => 'alert alert-danger', :id => 'error', :onclick => "$(this).slideUp();" if flash[:error] %>
@@ -23,8 +21,6 @@
         <header id="header">
           <% if is_subdomain? %>
             <%= render 'layouts/header' %>
-          <% else %>
-            <%= render "/refinery/header" -%>
           <% end %>
         </header>
 
@@ -48,8 +44,6 @@
         <footer>
           <% if is_subdomain? %>
             <%= render "/layouts/footer_text" -%>
-          <% else %>
-            <%= render "/refinery/footer" -%>
           <% end %>
         </footer>
 
@@ -61,7 +55,6 @@
     </div>
     <script src="https://js.stripe.com/v3/"></script>
 
-    <%= render "/refinery/javascripts" %>
 
   </body>
 </html>
