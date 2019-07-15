@@ -7,24 +7,11 @@ module ReuProgram
       @settings = Setting.all
     end
 
-    def show
-    end
-
-    def new
-    end
-
-    def create
-    end
-
-    def edit
-    end
+    def edit; end
 
     def update
        @setting.update(setting_params)
        redirect_to action: "index"
-    end
-
-    def destroy
     end
     
     private

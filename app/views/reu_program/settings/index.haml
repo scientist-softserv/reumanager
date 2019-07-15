@@ -1,16 +1,24 @@
 .row
- .col-3
- .col-6
-  %table.table{:border => 1}
-   %thead
-    %tr
-     %th Name:
-     %th Description:
-     %th Value
-     %tbody
-     - @settings.each do |setting|
-      %tr
-       %td= setting.name
-       %td= setting.description
-       %td= setting.value
-   .col-3
+  .col-2
+  .col-8
+    %h2 Settings
+  .col-2
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Value
+          %th Actions
+      %tbody
+        - @settings.each do |setting|
+          %tr
+            %td= setting.name
+            %td= setting.description
+            %td= truncate(setting.value, length: 100)
+            %td.actions
+              = link_to 'Edit', edit_reu_program_setting_path(setting)
+    .col-2
