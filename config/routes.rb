@@ -26,8 +26,10 @@ Rails.application.routes.draw do
     resources :snippets, except: %i[destroy] 
     resources :applicants, except: %i[destroy]
     resources :application_forms, except: %i[destroy] do
-      member do
-        patch :update_attributes
+      resources :sections, except: %i[index] do
+        member do
+          patch :update_attributes
+        end
       end
     end
   end

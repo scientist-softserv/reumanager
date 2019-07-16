@@ -1,16 +1,24 @@
 .row
-  .col-3
-  .col-6
+  .col-2
+  .col-8
+    %h2 Snippets
+  .col-2
+.row
+  .col-2
+  .col-8
     %table.table
       %thead
         %tr
           %th Name
           %th Description
           %th Value
+          %th Actions
       %tbody
         - @snippets.each do |snippet|
           %tr
             %td= snippet.name
             %td= snippet.description
-            %td= snippet.value
-    .col-3
+            %td= truncate(snippet.value, length: 100)
+            %td.actions
+              = link_to 'Edit', edit_reu_program_snippet_path(snippet)
+    .col-2

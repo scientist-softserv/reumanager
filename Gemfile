@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '5.1.3'
+
+gem 'rails', '5.2.3'
 
 gem 'apartment'
 gem 'bootstrap'
+gem 'bootsnap'
 gem 'capistrano'
 gem 'coffee-rails'
 gem 'devise'
@@ -15,11 +18,9 @@ gem 'kaminari'
 gem 'nested_form_fields'
 gem 'mimemagic', '~> 0.3.2'
 gem 'paper_trail'
-gem 'paperclip', '~> 5.1'
 gem 'pg'
-gem 'responders', '~> 2.0'
 gem 'rvm-capistrano', require: false
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'simple_form'
 gem 'tzinfo-data'
 gem 'uglifier'
@@ -27,10 +28,10 @@ gem 'webpacker'
 gem 'whenever', require: false
 
 # Refinery CMS
-gem 'refinerycms'
-gem 'refinerycms-acts-as-indexed' # Add support for searching inside Refinery's admin interface.
-gem 'refinerycms-authentication-devise', '~> 2.0.0'
-gem 'refinerycms-wymeditor' # Add support for Refinery's custom fork of the visual editor WYMeditor.
+# gem 'refinerycms'
+# gem 'refinerycms-acts-as-indexed' # Add support for searching inside Refinery's admin interface.
+# gem 'refinerycms-authentication-devise', github: 'refinery/refinerycms-authentication-devise'
+# gem 'refinerycms-wymeditor' # Add support for Refinery's custom fork of the visual editor WYMeditor.
 
 # development and test gems
 gem 'database_cleaner', group: [:development, :test]
@@ -40,6 +41,8 @@ gem 'rspec-rails', '~> 3.6', '>= 3.6.1', group: [:development, :test]
 gem 'web-console', '~> 3.5', group: [:development]
 
 
+# gem 'responders', '~> 2.0'
+# gem 'paperclip', '~> 5.1'
 # gem 'addressable'
 # gem "capybara-webkit", group: [:development, :test]
 # gem "better_errors", group: [:development]
