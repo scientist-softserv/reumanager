@@ -20,14 +20,14 @@ Rails.application.routes.draw do
              }
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
-    get 'settings/:id' => 'settings#edit', as: :settings_edit
-    put 'settings/:id' => 'settings#update', as: :settings_update
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy] 
     resources :applicants, except: %i[destroy]
     resources :application_forms, except: %i[destroy] do
-      member do
-        patch :update_attributes
+      resources :sections, except: %i[index] do
+        member do
+          patch :update_attributes
+        end
       end
     end
   end

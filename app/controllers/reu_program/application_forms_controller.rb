@@ -11,12 +11,11 @@ module ReuProgram
     def edit; end
 
     def update
-      @form.assign_attributes(form_params)
-    end
-
-    def update_attributes
-      @form.assign_attributes(form_params)
-      render partial: 'edit_form', layout: false
+      if @form.update(form_params)
+        redirect_to edit_reu_program_application_form_path(@form)
+      else
+        render :edit
+      end
     end
 
     private

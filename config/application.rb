@@ -17,7 +17,7 @@ module Reuman
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.load_defaults 5.1
+    config.load_defaults 5.2
   end
 
   class Apartment < ::Apartment::Elevators::Subdomain

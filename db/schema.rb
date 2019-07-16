@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524204957) do
+ActiveRecord::Schema.define(version: 2019_07_12_172018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,20 +48,13 @@ ActiveRecord::Schema.define(version: 20190524204957) do
     t.datetime "updated_at"
   end
 
+  create_table "applicant_data", force: :cascade do |t|
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "applicants", id: :serial, force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.date "dob"
-    t.string "citizenship"
-    t.string "disability"
-    t.string "gender"
-    t.string "ethnicity"
-    t.string "race"
-    t.string "academic_level"
-    t.text "lab_skills"
-    t.text "cpu_skills"
-    t.text "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
     t.string "email", default: "", null: false
@@ -85,12 +78,7 @@ ActiveRecord::Schema.define(version: 20190524204957) do
     t.string "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "gpa_comment"
-    t.string "found_us"
-    t.boolean "acknowledged_dates", default: false
-    t.string "military"
-    t.string "mentor1"
-    t.string "mentor2"
+    t.integer "applicant_datum_id"
     t.index ["authentication_token"], name: "index_applicants_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_applicants_on_confirmation_token", unique: true
     t.index ["email"], name: "index_applicants_on_email", unique: true

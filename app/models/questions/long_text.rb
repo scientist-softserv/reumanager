@@ -6,5 +6,9 @@ module Questions
     def widget
       'textarea'
     end
+
+    def default_name
+      'Long Text Question'
+    end
   end
 end
