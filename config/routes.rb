@@ -20,10 +20,8 @@ Rails.application.routes.draw do
              }
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
-    get "snippets/:id" => "snippets#edit", as: :snippets_edit
-    put "snippets/:id" => "snippets#update", as: :snippets_update
     resources :settings, except: %i[destroy]
-    resources :snippets, except: %i[destroy]
+    resources :snippets, except: %i[destroy] 
     resources :applicants, except: %i[destroy]
     resources :application_forms, except: %i[destroy] do
       resources :sections, except: %i[index] do
