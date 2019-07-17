@@ -1,0 +1,23 @@
+.row
+  .col-2
+  .col-8
+    %h2 Applicants
+  .col-2
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th State
+          %th Actions
+      %tbody
+        - @applicants.each do |applicant|
+          %tr
+            %td= link_to applicant.applicant_datum.data["profile"]["first_name"] + " " + applicant.applicant_datum.data["profile"]["last_name"], reu_program_applicant_path(applicant)
+            %td= applicant.state
+            %td.actions
+              = link_to 'PDF', edit_reu_program_applicant_path(applicant) |
+              = link_to 'Export CSV', reu_program_applicant_path(applicant, format: 'csv')
+    .col-2

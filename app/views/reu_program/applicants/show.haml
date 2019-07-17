@@ -1,0 +1,27 @@
+.row
+  .col-2
+  .col-8
+    - @applicant.data.each do |key, value|
+      - if key.match(/_/)
+        %h3 #{key.split('_').map(&:capitalize).join(' ')}
+      - else
+        %h3= key.capitalize
+      - if value.is_a?(Array)
+        - value.each do |key, value|
+          - key.each do |key, value|
+            %strong #{key.capitalize}:
+            = value
+            %br
+          %br
+      - else
+        - value.each do |key, value|
+          %p
+            %strong #{key.split('_').map(&:capitalize).join(' ')}:
+            - if key.downcase == "date_of_birth"
+              = value.to_date
+            - else
+              = value
+      %hr
+    %br
+    %p= link_to 'Back', reu_program_applicants_path
+  .col-2
