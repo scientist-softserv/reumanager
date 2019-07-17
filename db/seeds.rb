@@ -43,7 +43,7 @@ Apartment::Tenant.switch('test') do
       academic_record: {
         university: 'Monsters University',
         major: 'Software Engineering',
-        minior: 'Scaring',
+        minor: 'Scaring',
         gpa: '3.8'
       }
     }
@@ -79,7 +79,115 @@ Apartment::Tenant.switch('test') do
       academic_record: {
         university: 'Monsters University',
         major: 'Software Engineering',
-        minior: 'Scaring',
+        minor: 'Scaring',
+        gpa: '3.9'
+      }
+    }
+  )
+  Applicant.create(
+    email: 'applicant3@test.com',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    state: 'completed',
+    data: {
+      profile: {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        date_of_birth: 19.years.ago,
+        phone: '2223334444'
+      },
+      addresses: [
+        {
+          type: 'primary',
+          street: '123 University Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        },
+        {
+          type: 'permanent',
+          street: '123 Home Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        }
+      ],
+      academic_record: {
+        university: 'Monsters University',
+        major: 'Software Engineering',
+        minor: 'Scaring',
+        gpa: '3.9'
+      }
+    }
+  )
+  Applicant.create(
+    email: 'applicant4@test.com',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    state: 'started',
+    data: {
+      profile: {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        date_of_birth: 19.years.ago,
+        phone: '2223334444'
+      },
+      addresses: [
+        {
+          type: 'primary',
+          street: '123 University Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        },
+        {
+          type: 'permanent',
+          street: '123 Home Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        }
+      ],
+      academic_record: {
+        university: 'Monsters University',
+        major: 'Software Engineering',
+        minor: 'Scaring',
+        gpa: '3.9'
+      }
+    }
+  )
+  Applicant.create(
+    email: 'applicant5@test.com',
+    password: 'testing123',
+    password_confirmation: 'testing123',
+    state: 'accepted',
+    data: {
+      profile: {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        date_of_birth: 19.years.ago,
+        phone: '2223334444'
+      },
+      addresses: [
+        {
+          type: 'primary',
+          street: '123 University Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        },
+        {
+          type: 'permanent',
+          street: '123 Home Ave',
+          city: 'SD',
+          state: 'CA',
+          zip: '99999'
+        }
+      ],
+      academic_record: {
+        university: 'Monsters University',
+        major: 'Software Engineering',
+        minor: 'Scaring',
         gpa: '3.9'
       }
     }
