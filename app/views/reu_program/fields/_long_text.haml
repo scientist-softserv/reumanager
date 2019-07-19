@@ -1,4 +1,8 @@
-%strong Long Text Field
+.row
+  .col
+    %strong Long Text Field
+  .col
+    = render partial: 'reu_program/fields/delete_button', locals: { f: f }
 .row
   .col
     = f.input :title, as: :string

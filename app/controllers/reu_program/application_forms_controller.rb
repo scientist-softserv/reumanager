@@ -8,6 +8,8 @@ module ReuProgram
 
     def show; end
 
+    def show_schema; end
+
     def edit; end
 
     def update

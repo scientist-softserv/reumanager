@@ -19,4 +19,5 @@ require('bootstrap/dist/css/bootstrap.min.css')
 import 'jquery'
 import 'jquery-ujs'
 import 'bootstrap'
-import 'nested_form_fields'
+// import 'nested_form_fields'
+import 'program_admin/delete_button.js'

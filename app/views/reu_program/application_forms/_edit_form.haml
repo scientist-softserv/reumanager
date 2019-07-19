@@ -1,4 +1,3 @@
-%h2 Edit Application Form
 = simple_form_for [:reu_program, @form] do |f|
   = f.input :name
   .row
@@ -18,7 +17,8 @@
           %td= section.title
           %td= section.repeating ? 'Yes' : 'No'
           %td.text-right
-            = link_to 'Show', reu_program_application_form_section_path(@form, section)
+            -# = link_to 'Show', reu_program_application_form_section_path(@form, section)
             = link_to 'Edit', edit_reu_program_application_form_section_path(@form, section)
+            = link_to 'Delete', reu_program_application_form_section_path(@form, section), method: :delete, data: { confirm: 'Are you sure you want to delete this section?' }
   %hr
   = f.submit 'Save Form', class: 'btn btn-primary'

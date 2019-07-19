@@ -37,6 +37,11 @@ module ReuProgram
     end
 
     def destroy
+      if @section.destroy
+        redirect_to edit_reu_program_application_form_path(@form)
+      else
+        redirect_back fallback_location: edit_reu_program_application_form_path(@form)
+      end
     end
 
     private

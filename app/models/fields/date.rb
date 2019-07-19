@@ -12,5 +12,14 @@ module Fields
     def default_name
       'Date Field'
     end
+
+    def json_config
+      {
+        title_key => {
+          type: :string,
+          description: description
+        }
+      }
+    end
   end
 end

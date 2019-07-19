@@ -18,6 +18,7 @@
       - unless f.object.new_record?
         = f.nested_fields_for :fields do |qf|
           = qf.input_field :order, as: :hidden
+          = qf.input_field :kind, as: :hidden
           - if qf.object.is_a?(Fields::ShortText)
             = render partial: 'reu_program/fields/short_text', locals: { f: qf }
           - if qf.object.is_a?(Fields::LongText)
@@ -26,8 +27,6 @@
             = render partial: 'reu_program/fields/boolean', locals: { f: qf }
           - if qf.object.is_a?(Fields::Select)
             = render partial: 'reu_program/fields/select', locals: { f: qf }
-          - if qf.object.is_a?(Fields::Date)
-            = render partial: 'reu_program/fields/Date', locals: { f: qf }
           %hr
         = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
       %hr
