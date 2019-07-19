@@ -5,10 +5,24 @@ module ReuProgram
     
     def index
       @applicants = Applicant.all
+      
+      respond_to do |format|
+        format.html
+        format.csv do
+          document = ApplicantCsv.new(@applicants)
+          send_data document.build, disposition: "attachment;filename=applicants_export.csv", type: "text/csv"
+        end
+      end
     end
 
     def show
-        
+      respond_to do |format|
+        format.html
+        format.csv do
+          document = ApplicantCsv.new([@applicant])
+          send_data document.build, disposition: "attachment;filename=applicant_export.csv", type: "text/csv"
+        end
+      end
     end
 
     def new
@@ -21,10 +35,6 @@ module ReuProgram
     end
 
     def update
-      respond_to do |format|
-        format.html
-        format.csv { send_data @applicant.to_csv, filename: "applicant-#{Date.today}.csv" }
-      end
     end
     
     private
