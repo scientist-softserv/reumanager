@@ -1,6 +1,4 @@
 class Applicant < ApplicationRecord
-  
-  require 'csv'
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
@@ -23,20 +21,16 @@ class Applicant < ApplicationRecord
     self.applicant_datum.data = new_value
   end
   
-  def self.to_csv
-    attributes = %w{ id submitted_at }
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
-
-      all.each do |applicant|
-        csv << attributes.map{ |attr| applicant.send(attr) }
+  def data_flattened
+    data.each_with_object({}) do |(key, value), hash|
+      if value.is_a?(Array)
+        value.each_with_index do |v, i| 
+          hash.merge!(v.transform_keys { |k| k + (i + 1).to_s }) 
+        end
+      else
+        hash.merge!(value)
       end
     end
-  end
-  
-  def name
-    "#{first_name} #{last_name}"
   end
   
 end
