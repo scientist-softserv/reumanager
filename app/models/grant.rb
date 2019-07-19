@@ -49,7 +49,7 @@ class Grant < ActiveRecord::Base
             Fields::ShortText.new(title: 'First Name', format: 'text', order: 1),
             Fields::ShortText.new(title: 'Last Name', format: 'text', order: 2),
             Fields::ShortText.new(title: 'Phone', format: 'text', order: 3),
-            Fields::Date.new(title: 'Date of Birth', order: 4)
+            Fields::ShortText.new(title: 'Date of Birth', format: 'date', order: 4)
           ]
         ),
         Section.new(

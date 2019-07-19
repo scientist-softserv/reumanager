@@ -7,7 +7,6 @@ class Field < ApplicationRecord
     'Long Text' => 'Fields::LongText',
     'Checkbox' => 'Fields::Boolean',
     'Select' => 'Fields::Select',
-    'Date' => 'Fields::Date',
     'Select with Follow Up' => 'Fields::SelectWithFollowup'
   }.freeze
 
@@ -31,5 +30,9 @@ class Field < ApplicationRecord
     def property(property_name, opts = {})
       @current_config[property_name] = opts
     end
+  end
+
+  def title_key
+    title.downcase.tr(' ', '_')
   end
 end

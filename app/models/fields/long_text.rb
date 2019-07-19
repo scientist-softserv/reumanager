@@ -4,7 +4,7 @@ module Fields
       property :title, type: :string, hint: 'Question text'
       property :description, type: :string, hint: 'Hint to user about what the field is asking for. optional'
       property :required, type: :boolean, default: false, hint: 'Field will be required'
-      property :type, type: :string, default: 'string', in_form: false
+      # property :type, type: :string, default: 'string', in_form: false
       property :min_length, type: :integer, hint: 'Specify a minimum length of for in input value'
     end
 
@@ -16,6 +16,24 @@ module Fields
 
     def default_name
       'Long Text Field'
+    end
+
+    def json_config
+      {
+        title_key => {
+          type: :string,
+          description: description,
+          minLength: min_length
+        }
+      }
+    end
+
+    def ui_config
+      {
+        title_key => {
+          'ui:widget': 'textarea'
+        }
+      }
     end
   end
 end
