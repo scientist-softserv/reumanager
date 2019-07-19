@@ -22,7 +22,7 @@
             = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
       - else
         %h3.deadline
-          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2017 Program. Applications will be due on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b, %d")}.
+          Applications will be available in #{Setting[:application_start]&.to_date&.strftime("%A, %b %d")} for the Summer 2017 Program. Applications will be due on #{Setting[:application_deadline]&.to_date&.strftime("%A, %b %d")} and Decisions sent to applicants by #{Setting[:notification_date]&.to_date&.strftime("%A, %b, %d")}.
       
 
 

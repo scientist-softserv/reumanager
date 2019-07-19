@@ -1,11 +1,11 @@
 .row
   .col-4
     %h5 Section Outline
-    %strong Questions
+    %strong Fields
     %ul.list-group
-      - @section.questions.each do |question|
+      - @section.fields.each do |field|
         %li.list-group-item
-          %p= "#{question.order}. #{question.title || question.default_name}"
+          %p= "#{field.order}. #{field.title || field.default_name}"
 
   .col-8
     = simple_form_for [:reu_program, @form, @section], html: { class: 'section_form' } do |f|
@@ -16,18 +16,18 @@
           = f.input :repeating
       %hr
       - unless f.object.new_record?
-        = f.nested_fields_for :questions do |qf|
+        = f.nested_fields_for :fields do |qf|
           = qf.input_field :order, as: :hidden
-          - if qf.object.is_a?(Questions::ShortText)
-            = render partial: 'reu_program/questions/short_text', locals: { f: qf }
-          - if qf.object.is_a?(Questions::LongText)
-            = render partial: 'reu_program/questions/long_text', locals: { f: qf }
-          - if qf.object.is_a?(Questions::Boolean)
-            = render partial: 'reu_program/questions/boolean', locals: { f: qf }
-          - if qf.object.is_a?(Questions::Select)
-            = render partial: 'reu_program/questions/select', locals: { f: qf }
+          - if qf.object.is_a?(Fields::ShortText)
+            = render partial: 'reu_program/fields/short_text', locals: { f: qf }
+          - if qf.object.is_a?(Fields::LongText)
+            = render partial: 'reu_program/fields/long_text', locals: { f: qf }
+          - if qf.object.is_a?(Fields::Boolean)
+            = render partial: 'reu_program/fields/boolean', locals: { f: qf }
+          - if qf.object.is_a?(Fields::Select)
+            = render partial: 'reu_program/fields/select', locals: { f: qf }
           %hr
-        = f.input :add_question, collection: Question::TYPES, input_html: { data: { target: 'addQuestion' } }
+        = f.input :add_field, collection: Question::TYPES, input_html: { data: { target: 'addQuestion' } }
       %hr
       = f.submit 'Save Section', class: 'btn btn-primary'
 

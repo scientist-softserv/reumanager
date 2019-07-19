@@ -27,6 +27,46 @@ class Grant < ActiveRecord::Base
     Apartment::Tenant.drop(subdomain)
   end
 
+  def reset_defaults
+    Apartment::Tenant.switch(self.subdomain) do
+      Snippet.delete_all
+      self.add_default_snippets
+      Setting.delete_all
+      self.add_default_settings
+      ApplicationForm.destroy_all
+      self.add_default_application_form
+    end
+  end
+
+  def add_default_application_form
+    ApplicationForm.create(
+      name: 'Default',
+      status: 'draft',
+      sections: [
+        Section.new(
+          title: 'Profile',
+          fields: [
+            Fields::ShortText.new(title: 'First Name', format: 'text'),
+            Fields::ShortText.new(title: 'Last Name', format: 'text'),
+            Fields::ShortText.new(title: 'Phone', format: 'text'),
+            Fields::ShortText.new(title: 'Date of Birth', format: 'text')
+          ]
+        ),
+        Section.new(
+          title: 'Addresses',
+          repeating: true,
+          fields: [
+            Fields::ShortText.new(title: 'Type', format: 'text'),
+            Fields::ShortText.new(title: 'String', format: 'text'),
+            Fields::ShortText.new(title: 'City', format: 'text'),
+            Fields::ShortText.new(title: 'State', format: 'text'),
+            Fields::ShortText.new(title: 'Zip', format: 'text')
+          ]
+        )
+      ]
+    )
+  end
+
   def add_default_snippets
     Snippet.create(name: 'General Description', description: 'This is the text used as a general description for your program. It is displayed on the front page under the main image.', grant_id: self.id)
     Snippet.create(name: 'Program Highlights', description: '', grant_id: self.id)
@@ -46,7 +86,7 @@ class Grant < ActiveRecord::Base
    Setting.create(name: 'Program Start Date', description: 'This date is used in the header and confirmation emails to set when the NSFREU program begins.', grant_id: self.id)
    Setting.create(name: 'Program End Date', description: 'Similar to the above value, this marks the end date for your NSFREU program.', grant_id: self.id)
    Setting.create(name: 'Check Back Date', description: "Once the application process is closed (after the application deadline), this value will inform students when to check back for information about next year's application.",grant_id: self.id)
-   Setting.create(name:' Mail From', description: 'This will be used in the reply-to value for emails sent from the application.  This is also used in the footer as the email to contact for questions or comments about the website.', grant_id: self.id)
+   Setting.create(name:' Mail From', description: 'This will be used in the reply-to value for emails sent from the application.  This is also used in the footer as the email to contact for fields or comments about the website.', grant_id: self.id)
    Setting.create(name: 'Funding Acknowlegement', description: 'Who is supporting this program?', grant_id: self.id)
    Setting.create(name: 'University Url', description: '| Main URL for the parent organization, usually a university (e.g. http://university.edu)', grant_id: self.id)
    Setting.create(name: 'Department Url', description: '| Main URL for the organization, usually a department', grant_id: self.id)

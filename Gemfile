@@ -14,6 +14,7 @@ gem 'dotenv-rails'
 gem 'hamlit'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem "jsonb_accessor", "~> 1.0.0"
 gem 'kaminari'
 gem 'nested_form_fields'
 gem 'mimemagic', '~> 0.3.2'

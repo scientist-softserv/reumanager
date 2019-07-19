@@ -12,6 +12,6 @@ class ApplicationForm < ApplicationRecord
 
   after_create do
     self.sections.create(title: 'Profile')
-    Questions::ShortText.create(section: self.sections.first)
+    Fields::ShortText.create(section: self.sections.first)
   end
 end

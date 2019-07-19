@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :question do
+  factory :field do
     type ""
     config ""
     section_id 1
