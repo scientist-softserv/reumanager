@@ -20,6 +20,7 @@ gem 'nested_form_fields'
 gem 'mimemagic', '~> 0.3.2'
 gem 'paper_trail'
 gem 'pg'
+gem 'prawn'
 gem 'rvm-capistrano', require: false
 gem 'sassc-rails'
 gem 'simple_form'

@@ -2,7 +2,9 @@
   .col-2
   .col-8
     %h2.float-left Applicants
-    %button.float-right= link_to 'Export All as CSV', reu_program_applicants_path(format: 'csv')
+    .btn-group
+      %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applicants_path(format: 'csv')
+      %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applicants_path(format: 'pdf')
   .col-2
 .row
   .col-2
@@ -19,6 +21,6 @@
             %td= link_to applicant.applicant_datum.data["profile"]["first_name"] + " " + applicant.applicant_datum.data["profile"]["last_name"], reu_program_applicant_path(applicant)
             %td= applicant.state
             %td.actions
-              = link_to 'PDF', edit_reu_program_applicant_path(applicant) |
-              %button= link_to 'Export CSV', reu_program_applicant_path(applicant, format: 'csv')
+              = link_to 'PDF', reu_program_applicant_path(applicant, format: 'pdf') |
+              = link_to 'CSV', reu_program_applicant_path(applicant, format: 'csv')
     .col-2
