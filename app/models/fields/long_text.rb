@@ -1,5 +1,5 @@
 module Fields
-  class LongText < Question
+  class LongText < Field
     define_properties do
       property :title, type: :string, hint: 'Question text'
       property :description, type: :string, hint: 'Hint to user about what the field is asking for. optional'
@@ -15,7 +15,7 @@ module Fields
     end
 
     def default_name
-      'Long Text Question'
+      'Long Text Field'
     end
   end
 end

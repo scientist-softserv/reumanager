@@ -1,5 +1,5 @@
 module Fields
-  class Date < Question
+  class Date < Field
     define_properties do
       property :title, type: :string, hint: 'Question text'
       property :description, type: :string, hint: 'Hint to user about what the field is asking for. optional'
@@ -10,7 +10,7 @@ module Fields
     validates :title, presence: true
 
     def default_name
-      'Date Question'
+      'Date Field'
     end
   end
 end

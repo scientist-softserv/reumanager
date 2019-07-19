@@ -46,21 +46,21 @@ class Grant < ActiveRecord::Base
         Section.new(
           title: 'Profile',
           fields: [
-            Fields::ShortText.new(title: 'First Name', format: 'text'),
-            Fields::ShortText.new(title: 'Last Name', format: 'text'),
-            Fields::ShortText.new(title: 'Phone', format: 'text'),
-            Fields::ShortText.new(title: 'Date of Birth', format: 'text')
+            Fields::ShortText.new(title: 'First Name', format: 'text', order: 1),
+            Fields::ShortText.new(title: 'Last Name', format: 'text', order: 2),
+            Fields::ShortText.new(title: 'Phone', format: 'text', order: 3),
+            Fields::Date.new(title: 'Date of Birth', order: 4)
           ]
         ),
         Section.new(
           title: 'Addresses',
           repeating: true,
           fields: [
-            Fields::ShortText.new(title: 'Type', format: 'text'),
-            Fields::ShortText.new(title: 'String', format: 'text'),
-            Fields::ShortText.new(title: 'City', format: 'text'),
-            Fields::ShortText.new(title: 'State', format: 'text'),
-            Fields::ShortText.new(title: 'Zip', format: 'text')
+            Fields::ShortText.new(title: 'Type', format: 'text', order: 1),
+            Fields::ShortText.new(title: 'String', format: 'text', order: 2),
+            Fields::ShortText.new(title: 'City', format: 'text', order: 3),
+            Fields::ShortText.new(title: 'State', format: 'text', order: 4),
+            Fields::ShortText.new(title: 'Zip', format: 'text', order: 5)
           ]
         )
       ]

@@ -1,0 +1,9 @@
+%strong Checkbox Field
+.row
+  .col
+    = f.input :title, as: :string
+  .col
+    = f.input :required, as: :boolean, hint: f.object.required_hint
+.row
+  .col
+    = f.input :description, as: :text, hint: f.object.description_hint

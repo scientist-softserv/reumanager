@@ -26,15 +26,17 @@
             = render partial: 'reu_program/fields/boolean', locals: { f: qf }
           - if qf.object.is_a?(Fields::Select)
             = render partial: 'reu_program/fields/select', locals: { f: qf }
+          - if qf.object.is_a?(Fields::Date)
+            = render partial: 'reu_program/fields/Date', locals: { f: qf }
           %hr
-        = f.input :add_field, collection: Question::TYPES, input_html: { data: { target: 'addQuestion' } }
+        = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
       %hr
       = f.submit 'Save Section', class: 'btn btn-primary'
 
 - unless @section.new_record?
   :javascript
     (function() {
-      var $addQuestionInputs = $('[data-target="addQuestion"]')
+      var $addFieldInputs = $('[data-target="addField"]')
 
       function updateForm(e) {
         var data = new FormData(document.querySelector('.section_form'))
@@ -46,8 +48,11 @@
           processData: false,
           contentType: false,
           success: function(res) {
-            $addQuestionInputs.off('change', updateForm)
+            $addFieldInputs.off('change', updateForm)
             $('.edit-application-form-container').html(res)
+            setTimeout(function() {
+              $('[data-target="addField"]').removeClass('is-valid').val('')
+            }, 50)
           },
           fail: function(err) {
             alert('failed to update form')
@@ -55,5 +60,5 @@
         })
       }
 
-      $addQuestionInputs.on('change', updateForm)
+      $addFieldInputs.on('change', updateForm)
     })()

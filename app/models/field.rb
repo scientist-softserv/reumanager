@@ -7,6 +7,7 @@ class Field < ApplicationRecord
     'Long Text' => 'Fields::LongText',
     'Checkbox' => 'Fields::Boolean',
     'Select' => 'Fields::Select',
+    'Date' => 'Fields::Date',
     'Select with Follow Up' => 'Fields::SelectWithFollowup'
   }.freeze
 
