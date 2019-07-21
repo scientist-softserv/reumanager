@@ -1,5 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+Apartment::Tenant.drop('test')
+Grant.destroy_all
 
 grant = Grant.create(program_title: 'Test Program', subdomain: 'test')
 
@@ -199,7 +201,11 @@ admins = [
   { email: 'super-admin@test.com', first_name: 'super', last_name: 'admin', password: 'testing123', grant: grant, is_super_admin: true }
 ]
 
-admins.map { |user| admin = User.new(user); admin.confirmed_at = DateTime.now; admin.save; }
+admins.map do |user|
+  admin = User.new(user)
+  admin.confirmed_at = DateTime.now
+  admin.save
+end
 
 puts 'test tenant created please use "test.lvh.me" to reach the app'
 

@@ -12,7 +12,7 @@ class Snippet < ApplicationRecord
         s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
       end
 
-      snippet.value || ''
+      snippet&.value || ''
     end
 
     def self.load_from_yaml(grant = nil)

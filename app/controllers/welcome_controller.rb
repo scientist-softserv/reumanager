@@ -1,8 +1,7 @@
 class WelcomeController < ApplicationController
   def index
-    redirect_to "/info" if !is_subdomain?
+    redirect_to '/info' unless subdomain?
   end
 
-  def thanks
-  end
+  def thanks; end
 end

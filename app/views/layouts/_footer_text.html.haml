@@ -1,88 +1,34 @@
-- if !request.original_url.match('/info')
-
-  %aside#footer-widgets
-    .row
-      .col-md-8.col-md-offset-2
-        %ul.list-unstyled
-          - if params[:controller] == 'welcome'
+%aside#footer-widgets
+  .row
+    .col-md-8.col-md-offset-2
+      %ul.list-unstyled
+        %li.pull-left
+          =link_to "Welcome", root_path
+        - if applicant_signed_in?
+          %li.pull-left
+            = link_to 'Application', application_path
+          %li.pull-left
+            = link_to 'Recommenders', recommenders_path
+          %li.pull-left
+            = link_to 'Status', status_path
+          %li.pull-left
+            = link_to "Logout", destroy_applicant_session_path, method: :delete
+        - else
+          - if started? && !expired?
             %li.pull-left
-              =link_to "Welcome", root_path, :class => 'active'
-          - else
+              = link_to "Apply Now", new_applicant_registration_url
             %li.pull-left
-              =link_to "Welcome", root_path, :class => 'active'
-          - if params[:controller] == 'applicants/registrations' && params[:action] !=  'status'
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Profile", edit_applicant_registration_path, :class => 'active'
-            - else
-              %li.pull-left
-                =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
-              %li.pull-left
-                =link_to 'Admin', reu_program_dashboard_path
-          - else
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Profile", edit_applicant_registration_path, :class => 'active' unless current_applicant.submitted_at
-            - else
-              %li.pull-left
-                =link_to "Apply Now", new_applicant_registration_url, :class => 'active'
-              %li.pull-left
-                =link_to 'Admin', reu_program_dashboard_path
-
-
-          - if params[:controller] == 'applicants/academic_records'
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
-          - else
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Academic Records", applicants_records_url, :class => 'active' unless current_applicant.submitted_at
-
-
-          - if params[:controller] == 'applicants/recommenders'
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Recommendation", applicants_recommenders_url, :class => 'active' unless current_applicant.submitted_at
-          - else
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Recommendation", applicants_recommenders_url, :class => 'active' unless current_applicant.submitted_at
-
-
-          - if params[:controller] == 'applicants/registrations' && params[:action] ==  'status'
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Status", applicant_status_url, :class => 'active'
-          - else
-            - if applicant_signed_in?
-              %li.pull-left
-                =link_to "Status", applicant_status_url, :class => 'active'
-
-          - if params[:controller] == 'applicants/sessions'
-            - if applicant_signed_in? || user_signed_in? #|| user_signed_in?
-              %li.pull-left
-                = user_signed_in? ? link_to("Logout1", destroy_user_session_path, :method => :delete) : link_to("Logout", destroy_applicant_session_path, :method => :delete)
-            - else
-              %li.pull-left
-                = link_to "Login", new_applicant_session_url, :class => 'active'
-          - else
-            - if applicant_signed_in? || user_signed_in? #|| user_signed_in?
-              %li.pull-left
-                = user_signed_in? ? link_to("Logout", destroy_user_session_path, :method => :delete) : link_to("Logout", destroy_applicant_session_path, :method => :delete)
-            - else
-              %li.pull-left
-                = link_to "Login", new_applicant_session_url, :class => 'active'
-
-
-        %div.col-md-11
-          %p
-            If you have any comments, questions, or suggestions, please contact us at
-            %a(href='mailto:aengler@ucsd.edu')
-              aengler@ucsd.edu.
-          %p
-            The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
+              = link_to "Login", new_applicant_session_url, class: 'active'
+        %li.pull-left
+          = link_to 'Admin', reu_program_dashboard_path
+      %div.col-md-11
+        %p
+          If you have any comments, questions, or suggestions, please contact us at
+          %a(href='mailto:aengler@ucsd.edu')
+            aengler@ucsd.edu.
+        %p
+          The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
 
 %div#footer
-  %span
-    © 2015 - #{Time.now.year}. All rights reserved. XHTML1, CSS3, and Section 508 valid.
+%span
+  © 2015 - #{Time.now.year}. All rights reserved. XHTML1, CSS3, and Section 508 valid.
