@@ -1,7 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-Apartment::Tenant.drop('test')
-Grant.destroy_all
+if Grant.where(subdomain: 'test').present?
+  Apartment::Tenant.drop('test')
+  Grant.destroy_all
+end
 
 grant = Grant.create(program_title: 'Test Program', subdomain: 'test')
 
