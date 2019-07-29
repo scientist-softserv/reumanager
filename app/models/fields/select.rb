@@ -36,7 +36,7 @@ module Fields
           description: description,
           enum: enum_array,
           enumNames: enum_array
-        }
+        }.reject { |_k, v| v.blank? }
       }
     end
 

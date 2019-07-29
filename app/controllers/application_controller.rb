@@ -7,8 +7,14 @@ class ApplicationController < ActionController::Base
   helper_method :settings_filled_in?
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
   # before_action :set_cache_buster
+  after_action :set_csrf_cookie
 
   helper_method :current_grant
+
+
+  def set_csrf_cookie
+    cookies["X-CSRF-Token"] = form_authenticity_token
+  end
 
   def settings_filled_in?
     # Setting[:application_start].present? && Setting[:program_start_date].present?

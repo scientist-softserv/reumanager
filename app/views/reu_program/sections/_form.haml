@@ -9,11 +9,25 @@
 
   .col-8
     = simple_form_for [:reu_program, @form, @section], html: { class: 'section_form' } do |f|
-      .row
-        .col
-          = f.input :title, as: :string
-        .col
-          = f.input :repeating
+      - if @form.is_a?(RecommenderForm)
+        .row
+          .col
+            %h3= f.object.title
+        .row
+          .col
+            - if /Recommenders/.match?(f.object.title)
+              .alert.alert-primary
+                %p Form for applicant to fill out the contact information for their recommenders. Must include a email field.
+            - elsif /Recommendation/.match?(f.object.title)
+              .alert.alert-primary
+                %p Form for recommenders to fill out to provide there recommendation of the applicant. Must include either a long text field or file field for the recommender to provider their recommendation
+
+      - else
+        .row
+          .col
+            = f.input :title, as: :string
+          .col
+            = f.input :repeating
       %hr
       - unless f.object.new_record?
         = f.nested_fields_for :fields do |qf|
