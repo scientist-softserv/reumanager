@@ -18,7 +18,10 @@
           %tr
             %td= snippet.name
             %td= snippet.description
-            %td= truncate(snippet.value, length: 100)
+            - if snippet.image.attached?
+              %td= image_tag snippet.image.variant(resize: '100x100')
+            - else
+              %td= truncate(snippet.value, length: 100)
             %td.actions
               = link_to 'Edit', edit_reu_program_snippet_path(snippet)
     .col-2

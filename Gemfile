@@ -18,6 +18,7 @@ gem "jsonb_accessor", "~> 1.0.0"
 gem 'kaminari'
 gem 'nested_form_fields'
 gem 'mimemagic', '~> 0.3.2'
+gem "mini_magick", "~> 4.9"
 gem 'paper_trail'
 gem 'pg'
 gem 'prawn'

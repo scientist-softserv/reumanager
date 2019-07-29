@@ -2,7 +2,7 @@
   .col-2
   .col-8
     %h2 Edit Snippet
-    = simple_form_for [:reu_program, @snippet] do |f|
+    = simple_form_for [:reu_program, @snippet], url: reu_program_snippet_path do |f|
       .row
         .col
           %p
@@ -13,7 +13,14 @@
           %p
             %strong Description:
             = f.object.description
-      = f.input :value
+      .row
+        .col
+          %p
+          - case f.object
+          - when Snippets::ImageSnippet
+            = f.input :image
+          - else
+            = f.input :value
       %hr
-      = f.submit 'Save Snippet', class: 'btn btn-primary'
+      = f.submit 'Update Snippet', class: 'btn btn-primary'
   .col-2

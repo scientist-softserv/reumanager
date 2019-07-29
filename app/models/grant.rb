@@ -73,11 +73,11 @@ class Grant < ActiveRecord::Base
 
   def add_default_snippets
     Snippet.transaction do
-      Snippet.create!(name: 'General Description', description: 'This is the text used as a general description for your program. It is displayed on the front page under the main image.', grant_id: self.id)
-      Snippet.create!(name: 'Program Highlights', description: '', grant_id: self.id)
-      Snippet.create!(name: 'Eligibility Requirements', description: '', grant_id: self.id)
-      Snippet.create!(name: 'Application Information', description: '', grant_id: self.id)
-      Snippet.create!(name: 'Acknowledgment Of Funding Sources', description: 'Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.', grant_id: self.id)
+      Snippets::TextSnippet.create(name: 'General Description', description: 'This is the text used as a general description for your program. It is displayed on the front page under the main image.', grant_id: self.id)
+      Snippets::TextSnippet.create(name: 'Program Highlights', description: '', grant_id: self.id)
+      Snippets::TextSnippet.create(name: 'Eligibility Requirements', description: '', grant_id: self.id)
+      Snippets::TextSnippet.create(name: 'Application Information', description: '', grant_id: self.id)
+      Snippets::ImageSnippet.create(name: 'Acknowledgment Of Funding Sources', description: 'Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.', grant_id: self.id)
     end
   end
 

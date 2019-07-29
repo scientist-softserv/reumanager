@@ -1,7 +1,7 @@
 class AddAttachmentTranscriptToAcademicRecords < ActiveRecord::Migration[4.2]
   def self.up
     change_table :academic_records do |t|
-      t.attachment :transcript
+      t.attached :transcript
     end
   end
 
