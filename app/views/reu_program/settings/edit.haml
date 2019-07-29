@@ -18,16 +18,11 @@
           %p
           - case f.object
           - when Settings::DateSetting
-            %link{:href => "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css", :rel => "stylesheet"}/
-            %link{:href => "/resources/demos/style.css", :rel => "stylesheet"}/
-            %script{:src => "https://code.jquery.com/ui/1.12.1/jquery-ui.js"}
-            :javascript
-              $( function() {
-                $( ".datepicker" ).datepicker();
-              } );
             .form-group.string.optional.settings_text_setting_value
               %label.string.optional{:for => "settings_date_setting_value"} Date
               %input#settings_text_setting_value.form-control.string.optional.datepicker{:name => "setting[value]", :type => "text"}/
+            :javascript
+              $( ".datepicker" ).flatpickr();
           - else
             .form-group.string.optional.settings_text_setting_value
               %label.string.optional{:for => "settings_text_setting_value"} Value
@@ -35,5 +30,3 @@
       %hr
       = f.submit 'Update Setting', class: 'btn btn-primary'
   .col-2
- 
-  
