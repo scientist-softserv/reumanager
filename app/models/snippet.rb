@@ -1,5 +1,7 @@
 class Snippet < ApplicationRecord
+  self.inheritance_column = :kind
   belongs_to :grant
+  has_one_attached :image
 
   validates_uniqueness_of :name
 

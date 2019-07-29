@@ -10,14 +10,17 @@ module ReuProgram
     def edit; end
 
     def update
-      @snippet.update(snippet_params)
-      redirect_to action: "index"
+      if @snippet.update(snippet_params)
+        redirect_to action: "index"
+      else
+        redirect_to action: "edit"
+      end
     end
 
     private
 
     def snippet_params
-      params.require(:snippet).permit(:name, :description, :value)
+      params.require(@snippet.model_name.singular).permit!
     end
 
     def load_snippet
