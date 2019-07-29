@@ -6,12 +6,19 @@ module ReuProgram
     def index
       @settings = Setting.all
     end
-
+    
+    def new; end
+    
+    def create; end
+    
     def edit; end
 
     def update
-       @setting.update(setting_params)
-       redirect_to action: "index"
+      if @setting.update(setting_params)
+        redirect_to action: 'index'
+      else
+        render action: 'edit'
+      end
     end
     
     private

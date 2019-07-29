@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get 'recommenders' => 'applicant_data#show_recommenders'
   match 'recommenders' => 'applicant_data#update_recommenders', via: %i[put patch]
   get 'status' => 'applicant_data#status'
-
+  
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'
   root to: 'welcome#index'

@@ -27,3 +27,5 @@
 //= require registrations
 // require rich
 //= require charges
+$('#sandbox-container .input-append.date').datepicker({
+});

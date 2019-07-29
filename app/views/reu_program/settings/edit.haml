@@ -2,7 +2,7 @@
   .col-2
   .col-8
     %h2 Edit Setting
-    = simple_form_for [:reu_program, @setting] do |f|
+    = simple_form_for [:reu_program, @setting], url: reu_program_setting_path do |f|
       .row
         .col
           %p
@@ -13,9 +13,27 @@
           %p
             %strong Description:
             = f.object.description
-      = f.input :value
+      .row
+        .col
+          %p
+          - case f.object
+          - when Settings::DateSetting
+            %link{:href => "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css", :rel => "stylesheet"}/
+            %link{:href => "/resources/demos/style.css", :rel => "stylesheet"}/
+            %script{:src => "https://code.jquery.com/ui/1.12.1/jquery-ui.js"}
+            :javascript
+              $( function() {
+                $( ".datepicker" ).datepicker();
+              } );
+            .form-group.string.optional.settings_text_setting_value
+              %label.string.optional{:for => "settings_date_setting_value"} Date
+              %input#settings_text_setting_value.form-control.string.optional.datepicker{:name => "setting[value]", :type => "text"}/
+          - else
+            .form-group.string.optional.settings_text_setting_value
+              %label.string.optional{:for => "settings_text_setting_value"} Value
+              %input#settings_text_setting_value.form-control.string.optional{:name => "setting[value]", :type => "text"}/
       %hr
-      = f.submit 'Save Setting', class: 'btn btn-primary'
+      = f.submit 'Update Setting', class: 'btn btn-primary'
   .col-2
  
   

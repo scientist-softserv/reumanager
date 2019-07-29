@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_07_26_223415) do
 
   # These are extensions that must be enabled in order to support this database
@@ -374,6 +375,7 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
+    t.string "kind"
     t.index ["name"], name: "index_settings_on_name"
   end
 
