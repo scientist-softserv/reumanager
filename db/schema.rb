@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_12_172018) do
+ActiveRecord::Schema.define(version: 2019_07_26_223415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,27 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.string "minor"
   end
 
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
   create_table "addresses", id: :serial, force: :cascade do |t|
     t.string "address"
     t.string "address2"
@@ -52,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "recommender_info"
   end
 
   create_table "applicants", id: :serial, force: :cascade do |t|
@@ -172,17 +194,24 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.index ["recommender_id"], name: "index_recommendations_on_recommender_id"
   end
 
+  create_table "recommender_forms", force: :cascade do |t|
+    t.integer "status"
+    t.string "name"
+    t.jsonb "form_json_schema"
+    t.jsonb "form_ui_schema"
+    t.datetime "updated_cache_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recommenders", id: :serial, force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "title"
-    t.string "department"
-    t.string "organization"
-    t.string "url"
-    t.string "email"
-    t.string "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "email"
+    t.integer "order"
+    t.jsonb "info"
+    t.integer "applicant_id"
+    t.jsonb "recomendation_data"
   end
 
   create_table "refinery_authentication_devise_roles", id: :serial, force: :cascade do |t|
@@ -344,6 +373,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.integer "application_form_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recommender_form_id"
     t.index ["application_form_id"], name: "index_sections_on_application_form_id"
   end
 
@@ -365,6 +395,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
+    t.string "kind"
     t.index ["name"], name: "index_settings_on_name"
   end
 
@@ -375,6 +406,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
+    t.string "kind"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -409,4 +441,5 @@ ActiveRecord::Schema.define(version: 2019_07_12_172018) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

@@ -3,8 +3,13 @@ class Applicant < ApplicationRecord
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
 
   belongs_to :applicant_datum, dependent: :destroy, autosave: true
+  has_many :recommenders, dependent: :destroy
 
-  delegate :data, to: :applicant_datum
+  delegate :data,
+           :data=,
+           :recommender_info,
+           :recommender_info=,
+           to: :applicant_datum
 
   enum state: {
     'Started' => 'started',

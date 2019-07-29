@@ -1,0 +1,21 @@
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Status
+          %th
+            .float-right Actions
+      %tbody
+        - @forms.each do |form|
+          %tr
+            %td= form.name
+            %td= form.status
+            %td
+              .float-right.actions
+                = link_to 'Edit', edit_reu_program_recommender_form_path(form)
+                = link_to 'Make Active', ''
+                = link_to 'Duplicate', ''
+  .col-2

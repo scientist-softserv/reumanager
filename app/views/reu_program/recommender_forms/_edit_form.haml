@@ -1,0 +1,19 @@
+= simple_form_for [:reu_program, @form] do |f|
+  = f.input :name
+  .row
+    .col
+      %h3 Sections
+  %table.table
+    %thead
+      %th Title
+      %th.text-right Actions
+    %tbody
+      - index = 0
+      - f.object.sections.each do |section|
+        %tr
+          %td= section.title
+          %td.text-right
+            -# = link_to 'Show', reu_program_application_form_section_path(@form, section)
+            = link_to 'Edit', edit_reu_program_recommender_form_section_path(@form, section)
+  %hr
+  = f.submit 'Save Form', class: 'btn btn-primary'

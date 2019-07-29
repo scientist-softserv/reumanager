@@ -16,8 +16,10 @@
 // const imagePath = (name) => images(name, true)
 
 require('bootstrap/dist/css/bootstrap.min.css')
+require('flatpickr/dist/flatpickr.min.css')
 import 'jquery'
 import 'jquery-ujs'
 import 'bootstrap'
 // import 'nested_form_fields'
 import 'program_admin/delete_button.js'
+import flatpickr from "flatpickr";

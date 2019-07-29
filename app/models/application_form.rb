@@ -3,7 +3,7 @@ class ApplicationForm < ApplicationRecord
 
   enum status: {
     draft: 0,
-    active: 0
+    active: 1
   }
 
   validates :name, presence: true
