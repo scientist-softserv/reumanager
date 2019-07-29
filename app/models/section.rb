@@ -1,8 +1,9 @@
 class Section < ApplicationRecord
   attr_accessor :add_field
 
-  belongs_to :application_form
-  has_many :fields, -> { order(:order) }, dependent: :destroy
+  belongs_to :application_form, optional: true
+  belongs_to :recommender_form, optional: true
+  has_many :fields, -> { order(:order) }, dependent: :destroy, autosave: true
 
   validates :title, uniqueness: { scope: :application_form_id }
 
@@ -39,7 +40,7 @@ class Section < ApplicationRecord
         type: :object,
         required: required_fields,
         properties: fields_json_config
-      }
+      }.reject { |_k, v| v.blank? }
     }
   end
 

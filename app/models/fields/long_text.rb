@@ -24,7 +24,7 @@ module Fields
           type: :string,
           description: description,
           minLength: min_length
-        }
+        }.reject { |_k, v| v.blank? }
       }
     end
 

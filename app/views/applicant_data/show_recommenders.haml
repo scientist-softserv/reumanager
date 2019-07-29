@@ -1,0 +1,16 @@
+%h1 Recommenders
+:ruby
+  attrs = {
+    style: "display: none;",
+    data: {
+      schema: @form.json_schema(section: 'recommender'),
+      ui: @form.ui_schema(section: 'recommender'),
+      data: JSON.generate(@applicant.recommender_info.values),
+      path: recommenders_path,
+      method: :patch
+    }
+  }
+
+.form-data{ attrs }
+
+#recommenderForm

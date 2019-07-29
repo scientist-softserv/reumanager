@@ -1,0 +1,44 @@
+.row
+  .col-2
+  .col-8
+    .row
+      .col
+        %h2 Application Form Schema
+      .col
+        = link_to 'Back to Form', edit_reu_program_recommender_form_path(@form), class: 'btn btn-secondary float-right'
+  .col-2
+
+.row
+  .col-2
+  .col-8
+    .row
+      .col
+        .card
+          .card-header
+            %h4 Recommender JSON Schema
+          .card-body
+            %pre
+              = @form.pretty_json_schema(section: 'recommender')
+      .col
+        .card
+          .card-header
+            %h4 Recommender UI Schema
+          .card-body
+            %pre
+              = @form.pretty_ui_schema(section: 'recommender')
+    .row
+      .col
+        .card
+          .card-header
+            %h4 Recommendation JSON Schema
+          .card-body
+            %pre
+              = @form.pretty_json_schema(section: 'recommendation')
+      .col
+        .card
+          .card-header
+            %h4 Recommendation UI Schema
+          .card-body
+            %pre
+              = @form.pretty_ui_schema(section: 'recommendation')
+  .col-2

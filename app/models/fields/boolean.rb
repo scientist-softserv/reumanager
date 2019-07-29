@@ -18,7 +18,7 @@ module Fields
         title_key => {
           type: :string,
           description: description
-        }
+        }.reject { |_k, v| v.blank? }
       }
     end
 

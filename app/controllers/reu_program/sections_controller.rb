@@ -47,7 +47,9 @@ module ReuProgram
     private
 
     def load_form
-      @form = ApplicationForm.find(params[:application_form_id])
+      @form = ApplicationForm.find_by_id(params[:application_form_id])
+      @form ||= RecommenderForm.find_by_id(params[:recommender_form_id])
+      raise ActionController::RoutingError, 'Not Found' if @form.blank?
     end
 
     def load_section

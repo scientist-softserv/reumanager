@@ -23,7 +23,7 @@ module Fields
           description: description,
           format: format,
           minLength: min_length
-        }
+        }.reject { |_k, v| v.blank? }
       }
     end
 
