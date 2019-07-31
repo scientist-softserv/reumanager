@@ -1,6 +1,7 @@
 class GrantsController < ApplicationController
   before_action :set_grant, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  layout "user"
 
   # GET /grants
   def index
