@@ -29,20 +29,20 @@ class GrantsController < ApplicationController
     @grant.users << User.last
 
     if @grant.valid?
-      customer = Stripe::Customer.create(
-        :email => params[:email],
-        :source  => params[:stripeToken]
-      )
+      # customer = Stripe::Customer.create(
+      #   :email => params[:email],
+      #   :source  => params[:stripeToken]
+      # )
 
-      coupon_amount = (@grant.coupon_code.upcase == "EXISTING" ? 20000 : 0)
+      # coupon_amount = (@grant.coupon_code.upcase == "EXISTING" ? 20000 : 0)
 
-      charge = Stripe::Charge.create(
+      # charge = Stripe::Charge.create(
 
-        :customer    => customer.id,
-        :amount      => amount - coupon_amount,
-        :description => 'Rails Stripe customer',
-        :currency    => 'usd'
-      )
+      #   :customer    => customer.id,
+      #   :amount      => amount - coupon_amount,
+      #   :description => 'Rails Stripe customer',
+      #   :currency    => 'usd'
+      # )
 
       @grant.save
       sign_in(@grant.users.first)
@@ -53,9 +53,9 @@ class GrantsController < ApplicationController
     end
 
 
-    rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_grants_url
+    # rescue Stripe::CardError => e
+    # flash[:error] = e.message
+    # redirect_to new_grants_url
 
   end
 
