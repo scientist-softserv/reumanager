@@ -5,7 +5,7 @@ module Fields
       property :description, type: :string, hint: 'Hint to user about what the question is asking for. optional'
       property :required, type: :boolean, default: false, hint: 'Field will be required'
       # property :type, type: :string, default: 'string', in_form: false
-      # property :format, type: :string, hint: "Validate the input to be formatted for special kinds of information. Choose default if this doesn't apply", options: %w[text email url date date-time]
+      property :format, type: :string, hint: "Validate the input to be formatted for special kinds of information. Choose default if this doesn't apply", options: %w[text email url date date-time]
       property :min_length, type: :integer, hint: 'Specify a minimum length of for in input value'
     end
 
@@ -21,7 +21,7 @@ module Fields
         title_key.split('_').map(&:capitalize).join(' ') => {
           type: :string,
           description: description,
-          # format: format,
+          format: format,
           minLength: min_length
         }.reject { |_k, v| v.blank? }
       }
