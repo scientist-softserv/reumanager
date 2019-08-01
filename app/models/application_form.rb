@@ -11,8 +11,8 @@ class ApplicationForm < ApplicationRecord
   accepts_nested_attributes_for :sections, allow_destroy: true
 
   after_create do
-    self.sections.create(title: 'Profile')
-    Fields::ShortText.create(section: self.sections.first)
+    self.sections.create(title: 'Applicant Profile')
+    Fields::ShortText.create(section: 'application')
   end
 
   def json_schema
@@ -26,10 +26,13 @@ class ApplicationForm < ApplicationRecord
   def build_json_schema
     {
       title: name,
-      type: :object,
-      properties: sections.each_with_object({}) do |s, h|
-        h.merge!(s.build_json_schema)
+      type: :array,
+      items: {
+        type: :object,
+        properties: sections.each_with_object({}) do |s, h|
+          h.merge!(s.build_json_schema)
       end
+      }
     }
   end
 
