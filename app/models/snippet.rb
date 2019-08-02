@@ -13,11 +13,10 @@ class Snippet < ApplicationRecord
       snippet = snippets_array.detect do |s|
         s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
       end
-
       snippet&.value || ''
     end
 
-    def self.load_from_yaml(grant = nil)
+    def load_from_yaml(grant = nil)
       default_snippets = YAML.safe_load(File.open(Rails.root.join('config', 'snippets.yml')))
       default_snippets.map do |s|
         Snippet.find_or_create_by(name: s[1]['name']) do |snippet|
