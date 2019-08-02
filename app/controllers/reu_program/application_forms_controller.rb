@@ -20,6 +20,14 @@ module ReuProgram
       end
     end
 
+    def make_active
+      ApplicationForm.transaction do
+        ApplicationForm.all.each(&:draft!)
+        @form.active!
+      end
+      redirect_to reu_program_application_forms_path
+    end
+
     private
 
     def form_params

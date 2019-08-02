@@ -5,9 +5,7 @@ class Applicant < ApplicationRecord
   belongs_to :applicant_datum, dependent: :destroy, autosave: true
   has_many :recommenders, dependent: :destroy
 
-  delegate :data,
-           :data=,
-           :recommender_info,
+  delegate :recommender_info,
            :recommender_info=,
            to: :applicant_datum
 
@@ -25,6 +23,11 @@ class Applicant < ApplicationRecord
   def data=(new_value)
     setup_data
     self.applicant_datum.data = new_value
+  end
+
+  def data
+    setup_data
+    self.applicant_datum.data
   end
 
   def data_flattened

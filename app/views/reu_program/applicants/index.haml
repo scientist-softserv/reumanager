@@ -18,7 +18,7 @@
       %tbody
         - @applicants.each do |applicant|
           %tr
-            %td= link_to applicant.applicant_datum.data["profile"]["first_name"] + " " + applicant.applicant_datum.data["profile"]["last_name"], reu_program_applicant_path(applicant)
+            %td= link_to "#{applicant.data.dig('profile', 'first_name')} #{applicant.data.dig('profile', 'last_name')}", reu_program_applicant_path(applicant)
             %td= applicant.state
             %td.actions
               = link_to 'PDF', reu_program_applicant_path(applicant, format: 'pdf') |

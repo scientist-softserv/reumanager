@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :application_forms, except: %i[new create destroy] do
       member do
         get :show_schema
+        get :make_active
       end
       resources :sections, except: %i[index] do
         member do

@@ -4,7 +4,7 @@ module ReuProgram
     before_action :load_snippet, except: %i[index]
 
     def index
-      @snippets = Snippet.all
+      @snippets = Snippet.order(:id)
     end
 
     def edit; end
