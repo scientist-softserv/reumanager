@@ -1,0 +1,18 @@
+%p#notice= notice
+%p
+  %strong Grant Name:
+  = @grant.program_title
+%p
+  %strong Subdomain:
+  = @grant.subdomain
+%p
+  %strong Program Admins:
+  %br
+  - @admins.each do |admin|
+    = admin.first_name + ' ' + admin.last_name
+    %br
+    = admin.email
+    %br
+  %br
+    
+= link_to 'Edit Grant', edit_grant_path(@grant)

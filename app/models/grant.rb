@@ -6,19 +6,18 @@ class Grant < ActiveRecord::Base
 
   validates :subdomain, exclusion: { in: %w[www admin], message: '%{value} is reserved' }
   validates :subdomain, uniqueness: { scope: :subdomain }
-  after_create :add_default_snippets
-  after_create :add_default_settings
   after_create :create_tenant
   after_destroy :destroy_tenant
-  accepts_nested_attributes_for :settings
-  accepts_nested_attributes_for :users
-  accepts_nested_attributes_for :snippets
-  accepts_nested_attributes_for :admin_accounts
 
   def create_tenant
     Apartment::Tenant.create(subdomain)
-    Apartment::Tenant.switch!(subdomain)
-    Apartment::Tenant.switch!
+    Apartment::Tenant.switch(subdomain) do
+      ProgramAdmin.create(email: 'kevin@notch8.com', password: 'testing123')
+      self.add_default_snippets
+      self.add_default_settings
+      self.add_default_application_form
+      self.add_default_recommenders_form
+    end
   end
 
   def destroy_tenant

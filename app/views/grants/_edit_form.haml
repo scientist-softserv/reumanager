@@ -1,0 +1,33 @@
+.row
+  .col-2
+  .col-8
+    = simple_form_for [@grant] do |f|
+      - if @grant.errors.any?
+        #error_explanation
+        %h2
+        = pluralize(@grant.errors.count, "error")
+        prohibited this grant from being saved:
+        %ul
+        - @grant.errors.full_messages.each do |message|
+          %li= message
+      .field
+      = f.label :grant_name
+      %br/
+      = f.text_field :program_title, :style => 'width: 100%;', :placeholder => "Your Program's Title"
+      .form-row
+      %br
+      %br
+      %label{for: "card-element"}
+        Credit or debit card information
+      #card-element
+        / a Stripe Element will be inserted here.
+      %br/
+      .field
+        = f.label :coupon_code
+        %br/
+        = f.text_field :coupon_code, :style => 'width: 100%;'
+      / Used to display Element errors
+      #card-errors{role: "alert"}
+      %hr
+      = f.submit 'Update Grant', class: 'btn btn-primary'
+  .col-2
