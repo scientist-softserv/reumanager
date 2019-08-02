@@ -205,9 +205,9 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
   end
 
   create_table "recommenders", id: :serial, force: :cascade do |t|
+    t.string "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "email"
     t.integer "order"
     t.jsonb "info"
     t.integer "applicant_id"
