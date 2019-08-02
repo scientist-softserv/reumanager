@@ -46,6 +46,20 @@ module ReuProgram
     def update
     end
     
+    def accept
+      if @applicant.state != 'Accepted'
+        @applicant.update(state: 'Accepted')
+        redirect_to action: 'index'
+      end
+    end
+    
+    def reject
+      if @applicant.state != 'Rejected'
+        @applicant.update(state: 'Rejected')
+        redirect_to action: 'index'
+      end
+    end
+    
     private
     
     def applicant_params
