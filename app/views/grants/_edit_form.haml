@@ -10,15 +10,13 @@
         %ul
         - @grant.errors.full_messages.each do |message|
           %li= message
-        .field
+      .field
       = f.label :grant_name
       %br/
       = f.text_field :program_title, :style => 'width: 100%;', :placeholder => "Your Program's Title"
-      .field
-      = f.label :subdomain
-      %br/
-      = f.text_field :subdomain, :style => 'width: 100%;', :placeholder => 'This will display as "yoursubdomain.reumanager.com"'
       .form-row
+      %br
+      %br
       %label{for: "card-element"}
         Credit or debit card information
       #card-element
@@ -31,5 +29,5 @@
       / Used to display Element errors
       #card-errors{role: "alert"}
       %hr
-        = f.submit 'Update Grant', class: 'btn btn-primary'
+      = f.submit 'Update Grant', class: 'btn btn-primary'
   .col-2
