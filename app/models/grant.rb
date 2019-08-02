@@ -40,7 +40,7 @@ class Grant < ActiveRecord::Base
 
   def add_default_application_form
     ApplicationForm.transaction do
-      af = ApplicationForm.create(name: 'Default', status: :draft)
+      af = ApplicationForm.create(name: 'Application Default', status: :draft)
       s1 = Section.new(title: 'Profile', application_form: af)
       Fields::ShortText.new(title: 'First Name', format: 'text', order: 1, section: s1)
       Fields::ShortText.new(title: 'Last Name', format: 'text', order: 2, section: s1)
@@ -48,7 +48,7 @@ class Grant < ActiveRecord::Base
       Fields::ShortText.new(title: 'Date of Birth', format: 'date', order: 4, section: s1)
       s2 = Section.new(title: 'Addresses', repeating: true, application_form: af)
       Fields::ShortText.new(title: 'Type', format: 'text', order: 1, section: s2)
-      Fields::ShortText.new(title: 'String', format: 'text', order: 2, section: s2)
+      Fields::ShortText.new(title: 'Street', format: 'text', order: 2, section: s2)
       Fields::ShortText.new(title: 'City', format: 'text', order: 3, section: s2)
       Fields::ShortText.new(title: 'State', format: 'text', order: 4, section: s2)
       Fields::ShortText.new(title: 'Zip', format: 'text', order: 5, section: s2)

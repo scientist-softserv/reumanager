@@ -2,11 +2,15 @@ class ApplicantDataController < ApplicationController
   before_action :load_applicant
 
   def show_application
-
+    @form = ApplicationForm.where(status: :draft).first
   end
 
   def update_application
-
+    @applicant.data = params.require(:data).permit!
+    @applicant.save
+    render json: {}
+  rescue ActionController::ParameterMissing
+    render json: {}
   end
 
   def show_recommenders
@@ -37,6 +41,13 @@ class ApplicantDataController < ApplicationController
       recommender_builder(key, info)
     end
   end
+  
+  def process_application_data
+    data = params.require(:data).permit!
+    data.each do |key, info|
+      application_builder(key, info)
+    end
+  end
 
   class NoEmailError < StandardError; end
 
@@ -49,4 +60,15 @@ class ApplicantDataController < ApplicationController
     r.applicant = current_applicant
     r.save
   end
+  
+  def application_builder(order, info)
+    email = info.dig('application_form', 'email')
+    raise NoEmailError, 'no email' if email.blank?
+    r = current_applicant.application.find_or_initialize_by(email: email)
+    r.order = order
+    r.info = info['application_form']
+    r.applicant = current_applicant
+    r.save
+  end
+  
 end

@@ -18,7 +18,7 @@ module Fields
 
     def json_config
       {
-        title_key => {
+        title_key.split('_').map(&:capitalize).join(' ') => {
           type: :string,
           description: description,
           format: format,
