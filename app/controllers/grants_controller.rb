@@ -1,4 +1,5 @@
 class GrantsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_grant, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   layout "user"
@@ -10,6 +11,9 @@ class GrantsController < ApplicationController
 
   # GET /grants/1
   def show
+    Apartment::Tenant.switch(@grant.subdomain) do
+      @admins = ProgramAdmin.all
+    end
   end
 
   # GET /grants/new
@@ -24,12 +28,8 @@ class GrantsController < ApplicationController
   # POST /grants
   def create
     @grant = Grant.new(grant_params)
-    @user = User.new(params[:grant][:users])
-    @user.is_super_admin = true 
-    @user.save
-    @grant.users << User.last
-
     if @grant.valid?
+      
       # customer = Stripe::Customer.create(
       #   :email => params[:email],
       #   :source  => params[:stripeToken]
@@ -44,20 +44,16 @@ class GrantsController < ApplicationController
       #   :description => 'Rails Stripe customer',
       #   :currency    => 'usd'
       # )
-
+      
       @grant.save
-      sign_in(@grant.users.first)
-      # redirect_to new_grant_setting_path(grant_id: @grant.id), notice: 'Your program was successfully created.'
-      redirect_to settings_url(subdomain: @grant.subdomain), notice: 'Your program was successfully created.'
+      redirect_to reu_program_settings_path(subdomain: @grant.subdomain), notice: 'Your program was successfully created.'
     else
       render :new
     end
-
-
+    
     # rescue Stripe::CardError => e
     # flash[:error] = e.message
     # redirect_to new_grants_url
-
   end
 
   # PATCH/PUT /grants/1
@@ -72,7 +68,7 @@ class GrantsController < ApplicationController
   # DELETE /grants/1
   def destroy
     @grant.destroy
-    redirect_to grants_url, notice: 'Grant was successfully destroyed.'
+    redirect_to grants_path, notice: 'Grant was successfully destroyed.'
   end
 
   private
@@ -89,6 +85,6 @@ class GrantsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def grant_params
-      params.require(:grant).permit(:program_title, :institution, :subdomain, :contact_email, :contact_password, :coupon_code, :users_attributes => [:id, :email, :password])
+      params.require(:grant).permit(:program_title, :subdomain, :coupon_code)
     end
 end
