@@ -1,1 +1,50 @@
 %h1 Status
+
+-# need to separate the profile and addresses
+-# need to write code to redirect/alert in case user not signed in
+
+.row
+	.col-2
+	.col-8
+		- @applicant.data.each do |key1, value1|
+			- value1.each do |key2, value2|
+				- if value2.is_a?(Hash)
+					%br
+					%strong #{key2.capitalize}:
+					%br
+					- value2.each do |key3, value3|
+						%br
+						%strong #{key3.capitalize}:
+						= value3
+						%br
+				- else
+					%strong #{key2.capitalize}:
+					= value2
+					%br
+			%br
+			%hr
+		%br
+		%p= link_to 'Back', application_path
+	.col-2
+
+
+
+
+-# .row
+-#   .col-2
+-#   .col-8
+-#     - @applicant.data.each do |key, value|
+-#       - if value.is_a?(Array)
+-#         - value.each_with_index do |value, index|
+-#           %strong= hash.merge!(value.transfer_keys { |k| k + (i + 1).to_s }) 
+-#           %br
+-#           %br
+-#       - else
+-#         - value.each do |key, value|
+-#           %p
+-#           %strong #{key.split('_').map(&:capitalize).join(' ')}:
+-#           = value
+-#           %hr
+-#     %p= link_to 'Back', application_path
+-#   .col-2
+
