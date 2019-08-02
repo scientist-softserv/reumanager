@@ -9,7 +9,13 @@ Rails.application.routes.draw do
     get 'dashboard' => 'dashboard#index'
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy]
-    resources :applicants, except: %i[destroy]
+    resources :applicants, except: %i[destroy] do
+      member do
+          patch :accept
+          patch :reject
+        end
+    end
+    
     resources :application_forms, except: %i[new create destroy] do
       member do
         get :show_schema
