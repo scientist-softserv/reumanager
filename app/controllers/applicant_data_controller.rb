@@ -26,10 +26,20 @@ class ApplicantDataController < ApplicationController
   end
 
   def status
-
+    # @form = ApplicationForm.where(status: :draft).first
+    # @form = ApplicationForm.find(params[:id])
+    @applicant
   end
 
   private
+
+  def form_params
+    params.require(:application_form).permit!
+  end
+
+  def load_form
+    @form = ApplicationForm.find(params[:id])
+  end
 
   def load_applicant
     @applicant = current_applicant
@@ -64,11 +74,10 @@ class ApplicantDataController < ApplicationController
   def application_builder(order, info)
     email = info.dig('application_form', 'email')
     raise NoEmailError, 'no email' if email.blank?
-    r = current_applicant.application.find_or_initialize_by(email: email)
-    r.order = order
-    r.info = info['application_form']
-    r.applicant = current_applicant
-    r.save
+    a = current_applicant.application.find_or_initialize_by(email: email)
+    a.order = order
+    a.info = info['application_form']
+    a.applicant = current_applicant
+    a.save
   end
-  
 end

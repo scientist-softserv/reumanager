@@ -69,8 +69,6 @@ class App extends React.Component {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <App />,
-    document.querySelector('#applicationForm')
-  )
+  var mount = document.querySelector('#applicationForm')
+  if (mount) { ReactDOM.render(<App />, mount) }
 })
