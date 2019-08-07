@@ -39,18 +39,18 @@ class Grant < ActiveRecord::Base
 
   def add_default_application_form
     ApplicationForm.transaction do
-      af = ApplicationForm.create(name: 'Application Default', status: :draft)
-      s1 = Section.new(title: 'Profile', application_form: af)
-      Fields::ShortText.new(title: 'First Name', format: 'text', order: 1, section: s1)
-      Fields::ShortText.new(title: 'Last Name', format: 'text', order: 2, section: s1)
-      Fields::ShortText.new(title: 'Phone', format: 'text', order: 3, section: s1)
-      Fields::ShortText.new(title: 'Date of Birth', format: 'date', order: 4, section: s1)
-      s2 = Section.new(title: 'Addresses', repeating: true, application_form: af)
-      Fields::ShortText.new(title: 'Type', format: 'text', order: 1, section: s2)
-      Fields::ShortText.new(title: 'Street', format: 'text', order: 2, section: s2)
-      Fields::ShortText.new(title: 'City', format: 'text', order: 3, section: s2)
-      Fields::ShortText.new(title: 'State', format: 'text', order: 4, section: s2)
-      Fields::ShortText.new(title: 'Zip', format: 'text', order: 5, section: s2)
+      af = ApplicationForm.create!(name: 'Application Default', status: :draft)
+      s1 = Section.create!(title: 'Profile', application_form: af)
+      Fields::ShortText.create!(title: 'First Name', format: 'text', order: 1, section: s1)
+      Fields::ShortText.create!(title: 'Last Name', format: 'text', order: 2, section: s1)
+      Fields::ShortText.create!(title: 'Phone', format: 'text', order: 3, section: s1)
+      Fields::ShortText.create!(title: 'Date of Birth', format: 'date', order: 4, section: s1)
+      s2 = Section.create!(title: 'Addresses', repeating: true, application_form: af)
+      Fields::ShortText.create!(title: 'Type', format: 'text', order: 1, section: s2)
+      Fields::ShortText.create!(title: 'Street', format: 'text', order: 2, section: s2)
+      Fields::ShortText.create!(title: 'City', format: 'text', order: 3, section: s2)
+      Fields::ShortText.create!(title: 'State', format: 'text', order: 4, section: s2)
+      Fields::ShortText.create!(title: 'Zip', format: 'text', order: 5, section: s2)
     end
   end
 
@@ -62,7 +62,7 @@ class Grant < ActiveRecord::Base
       Fields::ShortText.create!(title: 'Last Name', format: 'text', order: 2, section: s1)
       Fields::ShortText.create!(title: 'Email', format: 'text', order: 3, section: s1)
       Fields::ShortText.create!(title: 'Organization', format: 'text', order: 4, section: s1)
-      s2 = Section.create!( title: 'Recommendation Form', repeating: true, recommender_form: rf)
+      s2 = Section.create!(title: 'Recommendation Form', repeating: true, recommender_form: rf)
       Fields::ShortText.create!(title: 'Known Applicant For', format: 'text', order: 1, section: s2)
       Fields::ShortText.create!(title: 'Applicants Promise', format: 'text', order: 2, section: s2)
       Fields::ShortText.create!(title: "Organization's Focus", format: 'text', order: 3, section: s2)

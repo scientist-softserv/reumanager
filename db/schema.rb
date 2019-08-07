@@ -26,10 +26,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.integer "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "transcript_file_name"
-    t.string "transcript_content_type"
-    t.integer "transcript_file_size"
-    t.datetime "transcript_updated_at"
     t.string "major"
     t.string "minor"
   end
@@ -253,17 +249,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.index ["slug"], name: "index_refinery_authentication_devise_users_on_slug"
   end
 
-  create_table "refinery_image_translations", force: :cascade do |t|
-    t.integer "refinery_image_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_alt"
-    t.string "image_title"
-    t.index ["locale"], name: "index_refinery_image_translations_on_locale"
-    t.index ["refinery_image_id"], name: "index_refinery_image_translations_on_refinery_image_id"
-  end
-
   create_table "refinery_images", id: :serial, force: :cascade do |t|
     t.string "image_mime_type"
     t.string "image_name"
@@ -275,16 +260,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.datetime "updated_at"
   end
 
-  create_table "refinery_page_part_translations", force: :cascade do |t|
-    t.integer "refinery_page_part_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "body"
-    t.index ["locale"], name: "index_refinery_page_part_translations_on_locale"
-    t.index ["refinery_page_part_id"], name: "index_refinery_page_part_translations_on_refinery_page_part_id"
-  end
-
   create_table "refinery_page_parts", id: :serial, force: :cascade do |t|
     t.integer "refinery_page_id"
     t.string "slug"
@@ -294,19 +269,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.string "title"
     t.index ["id"], name: "index_refinery_page_parts_on_id"
     t.index ["refinery_page_id"], name: "index_refinery_page_parts_on_refinery_page_id"
-  end
-
-  create_table "refinery_page_translations", force: :cascade do |t|
-    t.integer "refinery_page_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.string "custom_slug"
-    t.string "menu_title"
-    t.string "slug"
-    t.index ["locale"], name: "index_refinery_page_translations_on_locale"
-    t.index ["refinery_page_id"], name: "index_refinery_page_translations_on_refinery_page_id"
   end
 
   create_table "refinery_pages", id: :serial, force: :cascade do |t|
@@ -330,16 +292,6 @@ ActiveRecord::Schema.define(version: 2019_07_26_223415) do
     t.index ["lft"], name: "index_refinery_pages_on_lft"
     t.index ["parent_id"], name: "index_refinery_pages_on_parent_id"
     t.index ["rgt"], name: "index_refinery_pages_on_rgt"
-  end
-
-  create_table "refinery_resource_translations", force: :cascade do |t|
-    t.integer "refinery_resource_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "resource_title"
-    t.index ["locale"], name: "index_refinery_resource_translations_on_locale"
-    t.index ["refinery_resource_id"], name: "index_refinery_resource_translations_on_refinery_resource_id"
   end
 
   create_table "refinery_resources", id: :serial, force: :cascade do |t|

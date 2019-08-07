@@ -17,6 +17,10 @@ class Section < ApplicationRecord
     self.fields << field
   end
 
+  def can_destroy?
+    title != 'Profile'
+  end
+
   def title_key
     title.downcase.tr(' ', '_')
   end

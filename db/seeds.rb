@@ -5,9 +5,27 @@
 #   Grant.destroy_all
 # end
 
-Grant.create(program_title: 'Test Program', subdomain: 'test')
+if Apartment::Tenant.current == 'public'
+  puts 'seeding public schema'
+  puts 'create test grant'
+  Grant.create(program_title: 'Test Program', subdomain: 'test')
 
-Apartment::Tenant.switch('test') do
+  # Super Admin
+  puts 'create super admin'
+  User.new(
+    email: 'super-admin@test.com',
+    first_name: 'super',
+    last_name: 'admin',
+    password: 'testing123',
+    confirmed_at: Time.now
+  )
+
+  puts 'test tenant created please use "test.lvh.me" to reach the app'
+end
+
+if Apartment::Tenant.current == 'test'
+  puts 'seeding test schema'
+
   ProgramAdmin.create(
     email: 'admin@test.com',
     first_name: 'Test',
@@ -216,17 +234,6 @@ Apartment::Tenant.switch('test') do
     a.save
   end
 end
-
-# Super Admin
-User.new(
-  email: 'super-admin@test.com',
-  first_name: 'super',
-  last_name: 'admin',
-  password: 'testing123',
-  confirmed_at: Time.now
-)
-
-puts 'test tenant created please use "test.lvh.me" to reach the app'
 
 # Added by Refinery CMS Pages extension
 # Refinery::Pages::Engine.load_seed

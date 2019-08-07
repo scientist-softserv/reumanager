@@ -11,7 +11,7 @@ class Setting < ApplicationRecord
       setting = settings_array.detect do |s|
         s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
       end
-      setting.value || ''
+      setting&.value || ''
     end
 
     def self.load_from_yaml(grant = nil)
