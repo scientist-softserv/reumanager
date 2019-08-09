@@ -2,20 +2,30 @@ Rails.application.routes.draw do
   resources :grants
 
   devise_for :users
-  devise_for :program_admins
+  devise_for :program_admins,
+             controllers: {
+               sessions: 'program_admins/sessions',
+               registrations: 'program_admins/registrations'
+             }
   devise_for :applicants
 
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
+    resources :program_admins, except: %i[destroy] do
+      member do
+        get :lock
+        get :unlock
+      end
+    end
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy]
     resources :applicants, except: %i[destroy] do
       member do
-          patch :accept
-          patch :reject
-        end
+        patch :accept
+        patch :reject
+      end
     end
-    
+
     resources :application_forms, except: %i[new create destroy] do
       member do
         get :show_schema
@@ -44,7 +54,7 @@ Rails.application.routes.draw do
   get 'recommenders' => 'applicant_data#show_recommenders'
   match 'recommenders' => 'applicant_data#update_recommenders', via: %i[put patch]
   get 'status' => 'applicant_data#status'
-  
+
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'
   root to: 'welcome#index'

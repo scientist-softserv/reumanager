@@ -17,7 +17,7 @@ module ReuProgram
       if @setting.update(setting_params)
         redirect_to action: 'index'
       else
-        render action: 'edit'
+        render :edit
       end
     end
 

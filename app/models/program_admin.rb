@@ -3,5 +3,9 @@ class ProgramAdmin < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable
+         :confirmable, :lockable, :trackable
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

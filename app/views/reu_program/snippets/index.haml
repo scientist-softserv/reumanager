@@ -18,7 +18,8 @@
           %tr
             %td= snippet.name
             %td= snippet.description
-            - if snippet.image.attached?
+            - case snippet
+            - when Snippets::ImageSnippet
               %td= image_tag snippet.image.variant(resize: '100x100')
             - else
               %td= truncate(snippet.value, length: 100)

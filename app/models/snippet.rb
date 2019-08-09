@@ -1,6 +1,5 @@
 class Snippet < ApplicationRecord
   self.inheritance_column = :kind
-  has_one_attached :image
 
   validates_uniqueness_of :name
 
@@ -12,7 +11,12 @@ class Snippet < ApplicationRecord
       snippet = snippets_array.detect do |s|
         s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
       end
-      snippet&.value || ''
+      case snippet
+      when Snippets::ImageSnippet
+        snippet.image.attached? ? snippet.image : nil
+      else
+        snippet&.value || ''
+      end
     end
 
     def load_from_yaml(grant = nil)
