@@ -12,7 +12,7 @@
           The deadline for applications has passed. Please sign in to see existing application status.
       - elsif started?
         %h3.deadline
-          Application Deadline #{Settings::DateSetting[:application_deadline].to_date.strftime("%A, %b %d") || 'Missing'}
+          Application Deadline #{Settings::DateSetting[:application_deadline]&.to_date&.strftime("%A, %b %d") || 'Missing'}
         .app_button
           - if applicant_signed_in? && current_applicant.state == 'submitted'
             = link_to "Check Status", applicant_status_url, :class => "btn btn-lg btn-success"
@@ -22,7 +22,7 @@
             = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
       - else
         %h3.deadline
-          Applications will be available in #{Settings::DateSetting[:application_start]&.to_date&.strftime("%A, %b %d")} for the Summer #{Settings::DateSetting[:application_deadline].to_date.month >= 7 ? (Settings::DateSetting[:application_deadline].to_date.year + 1) : Settings::DateSetting[:application_deadline].to_date.year} Program. Applications will be due on #{Setting[:application_deadline]&.to_date&.strftime("%A, %b %d")} and Decisions sent to applicants by #{Settings::DateSetting[:notification_date]&.to_date&.strftime("%A, %b, %d")}.
+          Applications will be available in #{Settings::DateSetting[:application_start]&.to_date&.strftime("%A, %b %d")} for the Summer #{Settings::DateSetting[:application_deadline]&.to_date&.month.to_i >= 7 ? (Settings::DateSetting[:application_deadline]&.to_date&.year.to_i + 1) : Settings::DateSetting[:application_deadline]&.to_date&.year} Program. Applications will be due on #{Setting[:application_deadline]&.to_date&.strftime("%A, %b %d")} and Decisions sent to applicants by #{Settings::DateSetting[:notification_date]&.to_date&.strftime("%A, %b, %d")}.
   .col-md-12
     %section.col-md-4
       %h3 Program Highlights

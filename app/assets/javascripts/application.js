@@ -12,20 +12,24 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require js/vendors
-//= require js/syntaxhighlighter/shCore
-//= require js/syntaxhighlighter/shBrushXml
-//= require js/syntaxhighlighter/shBrushJScript
-//= require js/DropdownHover
-//= require js/app
-//= require js/holder
-//= require js/index
+// require js/vendors
+// require js/syntaxhighlighter/shCore
+// require js/syntaxhighlighter/shBrushXml
+// require js/syntaxhighlighter/shBrushJScript
+// require js/DropdownHover
+// require js/app
+// require js/holder
+// require js/index
 //= require bootstrap
-//= require bootstrap-datepicker
-//= require academic_records
-//= require recommendations
-//= require registrations
+// require bootstrap-datepicker
+// require academic_records
+// require recommendations
+// require registrations
 // require rich
-//= require charges
-$('#sandbox-container .input-append.date').datepicker({
+// require charges
+
+$(document).ready(function() {
+    $('#status').fadeOut()
+    $('#preloader').delay(350).fadeOut('slow')
+    $('body').delay(350).css({'overflow':'visible'})
 });

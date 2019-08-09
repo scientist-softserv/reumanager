@@ -1,6 +1,5 @@
 class Setting < ApplicationRecord
   self.inheritance_column = :kind
-  belongs_to :grant
   validates_uniqueness_of :name
 
   class << self
