@@ -30,6 +30,11 @@ class Field < ApplicationRecord
     def property(property_name, opts = {})
       @current_config[property_name] = opts
     end
+
+    def important_field_path(important_type)
+      field = self.where(important: important_type).last
+      [field.section.title_key, field.title_key]
+    end
   end
 
   def title_key

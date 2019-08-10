@@ -2,7 +2,7 @@ class Applicant < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :lockable, :timeoutable, :confirmable
 
-  belongs_to :applicant_datum, dependent: :destroy, autosave: true
+  belongs_to :applicant_datum, foreign_key: :applicant_datum_id, dependent: :destroy, autosave: true
   has_many :recommenders, dependent: :destroy
 
   delegate :recommender_info,
@@ -42,9 +42,14 @@ class Applicant < ApplicationRecord
     end
   end
 
+  def field_value(*args)
+    self.data.dig(*args)
+  end
+
   private
 
   def setup_data
-    self.applicant_datum = ApplicantDatum.new if self.applicant_datum.blank?
+    return if self.applicant_datum_id.present?
+    self.applicant_datum = ApplicantDatum.new
   end
 end

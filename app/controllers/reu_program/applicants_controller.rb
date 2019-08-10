@@ -2,9 +2,11 @@ module ReuProgram
   class ApplicantsController < AdminController
     before_action :authenticate_program_admin!, except: %i[index]
     before_action :load_applicant, except: %i[index]
-    
+
     def index
       @applicants = Applicant.all
+      @first_name_path = Field.important_field_path('first_name')
+      @last_name_path = Field.important_field_path('last_name')
       respond_to do |format|
         format.html
         format.pdf do

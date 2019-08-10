@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_210106) do
+ActiveRecord::Schema.define(version: 2019_08_09_223233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_210106) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "status", default: 0, null: false
+    t.jsonb "important_paths"
   end
 
   create_table "awards", id: :serial, force: :cascade do |t|
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_210106) do
     t.integer "order", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "important"
     t.index ["section_id"], name: "index_fields_on_section_id"
   end
 
@@ -337,6 +339,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_210106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recommender_form_id"
+    t.string "important"
     t.index ["application_form_id"], name: "index_sections_on_application_form_id"
   end
 

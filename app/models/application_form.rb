@@ -10,6 +10,20 @@ class ApplicationForm < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  before_save do
+    self.important_paths = self.set_important_paths
+  end
+
+  def set_important_paths
+    important_sections.each_with_object({}) do |s, hash|
+      hash[s.title_key] = s.important_fields.map(&:title_key)
+    end
+  end
+
+  def important_sections
+    sections.where.not(important: nil)
+  end
+
   def json_schema
     JSON.generate(build_json_schema)
   end

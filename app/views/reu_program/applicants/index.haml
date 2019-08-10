@@ -12,15 +12,18 @@
     %table.table
       %thead
         %tr
-          %th Name
+          %th First Name
+          %th Last Name
           %th State
           %th Actions
       %tbody
         - @applicants.each do |applicant|
           %tr
-            %td= link_to "#{applicant.data.dig('profile', 'first_name')} #{applicant.data.dig('profile', 'last_name')}", reu_program_applicant_path(applicant)
+            %td= applicant.field_value(*@first_name_path)
+            %td= applicant.field_value(*@last_name_path)
             %td= applicant.state
             %td.actions
+              = link_to 'Show', reu_program_applicant_path(applicant)
               = link_to 'PDF', reu_program_applicant_path(applicant, format: 'pdf') |
               = link_to 'CSV', reu_program_applicant_path(applicant, format: 'csv')
     .col-2

@@ -9,16 +9,16 @@ class Section < ApplicationRecord
 
   accepts_nested_attributes_for :fields, allow_destroy: true
 
+  def important_fields
+    fields.where.not(important: nil)
+  end
+
   def handle_add_field
     return if Field::TYPES.values.exclude?(add_field)
     order = (self.fields.to_a.map(&:order).max || 0) + 1
     klass = add_field.constantize
     field = klass.new(order: order)
     self.fields << field
-  end
-
-  def can_destroy?
-    title != 'Profile'
   end
 
   def title_key
