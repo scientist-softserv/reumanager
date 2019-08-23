@@ -29,7 +29,7 @@ class App extends React.Component {
 
   saveFormD = debounce(saveData.bind(this), 1000)
 
-  onFormChange = (data) => { 
+  onFormChange = (data) => {
     this.setState({ formData: data.formData })
     this.saveFormD({ data: data.formData })
   }
@@ -41,6 +41,11 @@ class App extends React.Component {
 
   onFormError = (data) => {
     console.log('Error', data)
+  }
+
+  static getDerivedStateFromError(error) {
+    console.log(error)
+    return {}
   }
 
   renderMessage() {

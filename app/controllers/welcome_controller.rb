@@ -1,7 +1,5 @@
 class WelcomeController < ApplicationController
-  def index
-    redirect_to '/info' unless subdomain?
-  end
+  def index; end
 
   def thanks; end
 end

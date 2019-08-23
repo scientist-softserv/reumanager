@@ -38,14 +38,28 @@ class Section < ApplicationRecord
   end
 
   def build_json_schema
-    {
-      title_key => {
-        title: title,
-        type: :object,
-        required: required_fields,
-        properties: fields_json_config
-      }.reject { |_k, v| v.blank? }
-    }
+    if repeating?
+      {
+        title_key => {
+          title: title,
+          type: :array,
+          required: required_fields,
+          items: {
+            type: :object,
+            properties: fields_json_config
+          }
+        }.reject { |_k, v| v.blank? }
+      }
+    else
+      {
+        title_key => {
+          title: title,
+          type: :object,
+          required: required_fields,
+          properties: fields_json_config
+        }.reject { |_k, v| v.blank? }
+      }
+    end
   end
 
   def build_ui_schema

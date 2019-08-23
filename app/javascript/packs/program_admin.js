@@ -15,8 +15,6 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require('bootstrap/dist/css/bootstrap.min.css')
-require('flatpickr/dist/flatpickr.min.css')
 import 'jquery'
 import 'jquery-ujs'
 import 'bootstrap'

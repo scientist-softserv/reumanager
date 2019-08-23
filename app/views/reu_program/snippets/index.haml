@@ -20,7 +20,10 @@
             %td= snippet.description
             - case snippet
             - when Snippets::ImageSnippet
-              %td= image_tag snippet.image.variant(resize: '100x100')
+              - if snippet.image.attached?
+                %td= image_tag snippet.image.variant(resize: '100x100')
+              - else
+                %td Please add an image
             - else
               %td= truncate(snippet.value, length: 100)
             %td.actions

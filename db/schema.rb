@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_223233) do
+ActiveRecord::Schema.define(version: 2019_08_23_172316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_223233) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "authentication_token"
-    t.string "state"
+    t.string "state", default: "started"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "applicant_datum_id"
