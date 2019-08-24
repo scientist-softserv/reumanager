@@ -8,18 +8,19 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require css/preload
- *= require css/vendors
+ *cc= require_self
+ *cc= require css/preload
+ *cc= require css/vendors
  *cc= require css/syntaxhighlighter/shCore
- *= require css/style-blue3
- *= require css/width-full
+ *cc= require css/style-blue3
+ *cc= require css/width-full
  *cc= require cms
  *cc= require bootstrap-datepicker3
+ *= require b4app
  */
 
 
-#footer-widgets ul.list-unstyled li.pull-left:first-of-type {
+/* #footer-widgets ul.list-unstyled li.pull-left:first-of-type {
   margin-left: 20px;
 }
 #footer-widgets ul.list-unstyled li.pull-left:after {
@@ -41,4 +42,4 @@
   text-align: left;
   font-weight: normal;
   color:#fff;
-}
+} */

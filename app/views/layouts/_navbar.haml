@@ -1,0 +1,17 @@
+.border-bottom.shadow.navbar.main-nav
+  .container.d-flex.flex-column.flex-md-row.align-items-center
+    %h3.my-0.mr-md-auto.font-weight-normal
+      = link_to "#{Setting[:app_title] || 'University Name'}".html_safe, root_path, class: 'navbar-brand text-dark', id: 'ar-brand'
+    %nav.my-2.my-md-0.mr-md-3
+      - class_names = 'p-2 text-dark'
+      = link_to "Welcome", root_path, class: class_names
+      - if applicant_signed_in?
+        = link_to 'Application', application_path, class: class_names
+        = link_to 'Recommenders', recommenders_path, class: class_names
+        = link_to 'Status', status_path, class: class_names
+        = link_to "Logout", destroy_applicant_session_path, method: :delete, class: class_names
+      - else
+        - if started? && !expired?
+          = link_to "Apply Now", new_applicant_registration_url, class: class_names
+          = link_to "Login", new_applicant_session_url, class: class_names
+        = link_to 'Admin', reu_program_dashboard_path, class: class_names

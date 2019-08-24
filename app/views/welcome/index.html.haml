@@ -1,7 +1,7 @@
 .row
   .col-md-12
     %h3 General Info
-.row
+.row.mb-5
   .col-md-5
     - if Snippet[:home_page_image]
       = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block')
@@ -38,15 +38,15 @@
     .col-md-12
       %h3.deadline.text-center
         Applications will be available in #{start_data} for the Summer #{deadline} Program. Applications will be due on #{deadline&.strftime("%A, %b %d")} and Decisions sent to applicants by #{notification_date}.
-.row
-  %section.col-md-4
+.row.mt-4.mb-4
+  .col
     %h3 Program Highlights
     = sanitize(Snippet[:program_highlights])
 
-  %section.col-md-4
+  .col
     %h3 Eligibility Requirements
     = sanitize(Snippet[:eligibility_requirements])
 
-  %section.col-md-4
+  .col
     %h3 Application Information
     = sanitize(Snippet[:application_information])

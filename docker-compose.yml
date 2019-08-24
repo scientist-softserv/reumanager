@@ -25,14 +25,14 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
-  webpacker:
-    image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
-    command: bash -c "./bin/webpack --watch --colors --progress"
-    volumes:
-      - .:/webapp
-    env_file:
-      - .env
-      - .env.development
+  # webpacker:
+  #   image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
+  #   command: bash -c "./bin/webpack --watch --colors --progress"
+  #   volumes:
+  #     - .:/webapp
+  #   env_file:
+  #     - .env
+  #     - .env.development
 
 volumes:
   postgres:

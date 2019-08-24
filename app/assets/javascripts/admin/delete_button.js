@@ -1,4 +1,4 @@
-;(function() {
+(function() {
   $(document).ready(function() {
     $('[data-target="fieldDeleteBtn"]').on('click', function(e) {
       var $btn = $(e.target)

@@ -7,36 +7,18 @@
     = javascript_pack_tag 'application'
   / Preloader
   %body
-    #preloader
-      #status
-    #flash
-      - if flash[:notice]
-        .alert.alert-info#notice(onclick="$(this).slideUp();")= flash[:notice]
-      - if flash[:success]
-        .alert.alert-success#success(onclick="$(this).slideUp();")= flash[:success]
-      - if flash[:alert]
-        .alert.alert-warning#alert(onclick="$(this).slideUp();")= flash[:alert]
-      - if flash[:error]
-        .alert.alert-warning#error(onclick="$(this).slideUp();")= flash[:error]
-    #sb-site
-      .boxed
-        %header#header
-          - if subdomain?
-            = render 'layouts/header'
-        %section#page
-          .container
-            .row
-              .col-xs-12
-                %h1.page-title
-          - if subdomain?
-            .container.content
-              = yield
-          - else
-            = yield
-        %footer
-          - if subdomain?
-            = render "/layouts/footer_text"
-    #back-top
-      %a(href="#header")
-        %i.fa.fa-arrow-up
-    -# %script(src="https://js.stripe.com/v3/")
+    = render 'layouts/navbar'
+    .container
+      = render 'layouts/header'
+      .row#flash
+        .col
+          - if flash[:notice]
+            .alert.alert-info#notice= flash[:notice]
+          - if flash[:success]
+            .alert.alert-success#success= flash[:success]
+          - if flash[:alert]
+            .alert.alert-warning#alert= flash[:alert]
+          - if flash[:error]
+            .alert.alert-warning#error= flash[:error]
+      = yield
+    = render '/layouts/footer'

@@ -37,29 +37,46 @@ class Section < ApplicationRecord
     end
   end
 
-  def build_json_schema
+  def build_json_schema(nested: true)
+    return unnested_schema unless nested
     if repeating?
-      {
-        title_key => {
-          title: title,
-          type: :array,
-          required: required_fields,
-          items: {
-            type: :object,
-            properties: fields_json_config
-          }
-        }.reject { |_k, v| v.blank? }
-      }
+      repeating_schema
     else
-      {
-        title_key => {
-          title: title,
-          type: :object,
-          required: required_fields,
-          properties: fields_json_config
-        }.reject { |_k, v| v.blank? }
-      }
+      non_repeating_schema
     end
+  end
+
+  def unnested_schema
+    {
+      type: :object,
+      required: required_fields,
+      properties: fields_json_config
+    }.reject { |_k, v| v.blank? }
+  end
+
+  def repeating_schema
+    {
+      title_key => {
+        title: title,
+        type: :array,
+        required: required_fields,
+        items: {
+          type: :object,
+          properties: fields_json_config
+        }
+      }.reject { |_k, v| v.blank? }
+    }
+  end
+
+  def non_repeating_schema
+    {
+      title_key => {
+        title: title,
+        type: :object,
+        required: required_fields,
+        properties: fields_json_config
+      }.reject { |_k, v| v.blank? }
+    }
   end
 
   def build_ui_schema

@@ -6,6 +6,7 @@ globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
   $: true
+parser: babel-eslint
 parserOptions:
   ecmaFeatures:
     jsx: true

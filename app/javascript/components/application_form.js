@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Form from "react-jsonschema-form"
+import Form from './form'
 import { debounce } from '../shared/debounce'
 import { saveData } from '../shared/save_data'
 
@@ -17,11 +16,11 @@ function setupDefaultState() {
   return s
 }
 
-class App extends React.Component {
+class ApplicationForm extends React.Component {
   constructor(props) {
     super(props)
     var dataEl = document.querySelector('.form-data')
-    this.state = setupDefaultState()
+    this.state = setupDefaultState(dataEl)
     console.log(this.state)
   }
 
@@ -72,8 +71,9 @@ class App extends React.Component {
   }
 }
 
+export default ApplicationForm
 
-document.addEventListener('DOMContentLoaded', () => {
-  var mount = document.querySelector('#applicationForm')
-  if (mount) { ReactDOM.render(<App />, mount) }
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//   var mount = document.querySelector('#applicationForm')
+//   if (mount) { ReactDOM.render(<App />, mount) }
+// })
