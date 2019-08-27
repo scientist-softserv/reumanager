@@ -42,12 +42,27 @@
           %th University
           %th Department
       %tbody
-        %tr
-          %td= Setting.pluck(:value)[0]
-          %td= Setting.pluck(:value)[1]
-          %td= Setting.pluck(:value)[2]
-          %td= Setting.pluck(:value)[3]
-          %td= Setting.pluck(:value)[4]
-          %td= Setting.pluck(:value)[5]
-          %td= Setting.pluck(:value)[6]
-    .col-2
+        - @values.each do |value|
+          %td= value.value
+  .col-2
+
+
+
+-#     %tr
+-#   - (0..6).each do |i|
+-#     - if (@calendar[:array_name_day][index] == i)
+-#       %td
+-#         %span #{num_d}
+-#       - break
+-#     - else
+-#       %td
+    -#     %tr
+    -#       %td= @value
+    -#       %td= Setting.pluck(:value)[1]
+    -#       %td= Setting.pluck(:value)[2]
+    -#       %td= Setting.pluck(:value)[3]
+    -#       %td= Setting.pluck(:value)[4]
+    -#       %td= Setting.pluck(:value)[5]
+    -#       %td= Setting.pluck(:value)[6]
+    -# .col-2
+

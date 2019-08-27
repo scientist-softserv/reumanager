@@ -10,6 +10,9 @@ module ReuProgram
       @countWithdrawn = Applicant.where(state: "Withdrawn").count
 
       # @appStart = Setting.where(name: "Application Start").value
+      @values = Setting.first(6)
+      @settings = Setting.all
+      # @value = Setting.important_field_path('value')
       # @appDeadline = 
       # @notDate = 
       # @programStart = 
