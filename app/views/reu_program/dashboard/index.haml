@@ -16,11 +16,11 @@
           %th Total
       %tbody
         %tr
-          %td= @countStarted
-          %td= @countCompleted
-          %td= @countAccepted
-          %td= @countRejected
-          %td= @countWithdrawn
+          %td= @count_started
+          %td= @count_completed
+          %td= @count_accepted
+          %td= @count_rejected
+          %td= @count_withdrawn
           %td= @sum
     .col-2
 
@@ -42,27 +42,13 @@
           %th University
           %th Department
       %tbody
-        - @values.each do |value|
-          %td= value.value
-  .col-2
-
-
-
--#     %tr
--#   - (0..6).each do |i|
--#     - if (@calendar[:array_name_day][index] == i)
--#       %td
--#         %span #{num_d}
--#       - break
--#     - else
--#       %td
-    -#     %tr
-    -#       %td= @value
-    -#       %td= Setting.pluck(:value)[1]
-    -#       %td= Setting.pluck(:value)[2]
-    -#       %td= Setting.pluck(:value)[3]
-    -#       %td= Setting.pluck(:value)[4]
-    -#       %td= Setting.pluck(:value)[5]
-    -#       %td= Setting.pluck(:value)[6]
-    -# .col-2
+        %tr
+          %td= @settings_start.value
+          %td= @settings_deadline.value
+          %td= @settings_not_date .value
+          %td= @settings_prog_start.value
+          %td= @settings_prog_end.value
+          %td= @settings_university.value
+          %td= @settings_dept.value
+    .col-2
 
