@@ -1,32 +1,38 @@
 class Snippet < ApplicationRecord
-  belongs_to :grant
-  attr_accessible :description, :name, :value, :display_name
-  attr_accessor :display_name
-  cattr_accessor :available_snippets
+  self.inheritance_column = :kind
 
   validates_uniqueness_of :name
 
-  # Returns the value of the setting named name
-  def self.[](name)
-    name = name.to_s
-    setting = find_by_name(name)
-    setting ? setting.value : nil
-  end
+  class << self
+    attr_accessor :snippets_array
 
-  def self.load_from_yaml(grant=nil)
-    default_snippets = YAML::load(File.open(Rails.root.join 'config', 'snippets.yml'))
-    default_snippets.map do |s|
-      Snippet.find_or_create_by(name: s[1]['name']) do |snippet|
-        snippet.grant = grant
-        snippet.description = s[1]['description']
-        snippet.name = s[1]['name']
-        snippet.value = s[1]['value']
+    def [](lookup)
+      snippets_array = self.all.to_a if snippets_array.nil?
+      snippet = snippets_array.detect do |s|
+        s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
+      end
+      case snippet
+      when Snippets::ImageSnippet
+        snippet.image.attached? ? snippet.image : nil
+      else
+        snippet&.value || ''
+      end
+    end
+
+    def load_from_yaml(grant = nil)
+      default_snippets = YAML.safe_load(File.open(Rails.root.join('config', 'snippets.yml')))
+      default_snippets.map do |s|
+        Snippet.find_or_create_by(name: s[1]['name']) do |snippet|
+          snippet.grant = grant
+          snippet.description = s[1]['description']
+          snippet.name = s[1]['name']
+          snippet.value = s[1]['value']
+        end
       end
     end
   end
 
   def display_name
-    name.gsub('_',' ').titleize
+    name.tr('_', ' ').titleize
   end
-
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929220747) do
+ActiveRecord::Schema.define(version: 2019_08_23_172316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,29 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.integer "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "transcript_file_name"
-    t.string "transcript_content_type"
-    t.integer "transcript_file_size"
-    t.datetime "transcript_updated_at"
     t.string "major"
     t.string "minor"
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "addresses", id: :serial, force: :cascade do |t|
@@ -48,20 +65,14 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
+  create_table "applicant_data", force: :cascade do |t|
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "recommender_info"
+  end
+
   create_table "applicants", id: :serial, force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.date "dob"
-    t.string "citizenship"
-    t.string "disability"
-    t.string "gender"
-    t.string "ethnicity"
-    t.string "race"
-    t.string "academic_level"
-    t.text "lab_skills"
-    t.text "cpu_skills"
-    t.text "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
     t.string "email", default: "", null: false
@@ -82,20 +93,25 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "authentication_token"
-    t.string "state"
+    t.string "state", default: "started"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "gpa_comment"
-    t.string "found_us"
-    t.boolean "acknowledged_dates", default: false
-    t.string "military"
-    t.string "mentor1"
-    t.string "mentor2"
+    t.integer "applicant_datum_id"
     t.index ["authentication_token"], name: "index_applicants_on_authentication_token", unique: true
     t.index ["confirmation_token"], name: "index_applicants_on_confirmation_token", unique: true
     t.index ["email"], name: "index_applicants_on_email", unique: true
     t.index ["reset_password_token"], name: "index_applicants_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_applicants_on_unlock_token", unique: true
+  end
+
+  create_table "application_forms", force: :cascade do |t|
+    t.json "form_schema"
+    t.json "form_ui_schema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.integer "status", default: 0, null: false
+    t.jsonb "important_paths"
   end
 
   create_table "awards", id: :serial, force: :cascade do |t|
@@ -107,6 +123,17 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
+  create_table "fields", force: :cascade do |t|
+    t.string "kind", default: "Fields::ShortText", null: false
+    t.jsonb "config", default: {}, null: false
+    t.integer "section_id"
+    t.integer "order", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "important"
+    t.index ["section_id"], name: "index_fields_on_section_id"
+  end
+
   create_table "grants", id: :serial, force: :cascade do |t|
     t.string "program_title"
     t.string "subdomain"
@@ -115,6 +142,35 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "contact_email"
     t.string "contact_password"
     t.string "coupon_code"
+  end
+
+  create_table "program_admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "super", default: false, null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["confirmation_token"], name: "index_program_admins_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_program_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_program_admins_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_program_admins_on_unlock_token", unique: true
   end
 
   create_table "rails_admin_histories", id: :serial, force: :cascade do |t|
@@ -147,17 +203,24 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["recommender_id"], name: "index_recommendations_on_recommender_id"
   end
 
+  create_table "recommender_forms", force: :cascade do |t|
+    t.integer "status"
+    t.string "name"
+    t.jsonb "form_json_schema"
+    t.jsonb "form_ui_schema"
+    t.datetime "updated_cache_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recommenders", id: :serial, force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "title"
-    t.string "department"
-    t.string "organization"
-    t.string "url"
     t.string "email"
-    t.string "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "order"
+    t.jsonb "info"
+    t.integer "applicant_id"
+    t.jsonb "recomendation_data"
   end
 
   create_table "refinery_authentication_devise_roles", id: :serial, force: :cascade do |t|
@@ -199,17 +262,6 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["slug"], name: "index_refinery_authentication_devise_users_on_slug"
   end
 
-  create_table "refinery_image_translations", force: :cascade do |t|
-    t.integer "refinery_image_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_alt"
-    t.string "image_title"
-    t.index ["locale"], name: "index_refinery_image_translations_on_locale"
-    t.index ["refinery_image_id"], name: "index_refinery_image_translations_on_refinery_image_id"
-  end
-
   create_table "refinery_images", id: :serial, force: :cascade do |t|
     t.string "image_mime_type"
     t.string "image_name"
@@ -221,16 +273,6 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "updated_at"
   end
 
-  create_table "refinery_page_part_translations", force: :cascade do |t|
-    t.integer "refinery_page_part_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "body"
-    t.index ["locale"], name: "index_refinery_page_part_translations_on_locale"
-    t.index ["refinery_page_part_id"], name: "index_refinery_page_part_translations_on_refinery_page_part_id"
-  end
-
   create_table "refinery_page_parts", id: :serial, force: :cascade do |t|
     t.integer "refinery_page_id"
     t.string "slug"
@@ -240,19 +282,6 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "title"
     t.index ["id"], name: "index_refinery_page_parts_on_id"
     t.index ["refinery_page_id"], name: "index_refinery_page_parts_on_refinery_page_id"
-  end
-
-  create_table "refinery_page_translations", force: :cascade do |t|
-    t.integer "refinery_page_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.string "custom_slug"
-    t.string "menu_title"
-    t.string "slug"
-    t.index ["locale"], name: "index_refinery_page_translations_on_locale"
-    t.index ["refinery_page_id"], name: "index_refinery_page_translations_on_refinery_page_id"
   end
 
   create_table "refinery_pages", id: :serial, force: :cascade do |t|
@@ -276,16 +305,6 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["lft"], name: "index_refinery_pages_on_lft"
     t.index ["parent_id"], name: "index_refinery_pages_on_parent_id"
     t.index ["rgt"], name: "index_refinery_pages_on_rgt"
-  end
-
-  create_table "refinery_resource_translations", force: :cascade do |t|
-    t.integer "refinery_resource_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "resource_title"
-    t.index ["locale"], name: "index_refinery_resource_translations_on_locale"
-    t.index ["refinery_resource_id"], name: "index_refinery_resource_translations_on_refinery_resource_id"
   end
 
   create_table "refinery_resources", id: :serial, force: :cascade do |t|
@@ -313,6 +332,17 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.string "rich_file_file_title"
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.text "title", null: false
+    t.boolean "repeating", default: false, null: false
+    t.integer "application_form_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "recommender_form_id"
+    t.string "important"
+    t.index ["application_form_id"], name: "index_sections_on_application_form_id"
+  end
+
   create_table "seo_meta", id: :serial, force: :cascade do |t|
     t.integer "seo_meta_id"
     t.string "seo_meta_type"
@@ -331,6 +361,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
+    t.string "kind"
     t.index ["name"], name: "index_settings_on_name"
   end
 
@@ -341,6 +372,7 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "grant_id"
+    t.string "kind"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -375,4 +407,5 @@ ActiveRecord::Schema.define(version: 20170929220747) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

@@ -1,0 +1,24 @@
+%footer.main-footer.mt-3
+  .row-1.p-2
+    .container
+      .menu.d-flex.mt-2.mb-2
+        =link_to "Welcome", root_path
+        - if applicant_signed_in?
+          = link_to 'Application', application_path
+          = link_to 'Recommenders', recommenders_path
+          = link_to 'Status', status_path
+          = link_to "Logout", destroy_applicant_session_path, method: :delete
+        - else
+          - if started? && !expired?
+            = link_to "Apply Now", new_applicant_registration_url
+            = link_to "Login", new_applicant_session_url, class: 'active'
+          = link_to 'Admin', reu_program_dashboard_path
+      .row.mt-3
+        .col
+          %p
+            The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
+
+  .row-2.p-2
+    .d-flex.justify-content-center
+      %p
+        © 2015 - #{Time.now.year}. All rights reserved. XHTML1, CSS3, and Section 508 valid.

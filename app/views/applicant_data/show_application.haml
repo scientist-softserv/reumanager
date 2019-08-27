@@ -1,0 +1,17 @@
+%h1 Application
+
+:ruby
+  attrs = {
+    style: "display: none;",
+    data: {
+      schema: @form.json_schema,
+      ui: @form.ui_schema,
+      data: JSON.generate(@applicant.data.values),
+      path: application_path,
+      method: :patch
+    }
+  }
+
+.form-data{ attrs }
+
+#applicationForm

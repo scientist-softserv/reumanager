@@ -1,0 +1,26 @@
+.row
+  .col-2
+  .col-8
+    .row
+      .col
+        %h2 Application Form Schema
+      .col
+        = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
+  .col-2
+
+.row
+  .col-2
+  .col-8
+    .card
+      .card-header
+        %h4 JSON Schema
+      .card-body
+        %pre
+          = @form.pretty_json_schema
+    .card
+      .card-header
+        %h4 UI Schema
+      .card-body
+        %pre
+          = @form.pretty_ui_schema
+  .col-2

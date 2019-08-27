@@ -1,40 +1,52 @@
 .row
   .col-md-12
+    %h3 General Info
+.row.mb-5
+  .col-md-5
+    - if Snippet[:home_page_image]
+      = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block')
+    - else
+      %strong No Image selected, please select a image in to snippets section of the Admin portal.
+  .col-md-7
+    = sanitize(Snippet[:general_description])
+- if expired?
+  .row
     .col-md-12
-      %h3 General Info
-    .col-md-5
-      = image_tag('REU2016.jpg', class: 'pull-left img-responsive center-block')
-    .col-md-7
-      = raw Snippet[:general_description]
+      %h3.deadline.text-center
+        The deadline for applications has passed. Please sign in to see existing application status.
+- elsif started?
+  .row
     .col-md-12
-      - if expired?
-        %h3.deadline
-          The deadline for applications has passed. Please sign in to see existing application status.
-      - elsif started?
-        %h3.deadline
-          Application Deadline #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]}
-        .app_button
-          - if applicant_signed_in? && current_applicant.state == 'submitted'
-            = link_to "Check Status", applicant_status_url, :class => "btn btn-lg btn-success"
-          - elsif applicant_signed_in?
-            = link_to "Finish Application", edit_applicant_registration_path, :class => "btn btn-lg btn-success"
-          - else
-            = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
-      - else
-        %h3.deadline
-          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2017 Program. Applications will be due on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b, %d")}.
-      
+      %h3.deadline.text-center
+        Application Deadline #{Setting[:application_deadline]&.strftime("%A, %b %d") || 'Missing Deadline'}
+  .row
+    .col-md-12
+      .text-center
+        - if applicant_signed_in? && current_applicant.state == 'submitted'
+          = link_to "Check Status", applicant_status_url, class: "btn btn-lg btn-success"
+        - elsif applicant_signed_in?
+          = link_to "Finish Application", edit_applicant_registration_path, class: "btn btn-lg btn-success"
+        - else
+          = link_to "Apply Now", new_applicant_registration_path, class: "btn btn-lg btn-success"
+- else
+  :ruby
+    start_date = Setting[:application_start]&.strftime("%A, %b %d") || 'Missing Start Date'
+    deadline = Setting[:application_deadline]
+    deadline_str = deadline&.month.to_i >= 7 ? deadline&.year.to_i + 1 : deadline&.year
+    notification_date = Setting[:notification_date]&.strftime("%A, %b, %d")
+  .row
+    .col-md-12
+      %h3.deadline.text-center
+        Applications will be available in #{start_data} for the Summer #{deadline} Program. Applications will be due on #{deadline&.strftime("%A, %b %d")} and Decisions sent to applicants by #{notification_date}.
+.row.mt-4.mb-4
+  .col
+    %h3 Program Highlights
+    = sanitize(Snippet[:program_highlights])
 
+  .col
+    %h3 Eligibility Requirements
+    = sanitize(Snippet[:eligibility_requirements])
 
-  .col-md-12
-    %section.col-md-4
-      %h3 Program Highlights
-      = raw Snippet[:highlights]
-
-    %section.col-md-4
-      %h3 Eligibility Requirements
-      = raw Snippet[:eligibility_requirements]
-
-    %section.col-md-4
-      %h3 Application Information
-      = raw Snippet[:application_information]
+  .col
+    %h3 Application Information
+    = sanitize(Snippet[:application_information])

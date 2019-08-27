@@ -1,0 +1,31 @@
+.row
+  .col-2
+  .col-8
+    %h2 Snippets
+  .col-2
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Value
+          %th Actions
+      %tbody
+        - @snippets.each do |snippet|
+          %tr
+            %td= snippet.name
+            %td= snippet.description
+            - case snippet
+            - when Snippets::ImageSnippet
+              - if snippet.image.attached?
+                %td= image_tag snippet.image.variant(resize: '100x100')
+              - else
+                %td Please add an image
+            - else
+              %td= truncate(snippet.value, length: 100)
+            %td.actions
+              = link_to 'Edit', edit_reu_program_snippet_path(snippet)
+    .col-2

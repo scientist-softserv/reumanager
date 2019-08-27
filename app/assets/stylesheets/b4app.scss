@@ -1,0 +1,13 @@
+$primary-color: #6f95dc;
+
+@import "bootstrap";
+@import "app/header";
+@import "app/footer";
+@import "app/rjsf";
+
+body {
+  color: #666;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.75em;
+}

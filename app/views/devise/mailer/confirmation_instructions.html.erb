@@ -1,6 +1,6 @@
 <p>Thank you for applying to the <%= Setting[:university] %> <%= Setting[:app_title]%>.</p>
 
-<p>This email is to confirm that an account has been created for <%= @resource.name + " (" + @resource.email + ")" %> for the purpose of applying to the <%= Setting[:department] %>, <%= Setting[:university] %> <%= Setting[:app_title] %>. Please complete your application before <%= Setting[:application_deadline].to_date.strftime("%A, %B %d") if Setting[:application_deadline] %>:</p>
+<p>This email is to confirm that an account has been created for <%= @resource.email + " (" + @resource.email + ")" %> for the purpose of applying to the <%= Setting[:department] %>, <%= Setting[:university] %> <%= Setting[:app_title] %>. Please complete your application before <%= Setting[:application_deadline]&.to_date&.strftime("%A, %B %d") if Setting[:application_deadline] %>:</p>
 
 <p style='text-decoration:underline;'>Please note that requests for recommendations will not be sent until your portion of the application is complete. </p>
 

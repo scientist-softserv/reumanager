@@ -1,0 +1,26 @@
+//saved because we were proud of our ajax discovery
+
+// %h2 Edit Snippet
+// = simple_form_for [:reu_program, @snippet] do |f|
+//   = f.input :value
+//   %hr
+//   = f.submit 'Save Snippet', class: 'btn btn-primary'
+  
+// :javascript
+//   function updateForm(e) {
+//       var data = new FormData(document.querySelector('.edit_snippet'))
+//       $('.edit_snippet :input, .edit_snippet select').prop('readonly', true)
+//       $.ajax({
+//         url: '#{update_attributes_reu_program_snippet_path(@snippet)}',
+//         method: 'patch',
+//         data: data,
+//         processData: false,
+//         contentType: false,
+//         success: function(res) {
+//           $('.edit-snippet-container').html(res)
+//         },
+//         fail: function(err) {
+//           alert('failed to update form')
+//         }
+//       })
+//   }

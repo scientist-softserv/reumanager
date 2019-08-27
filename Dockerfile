@@ -1,30 +1,27 @@
-FROM phusion/passenger-ruby24:0.9.27
+FROM ruby:2.6-buster
 
-RUN apt-get update -qq && apt-get install -y build-essential nodejs npm pv libsasl2-dev libpq-dev postgresql-client && \
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -qq && apt-get install -y build-essential nodejs npm yarn pv libsasl2-dev libpq-dev postgresql-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+SHELL [ "/bin/bash", "-l", "-c" ]
 
-RUN rm /etc/nginx/sites-enabled/default
-COPY ops/webapp.conf /etc/nginx/sites-enabled/webapp.conf
-COPY ops/env.conf /etc/nginx/main.d/env.conf
+RUN useradd -u 1000 --create-home --home-dir /app --shell /bin/bash app \
+      && adduser app sudo
 
-ENV APP_HOME /home/app/webapp
+ENV APP_HOME /webapp
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
-  BUNDLE_JOBS=4
-
-ADD Gemfile* $APP_HOME/
+ADD Gemfile Gemfile.lock package.json yarn.lock ./
 RUN bundle check || bundle install
+RUN yarn install
 
 COPY . $APP_HOME
-RUN chown -R app $APP_HOME
 
-# Asset complie and migrate if prod, otherwise just start nginx
-ADD ops/nginx.sh /etc/service/nginx/run
-RUN chmod +x /etc/service/nginx/run
-RUN rm -f /etc/service/nginx/down
+RUN chmod +x ./ops/entrypoint.sh
 
-CMD ["/sbin/my_init"]
+ENTRYPOINT ["/bin/bash", "./ops/entrypoint.sh"]

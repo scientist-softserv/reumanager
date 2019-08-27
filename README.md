@@ -13,6 +13,27 @@ gem install stack_car
 sc up
 
 ```
+# REU Manager v3
+
+### Development setup
+first make sure that you have docker installed. On Mac OS use docker for mac and on Windows use docker for windows.  
+Once you start it check the preferences and make sure that is has at least 3 gb of ram allocated to it.
+make sure to login to `docker login registry.gitlab.com` use your gitlab credentials to login.
+
+1. git clone the repo from https://gitlab.com/notch8/reumanager and switch to the v3 branch
+2. get a .env file for the project from someone on the team
+3. run `docker-compose pull web`
+4. run `docker-compose up`
+once you have the containers up and running
+5. run `docker-compose exec web bash` this will give you a console in the container running rails
+6. run `rails db:create db:migrate db:seed` in the container
+7. in a browser go to test.lvh.me:3000
+
+to get to the new admin go to http://test.lvh.me:3000/reu_program/dashboard.
+the seeds setup a program admin for you. email: admin@test.com password: testing123
+
+# REU Manager v2
+
 ```bash
 When creating a new instance of REU:
 create a new branch that will be the 'master' of the new app

@@ -1,3 +1,4 @@
+---
 version: '2.1'
 services:
   postgres:
@@ -11,22 +12,27 @@ services:
       - 'postgres:/var/lib/postgresql/data'
   web:
     build: .
-    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
+    image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
+    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/home/app/webapp
+      - .:/webapp
     env_file:
       - .env
       - .env.development
-
-    # Keep the stdin open, so we can attach to our app container's process
-    # and do things such as byebug, etc:
     stdin_open: true
-    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
     tty: true
     ports:
-      - "5555:80"
+      - "3000:3000"
     depends_on:
       - postgres
+  # webpacker:
+  #   image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
+  #   command: bash -c "./bin/webpack --watch --colors --progress"
+  #   volumes:
+  #     - .:/webapp
+  #   env_file:
+  #     - .env
+  #     - .env.development
 
 volumes:
   postgres:

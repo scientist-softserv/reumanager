@@ -1,0 +1,29 @@
+.rjsf {
+  .btn-add::after {
+    content: 'Add';
+  }
+
+  .array-item-move-up {
+    display: none;
+
+    &:after {
+      content: 'Move Up';
+    }
+ }
+
+  .array-item-move-down {
+    display: none;
+
+    &:after {
+     content: 'Move Down';
+    }
+  }
+
+  .array-item-remove {
+    border-radius: 0.25rem !important;
+
+    &:after {
+      content: 'Remove';
+    }
+  }
+}

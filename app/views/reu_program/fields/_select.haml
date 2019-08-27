@@ -1,0 +1,16 @@
+.row
+  .col
+    %strong Select Field
+  .col
+    = render partial: 'reu_program/fields/delete_button', locals: { f: f }
+.row
+  .col
+    = f.input :title, as: :string
+  .col
+    = f.input :required, as: :boolean, hint: f.object.required_hint
+.row
+  .col
+    = f.input :description, as: :text, hint: f.object.description_hint
+.row
+  .col
+    = f.input :options, as: :text, hint: f.object.options_hint

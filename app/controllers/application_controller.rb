@@ -1,38 +1,60 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true
-  include ApplicationHelper
-  before_action :log_x_forwarded_by
-  before_action :check_user_subdomain_combo
+  # before_action :log_x_forwarded_by
   helper_method :expired?
-  helper_method :is_subdomain?
+  helper_method :started?
+  helper_method :subdomain?
   helper_method :settings_filled_in?
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
-  before_action :set_cache_buster
+  # before_action :set_cache_buster
+  after_action :set_csrf_cookie
 
-  protected
+  helper_method :current_grant
+
+
+  def set_csrf_cookie
+    cookies["X-CSRF-Token"] = form_authenticity_token
+  end
 
   def settings_filled_in?
-    Setting[:application_start].present? && Setting[:program_start_date].present?
+    # Setting[:application_start].present? && Setting[:program_start_date].present?
+    true
+  end
+
+  def expired?
+    if Setting[:application_deadline].present?
+      expire_at = Time.parse("#{Setting[:application_deadline]} 23:59:59 PST")
+      Time.now > expire_at
+    else
+      false
+    end
+  end
+
+  def started?
+    if Setting[:application_start].present?
+      start_at = Time.parse("#{Setting[:application_start]} 00:00:00 PST")
+      Time.now > start_at
+    else
+      false
+    end
   end
 
   # used to prevent seeing user info through history after sign-out.
   def set_cache_buster
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
   def check_deadline
-    if expired?
-      redirect_to closed_url
-    end
+    redirect_to closed_url if expired?
   end
 
   def log_x_forwarded_by
-    if request.env["HTTP_X_FORWARDED_FOR"].nil?
-      Rails.logger.info "NO HTTP_X_FORWARDED_FOR"
+    if request.env['HTTP_X_FORWARDED_FOR'].nil?
+      Rails.logger.info 'NO HTTP_X_FORWARDED_FOR'
     else
-      Rails.logger.info "REMOTE IP: " + request.env["HTTP_X_FORWARDED_FOR"].split(',').first
+      Rails.logger.info "REMOTE IP: #{request.env['HTTP_X_FORWARDED_FOR'].split(',').first}"
     end
   end
 
@@ -40,37 +62,30 @@ class ApplicationController < ActionController::Base
     current_applicant.set_state
   end
 
-  def is_subdomain?
-    request.subdomain.present? && (request.subdomain != 'www' && request.subdomain != 'admin' && request.subdomain != 'web')
+  def subdomain?
+    request.subdomain.present? && %w[www web].exclude?(request.subdomain)
   end
 
   def current_grant
     return @grant if @grant.present?
-
-    if is_subdomain?
+    if subdomain?
       @grant = Grant.where(subdomain: request.subdomain).first
-      if @grant.blank?
-        raise Apartment::TenantNotFound
-      end
+      raise Apartment::TenantNotFound if @grant.blank?
     end
-    return @grant
+    @grant
   end
 
   def tenant_not_found
-      redirect_to 'lvh.me:3000'
+    redirect_to root
   end
 
-  def check_user_subdomain_combo
-    # if current_user and current subdomain
-    if current_user.present? && is_subdomain?
-      # and user is a member of the grant for that subdomain
-      if current_grant.users.include?(current_user)
-        return true
-      else
-        render plain: '403 Forbidden', status: 403
-      end
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Applicant)
+      application_path
+    elsif resource.is_a?(User)
+      grants_path
     else
-      return true
+      super
     end
   end
 

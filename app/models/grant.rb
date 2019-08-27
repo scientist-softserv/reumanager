@@ -1,31 +1,39 @@
 class Grant < ActiveRecord::Base
-	has_many :users
-	has_many :settings
-	has_many :snippets
-	has_many :admin_accounts
-	
+  has_many :users
+  has_many :settings
+  has_many :snippets
+  has_many :admin_accounts
 
+  validates :subdomain, exclusion: { in: %w[www admin], message: '%{value} is reserved' }
+  validates :subdomain, uniqueness: { scope: :subdomain }
+  after_create :create_tenant
+  after_destroy :destroy_tenant
 
-	validates :subdomain, exclusion: { in: %w(www admin), message: "%{value} is reserved"}
-	validates :subdomain, uniqueness: {:scope => :subdomain}
-	after_create :create_tenant
-	after_destroy :destroy_tenant
-	accepts_nested_attributes_for :settings
-	accepts_nested_attributes_for :users
-	accepts_nested_attributes_for :snippets
-	accepts_nested_attributes_for :admin_accounts
+  def create_tenant
+    Apartment::Tenant.create(subdomain)
+    ::GrantDefaultFactory.new(self).create!
+    Apartment::Tenant.switch(subdomain) do
+      ::ProgramAdmin.create!(
+        first_name: 'Kevin',
+        last_name: 'Kochanski',
+        email: 'kevin@notch8.com',
+        password: 'testing123',
+        password_confirmation: 'testing123',
+        confirmed_at: Time.now,
+        super: true
+      )
+    end
+  end
 
-	def create_tenant
-		Apartment::Tenant.create(subdomain)
-		Apartment::Tenant.switch!(subdomain)
-		Setting.load_from_yaml(self)
-		Snippet.load_from_yaml(self)
-		Apartment::Tenant.switch!
-	end
+  def destroy_tenant
+    Apartment::Tenant.drop(subdomain)
+  end
 
-	def destroy_tenant
-		Apartment::Tenant.drop(subdomain)
-	end
+  def reset_defaults
+    ::GrantDefaultFactory.new(self).reset!
+  end
 
-
+  def switch!
+    Apartment::Tenant.switch!(self.subdomain)
+  end
 end

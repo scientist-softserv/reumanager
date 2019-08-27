@@ -1,0 +1,29 @@
+.main-nav {
+  background: linear-gradient(to top, #ececec, #f4f4f4);
+  font-family: "Muli", sans-serif;
+
+  .navbar-brand {
+    font-size: 28px;
+    font-weight: 300;
+    word-spacing: -6px;
+    -webkit-text-stroke: 0;
+    background-image: url("/assets/img/colors/blue3/logo.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 45px;
+    color: #000;
+  }
+
+  a.text-dark {
+    font-size: 1.4em;
+  }
+}
+
+.main-header {
+  background: $primary-color;
+  color: white;
+
+  a {
+    color: white;
+  }
+}

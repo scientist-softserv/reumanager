@@ -33,7 +33,9 @@ coverage
 
 # Public Uploads
 public/system/*
+public/packs/*
 public/themes/*
+storage/*
 
 # Public Cache
 public/javascripts/cache
@@ -96,3 +98,10 @@ capybara-*html
 # vendor/extensions dummy applications.
 vendor/extensions/**/spec/dummy
 
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

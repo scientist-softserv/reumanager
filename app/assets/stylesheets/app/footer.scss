@@ -1,0 +1,25 @@
+.main-footer {
+  color: #eee;
+
+  .row-1 {
+    background-color: #444;
+
+    a {
+      color: #eee;
+      padding: 0 10px;
+      border-right: 1px solid #eee;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        border: none;
+      }
+    }
+  }
+
+  .row-2 {
+    background-color: #333;
+  }
+}

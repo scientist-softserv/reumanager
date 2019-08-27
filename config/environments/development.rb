@@ -6,9 +6,7 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-
   config.consider_all_requests_local = true
-
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -31,37 +29,37 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   if config.respond_to?(:action_mailer)
-  if config.respond_to?(:action_mailer)
-      config.action_mailer.raise_delivery_errors = false
+    config.action_mailer.raise_delivery_errors = false
 
-      config.action_mailer.perform_caching = false
+    config.action_mailer.perform_caching = false
 
-      # Print deprecation notices to the Rails logger.
-      config.active_support.deprecation = :log
+    # Print deprecation notices to the Rails logger.
+    config.active_support.deprecation = :log
 
-      # Raise an error on page load if there are pending migrations.
-      config.active_record.migration_error = :page_load
+    # Raise an error on page load if there are pending migrations.
+    config.active_record.migration_error = :page_load
+    
+    # Temporarily storing images locally.
+    config.active_storage.service = :local
 
-      # Debug mode disables concatenation and preprocessing of assets.
-      # This option may cause significant delays in view rendering with a large
-      # number of complex assets.
-      config.assets.debug = true
+    # Debug mode disables concatenation and preprocessing of assets.
+    # This option may cause significant delays in view rendering with a large
+    # number of complex assets.
+    config.assets.debug = true
 
-      # Suppress logger output for asset requests.
-      config.assets.quiet = true
+    # Suppress logger output for asset requests.
+    config.assets.quiet = true
 
-      #config.action_mailer.default_url_options = { :host => 'localhost:3000/test' }
-      Rails.application.routes.default_url_options = { :host => 'localhost:3000' }
+    Rails.application.routes.default_url_options = { host: 'localhost:3000' }
 
-      config.action_mailer.default_url_options = { :protocol => 'https',  :host => 'lvh.me:5555' }
-      config.action_mailer.smtp_settings = {
-        :user_name => 'ucsd-95900766be562ebb',
-        :password => '8965336a5247320e',
-        :address => 'mailtrap.io',
-        :port => '2525',
-        :authentication => :plain
-      }
-  end
+    config.action_mailer.default_url_options = { protocol: 'https', host: 'lvh.me:5555' }
+    config.action_mailer.smtp_settings = {
+      user_name: 'ucsd-95900766be562ebb',
+      password: '8965336a5247320e',
+      address: 'mailtrap.io',
+      port: '2525',
+      authentication: :plain
+    }
   end
   config.time_zone = 'Pacific Time (US & Canada)'
 
@@ -69,8 +67,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
-#  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
   config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16']

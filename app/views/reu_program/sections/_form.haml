@@ -1,0 +1,77 @@
+.row
+  .col-4
+    %h5 Section Outline
+    %strong Fields
+    %ul.list-group
+      - @section.fields.each do |field|
+        %li.list-group-item
+          %p= "#{field.order}. #{field.title || field.default_name}"
+
+  .col-8
+    = simple_form_for [:reu_program, @form, @section], html: { class: 'section_form' } do |f|
+      - if @form.is_a?(RecommenderForm)
+        .row
+          .col
+            %h3= f.object.title
+        .row
+          .col
+            - if /Recommenders/.match?(f.object.title)
+              .alert.alert-primary
+                %p Form for applicant to fill out the contact information for their recommenders. Must include a email field.
+            - elsif /Recommendation/.match?(f.object.title)
+              .alert.alert-primary
+                %p Form for recommenders to fill out to provide there recommendation of the applicant. Must include either a long text field or file field for the recommender to provider their recommendation
+
+      - else
+        .row
+          .col
+            = f.input :title, as: :string
+          .col
+            = f.input :repeating
+      %hr
+      - unless f.object.new_record?
+        = f.nested_fields_for :fields do |qf|
+          = qf.input_field :order, as: :hidden
+          = qf.input_field :kind, as: :hidden
+          - if qf.object.is_a?(Fields::ShortText)
+            = render partial: 'reu_program/fields/short_text', locals: { f: qf }
+          - if qf.object.is_a?(Fields::LongText)
+            = render partial: 'reu_program/fields/long_text', locals: { f: qf }
+          - if qf.object.is_a?(Fields::Boolean)
+            = render partial: 'reu_program/fields/boolean', locals: { f: qf }
+          - if qf.object.is_a?(Fields::Select)
+            = render partial: 'reu_program/fields/select', locals: { f: qf }
+          %hr
+        = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
+      %hr
+      = f.submit 'Save Section', class: 'btn btn-primary'
+
+- unless @section.new_record?
+  :javascript
+    (function() {
+      var $addFieldInputs = $('[data-target="addField"]')
+
+      function updateForm(e) {
+        var data = new FormData(document.querySelector('.section_form'))
+        $('.section_form :input, .section_form select').prop('readonly', true)
+        $.ajax({
+          url: '#{update_attributes_reu_program_application_form_section_path(@form.id, @section.id)}',
+          method: 'patch',
+          data: data,
+          processData: false,
+          contentType: false,
+          success: function(res) {
+            $addFieldInputs.off('change', updateForm)
+            $('.edit-application-form-container').html(res)
+            setTimeout(function() {
+              $('[data-target="addField"]').removeClass('is-valid').val('')
+            }, 50)
+          },
+          fail: function(err) {
+            alert('failed to update form')
+          }
+        })
+      }
+
+      $addFieldInputs.on('change', updateForm)
+    })()
