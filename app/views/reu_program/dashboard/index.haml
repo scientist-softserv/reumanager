@@ -1,0 +1,53 @@
+.row
+  .col-2
+  .col-2
+    %h2.float-left Applications
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Started
+          %th Completed
+          %th Accepted
+          %th Rejected
+          %th Withdrawn
+          %th Total
+      %tbody
+        %tr
+          %td= @countStarted
+          %td= @countCompleted
+          %td= @countAccepted
+          %td= @countRejected
+          %td= @countWithdrawn
+          %td= @sum
+    .col-2
+
+.row
+  .col-2
+  .col-2
+    %h2.float-left Details
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Application Start Date
+          %th Application Deadline
+          %th Notification Date
+          %th Program Start Date
+          %th Program End Date
+          %th University
+          %th Department
+      %tbody
+        %tr
+          %td= Setting.pluck(:value)[0]
+          %td= Setting.pluck(:value)[1]
+          %td= Setting.pluck(:value)[2]
+          %td= Setting.pluck(:value)[3]
+          %td= Setting.pluck(:value)[4]
+          %td= Setting.pluck(:value)[5]
+          %td= Setting.pluck(:value)[6]
+    .col-2
