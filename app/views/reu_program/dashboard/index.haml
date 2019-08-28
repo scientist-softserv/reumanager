@@ -1,0 +1,54 @@
+.row
+  .col-2
+  .col-2
+    %h2.float-left Applications
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Started
+          %th Completed
+          %th Accepted
+          %th Rejected
+          %th Withdrawn
+          %th Total
+      %tbody
+        %tr
+          %td= @count_started
+          %td= @count_completed
+          %td= @count_accepted
+          %td= @count_rejected
+          %td= @count_withdrawn
+          %td= @sum
+    .col-2
+
+.row
+  .col-2
+  .col-2
+    %h2.float-left Details
+.row
+  .col-2
+  .col-8
+    %table.table
+      %thead
+        %tr
+          %th Application Start Date
+          %th Application Deadline
+          %th Notification Date
+          %th Program Start Date
+          %th Program End Date
+          %th University
+          %th Department
+      %tbody
+        %tr
+          %td= @settings_start.value
+          %td= @settings_deadline.value
+          %td= @settings_not_date .value
+          %td= @settings_prog_start.value
+          %td= @settings_prog_end.value
+          %td= @settings_university.value
+          %td= @settings_dept.value
+    .col-2
+
