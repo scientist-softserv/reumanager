@@ -1,6 +1,8 @@
 class Applicant < ApplicationRecord
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable, :lockable, :timeoutable, :confirmable
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable, :lockable,
+         :confirmable
+  # :timeoutable,
 
   belongs_to :applicant_datum, foreign_key: :applicant_datum_id, dependent: :destroy, autosave: true
   has_many :recommenders, dependent: :destroy

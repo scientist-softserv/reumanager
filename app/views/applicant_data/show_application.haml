@@ -5,10 +5,9 @@
     style: "display: none;",
     data: {
       schema: @form.json_schema,
-      ui: @form.ui_schema,
-      data: JSON.generate(@applicant.data.values),
+      data: JSON.generate(@applicant.data),
       path: application_path,
-      method: :patch
+      method: 'PATCH'
     }
   }
 

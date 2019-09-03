@@ -1,21 +1,19 @@
 
-export function saveData(data) {
-  $.ajax({
-    url: this.state.path,
-    method: this.state.method,
-    data: data,
+export function saveData(options) {
+  var path = options.path
+  var method = options.method ? options.method : 'get'
+  var data = options.data
+  fetch(path, {
+    method: method,
+    body: JSON.stringify(data),
     headers: {
-      'X-CSRF-Token': getCookie('X-CSRF-Token')
-    },
-    success: (res) => {
-      this.setState({ msg: 'Information has been saved', msgType: 'success' })
-      setTimeout(_ => { this.setState({msg: null}) }, 4000)
-    },
-    fail: (err) => {
-      this.setState({ msg: 'An error occured while trying to save your information', msgType: 'danger' })
-      setTimeout(_ => { this.setState({msg: null}) }, 4000)
+      'X-CSRF-Token': getCookie('X-CSRF-Token'),
+      'Content-Type': 'application/json'
     }
   })
+    .then((res) => res.json())
+    .then(options.success)
+    .catch(options.fail)
 }
 
 export function getCookie(cname) {

@@ -1,79 +1,81 @@
-import React from 'react'
-import Form from './form'
-import { debounce } from '../shared/debounce'
+import React, { useState, useReducer } from 'react'
+import SectionForm from './section_form'
+// import { debounce } from '../shared/debounce'
 import { saveData } from '../shared/save_data'
+import RepeatingSectionForm from './repeating_section_form'
+import applicationFormReducer from '../reducers/application_form_reducer'
 
-function setupDefaultState() {
-  var dataEl = document.querySelector('.form-data')
-  var s = {}
-  s.schema = dataEl.dataset.schema ? JSON.parse(dataEl.dataset.schema) : {}
-  s.ui = dataEl.dataset.ui ? JSON.parse(dataEl.dataset.ui) : {}
-  s.formData = dataEl.dataset.data ? JSON.parse(dataEl.dataset.data) : {}
-  s.path = dataEl.dataset.path ? dataEl.dataset.path : ''
-  s.method = dataEl.dataset.method ? dataEl.dataset.method : 'patch'
-  s.msg = null
-  s.msgType = 'info'
-  return s
-}
+// const saveForm = debounce(saveData, 3000)
 
-class ApplicationForm extends React.Component {
-  constructor(props) {
-    super(props)
-    var dataEl = document.querySelector('.form-data')
-    this.state = setupDefaultState(dataEl)
-    console.log(this.state)
+function ApplicationForm({sections, formData, path, method}) {
+  var initialState = { formData: formData || {}, path, method }
+  var [state, dispatch] = useReducer(applicationFormReducer, initialState)
+  var [msg, setMsg] = useState({ msg: null, type: '' })
+
+  var onFormSubmit = () => {
+    saveData({
+      path: path,
+      method: method,
+      data: { data: state.formData },
+      success: () => {
+        setMsg({ msg: 'successfully saved information', type: 'success' })
+        setTimeout(() => {
+          setMsg({ msg: null, type: '' })
+        }, 5000)
+      },
+      fail: () => {
+        setMsg({ msg: 'Failed to save information', type: 'danger' })
+        setTimeout(() => {
+          setMsg({ msg: null, type: '' })
+        }, 5000)
+      }
+    })
   }
-
-  saveForm = saveData.bind(this)
-
-  saveFormD = debounce(saveData.bind(this), 1000)
-
-  onFormChange = (data) => {
-    this.setState({ formData: data.formData })
-    this.saveFormD({ data: data.formData })
-  }
-
-  onFormSubmit = (data) => {
-    this.setState({ formData: data.formData })
-    this.saveForm({ data: data.formData })
-  }
-
-  onFormError = (data) => {
+  var onFormError = (data) => {
     console.log('Error', data)
   }
-
-  static getDerivedStateFromError(error) {
-    console.log(error)
-    return {}
-  }
-
-  renderMessage() {
-    if (this.state.msg) {
-      var classes = 'alert alert-' + this.state.msgType
-      return <div className={classes}>{this.state.msg}</div>
+  var renderMessage = () => {
+    if (msg.msg) {
+      var classes = 'alert alert-' + msg.type
+      return (
+        <div className={classes}
+          style={{position: "fixed", top: '30px'}}>
+          {msg.msg}
+        </div>
+      )
     } else {
       return null
     }
   }
-
-  render() {
-    return (
-      <div>
-        {this.renderMessage()}
-        <Form schema={this.state.schema}
-              uiSchema={this.state.ui}
-              formData={this.state.formData}
-              onChange={this.onFormChange}
-              onSubmit={this.onFormSubmit}
-              onError={this.onFormSubmit} />
-      </div>
-    )
+  var renderSectionForms = () => {
+    return sections.map((section, index) => {
+      if (section.isRepeating) {
+        return (
+          <RepeatingSectionForm key={section.id}
+            section={section}
+            dispatch={dispatch}
+            data={state.formData[section.key]}
+            onFormError={onFormError} />
+        )
+      } else {
+        return (
+          <SectionForm key={section.id}
+            section={section}
+            data={state.formData[section.key]}
+            dispatch={dispatch}
+            onFormError={onFormError} />
+        )
+      }
+    })
   }
+
+  return (
+    <div>
+      {renderMessage()}
+      {renderSectionForms()}
+      <button className="btn btn-info" onClick={onFormSubmit}>Submit</button>
+    </div>
+  )
 }
 
 export default ApplicationForm
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   var mount = document.querySelector('#applicationForm')
-//   if (mount) { ReactDOM.render(<App />, mount) }
-// })

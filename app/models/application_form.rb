@@ -34,10 +34,7 @@ class ApplicationForm < ApplicationRecord
 
   def build_json_schema
     {
-      type: :object,
-      properties: sections.each_with_object({}) do |s, h|
-        h.merge!(s.build_json_schema)
-      end
+      sections: sections.map(&:to_form)
     }
   end
 

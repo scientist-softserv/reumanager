@@ -26,4 +26,8 @@
       content: 'Remove';
     }
   }
+
+  button[type="submit"] {
+    display: none;
+  }
 }
