@@ -9,7 +9,7 @@ RSpec.describe Section, type: :model do
   end
 
   it "#handle_add_field returns nil if not getting any data from Field::TYPES" do
-    expect(subject.handle_add_field).to be_nil
+    expect(subject.handle_add_field(field: )).to be_nil
   end
 
   # we need to feed this method Field::TYPES.values.exclude?(add_field) in order for it to return anything other than nil
@@ -17,41 +17,41 @@ RSpec.describe Section, type: :model do
 
   end
 
-  it "#title_key" do 
+  it "#title_key" do
     section = FactoryBot.create :section, title: "this is a Profile"
     expect(section.title_key).to eq("this_is_a_profile")
-  end 
+  end
 
-  it "#fields_json_config" do 
+  it "#fields_json_config" do
     expect(subject.fields_json_config).to eq({"First Name"=>{:type=>:string, :format=>"text"}})
-  end 
+  end
 
   it "method #build_json_schema returns nested data if nested is set to true" do
     expect(subject.build_json_schema(nested: true)).to eq({"profile"=>{:title=>"profile", :type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}})
-  end 
+  end
 
   it "method #build_json_schema returns non-nested if nested is set to false" do
     expect(subject.build_json_schema(nested: false)).to eq({:properties=>{"First Name"=>{:format=>"text", :type=>:string}}, :type=>:object})
-  end 
+  end
 
-  it "#unnested_schema" do 
+  it "#unnested_schema" do
     expect(subject.unnested_schema).to eq({:type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}})
-  end 
+  end
 
-  it "#repeating_schema" do 
+  it "#repeating_schema" do
     expect(subject.repeating_schema).to eq({"profile"=>{:title=>"profile", :type=>:array, :items=>{:type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}}})
-  end 
+  end
 
-  it "#non_repeating_schema" do 
+  it "#non_repeating_schema" do
     expect(subject.non_repeating_schema).to eq({"profile"=>{:title=>"profile", :type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}})
-  end 
+  end
 
-  it "#required_fields" do 
+  it "#required_fields" do
     expect(subject.required_fields).to be_empty
   end
 
-  it "#build_ui_schema" do 
+  it "#build_ui_schema" do
     expect(subject.build_ui_schema).to be_empty
-  end 
+  end
 
 end

@@ -7,5 +7,5 @@ FactoryBot.define do
         after(:create) do |section, evaluator|
             create_list :field, evaluator.fields_count, section: section
         end
-    end 
-end 
+    end
+end
