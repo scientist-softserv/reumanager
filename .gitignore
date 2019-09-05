@@ -105,3 +105,4 @@ vendor/extensions/**/spec/dummy
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/spec/examples.txt
