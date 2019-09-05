@@ -22,10 +22,7 @@ class RecommenderForm < ApplicationRecord
 
   def build_json_schema(section: 'recommender')
     section = sections.detect { |s| Regexp.new(section).match?(s.title.downcase) }
-    {
-      type: :array,
-      items: section.build_json_schema(nested: false)
-    }
+    { sections: [section.to_form] }
   end
 
   def ui_schema(section: 'recommender')

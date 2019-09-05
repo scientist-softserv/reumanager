@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ApplicationForm from './components/application_form'
+import RecommenderForm from './components/recommender_form'
 
 function setupDefaultState() {
   var dataEl = document.querySelector('.form-data')
@@ -12,10 +13,13 @@ function setupDefaultState() {
   return s
 }
 
+var initialState
+
 document.addEventListener('DOMContentLoaded', () => {
-  var mount = document.querySelector('#applicationForm')
-  if (mount) {
-    var initialState = setupDefaultState()
+  var appMount = document.querySelector('#applicationForm')
+  var recMount = document.querySelector('#recommenderForm')
+  if (appMount) {
+    initialState = setupDefaultState()
     ReactDOM.render((
       <ApplicationForm
         sections={initialState.sections}
@@ -23,5 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
         path={initialState.path}
         method={initialState.method}
       />
-    ), mount) }
+    ), appMount) }
+  else if (recMount) {
+    initialState = setupDefaultState()
+    ReactDOM.render((
+      <RecommenderForm
+        sections={initialState.sections}
+        formData={initialState.formData}
+        path={initialState.path}
+        method={initialState.method}
+      />
+    ), recMount) }
 })
