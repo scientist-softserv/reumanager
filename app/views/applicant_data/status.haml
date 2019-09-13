@@ -1,50 +1,46 @@
 %h1 Status
 
--# need to separate the profile and addresses
--# need to write code to redirect/alert in case user not signed in
+.row
+  .col-2
+  .col-8
+    %h3 Recommenders
+    .d-flex.flex-wrap
+      - @applicant.recommender_info['recommenders_form'].each do |r|
+        .card.mb-2.mr-2
+          .card-body
+            - r.each do |key, value|
+              %p 
+                %strong #{key}: 
+                = value
+            - status = @applicant.recommender_statuses.find_by_email(r['Email'])
+            - if status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
+              .alert.alert-info
+                %p Notification email sent to recommender at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}. You can only notify a recommender once every 24 hours.
+            - else
+              = link_to 'Resend email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm'
+  .col-2
 
 .row
-	.col-2
-	.col-8
-		- @applicant.data.each do |key1, value1|
-			- value1.each do |key2, value2|
-				- if value2.is_a?(Hash)
-					%br
-					%strong #{key2.capitalize}:
-					%br
-					- value2.each do |key3, value3|
-						%br
-						%strong #{key3.capitalize}:
-						= value3
-						%br
-				- else
-					%strong #{key2.capitalize}:
-					= value2
-					%br
-			%br
-			%hr
-		%br
-		%p= link_to 'Back', application_path
-	.col-2
+  .col-2
+  .col-8
+    %h3 Application Information
+    - @applicant.data.each do |key1, value1|
+      .card.mb-2
+        .card-body
+          %h5.card-title= key1.capitalize
+          - case value1
+          - when Array 
+            - value1.each do |item|
+              - item.each do |k, v|
+                %p
+                  %strong #{k}:
+                  = v
+              %hr
 
-
-
-
--# .row
--#   .col-2
--#   .col-8
--#     - @applicant.data.each do |key, value|
--#       - if value.is_a?(Array)
--#         - value.each_with_index do |value, index|
--#           %strong= hash.merge!(value.transfer_keys { |k| k + (i + 1).to_s }) 
--#           %br
--#           %br
--#       - else
--#         - value.each do |key, value|
--#           %p
--#           %strong #{key.split('_').map(&:capitalize).join(' ')}:
--#           = value
--#           %hr
--#     %p= link_to 'Back', application_path
--#   .col-2
-
+          - when Hash 
+            - value1.each do |k, v|
+              %p
+                %strong #{k}:
+                = v
+    = link_to 'Back', application_path, class: 'btn btn-outline-secondary'
+  .col-2

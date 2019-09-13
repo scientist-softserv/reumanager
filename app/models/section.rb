@@ -39,7 +39,7 @@ class Section < ApplicationRecord
     end
   end
 
-
+  def build_json_schema
     {
       title: title,
       type: :object,
@@ -48,10 +48,7 @@ class Section < ApplicationRecord
     }.reject { |_k, v| v.blank? }
   end
 
-
-
-
-
+  def to_form
     {
       schema: build_json_schema,
       ui: build_ui_schema,

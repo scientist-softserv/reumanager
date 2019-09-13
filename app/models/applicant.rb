@@ -5,7 +5,7 @@ class Applicant < ApplicationRecord
   # :timeoutable,
 
   belongs_to :applicant_datum, foreign_key: :applicant_datum_id, dependent: :destroy, autosave: true
-  has_many :recommenders, dependent: :destroy
+  has_many :recommender_statuses, dependent: :destroy
 
   delegate :recommender_info,
            :recommender_info=,
@@ -46,6 +46,16 @@ class Applicant < ApplicationRecord
 
   def field_value(*args)
     self.data.dig(*args)
+  end
+
+  def recommender(email)
+    self.recommenders.detect { |r| r.email == email }
+  end
+
+  def recommenders
+    self.recommender_info['recommenders_form'].map do |hash|
+      OpenStruct.new(hash.transform_keys { |k| k.downcase.tr(' ', '_') })
+    end
   end
 
   private
