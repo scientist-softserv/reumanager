@@ -31,6 +31,16 @@ class ApplicantDataController < ApplicationController
     @applicant
   end
 
+  def resend
+    # get the id of the recommender_status from params and fetch it from the database
+    @recommender_status = RecommenderStatus.find(params[:id])
+    recommender = @applicant.recommender(@recommender_status.email)
+    Notification.recommendation_request(recommender, @applicant).deliver # pass relevant arguments in here
+    @recommender_status.last_sent_at = Time.current 
+    @recommender_status.save
+    redirect_to status_path
+  end
+
   private
 
   def form_params
@@ -81,3 +91,11 @@ class ApplicantDataController < ApplicationController
     a.save
   end
 end
+
+
+
+# Apartment::Tenant.switch('test') do
+#   a = Applicant.last
+#   a.applicant_datum
+#   a.applicant_datum.data["profile"]["first_name"]
+# end

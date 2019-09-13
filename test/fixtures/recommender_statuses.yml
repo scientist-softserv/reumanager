@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  last_sent_at: 2019-09-06 21:58:28
+  submitted_at: 2019-09-06 21:58:28
+  applicant: one
+
+two:
+  email: MyString
+  last_sent_at: 2019-09-06 21:58:28
+  submitted_at: 2019-09-06 21:58:28
+  applicant: two

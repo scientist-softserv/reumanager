@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_172316) do
+ActiveRecord::Schema.define(version: 2019_09_06_215828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,16 @@ ActiveRecord::Schema.define(version: 2019_08_23_172316) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recommender_statuses", force: :cascade do |t|
+    t.string "email"
+    t.datetime "last_sent_at"
+    t.datetime "submitted_at"
+    t.bigint "applicant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_id"], name: "index_recommender_statuses_on_applicant_id"
+  end
+
   create_table "recommenders", id: :serial, force: :cascade do |t|
     t.string "email"
     t.datetime "created_at"
@@ -408,4 +418,5 @@ ActiveRecord::Schema.define(version: 2019_08_23_172316) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "recommender_statuses", "applicants"
 end

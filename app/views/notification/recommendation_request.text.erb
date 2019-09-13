@@ -1,6 +1,6 @@
-Dear <%= @recommendation.recommender.first_name %>,
+Dear <%= @recommender_first_name %>,
 
-<%= @recommendation.applicant.name %> has requested a recommendation for the <%= Setting[:app_title] %> summer program at the <%= Setting[:department] %>, <%= Setting[:university] %>.
+<%= @applicant_first_name %> has requested a recommendation for the <%= Setting[:app_title] %> summer program at the <%= Setting[:department] %>, <%= Setting[:university] %>.
 
 Please submit your recommendation online by <%= Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline] %> at: <%= @url %>
 
