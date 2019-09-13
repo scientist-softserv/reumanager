@@ -37,6 +37,4 @@ class RecommenderForm < ApplicationRecord
     section = sections.detect { |s| Regexp.new(section).match?(s.title.downcase) }
     section.build_ui_schema
   end
-
-
 end

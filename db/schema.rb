@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_215828) do
+ActiveRecord::Schema.define(version: 2019_09_13_205211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,8 @@ ActiveRecord::Schema.define(version: 2019_09_06_215828) do
     t.bigint "applicant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token", default: -> { "md5((random())::text)" }, null: false
+    t.jsonb "data", default: {}
     t.index ["applicant_id"], name: "index_recommender_statuses_on_applicant_id"
   end
 
