@@ -38,7 +38,7 @@ Rails.application.configure do
 
     # Raise an error on page load if there are pending migrations.
     config.active_record.migration_error = :page_load
-    
+
     # Temporarily storing images locally.
     config.active_storage.service = :local
 
@@ -52,14 +52,14 @@ Rails.application.configure do
 
     Rails.application.routes.default_url_options = { host: 'localhost:3000' }
 
-    config.action_mailer.default_url_options = { protocol: 'https', host: 'lvh.me:5555' }
-    config.action_mailer.smtp_settings = {
-      user_name: 'ucsd-95900766be562ebb',
-      password: '8965336a5247320e',
-      address: 'mailtrap.io',
-      port: '2525',
-      authentication: :plain
-    }
+    config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
+    # config.action_mailer.smtp_settings = {
+    #   user_name: 'ucsd-95900766be562ebb',
+    #   password: '8965336a5247320e',
+    #   address: 'mailtrap.io',
+    #   port: '2525',
+    #   authentication: :plain
+    # }
   end
   config.time_zone = 'Pacific Time (US & Canada)'
 

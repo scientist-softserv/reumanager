@@ -9,12 +9,15 @@
         .card.mb-2.mr-2
           .card-body
             - r.each do |key, value|
-              %p 
-                %strong #{key}: 
+              %p
+                %strong #{key}:
                 = value
             - status = @applicant.recommender_statuses.find_by_email(r['Email'])
-            - if status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
-              .alert.alert-info
+            - if status.submitted_at.present?
+              .alert.alert-success.width-200
+                %p Recommender subbmitted a recommendation.
+            - elsif status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
+              .alert.alert-info.width-200
                 %p Notification email sent to recommender at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}. You can only notify a recommender once every 24 hours.
             - else
               = link_to 'Resend email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm'
@@ -29,7 +32,7 @@
         .card-body
           %h5.card-title= key1.capitalize
           - case value1
-          - when Array 
+          - when Array
             - value1.each do |item|
               - item.each do |k, v|
                 %p
@@ -37,7 +40,7 @@
                   = v
               %hr
 
-          - when Hash 
+          - when Hash
             - value1.each do |k, v|
               %p
                 %strong #{k}:

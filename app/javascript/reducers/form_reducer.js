@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 
-function applicationFormReducer(state, action) {
+function formReducer(state, action) {
   var initial, newState, obj = {}
   switch(action.type) {
     case 'update':
@@ -92,4 +93,4 @@ function removeItem(array, action) {
   ]
 }
 
-export default applicationFormReducer
+export default formReducer

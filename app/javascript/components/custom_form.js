@@ -1,13 +1,15 @@
 import React, { useState, useReducer } from 'react'
 import SectionForm from './section_form'
+// import { debounce } from '../shared/debounce'
 import { saveData } from '../shared/save_data'
 import RepeatingSectionForm from './repeating_section_form'
-import applicationFormReducer from '../reducers/application_form_reducer'
+import formReducer from '../reducers/form_reducer'
 
+// const saveForm = debounce(saveData, 3000)
 
-function RecommenderForm({sections, formData, path, method}) {
+function CustomForm({sections, formData, path, method}) {
   var initialState = { formData: formData || {}, path, method }
-  var [state, dispatch] = useReducer(applicationFormReducer, initialState)
+  var [state, dispatch] = useReducer(formReducer, initialState)
   var [msg, setMsg] = useState({ msg: null, type: '' })
 
   var onFormSubmit = () => {
@@ -46,7 +48,7 @@ function RecommenderForm({sections, formData, path, method}) {
     }
   }
   var renderSectionForms = () => {
-    return sections.map((section, index) => {
+    return sections.map((section) => {
       if (section.isRepeating) {
         return (
           <RepeatingSectionForm key={section.id}
@@ -76,4 +78,4 @@ function RecommenderForm({sections, formData, path, method}) {
   )
 }
 
-export default RecommenderForm
+export default CustomForm

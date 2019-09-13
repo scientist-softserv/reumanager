@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   match 'application' => 'applicant_data#update_application', via: %i[put patch]
   get 'recommenders' => 'applicant_data#show_recommenders'
   match 'recommenders' => 'applicant_data#update_recommenders', via: %i[put patch]
+  get 'recommendations' => 'applicant_data#show_recommendations'
+  match 'recommendations' => 'applicant_data#update_recommendations', via: %i[put patch]
   get 'status' => 'applicant_data#status'
   get '/recommenders/:id/resend', to: 'applicant_data#resend', as: 'recommenders_resend'
 

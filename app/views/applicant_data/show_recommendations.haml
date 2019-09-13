@@ -1,0 +1,15 @@
+%h1 Recommendation
+:ruby
+  attrs = {
+    style: "display: none;",
+    data: {
+      schema: @form.json_schema(section: 'recommendation'),
+      data: JSON.generate(@status&.data),
+      path: recommendations_path(token: params[:token]),
+      method: 'PATCH'
+    }
+  }
+
+.form-data{ attrs }
+
+#customForm

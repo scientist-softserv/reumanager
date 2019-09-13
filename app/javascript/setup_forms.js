@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ApplicationForm from './components/application_form'
-import RecommenderForm from './components/recommender_form'
+import CustomForm from './components/custom_form'
 
 function setupDefaultState() {
   var dataEl = document.querySelector('.form-data')
@@ -13,29 +12,15 @@ function setupDefaultState() {
   return s
 }
 
-var initialState
-
 document.addEventListener('DOMContentLoaded', () => {
-  var appMount = document.querySelector('#applicationForm')
-  var recMount = document.querySelector('#recommenderForm')
-  if (appMount) {
-    initialState = setupDefaultState()
-    ReactDOM.render((
-      <ApplicationForm
-        sections={initialState.sections}
-        formData={initialState.formData}
-        path={initialState.path}
-        method={initialState.method}
-      />
-    ), appMount) }
-  else if (recMount) {
-    initialState = setupDefaultState()
-    ReactDOM.render((
-      <RecommenderForm
-        sections={initialState.sections}
-        formData={initialState.formData}
-        path={initialState.path}
-        method={initialState.method}
-      />
-    ), recMount) }
+  var mount = document.querySelector('#customForm')
+  var initialState = setupDefaultState()
+  ReactDOM.render((
+    <CustomForm
+      sections={initialState.sections}
+      formData={initialState.formData}
+      path={initialState.path}
+      method={initialState.method}
+    />
+  ), mount)
 })

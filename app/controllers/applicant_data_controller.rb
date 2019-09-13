@@ -1,5 +1,7 @@
 class ApplicantDataController < ApplicationController
+  before_action :authenticate_applicant!, except: %i[show_recommendations update_recommendations]
   before_action :load_applicant
+  before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
 
   def show_application
     @form = ApplicationForm.where(status: :draft).first
@@ -25,9 +27,20 @@ class ApplicantDataController < ApplicationController
     render json: {}
   end
 
+  def show_recommendations
+    @form = RecommenderForm.where(status: :active).first
+  end
+
+  def update_recommendations
+    @status.data = params.require(:data).permit!
+    @status.submitted_at = Time.current
+    @status.save
+    render json: {}
+  rescue ActionController::ParameterMissing
+    render json: {}
+  end
+
   def status
-    # @form = ApplicationForm.where(status: :draft).first
-    # @form = ApplicationForm.find(params[:id])
     @applicant
   end
 
@@ -35,8 +48,8 @@ class ApplicantDataController < ApplicationController
     # get the id of the recommender_status from params and fetch it from the database
     @recommender_status = RecommenderStatus.find(params[:id])
     recommender = @applicant.recommender(@recommender_status.email)
-    Notification.recommendation_request(recommender, @applicant).deliver # pass relevant arguments in here
-    @recommender_status.last_sent_at = Time.current 
+    Notification.recommendation_request(recommender, @recommender_status, @applicant).deliver # pass relevant arguments in here
+    @recommender_status.last_sent_at = Time.current
     @recommender_status.save
     redirect_to status_path
   end
@@ -45,6 +58,13 @@ class ApplicantDataController < ApplicationController
 
   def form_params
     params.require(:application_form).permit!
+  end
+
+  def load_status_from_token
+    raise ActionController::RoutingError.new('Not Found') if params[:token].blank?
+    @status = RecommenderStatus.find_by_token(params[:token])
+    raise ActionController::RoutingError.new('Not Found') if @status.blank?
+    @applicant = @status.applicant
   end
 
   def load_form
@@ -61,7 +81,7 @@ class ApplicantDataController < ApplicationController
       recommender_builder(key, info)
     end
   end
-  
+
   def process_application_data
     data = params.require(:data).permit!
     data.each do |key, info|
@@ -80,7 +100,7 @@ class ApplicantDataController < ApplicationController
     r.applicant = current_applicant
     r.save
   end
-  
+
   def application_builder(order, info)
     email = info.dig('application_form', 'email')
     raise NoEmailError, 'no email' if email.blank?
