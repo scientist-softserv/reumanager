@@ -12,13 +12,13 @@ if Apartment::Tenant.current == 'public'
 
   # Super Admin
   puts 'create super admin'
-  User.new(
+  User.create(
     email: 'super-admin@test.com',
     first_name: 'super',
     last_name: 'admin',
     password: 'testing123',
     confirmed_at: Time.now
-  )
+  ).tap { |u| u.add_role(:super) }
 
   puts 'test tenant created please use "test.lvh.me" to reach the app'
 end
@@ -26,213 +26,134 @@ end
 if Apartment::Tenant.current == 'test'
   puts 'seeding test schema'
 
-  ProgramAdmin.create(
+  User.create(
     email: 'admin@test.com',
     first_name: 'Test',
     last_name: 'Admin',
     password: 'testing123',
     password_confirmation: 'testing123',
     confirmed_at: Time.now
-  )
+  ).tap { |u| u.add_role(:admin) }
 
-  Applicant.create(
-    email: 'applicant@test.com',
+  User.create(
+    email: 'User@test.com',
     password: 'testing123',
     password_confirmation: 'testing123',
-    confirmed_at: Time.now
-  ).tap do |a|
-    a.data = {
-      profile: {
-        first_name: 'John',
-        last_name: 'Doe',
-        date_of_birth: 18.years.ago,
-        phone: '2223334444'
-      },
-      addresses: [
-        {
-          type: 'primary',
-          street: '123 University Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+    confirmed_at: Time.now,
+    application: Application.new(
+      state: 'started',
+      data: {
+        profile: {
+          first_name: 'John',
+          last_name: 'Doe',
+          date_of_birth: 18.years.ago,
+          phone: '2223334444'
         },
-        {
-          type: 'permanent',
-          street: '123 Home Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+        addresses: [
+          {
+            type: 'primary',
+            street: '123 University Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          },
+          {
+            type: 'permanent',
+            street: '123 Home Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          }
+        ],
+        academic_record: {
+          university: 'Monsters University',
+          major: 'Software Engineering',
+          minor: 'Scaring',
+          gpa: '3.8'
         }
-      ],
-      academic_record: {
-        university: 'Monsters University',
-        major: 'Software Engineering',
-        minor: 'Scaring',
-        gpa: '3.8'
       }
-    }
-    a.save
-  end
+    )
+  ).tap { |u| u.add_role(:applicant) }
 
-  Applicant.create(
-    email: 'applicant+1@test.com',
+  User.create(
+    email: 'User+1@test.com',
     password: 'testing123',
     password_confirmation: 'testing123',
-    confirmed_at: Time.now
-  ).tap do |a|
-    a.data = {
-      profile: {
-        first_name: 'Jane',
-        last_name: 'Doe',
-        date_of_birth: 19.years.ago,
-        phone: '2223334444'
-      },
-      addresses: [
-        {
-          type: 'primary',
-          street: '123 University Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+    confirmed_at: Time.now,
+    application: Application.new(
+      state: 'started',
+      data: {
+        profile: {
+          first_name: 'Jane',
+          last_name: 'Doe',
+          date_of_birth: 19.years.ago,
+          phone: '2223334444'
         },
-        {
-          type: 'permanent',
-          street: '123 Home Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+        addresses: [
+          {
+            type: 'primary',
+            street: '123 University Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          },
+          {
+            type: 'permanent',
+            street: '123 Home Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          }
+        ],
+        academic_record: {
+          university: 'Monsters University',
+          major: 'Software Engineering',
+          minor: 'Scaring',
+          gpa: '3.9'
         }
-      ],
-      academic_record: {
-        university: 'Monsters University',
-        major: 'Software Engineering',
-        minor: 'Scaring',
-        gpa: '3.9'
       }
-    }
-    a.save
-  end
+    )
+  ).tap { |u| u.add_role(:applicant) }
 
-
-  Applicant.create(
-    email: 'applicant3@test.com',
+  User.create(
+    email: 'User3@test.com',
     password: 'testing123',
     password_confirmation: 'testing123',
-    state: 'completed',
-    confirmed_at: Time.now
-  ).tap do |a|
-    a.data = {
-      profile: {
-        first_name: 'Jane',
-        last_name: 'Doe',
-        date_of_birth: 19.years.ago,
-        phone: '2223334444'
-      },
-      addresses: [
-        {
-          type: 'primary',
-          street: '123 University Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+    confirmed_at: Time.now,
+    application: Application.new(
+      state: 'completed',
+      data: {
+        profile: {
+          first_name: 'Jane',
+          last_name: 'Doe',
+          date_of_birth: 19.years.ago,
+          phone: '2223334444'
         },
-        {
-          type: 'permanent',
-          street: '123 Home Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
+        addresses: [
+          {
+            type: 'primary',
+            street: '123 University Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          },
+          {
+            type: 'permanent',
+            street: '123 Home Ave',
+            city: 'SD',
+            state: 'CA',
+            zip: '99999'
+          }
+        ],
+        academic_record: {
+          university: 'Monsters University',
+          major: 'Software Engineering',
+          minor: 'Scaring',
+          gpa: '3.9'
         }
-      ],
-      academic_record: {
-        university: 'Monsters University',
-        major: 'Software Engineering',
-        minor: 'Scaring',
-        gpa: '3.9'
       }
-    }
-    a.save
-  end
-
-  Applicant.create(
-    email: 'applicant4@test.com',
-    password: 'testing123',
-    password_confirmation: 'testing123',
-    state: 'started',
-    confirmed_at: Time.now
-  ).tap do |a|
-    a.data = {
-      profile: {
-        first_name: 'Jane',
-        last_name: 'Doe',
-        date_of_birth: 19.years.ago,
-        phone: '2223334444'
-      },
-      addresses: [
-        {
-          type: 'primary',
-          street: '123 University Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
-        },
-        {
-          type: 'permanent',
-          street: '123 Home Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
-        }
-      ],
-      academic_record: {
-        university: 'Monsters University',
-        major: 'Software Engineering',
-        minor: 'Scaring',
-        gpa: '3.9'
-      }
-    }
-    a.save
-  end
-
-  Applicant.create(
-    email: 'applicant5@test.com',
-    password: 'testing123',
-    password_confirmation: 'testing123',
-    state: 'accepted',
-    confirmed_at: Time.now
-  ).tap do |a|
-    a.data = {
-      profile: {
-        first_name: 'Jane',
-        last_name: 'Doe',
-        date_of_birth: 19.years.ago,
-        phone: '2223334444'
-      },
-      addresses: [
-        {
-          type: 'primary',
-          street: '123 University Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
-        },
-        {
-          type: 'permanent',
-          street: '123 Home Ave',
-          city: 'SD',
-          state: 'CA',
-          zip: '99999'
-        }
-      ],
-      academic_record: {
-        university: 'Monsters University',
-        major: 'Software Engineering',
-        minor: 'Scaring',
-        gpa: '3.9'
-      }
-    }
-    a.save
-  end
+    )
+  ).tap { |u| u.add_role(:applicant) }
 end
 
 # Added by Refinery CMS Pages extension

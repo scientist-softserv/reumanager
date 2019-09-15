@@ -21,6 +21,7 @@ gem 'nested_form_fields'
 gem 'paper_trail'
 gem 'pg'
 gem 'prawn'
+gem 'rolify'
 gem 'rvm-capistrano', require: false
 gem 'sassc-rails'
 gem 'simple_form'

@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
   resources :grants
-
   devise_for :users
-  devise_for :program_admins,
-             controllers: {
-               sessions: 'program_admins/sessions',
-               registrations: 'program_admins/registrations'
-             }
-  devise_for :applicants
 
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'

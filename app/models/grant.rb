@@ -13,15 +13,7 @@ class Grant < ActiveRecord::Base
     Apartment::Tenant.create(subdomain)
     ::GrantDefaultFactory.new(self).create!
     Apartment::Tenant.switch(subdomain) do
-      ::ProgramAdmin.create!(
-        first_name: 'Kevin',
-        last_name: 'Kochanski',
-        email: 'kevin@notch8.com',
-        password: 'testing123',
-        password_confirmation: 'testing123',
-        confirmed_at: Time.now,
-        super: true
-      )
+
     end
   end
 
