@@ -1,16 +1,17 @@
 module ReuProgram
   class AdminController < ApplicationController
-    before_action :authenticate_program_admin!
+    before_action :authenticate_user!
+    before_action :only_admins!
     layout 'admin'
 
-    protected
+    private
 
-    def authenticate_program_admin!
-      if program_admin_signed_in?
-        super
-      else
-        redirect_to new_program_admin_session_path
-      end
+    def user_super_or_admin?
+      current_user.has_role?(:admin) || current_user.has_role?(:super)
+    end
+
+    def only_admins!
+      raise ActionController::RoutingError.new('Not Found') if user_super_or_admin?
     end
   end
 end

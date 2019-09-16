@@ -42,14 +42,14 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'application' => 'applicant_data#show_application'
-  match 'application' => 'applicant_data#update_application', via: %i[put patch]
-  get 'recommenders' => 'applicant_data#show_recommenders'
-  match 'recommenders' => 'applicant_data#update_recommenders', via: %i[put patch]
-  get 'recommendations' => 'applicant_data#show_recommendations'
-  match 'recommendations' => 'applicant_data#update_recommendations', via: %i[put patch]
-  get 'status' => 'applicant_data#status'
-  get '/recommenders/:id/resend', to: 'applicant_data#resend', as: 'recommenders_resend'
+  get 'application' => 'applications#show_application'
+  match 'application' => 'applications#update_application', via: %i[put patch]
+  get 'recommenders' => 'applications#show_recommenders'
+  match 'recommenders' => 'applications#update_recommenders', via: %i[put patch]
+  get 'recommendations' => 'applications#show_recommendations'
+  match 'recommendations' => 'applications#update_recommendations', via: %i[put patch]
+  get 'status' => 'applications#status'
+  get '/recommenders/:id/resend' => 'applications#resend', as: 'recommenders_resend'
 
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'

@@ -14,7 +14,7 @@ class Setting < ApplicationRecord
       when Settings::DateSetting
         setting&.value&.to_date
       else
-        setting&.value || ''
+        setting&.value
       end
     end
 

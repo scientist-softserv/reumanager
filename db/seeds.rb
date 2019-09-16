@@ -73,7 +73,7 @@ if Apartment::Tenant.current == 'test'
         }
       }
     )
-  ).tap { |u| u.add_role(:applicant) }
+  )
 
   User.create(
     email: 'User+1@test.com',
@@ -113,7 +113,7 @@ if Apartment::Tenant.current == 'test'
         }
       }
     )
-  ).tap { |u| u.add_role(:applicant) }
+  )
 
   User.create(
     email: 'User3@test.com',
@@ -153,7 +153,7 @@ if Apartment::Tenant.current == 'test'
         }
       }
     )
-  ).tap { |u| u.add_role(:applicant) }
+  )
 end
 
 # Added by Refinery CMS Pages extension

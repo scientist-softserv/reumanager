@@ -4,7 +4,7 @@
     style: "display: none;",
     data: {
       schema: @form.json_schema(section: 'recommender'),
-      data: JSON.generate(@applicant&.recommender_info),
+      data: JSON.generate(current_application&.recommender_info || {}),
       path: recommenders_path,
       method: 'PATCH'
     }

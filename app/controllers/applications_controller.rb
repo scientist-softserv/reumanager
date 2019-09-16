@@ -1,6 +1,6 @@
-class ApplicantDataController < ApplicationController
-  before_action :authenticate_applicant!, except: %i[show_recommendations update_recommendations]
-  before_action :load_applicant
+class ApplicationsController < ApplicationController
+  before_action :authenticate_user!, except: %i[show_recommendations update_recommendations]
+  before_action :setup_application, except: %i[show_recommendations update_recommendations]
   before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
 
   def show_application
@@ -41,7 +41,8 @@ class ApplicantDataController < ApplicationController
   end
 
   def status
-    @applicant
+    current_user.application = Application.new
+    current_application
   end
 
   def resend
@@ -56,6 +57,10 @@ class ApplicantDataController < ApplicationController
 
   private
 
+  def setup_application
+    current_user.application = Application.new if current_user.application.blank?
+  end
+
   def form_params
     params.require(:application_form).permit!
   end
@@ -69,10 +74,6 @@ class ApplicantDataController < ApplicationController
 
   def load_form
     @form = ApplicationForm.find(params[:id])
-  end
-
-  def load_applicant
-    @applicant = current_applicant
   end
 
   def process_recommender_data
@@ -111,11 +112,3 @@ class ApplicantDataController < ApplicationController
     a.save
   end
 end
-
-
-
-# Apartment::Tenant.switch('test') do
-#   a = Applicant.last
-#   a.applicant_datum
-#   a.applicant_datum.data["profile"]["first_name"]
-# end
