@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_181741) do
     t.string "country"
     t.string "label"
     t.string "permanent"
-    t.integer "applicant_id"
+    t.integer "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

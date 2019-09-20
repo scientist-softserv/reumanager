@@ -1,3 +1,3 @@
 class RecommenderStatus < ApplicationRecord
-  belongs_to :applicant
+  belongs_to :application
 end

@@ -3,14 +3,14 @@ module ReuProgram
     def index
 
 
-      @applicants = Applicant.all
+      @applicants = Role.where(name: "Applicant").all
       
-      @sum = Applicant.count
-      @count_started = Applicant.where(state: "Started").count
-      @count_completed = Applicant.where(state: "Completed").count
-      @count_accepted = Applicant.where(state: "Accepted").count
-      @count_rejected = Applicant.where(state: "Rejected").count
-      @count_withdrawn = Applicant.where(state: "Withdrawn").count
+      @sum = Application.count
+      @count_started = Application.where(state: "Started").count
+      @count_completed = Application.where(state: "Completed").count
+      @count_accepted = Application.where(state: "Accepted").count
+      @count_rejected = Application.where(state: "Rejected").count
+      @count_withdrawn = Application.where(state: "Withdrawn").count
 
       @settings = Setting.all
       @settings_start = Setting.where(name: "Application Start").first

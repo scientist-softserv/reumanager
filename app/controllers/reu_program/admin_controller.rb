@@ -11,7 +11,7 @@ module ReuProgram
     end
 
     def only_admins!
-      raise ActionController::RoutingError.new('Not Found') if user_super_or_admin?
+      raise ActionController::RoutingError.new('Not Found') unless user_super_or_admin?
     end
   end
 end
