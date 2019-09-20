@@ -3,7 +3,7 @@ module ReuProgram
     def index
 
 
-      @applicants = Role.where(name: "Applicant").all
+      @applicants = Application.all
       
       @sum = Application.count
       @count_started = Application.where(state: "Started").count
