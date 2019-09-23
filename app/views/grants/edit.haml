@@ -1,5 +1,5 @@
 %h1 Editing Grant
-= render 'edit_form'
+= render 'form', locals: { action: 'update' }
 // = link_to 'Edit Settings', reu_program_settings_path
 = link_to 'Show', grant_path |
 = link_to 'Back', grants_path

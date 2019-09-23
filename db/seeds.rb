@@ -9,6 +9,7 @@ if Apartment::Tenant.current == 'public'
   puts 'seeding public schema'
   puts 'create test grant'
   Grant.create(program_title: 'Test Program', subdomain: 'test')
+  Grant.create(program_title: 'Demo Program', subdomain: 'demo')
 
   # Super Admin
   puts 'create super admin'

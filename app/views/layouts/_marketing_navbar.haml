@@ -1,0 +1,11 @@
+.border-bottom.shadow.navbar.main-nav
+  .container.d-flex.flex-column.flex-md-row.align-items-center
+    %h3.my-0.mr-md-auto.font-weight-normal
+      = link_to "#{'reumanager' || 'University Name'}".html_safe, root_path, class: 'navbar-brand text-dark', id: 'ar-brand'
+    %nav.my-2.my-md-0.mr-md-3
+      - class_names = 'p-2 text-dark'
+      = link_to "Tour", tours_path, class: class_names
+      = link_to "Pricing & Signup", pricing_path, class: class_names
+      = link_to "Begin Signup", create_grant_path, class: class_names
+      = link_to "Demo", demo_path, class: class_names
+      = link_to "Support", support_path, class: class_names

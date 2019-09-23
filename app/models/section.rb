@@ -9,8 +9,6 @@ class Section < ApplicationRecord
 
   accepts_nested_attributes_for :fields, allow_destroy: true
 
-  # return fields where the important flag is set
-  # could also be called: fields.important
   def important_fields
     fields.where.not(important: nil)
   end

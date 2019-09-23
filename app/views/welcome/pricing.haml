@@ -1,0 +1,30 @@
+.pricing
+  .container.mt-4
+    .d-flex.flex-row.justify-content-center
+      .card.w-75.mb-3.mr-5
+        .card-header
+          = icon('far', 'file-alt', class: 'fa-2x outline')
+          %h3.card-title Hosted Version
+        .card-body
+          %p.card-text We offer the application as a software as a service (SaaS) for those without the technical staff to support the free version. 
+          
+          The initial set-up fee of $750 includes:
+          A fully functional online application management system specific to your REU site, hosting on a secure server for one year, customer support via email for one year, and an archive of your applicant data after you application deadline. 
+          
+          For each subsequent application cycle, a maintenance fee of $350 will be charged for the above services plus one free hour of developer support for customization of your application's look and feel. Explore the
+          %a{:href => "/new_demo", :title => "Demo"} Live Demo
+          for more details.
+      .card.w-75.mb-3
+        .card-header
+          = icon('far', 'file-alt', class: 'fa-2x outline')
+          %h3.card-title Free Version
+        .card-body
+          %p.card-text We offer access to our source code for those with technical staff interested in hosting the application on their own. 
+          
+          It must be noted that a considerable amount of effort must go into securing the student data in order to prevent theft or data loss. Failure to comply to FERPA standards or properly secure one's application may damage your university's reputation or even result in fines.
+          
+          The web application is built using Ruby on Rails and can be hosted using the operating system of your choice. Further instructions can be found on our support site.
+    .card.mb-3
+      .card-header
+        %h3.card-title Do you have questions? Would you like to sign up for our service?
+      %a.btn.btn-primary.center{:href => "mailto:crystal@notch8.com", :role => "button"} Contact us for more info

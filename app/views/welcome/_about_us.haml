@@ -1,0 +1,45 @@
+
+.row
+    .col-md-12 
+        %h2.lead.text-center Whether your program is large or small, REU Manager strives to be the most efficient solution for your application process
+.row
+    .col-md-6
+        %h3 About us
+        %p
+            REUManager was initially developed by program managers at UC San Diego
+            (supported by NSF EEC1062979) and has been used by several REU programs
+            across the country. An enhanced version was developed by Notch8 and is
+            now being widely offered to the REU community. Notch8 is a web development
+            consultancy with offices in San Diego, CA and Portland, OR. To learn more
+            please visit their website at
+            = succeed "." do
+                %a{:href => "http://www.notch8.com", :target => "_blank", :title => "http://www.notch8.com"} www.Notch8.com
+    .col-md-6
+        #accordionExample.accordion
+            .card
+                #headingOne.card-header
+                %h2.mb-0
+                    %button.btn.btn-link{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapseOne", "data-toggle" => "collapse", :type => "button"}
+                    Everything Organized Online
+                #collapseOne.collapse.show{"aria-labelledby" => "headingOne", "data-parent" => "#accordionExample"}
+                .card-body
+                    Avoid paper cuts and don't let anything "get lost in the mail".
+                    We consolidate everything in one place.
+            .card
+                #headingTwo.card-header
+                %h2.mb-0
+                    %button.btn.btn-link.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-target" => "#collapseTwo", "data-toggle" => "collapse", :type => "button"}
+                    Filter Candidates
+                #collapseTwo.collapse{"aria-labelledby" => "headingTwo", "data-parent" => "#accordionExample"}
+                .card-body
+                    Admin users can search and filter candidates by specific criteria.
+            .card
+                #headingThree.card-header
+                %h2.mb-0
+                    %button.btn.btn-link.collapsed{"aria-controls" => "collapseThree", "aria-expanded" => "false", "data-target" => "#collapseThree", "data-toggle" => "collapse", :type => "button"}
+                    Automatic Notifications
+                #collapseThree.collapse{"aria-labelledby" => "headingThree", "data-parent" => "#accordionExample"}
+                .card-body
+                    Applicants are kept in the loop from start to finish. Email notifications
+                    are sent throughout each step of the application process.
+
