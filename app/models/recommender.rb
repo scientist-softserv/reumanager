@@ -1,5 +1,5 @@
 class Recommender < ApplicationRecord
-  belongs_to :applicant
+  belongs_to :application
 
   def current_form
     RecommenderForm.where(status: :active).first

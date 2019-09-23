@@ -3,16 +3,18 @@ module ReuProgram
     before_action :load_admin, except: %i[index new create]
 
     def index
-      @admins = ProgramAdmin.order(:created_at)
+      @admins = User.order(:created_at)
     end
 
     def new
-      @admin = ProgramAdmin.new
+      @admin = User.new
     end
 
     def create
-      @admin = ProgramAdmin.new(admin_params)
+      @admin = User.new(admin_params)
       if @admin.save
+        # add role - persisted user. if save successful and user exists, assign role of admin. rolify can't assign a role to something that doesn't exist yet.
+        @admin.add_role :admin
         redirect_to action: :index
       else
         render :new
@@ -42,7 +44,7 @@ module ReuProgram
     private
 
     def load_admin
-      @admin = ProgramAdmin.find(params[:id])
+      @admin = User.find(params[:id])
     end
 
     def admin_params

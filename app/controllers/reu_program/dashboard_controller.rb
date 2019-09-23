@@ -3,7 +3,7 @@ module ReuProgram
     def index
 
 
-      @Applications = Application.all
+      @applications = Application.all
 
       @sum = Application.count
       @count_started = Application.where(state: "Started").count
