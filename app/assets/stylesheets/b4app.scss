@@ -1,9 +1,14 @@
 $primary-color: #6f95dc;
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "bootstrap";
 @import "app/header";
 @import "app/footer";
 @import "app/rjsf";
+@import "app/marketing";
+@import "app/tours";
+@import "app/pricing";
 
 body {
   color: #666;

@@ -1,0 +1,38 @@
+.container
+  .row
+    .col-sm-12
+      %table.table.table-borderless
+        %tbody
+          %tr
+            %th University or Institution
+            %td= @invoice.university_or_institution
+          %tr
+            %th Department
+            %td= @invoice.department
+          %tr
+            %th Program Title
+            %td= @invoice.program_title
+          %tr
+            %th Contact Name
+            %td= @invoice.contact_name
+          %tr
+            %th Email
+            %td= @invoice.email
+          %tr
+            %th Phone #
+            %td= @invoice.phone
+          %tr
+            %th Name
+            %td= @invoice.billing_name
+          %tr
+            %th Address
+            %td= @invoice.billing_address
+          %tr
+            %th Email
+            %td= @invoice.billing_email
+          %tr
+            %th Pnone #
+            %td= @invoice.billing_phone
+          %tr
+            %th PO #
+            %td= @invoice.po_number

@@ -1,0 +1,86 @@
+.marketing
+  .container-fluid
+    .row.mt-5
+      .col
+        .jumbotron
+          %h1 A One Stop Application Manager
+          %p Your Entire Application Process In One Convenient Location
+
+  .container.mb-4
+    .d-flex.justify-content-around
+      .info-box.border.d-flex.flex-column.justify-content-center
+        = icon('far', 'file-alt', class: 'fa-3x outline')
+        %h4.mt-2 Application Management
+        %p Effortlessly manage hundreds of online applications. The REU manager automates the process from start to finish.
+
+      .info-box.border.d-flex.flex-column.justify-content-center
+        = icon('fas', 'wrench', class: 'fa-3x outline')
+        %h4.mt-2 Less Fuss, More Function
+        %p Cut the fat out of your workflow. No more paper, no postal mail, no scanning. Completely digital (unless you want a printout)
+
+      .info-box.border.d-flex.flex-column.justify-content-center
+        = icon('fas', 'cloud', class: 'fa-3x outline')
+        %h4.mt-2 Everything Is Online
+        %p Avoid paper cuts and don't let anything "get lost in the mail". We consolidate everything in one place.
+
+      .info-box.border.d-flex.flex-column.justify-content-center
+        = icon('far', 'check-square', class: 'fa-3x outline')
+        %h4.mt-2 Automatic Alerts
+        %p Applicants are kept in the loop from start to finish. Email alerts are sent throughout each step of the application process.
+
+  .container-fluid.standout.border-top.border-bottom.p-2
+    .d-flex.align-items-center.justify-content-center
+      .info-banner.w-25
+        %h4.reu-blue REU manager will simplify your workflow so you can do the job you were hired to do
+        .icon-row.d-flex
+          %ul.icon-devices
+          %li.active
+            %a{"aria-expanded" => "true","data-toggle" => "tab", :href => "#desktop"}
+              %em.fas.fa-3x.mr-2.fa-desktop
+          %li
+            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#laptop"}
+              %em.fas.fa-3x.mr-2.fa-laptop
+          %li
+            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#tablet"}
+              %em.fas.fa-3x.mr-2.fa-tablet-alt
+          %li
+            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#mobile"}
+              %em.fas.fa-3x.mr-2.fa-mobile-alt
+      .col-md-8
+        .tab-content
+          #desktop.tab-pane.active
+            %img.img-responsive{:src => "assets/img/demo/mac.png"}/
+          #laptop.tab-pane
+            %img.img-responsive{:src => "assets/img/demo/macpro.png"}/
+          #tablet.tab-pane
+            %img.img-responsive{:src => "assets/img/demo/ipad.png"}/
+          #mobile.tab-pane
+            %img.img-responsive{:src => "assets/img/demo/iphone.png"}/
+
+  .container.mt-3
+    .row.m-5
+      .col.text-center
+        %h5.h2.reu-blue Whether your program is large or small, REU Manager strives to be the most efficient solution for your application process
+    .row
+      .col
+        %h3 About us
+        %p REUManager was initially developed by program managers at UC San Diego (supported by NSF EEC1062979) and has been used by several REU programs across the country.  An enhanced version was developed by Notch8 and is now being widely offered to the REU community.  Notch8 is a web development consultancy located in San Diego, Ca and Portland, OR.  To learn more please visit their website at #{link_to 'www.notch8.com', 'http://www.notch8.com'}.
+      .col
+        .card.mb-2
+          .card-header
+            = icon('far', 'lightbulb')
+            %strong Pick Applicants
+          .card-body
+            %p You and other faculty may select applicants using the online system.
+        .card.mb-2
+          .card-header
+            = icon('fas', 'desktop')
+            %strong Filter Candidates
+          .card-body
+            %p Admin users can search and filter candidates by specific criteria.
+        .card.mb-2
+          .card-header
+            = icon('far', 'hdd')
+            %strong Backup and Reset
+          .card-body
+            %p Applicants are kept in the loop from start to finish. Email notifications are sent throughout each step of the application process.

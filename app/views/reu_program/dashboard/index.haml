@@ -1,6 +1,19 @@
 .row
   .col-2
   .col-2
+    %h2.float-left Billing
+  .col-6
+    .btn-group.float-center
+      .alert.alert-danger{:role => "alert"}= link_to "Request an Invoice", new_reu_program_invoice_path
+      .col-2
+      .alert.alert-danger{:role => "alert"}= link_to "Pay by Credit Card", new_charge_path
+      -# - Invoice.all.each do |invoice|
+      -#   = invoice.inspect
+
+  .col-2
+.row
+  .col-2
+  .col-2
     %h2.float-left Applications
 .row
   .col-2

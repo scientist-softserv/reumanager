@@ -1,0 +1,57 @@
+$reu-blue: #6695e2;
+
+.marketing {
+
+  .reu-blue {
+    color: $reu-blue;
+  }
+
+  .jumbotron {
+    background-image: image-url("img/back_profile.jpg");
+    background-size: cover;
+    color: white !important;
+
+    h1 {
+      color: #cdff76 !important;
+    }
+  }
+
+  .info-banner {
+    list-style: none;
+
+    em[aria-expanded=true]{
+      background-color: #42DCA3;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    line-height: 120%;
+    color: #6695e2;
+    margin: 20px 0 17px 0;
+  }
+
+
+  .info-box {
+    background-color: #f3f3f3;
+    margin: 0 10px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 2px;
+
+    h4 {
+      color: $reu-blue;
+    }
+  }
+
+  .outline {
+    padding: 5px;
+    color: $reu-blue;
+  }
+
+  .standout {
+    background-color: #f3f3f3;
+  }
+}
+

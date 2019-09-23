@@ -90,6 +90,25 @@ ActiveRecord::Schema.define(version: 2019_09_20_184537) do
     t.string "contact_email"
     t.string "contact_password"
     t.string "coupon_code"
+    t.datetime "credit_card_charged_at"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "grant_id"
+    t.string "university_or_institution"
+    t.string "department"
+    t.string "program_title"
+    t.string "contact_name"
+    t.string "email"
+    t.string "phone"
+    t.string "billing_name"
+    t.text "billing_address"
+    t.string "billing_email"
+    t.string "billing_phone"
+    t.string "po_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grant_id"], name: "index_invoices_on_grant_id"
   end
 
   create_table "recommender_forms", force: :cascade do |t|

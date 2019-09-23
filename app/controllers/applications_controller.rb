@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
   before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
 
   def show_application
-    @form = ApplicationForm.where(status: :draft).first
+    @form = ApplicationForm.where(status: :active).first
   end
 
   def update_application
