@@ -8,7 +8,7 @@ module Fields
       property :min_length, type: :integer, hint: 'Specify a minimum length of for in input value'
     end
 
-    validates :title, presence: true
+    validates :title, presence: true, on: :update
 
     def widget
       'textarea'
@@ -22,6 +22,7 @@ module Fields
       {
         title_key => {
           type: :string,
+          title: title,
           description: description,
           minLength: min_length
         }.reject { |_k, v| v.blank? }

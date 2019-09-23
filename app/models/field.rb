@@ -1,13 +1,13 @@
 class Field < ApplicationRecord
   self.inheritance_column = :kind
   belongs_to :section
+  belongs_to :dependant, class_name: 'Field', optional: true
 
   TYPES = {
     'Short Text' => 'Fields::ShortText',
     'Long Text' => 'Fields::LongText',
     'Checkbox' => 'Fields::Boolean',
-    'Select' => 'Fields::Select',
-    'Select with Follow Up' => 'Fields::SelectWithFollowup'
+    'Select' => 'Fields::Select'
   }.freeze
 
   class << self
@@ -39,5 +39,9 @@ class Field < ApplicationRecord
 
   def title_key
     title.downcase.tr(' ', '_')
+  end
+
+  def dependant?
+    self.dependant_id.present?
   end
 end

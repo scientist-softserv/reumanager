@@ -6,6 +6,7 @@ class Section < ApplicationRecord
   has_many :fields, -> { order(:order) }, dependent: :destroy, autosave: true
 
   validates :title, uniqueness: { scope: :application_form_id }
+  validates :count, inclusion: { in: [1, 2, 3], message: 'must be greater than 0 and less than 4' }
 
   accepts_nested_attributes_for :fields, allow_destroy: true
 
@@ -19,16 +20,22 @@ class Section < ApplicationRecord
     return if Field::TYPES.values.exclude?(add_field)
     order = (self.fields.to_a.map(&:order).max || 0) + 1
     klass = add_field.constantize
-    field = klass.new(order: order)
-    self.fields << field
+    f = klass.create(order: order, section: self)
+    Rails.logger.info f.errors.messages
   end
 
   def title_key
     title.downcase.tr(' ', '_')
   end
 
+  def dependant_json_config
+    fields.select(&:dependant?).each_with_object({}) do |field, hash|
+      hash.merge!(field.dependancy_config)
+    end
+  end
+
   def fields_json_config
-    fields.each_with_object({}) do |field, hash|
+    fields.reject(&:dependant?).each_with_object({}) do |field, hash|
       hash.merge!(field.json_config)
     end
   end
@@ -44,7 +51,8 @@ class Section < ApplicationRecord
       title: title,
       type: :object,
       required: required_fields,
-      properties: fields_json_config
+      properties: fields_json_config,
+      dependencies: dependant_json_config
     }.reject { |_k, v| v.blank? }
   end
 
@@ -53,6 +61,7 @@ class Section < ApplicationRecord
       schema: build_json_schema,
       ui: build_ui_schema,
       isRepeating: repeating?,
+      count: count,
       title: title,
       singular: title.singularize,
       key: title_key,

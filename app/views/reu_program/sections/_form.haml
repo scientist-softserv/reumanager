@@ -1,10 +1,13 @@
-.row
+.row.mb-5
   .col-4
     %h5 Section Outline
-    %strong Fields
-    %ul.list-group
+    %p
+      %strong Fields
+      %br
+      %small Drag and Drop the fields in the outline to reorder them
+    %ul.list-group.sort-fields
       - @section.fields.each do |field|
-        %li.list-group-item
+        %li.list-group-item(data-id="#{field.id}")
           %p= "#{field.order}. #{field.title || field.default_name}"
 
   .col-8
@@ -17,7 +20,7 @@
           .col
             - if /Recommenders/.match?(f.object.title)
               .alert.alert-primary
-                %p Form for applicant to fill out the contact information for their recommenders. Must include a email field.
+                %p Form for applicant to fill out the contact information for their recommenders.
             - elsif /Recommendation/.match?(f.object.title)
               .alert.alert-primary
                 %p Form for recommenders to fill out to provide there recommendation of the applicant. Must include either a long text field or file field for the recommender to provider their recommendation
@@ -26,12 +29,21 @@
         .row
           .col
             = f.input :title, as: :string
+        .row
           .col
-            = f.input :repeating
+            = f.input :repeating,
+                      hint: 'Allow this section to be submitted multiple times. Example: allow multiple address or academic records'
+          .col.count_field(style="#{f.object.repeating ? '' : 'display: none;'}")
+            = f.input :count,
+                      label: 'Required Count',
+                      input_html: { max: 3, min: 1 },
+                      hint: 'How many versions of this form do you want submitted'
       %hr
       - unless f.object.new_record?
-        = f.nested_fields_for :fields do |qf|
-          = qf.input_field :order, as: :hidden
+        = f.nested_fields_for :fields, f.object.fields do |qf|
+          = qf.input_field :order,
+                           as: :hidden,
+                           id: "field_#{qf.object.id}_order"
           = qf.input_field :kind, as: :hidden
           - if qf.object.is_a?(Fields::ShortText)
             = render partial: 'reu_program/fields/short_text', locals: { f: qf }
@@ -41,27 +53,55 @@
             = render partial: 'reu_program/fields/boolean', locals: { f: qf }
           - if qf.object.is_a?(Fields::Select)
             = render partial: 'reu_program/fields/select', locals: { f: qf }
+          = qf.association :dependant,
+                           collection: f.object.fields,
+                           hint: 'If this field depends on another field being filled out select that field here'
           %hr
         = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
       %hr
       = f.submit 'Save Section', class: 'btn btn-primary'
 
+.modal#loadingModal
+  .modal-dialog
+    .modal-content
+      .modal-body
+        .spinner-border
+        %h3.d-inline-block Loading
+
+
+- if @form.is_a?(ApplicationForm)
+  :javascript
+    (function() {
+      $('[name="section[repeating]"]').on('change', function() {
+        $('.count_field').toggle()
+      })
+    })()
+
 - unless @section.new_record?
   :javascript
     (function() {
       var $addFieldInputs = $('[data-target="addField"]')
+      var isApplicationForm = #{@form.is_a?(ApplicationForm)}
+      var path
+      if (isApplicationForm) {
+        path = '#{update_attributes_reu_program_application_form_section_path(@form.id, @section.id)}'
+      } else {
+        path = '#{update_attributes_reu_program_recommender_form_section_path(@form.id, @section.id)}'
+      }
 
-      function updateForm(e) {
+      function updateForm() {
+        $('#loadingModal').modal('show')
         var data = new FormData(document.querySelector('.section_form'))
         $('.section_form :input, .section_form select').prop('readonly', true)
         $.ajax({
-          url: '#{update_attributes_reu_program_application_form_section_path(@form.id, @section.id)}',
+          url: path,
           method: 'patch',
           data: data,
           processData: false,
           contentType: false,
           success: function(res) {
             $addFieldInputs.off('change', updateForm)
+            $('#loadingModal').modal('hide')
             $('.edit-application-form-container').html(res)
             setTimeout(function() {
               $('[data-target="addField"]').removeClass('is-valid').val('')
@@ -74,4 +114,23 @@
       }
 
       $addFieldInputs.on('change', updateForm)
+
+      var fieldSort = document.querySelector('.sort-fields')
+      var sortable = new Sortable(
+        fieldSort,
+        {
+          group: 'fields',
+          onSort: function(e) {
+            var $list = $(e.target)
+            var $items = $list.find('li')
+            var ids = []
+            $items.each(function(index) {
+              var id =  $(this).data('id')
+              ids.push(id)
+              $('#field_' + id + '_order').val(index + 1)
+            })
+            updateForm()
+          }
+        }
+      )
     })()

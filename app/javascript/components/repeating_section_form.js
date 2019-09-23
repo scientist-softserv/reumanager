@@ -4,8 +4,10 @@ import SectionForm from './section_form'
 function RepeatingSectionForm({ dispatch, section, data, ...props }) {
   var key = section.key
   var formData = data || []
+  var isFull = section.count === formData.length
 
   var handleAddForm = () => {
+    if (isFull) { return }
     dispatch({
       type: 'new',
       key: key,
@@ -39,11 +41,21 @@ function RepeatingSectionForm({ dispatch, section, data, ...props }) {
     )
   })
 
+  var addForm
+  if (isFull) {
+    addForm = null
+  } else {
+    addForm = <button className="btn btn-info btn-sm" onClick={handleAddForm}>Add {section.singular}</button>
+  }
+
   return (
     <div className="repeating-section-form d-flex flex-column">
       <div className="d-flex justify-content-between mb-2">
-        <h3>{section.title}</h3>
-        <button className="btn btn-info btn-sm" onClick={handleAddForm}>Add {section.singular}</button>
+        <div>
+          <h3 className="d-inline-block">{section.title}</h3>
+          <p className="d-inline-block ml-4">{section.count} required</p>
+        </div>
+        {addForm}
       </div>
       {forms}
     </div>

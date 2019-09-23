@@ -25,6 +25,7 @@ gem 'rolify'
 gem 'rvm-capistrano', require: false
 gem 'sassc-rails'
 gem 'simple_form'
+gem 'sortable-rails'
 gem 'tzinfo-data'
 gem 'uglifier'
 gem 'webpacker'

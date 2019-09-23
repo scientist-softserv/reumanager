@@ -9,17 +9,32 @@ module Fields
       property :min_length, type: :integer, hint: 'Specify a minimum length of for in input value'
     end
 
-    validates :title, presence: true
+    validates :title, presence: true, on: :update
     validates :format, inclusion: { in: %w[text email url date date-time] }
+
+    before_validation do
+      self.format = 'text'
+    end
 
     def default_name
       'Short Text Field'
     end
 
+    def dependancy_config
+      {
+        self.dependant.title_key => {
+          'true' => {
+            properties: json_config
+          }
+        }
+      }
+    end
+
     def json_config
       {
-        title_key.split('_').map(&:capitalize).join(' ') => {
+        title_key => {
           type: :string,
+          title: title,
           description: description,
           format: format,
           minLength: min_length

@@ -8,6 +8,8 @@ module Fields
       property :enum_array, type: :string, array: true, default: [], hint: 'A comma separated list of options ex: option 1, option 2, other option'
     end
 
+    validates :title, presence: true, on: :update
+
     def options
       self.enum_array.join(', ')
     end

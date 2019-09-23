@@ -7,7 +7,7 @@ module Fields
       # property :type, type: :string, default: 'boolean'
     end
 
-    validates :title, presence: true
+    validates :title, presence: true, on: :update
 
     def default_name
       'Boolean Field'
@@ -16,7 +16,8 @@ module Fields
     def json_config
       {
         title_key => {
-          type: :string,
+          type: :boolean,
+          title: title,
           description: description
         }.reject { |_k, v| v.blank? }
       }

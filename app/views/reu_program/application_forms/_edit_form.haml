@@ -9,6 +9,7 @@
     %thead
       %th Title
       %th Repeating
+      %th Required Count
       %th.text-right Actions
     %tbody
       - index = 0
@@ -16,6 +17,7 @@
         %tr
           %td= section.title
           %td= section.repeating ? 'Yes' : 'No'
+          %td= section.count
           %td.text-right
             -# = link_to 'Show', reu_program_application_form_section_path(@form, section)
             = link_to 'Edit', edit_reu_program_application_form_section_path(@form, section)

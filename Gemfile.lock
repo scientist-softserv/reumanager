@@ -240,6 +240,7 @@ GEM
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    sortable-rails (1.7.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -308,6 +309,7 @@ DEPENDENCIES
   rvm-capistrano
   sassc-rails
   simple_form
+  sortable-rails
   timecop
   tzinfo-data
   uglifier

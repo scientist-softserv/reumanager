@@ -33,6 +33,10 @@ module ReuProgram
       @section.handle_add_field
       @section.errors.clear
       @section.fields.each { |q| q.errors.clear }
+      @section.fields.each do |field|
+        field.update_column(:order, field.order)
+      end
+      @section.reload
       render partial: 'form', layout: false
     end
 
