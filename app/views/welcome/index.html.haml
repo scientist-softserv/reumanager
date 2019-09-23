@@ -29,15 +29,6 @@
         - else
           = link_to "Apply Now", new_applicant_registration_path, class: "btn btn-lg btn-success"
 - else
-  :ruby
-    start_date = Setting[:application_start]&.strftime("%A, %b %d") || 'Missing Start Date'
-    deadline = Setting[:application_deadline]
-    deadline_str = deadline&.month.to_i >= 7 ? deadline&.year.to_i + 1 : deadline&.year
-    notification_date = Setting[:notification_date]&.strftime("%A, %b, %d")
-  .row
-    .col-md-12
-      %h3.deadline.text-center
-        Applications will be available in #{start_data} for the Summer #{deadline} Program. Applications will be due on #{deadline&.strftime("%A, %b %d")} and Decisions sent to applicants by #{notification_date}.
 .row.mt-4.mb-4
   .col
     %h3 Program Highlights

@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   end
 
   def tenant_not_found
-    redirect_to root
+    redirect_to root_path
   end
 
   def after_sign_in_path_for(resource)

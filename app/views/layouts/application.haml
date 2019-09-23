@@ -9,7 +9,7 @@
   %body
     = render 'layouts/navbar'
     .container
-      = render 'layouts/header'
+      -# = render 'layouts/header'
       .row#flash
         .col
           - if flash[:notice]
@@ -21,4 +21,5 @@
           - if flash[:error]
             .alert.alert-warning#error= flash[:error]
       = yield
+      
     = render '/layouts/footer'

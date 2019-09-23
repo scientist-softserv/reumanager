@@ -11,6 +11,7 @@ gem 'coffee-rails'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'flatpickr_rails'
+gem 'font-awesome-sass', '~> 5.9.0'
 gem 'hamlit'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -24,6 +25,7 @@ gem 'prawn'
 gem 'rvm-capistrano', require: false
 gem 'sassc-rails'
 gem 'simple_form'
+gem 'stripe', '~> 1.57'
 gem 'tzinfo-data'
 gem 'uglifier'
 gem 'webpacker'
@@ -45,4 +47,3 @@ group :test do
   gem 'rspec-rails'
   gem 'timecop'
 end
-

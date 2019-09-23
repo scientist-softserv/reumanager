@@ -1,0 +1,89 @@
+.tours {
+  .content-box {
+      display: block;
+      text-align: center;
+      padding: 27px;
+      margin-bottom: 5px;
+      background-color: #f6f6f6;
+      border: solid 1px #e5e5e5;
+      height: 75%;
+      margin-right: 1em;
+      margin-top: 2em;
+      width: 250px;
+  }
+
+  h1 {
+      font-size: 2.3em;
+    }
+
+    h4 {
+      font-size: 1.2em;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Lato", sans-serif;
+      font-weight: 300;
+      line-height: 120%;
+      color: #6695e2;
+      margin: 20px 0 17px 0;
+    }
+
+    .row {
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+
+    .div {
+      display: block;
+    }
+
+    .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .icon-ar.icon-ar-lg {
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+      line-height: 2.2;
+    }
+    .icon-ar.icon-ar-inverse {
+      background-color: transparent;
+      color: #6695e2;
+      border: solid 1px #6695e2;
+    }
+    .icon-ar {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      background-color: #6695e2;
+      color: #fff;
+      border-radius: 2px;
+      display: inline-block;
+      margin: 0 5px 5px 0;
+      text-align: center;
+      line-height: 2.2;
+    }
+    .icon-ar.icon-ar-round {
+      border-radius: 5px;
+    }
+    .card {
+        margin: 20px;
+    }
+    .tour-panel {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+
+
+}

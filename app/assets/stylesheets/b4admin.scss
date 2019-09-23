@@ -1,1 +1,38 @@
 @import "bootstrap";
+
+.alert {
+    width: 180px;
+    height: 60px; 
+    padding: .75rem;
+    text-align: center;
+}
+
+.content-box.box-default {
+    background-color: #f6f6f6;
+    border: solid 1px #e5e5e5;
+    height: 65%;
+    margin-right: 1em;
+    margin-top: 2em;
+}
+
+// article {
+//     margin-top: 1em;
+//     text-align: center;
+// }
+
+// article h2{
+//     line-height: 1em;
+// }
+
+.card {
+    text-align: center;
+    font-size: 2em;
+    background-color: aliceblue;
+}
+
+.card-body {
+    padding: 0;
+}
+
+
+
