@@ -3,7 +3,7 @@ module ReuProgram
     before_action :load_admin, except: %i[index new create]
 
     def index
-      @admins = User.order(:created_at)
+      @admins = User.with_role(:admin).order(:created_at)
     end
 
     def new

@@ -3,7 +3,7 @@ class Grant < ActiveRecord::Base
   has_many :settings
   has_many :snippets
   has_many :program_admins
-  has_many :invoices 
+  has_many :invoices
 
   validates :subdomain, exclusion: { in: %w[www admin], message: '%{value} is reserved' }
   validates :subdomain, uniqueness: { scope: :subdomain }
@@ -37,5 +37,13 @@ class Grant < ActiveRecord::Base
 
   def switch!
     Apartment::Tenant.switch!(self.subdomain)
+  end
+
+  def latest_invoice
+    @latest_invoice ||= invoices.last
+  end
+
+  def charged_credit_card?
+    credit_card_charged_at.present?
   end
 end

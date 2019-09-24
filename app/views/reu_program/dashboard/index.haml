@@ -1,16 +1,21 @@
-.row
+.row.mb-4
   .col-2
-  .col-2
-    %h2.float-left Billing
-  .col-6
-    .btn-group.float-center
-      .alert.alert-danger{:role => "alert"}= link_to "Request an Invoice", new_reu_program_invoice_path
-      .col-2
-      .alert.alert-danger{:role => "alert"}= link_to "Pay by Credit Card", new_charge_path
-      -# - Invoice.all.each do |invoice|
-      -#   = invoice.inspect
+  .col-8
+    - if current_grant.latest_invoice.present?
+      .d-flex
+        %h3.mr-5 Billing
+        = link_to 'Invoice Information', reu_program_invoice_path(current_grant.latest_invoice), class: 'btn btn-outline-secondary'
+    - elsif current_grant.charged_credit_card?
+      .d-flex
+        %h3.mr-5 Billing
+        %p Active Account
+    - else
+      .d-flex.alert.alert-warning.w-100
+        %h3.mr-5 Billing
+        .btn-group
+          = link_to "Request an Invoice", new_reu_program_invoice_path, class: 'btn btn-outline-secondary'
+          = link_to "Pay by Credit Card", new_reu_program_charge_path, class: 'btn btn-outline-secondary'
 
-  .col-2
 .row
   .col-2
   .col-2

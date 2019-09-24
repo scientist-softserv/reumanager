@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
-    resources :invoices, only: %i[new create show]
+    resources :invoices
     resources :charges
     resources :program_admins, except: %i[destroy] do
       member do
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy]
-    resources :applicants, except: %i[destroy] do
+    resources :applications, except: %i[destroy] do
       member do
         patch :accept
         patch :reject

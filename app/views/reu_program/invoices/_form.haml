@@ -1,0 +1,21 @@
+= simple_form_for([:reu_program, @invoice]) do |f|
+  - if @invoice.errors.any?
+    #error_explanation
+      %h4
+        = pluralize(@invoice.errors.count, "error")
+        prohibited this invoice from being saved:
+      %ul
+        - @invoice.errors.full_messages.each do |message|
+          %li= message
+  = f.input :university_or_institution, placeholder: "University or Institution"
+  = f.input :department, placeholder: "Department"
+  = f.input :program_title, placeholder: "Program Title"
+  = f.input :contact_name, placeholder: "Contact Name"
+  = f.input :email, placeholder: "Email"
+  = f.input :phone, placeholder: "Phone"
+  = f.input :billing_name, placeholder: "Name"
+  = f.input :billing_address, placeholder: "Address"
+  = f.input :billing_email, placeholder: "Email"
+  = f.input :billing_phone, placeholder: "Phone #"
+  = f.input :po_number, placeholder: "PO #"
+  = f.submit 'Submit', class: 'btn btn-ar btn-primary mb-5'

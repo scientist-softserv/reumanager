@@ -5,7 +5,7 @@
       .col
         %h2 Program Admins
       .col
-        - if current_program_admin.super?
+        - if super_admin_user?
           = link_to 'New Admin', new_reu_program_program_admin_path, class: 'btn btn-primary float-right'
   .col-2
 .row
@@ -35,7 +35,7 @@
               - else
                 Enabled
             %td
-              - if current_program_admin.super?
+              - if super_admin_user?
                 = link_to 'Edit', edit_reu_program_program_admin_path(admin)
                 - if admin.access_locked?
                   = link_to 'Unlock', unlock_reu_program_program_admin_path(admin)

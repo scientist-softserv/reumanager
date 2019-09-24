@@ -16,6 +16,7 @@
             %td
               .float-right.actions
                 = link_to 'Edit', edit_reu_program_recommender_form_path(form)
-                = link_to 'Make Active', ''
+                - if form.draft?
+                  = link_to 'Make Active', ''
                 = link_to 'Duplicate', ''
   .col-2

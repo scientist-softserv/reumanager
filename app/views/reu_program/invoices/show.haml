@@ -1,7 +1,12 @@
 .container
   .row
-    .col-sm-12
-      %table.table.table-borderless
+    .col
+      %h2 Current Invoice Information
+    .col
+      = link_to 'Edit', edit_reu_program_invoice_path(@invoice), class: 'btn btn-primary float-right'
+  .row
+    .col
+      %table.table
         %tbody
           %tr
             %th University or Institution

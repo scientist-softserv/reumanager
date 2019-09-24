@@ -1,10 +1,10 @@
-class ApplicantPdf
-  
+class ApplicationPdf
+
   include Prawn::View
-  attr_accessor :applicants, :applicant
-  
-  def initialize(applicants)
-    @applicants = applicants
+  attr_accessor :applications, :application
+
+  def initialize(applications)
+    @applications = applications
     font_families.update(
     "fontawesome" => {
     normal: "app/assets/fonts/fontawesome-webfont.ttf",
@@ -12,16 +12,16 @@ class ApplicantPdf
     }
     )
   end
-  
+
   def build
-      applicants.each do |applicant|
-      @applicant = applicant
-      header  
+      applications.each do |application|
+      @application = application
+      header
     end
   end
-      
+
  def header
-   @applicant.data.each do |key, value|
+   @application.data.each do |key, value|
     if key.match(/_/)
       text "#{key.split('_').map(&:capitalize).join(' ')}", size: 18, inline_format: true, style: :bold
      move_down 1
@@ -29,7 +29,7 @@ class ApplicantPdf
         text "<b>#{key.capitalize}:</b> #{value}", inline_format: true
       end
      move_down 50
-     
+
     else
       text "#{key.capitalize}", size: 18, inline_format: true, style: :bold
       move_down 1

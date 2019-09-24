@@ -1,15 +1,30 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true
 
-  helper_method :expired?
-  helper_method :started?
-  helper_method :subdomain?
-  helper_method :current_grant
-  helper_method :current_application
+  helper_method :expired?,
+                :started?,
+                :subdomain?,
+                :admin_user?,
+                :super_user?,
+                :super_admin_user?,
+                :current_grant,
+                :current_application
 
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
 
   after_action :set_csrf_cookie
+
+  def admin_user?
+    current_user.has_role?(:admin)
+  end
+
+  def super_user?
+    current_user.has_role?(:super)
+  end
+
+  def super_admin_user?
+    current_user.has_role?(:super) || current_user.has_role?(:super_admin)
+  end
 
   def set_csrf_cookie
     cookies["X-CSRF-Token"] = form_authenticity_token

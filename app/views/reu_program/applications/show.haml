@@ -1,9 +1,9 @@
 .row
   .col-2
   .col-8
-    %button.btn.btn-outline-success=link_to'Accept Applicant', accept_reu_program_applicant_path, method: :patch
-    %button.btn.btn-outline-danger=link_to 'Reject Applicant', reject_reu_program_applicant_path, method: :patch
-    - @applicant.data.each do |key, value|
+    %button.btn.btn-outline-success=link_to'Accept Applicant', accept_reu_program_application_path, method: :patch
+    %button.btn.btn-outline-danger=link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch
+    - @application.data.each do |key, value|
       - if key.match(/_/)
         %h3 #{key.split('_').map(&:capitalize).join(' ')}
       - else
@@ -25,5 +25,5 @@
               = value
       %hr
     %br
-    %p= link_to 'Back', reu_program_applicants_path
+    %p= link_to 'Back', reu_program_applications_path
   .col-2
