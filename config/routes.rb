@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :reu_program do
     get 'dashboard' => 'dashboard#index'
     resources :invoices, only: %i[new create show]
+    resources :charges
     resources :program_admins, except: %i[destroy] do
       member do
         get :lock
@@ -53,7 +54,7 @@ Rails.application.routes.draw do
 
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'
-  
+
   get 'tours' => 'welcome#tours'
   get 'pricing' => 'welcome#pricing'
   get 'create_grant' => 'grants#new_program'

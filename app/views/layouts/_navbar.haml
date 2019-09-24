@@ -11,6 +11,9 @@
           = link_to 'Recommenders', recommenders_path, class: class_names
           = link_to 'Status', status_path, class: class_names
           = link_to "Logout", destroy_user_session_path, method: :delete, class: class_names
+          - if current_user.has_role?(:admin)
+            = link_to 'Admin', reu_program_dashboard_path, class: class_names
+
         - else
           - if started? && !expired?
             = link_to "Apply Now", new_user_registration_path, class: class_names
