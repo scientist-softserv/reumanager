@@ -1,11 +1,12 @@
-.row
-  .col-1
-  .col-10.edit-application-form-container
-    .row
-      .col
-        %h2 Edit Section for #{@form.name} Form
-      .col
-        = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
-    %hr
-    = render partial: 'form'
-  .col-1
+.container
+  .row
+    .col-1
+    .col-10.edit-application-form-container
+      .row
+        .col
+          %h2 Edit Section for #{@form.name} Form
+        .col
+          = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
+      %hr
+      = render partial: 'form'
+    .col-1

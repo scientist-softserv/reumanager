@@ -1,11 +1,9 @@
 .row
   .col
-    %strong Short Text Field
-  .col
-    = render partial: 'reu_program/fields/delete_button', locals: { f: f }
-.row
-  .col
-    = f.input :title, as: :string
+    - if f.object.important?
+      %h5= f.object.title
+    - else
+      = f.input :title, as: :string
   .col
     = f.input :required, as: :boolean, hint: f.object.required_hint
 .row

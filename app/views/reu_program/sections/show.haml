@@ -1,0 +1,100 @@
+.container
+  .row
+    .col
+      %h2 Form: #{@form.name}
+  .row
+    .col
+      %h3 Section: #{@section.title}
+  .d-flex.justify-content-end
+    - content = capture do
+      %p What type of field should be added?
+      %select(data-target="field-add-select")
+        %option Select a type of field
+        - Field::TYPES.each do |label, value|
+          %option(value=value)= label
+    :ruby
+      attrs = {
+        type: 'button',
+        title: 'Add Field',
+        data: {
+          toggle: 'popover',
+          content: content
+        }
+      }
+    %button.btn.btn-primary.mb-3{ attrs } Add Field
+  .row
+    .col
+      %table.table
+        %thead
+          %tr
+            %th Title
+            %th Description
+            %th Type
+            %th
+              %span.float-right Actions
+        %tbody
+          - @section.fields.each do |field|
+            %tr
+              %td= field.title
+              %td= field.description
+              %td= field.default_name
+              %td
+                .btn-group.float-right
+                  %button.btn.btn-secondary.btn-sm(type="button" data-path="#{edit_field_path(field)}" data-target="edit-btn") Edit
+                  = link_to 'Remove', field_path(field), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure you want to remove this field?' }
+
+.modal#fieldFormModal
+  .modal-dialog
+    .modal-content
+
+- loading = capture do
+  .d-flex.justify-content-center.mt-3.mb-3
+    .spinner-border
+    %h3.d-inline-block Loading
+
+
+:javascript
+  (function() {
+
+    var myWhiteList = $.fn.tooltip.Constructor.Default.whiteList
+    myWhiteList['select'] = ['data-target']
+    myWhiteList['option'] = ['value']
+
+    $('[data-toggle="popover"]').popover({ html: true, whiteList: myWhiteList })
+
+    $(document).on('change', '[data-target="field-add-select"]', function(e) {
+      var fieldType = $(this).val()
+      $.ajax({
+        url: '#{fields_path}',
+        method: 'post',
+        data: { field_type: fieldType },
+        success: function(res) {
+          location.reload()
+        }
+      })
+    })
+
+    var $modal = $('#fieldFormModal')
+    var $modalContent = $modal.find('.modal-content')
+
+    $('[data-target="edit-btn"]').on('click', function(e) {
+      showLoadingModal()
+      var path = $(this).data('path')
+      $.ajax({
+        url: path,
+        success: function(res) {
+          $modalContent.html(res)
+          $modal.modal('handleUpdate')
+        }
+      })
+    })
+
+    $modal.on('hidden.bs.modal', function() {
+      $modalContent.empty()
+    })
+
+    function showLoadingModal() {
+      $modalContent.html("#{loading.tr("\n",'')}")
+      $modal.modal('show')
+    }
+  })()

@@ -29,14 +29,15 @@ module ReuProgram
     end
 
     def update_attributes
-      @section.assign_attributes(section_params)
+      @section.assign_attributes(add_field_params)
       @section.handle_add_field
+      @section.reload
+      @section.assign_attributes(section_params)
       @section.errors.clear
       @section.fields.each { |q| q.errors.clear }
       @section.fields.each do |field|
         field.update_column(:order, field.order)
       end
-      @section.reload
       render partial: 'form', layout: false
     end
 
@@ -50,6 +51,7 @@ module ReuProgram
 
     private
 
+
     def load_form
       @form = ApplicationForm.find_by_id(params[:application_form_id])
       @form ||= RecommenderForm.find_by_id(params[:recommender_form_id])
@@ -58,6 +60,10 @@ module ReuProgram
 
     def load_section
       @section = @form.sections.find(params[:id])
+    end
+
+    def add_field_params
+      params.require(:section).permit(:add_field)
     end
 
     def section_params

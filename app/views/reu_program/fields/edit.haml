@@ -1,0 +1,17 @@
+= simple_form_for @field, as: :field, url: field_update_path(@field)  do |f|
+  .modal-header
+    %h5 Edit #{f.object.default_name}
+    %button.close(data-dismiss="modal")
+      %span== &times;
+  .modal-body
+    = f.input_field :kind, as: :hidden
+    - if f.object.is_a?(Fields::ShortText)
+      = render partial: 'short_text', locals: { f: f }
+    - if f.object.is_a?(Fields::LongText)
+      = render partial: 'long_text', locals: { f: f }
+    - if f.object.is_a?(Fields::Boolean)
+      = render partial: 'boolean', locals: { f: f }
+    - if f.object.is_a?(Fields::Select)
+      = render partial: 'select', locals: { f: f }
+  .modal-footer.d-flex.justify-content-end
+    = f.submit 'Save Field', class: 'btn btn-primary'

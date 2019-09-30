@@ -1,7 +1,15 @@
 class Field < ApplicationRecord
   self.inheritance_column = :kind
-  belongs_to :section
-  belongs_to :dependant, class_name: 'Field', optional: true
+  belongs_to :section, optional: true
+  belongs_to :parent, class_name: 'Field', optional: true
+  has_many :dependants, class_name: 'Field', foreign_key: 'parent_id'
+
+  validate :must_have_a_parent_or_section
+
+  def must_have_a_parent_or_section
+    return if section.present? || parent.present?
+    errors.add(:base, 'must be associated to a section or parent field')
+  end
 
   TYPES = {
     'Short Text' => 'Fields::ShortText',
@@ -39,9 +47,5 @@ class Field < ApplicationRecord
 
   def title_key
     title.downcase.tr(' ', '_')
-  end
-
-  def dependant?
-    self.dependant_id.present?
   end
 end

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         member do
           patch :update_attributes
         end
+        resources :fields, except: %i[index]
       end
     end
     resources :recommender_forms, except: %i[new create destroy] do
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
         member do
           patch :update_attributes
         end
+        resources :fields, except: %i[index]
       end
     end
   end

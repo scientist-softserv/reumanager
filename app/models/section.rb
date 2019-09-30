@@ -1,6 +1,4 @@
 class Section < ApplicationRecord
-  attr_accessor :add_field
-
   belongs_to :application_form, optional: true
   belongs_to :recommender_form, optional: true
   has_many :fields, -> { order(:order) }, dependent: :destroy, autosave: true
@@ -12,14 +10,6 @@ class Section < ApplicationRecord
 
   def important_fields
     fields.where.not(important: nil)
-  end
-
-  def handle_add_field
-    return if Field::TYPES.values.exclude?(add_field)
-    order = (self.fields.to_a.map(&:order).max || 0) + 1
-    klass = add_field.constantize
-    f = klass.create(order: order, section: self)
-    Rails.logger.info f.errors.messages
   end
 
   def title_key

@@ -3,8 +3,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable,
-         :lockable, :timeoutable, :confirmable,
-         :registerable
+         :lockable, :confirmable, :registerable # , timeoutable
 
   belongs_to :application, dependent: :destroy, optional: true
 
