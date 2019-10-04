@@ -12,6 +12,10 @@ class RecommenderForm < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  after_save do
+    self.sections.update_all(count: self.recommenders_count) if self.recommenders_count_previously_changed?
+  end
+
   def duplicate
     new_form = self.dup
     new_form.name = "#{new_form.name} Copy"
