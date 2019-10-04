@@ -22,16 +22,22 @@ class Application < ApplicationRecord
   def update_recommender_status
     return unless self.recommender_info_previously_changed?
     return if self.recommender_info['recommenders_form'].blank?
-    emails = self.recommender_info['recommenders_form'].map { |r| r['Email'] }.compact
-    statuses = self.applicant.recommender_statuses.to_a
+    Rails.logger.info 'update recommender status fired'
+    emails = self.recommender_info['recommenders_form'].map { |r| r['email'] }.compact
+    statuses = self.recommender_statuses.to_a
     current_emails = statuses.map(&:email)
     missing_emails = emails.difference(current_emails)
+    Rails.logger.info emails
+    Rails.logger.info statuses
+    Rails.logger.info current_emails
+    Rails.logger.info missing_emails
     missing_emails.each do |email|
-      RecommenderStatus.create(email: email, applicant: self.applicant)
+      RecommenderStatus.create(email: email, application: self)
     end
     statuses.each do |status|
       status.destroy unless emails.include?(status.email)
     end
+    Rails.logger.info "count of statuses: #{self.recommender_statuses.count}"
   end
 
   def data_flattened

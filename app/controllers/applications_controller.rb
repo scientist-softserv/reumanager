@@ -8,8 +8,8 @@ class ApplicationsController < ApplicationController
   end
 
   def update_application
-    @applicant.data = params.require(:data).permit!
-    @applicant.save
+    current_user.application.data = params.require(:data).permit!
+    current_user.application.save
     render json: {}
   rescue ActionController::ParameterMissing
     render json: {}
@@ -20,8 +20,8 @@ class ApplicationsController < ApplicationController
   end
 
   def update_recommenders
-    @applicant.recommender_info = params.require(:data).permit!
-    @applicant.save
+    current_user.application.recommender_info = params.require(:data).permit!
+    current_user.application.save
     render json: {}
   rescue ActionController::ParameterMissing
     render json: {}
@@ -41,7 +41,7 @@ class ApplicationsController < ApplicationController
   end
 
   def status
-    current_user.application = Application.new
+    current_user.application ||= Application.new
     current_application
   end
 
@@ -59,6 +59,7 @@ class ApplicationsController < ApplicationController
 
   def setup_application
     current_user.application = Application.new if current_user.application.blank?
+    @application = current_user.application
   end
 
   def form_params
@@ -66,9 +67,9 @@ class ApplicationsController < ApplicationController
   end
 
   def load_status_from_token
-    raise ActionController::RoutingError.new('Not Found') if params[:token].blank?
+    raise ActionController::RoutingError, 'Not Found' if params[:token].blank?
     @status = RecommenderStatus.find_by_token(params[:token])
-    raise ActionController::RoutingError.new('Not Found') if @status.blank?
+    raise ActionController::RoutingError, 'Not Found' if @status.blank?
     @applicant = @status.applicant
   end
 
