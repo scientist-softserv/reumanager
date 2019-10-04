@@ -17,14 +17,8 @@ class Section < ApplicationRecord
     title.downcase.tr(' ', '_')
   end
 
-  def dependant_json_config
-    fields.select(&:dependant?).each_with_object({}) do |field, hash|
-      hash.merge!(field.dependancy_config)
-    end
-  end
-
-  def fields_json_config
-    fields.reject(&:dependant?).each_with_object({}) do |field, hash|
+  def json_config
+    fields.each_with_object({}) do |field, hash|
       hash.merge!(field.json_config)
     end
   end
@@ -40,8 +34,7 @@ class Section < ApplicationRecord
       title: title,
       type: :object,
       required: required_fields,
-      properties: fields_json_config,
-      dependencies: dependant_json_config
+      properties: json_config,
     }.reject { |_k, v| v.blank? }
   end
 

@@ -1,16 +1,20 @@
 %h1 Application
 
-:ruby
-  attrs = {
-    style: "display: none;",
-    data: {
-      schema: @form.json_schema,
-      data: JSON.generate(current_application&.data || {}),
-      path: application_path,
-      method: 'PATCH'
+- if @form
+  :ruby
+    attrs = {
+      style: "display: none;",
+      data: {
+        schema: @form.json_schema,
+        data: JSON.generate(current_application&.data || {}),
+        path: application_path,
+        method: 'PATCH'
+      }
     }
-  }
 
-.form-data{ attrs }
+  .form-data{ attrs }
 
-#customForm
+  #customForm
+- else
+  .alert.alert-warning
+    %p There is no active form please alert the administrators.
