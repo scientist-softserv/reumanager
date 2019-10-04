@@ -1,9 +1,9 @@
-= simple_form_for [:reu_program, @admin] do |f|
+= simple_form_for [:reu_program, @admin], url: path do |f|
   = f.input :first_name
   = f.input :last_name
   = f.input :email
   - if f.object.new_record?
     = f.input :password
     = f.input :password_confirmation
-  = f.input :super, hint: 'A super admin can edit the details of another admin, like you are doing now'
+  = f.input :super_admin, as: :boolean, hint: 'A super admin can edit the details of another admin, like you are doing now'
   = f.submit :Submit, class: 'btn btn-primary'

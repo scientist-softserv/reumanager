@@ -1,43 +1,40 @@
-.row
-  .col-2
-  .col-8
-    .row
-      .col
-        %h2 Program Admins
-      .col
-        - if super_admin_user?
-          = link_to 'New Admin', new_reu_program_program_admin_path, class: 'btn btn-primary float-right'
-  .col-2
-.row
-  .col-2
-  .col-8
-    %table.table
-      %thead
-        %tr
-          %th Name
-          %th Email
-          %th Confirmed At
-          %th Locked At
-          %th Actions
-      %tbody
-        - @admins.each do |admin|
+.container
+  .row
+    .col
+      %h2 Program Admins
+    .col
+      - if super_admin_user?
+        = link_to 'New Admin', new_reu_program_program_admin_path, class: 'btn btn-primary float-right'
+  .row
+    .col
+      %table.table
+        %thead
           %tr
-            %td= admin.full_name
-            %td= admin.email
-            %td
-              - if admin.confirmed_at.present?
-                = admin.confirmed_at.strftime('%Y-%m-%d')
-              - else
-                Not Confirmed
-            %td
-              - if admin.locked_at.present?
-                = admin.locked_at.strftime('%Y-%m-%d')
-              - else
-                Enabled
-            %td
-              - if super_admin_user?
-                = link_to 'Edit', edit_reu_program_program_admin_path(admin)
-                - if admin.access_locked?
-                  = link_to 'Unlock', unlock_reu_program_program_admin_path(admin)
+            %th Name
+            %th Email
+            %th Confirmed At
+            %th Locked At
+            %th Actions
+        %tbody
+          - @admins.each do |admin|
+            %tr
+              %td= admin.full_name
+              %td= admin.email
+              %td
+                - if admin.confirmed_at.present?
+                  = admin.confirmed_at.strftime('%Y-%m-%d')
                 - else
-                  = link_to 'Lock', lock_reu_program_program_admin_path(admin)
+                  Not Confirmed
+              %td
+                - if admin.locked_at.present?
+                  = admin.locked_at.strftime('%Y-%m-%d')
+                - else
+                  Enabled
+              %td
+                .btn-group
+                  - if super_admin_user?
+                    = link_to 'Edit', edit_reu_program_program_admin_path(admin), class: 'btn btn-outline-secondary btn-sm'
+                    - if admin.access_locked?
+                      = link_to 'Unlock', unlock_reu_program_program_admin_path(admin), class: 'btn btn-outline-danger btn-sm'
+                    - else
+                      = link_to 'Lock', lock_reu_program_program_admin_path(admin), class: 'btn btn-outline-danger btn-sm'

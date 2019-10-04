@@ -48,13 +48,14 @@ module ReuProgram
     end
 
     def admin_params
-      params.require(:program_admin)
+      params.require(:user)
             .permit(
               :first_name,
               :last_name,
               :email,
               :password,
-              :password_confirmation
+              :password_confirmation,
+              :super_admin
             )
     end
   end

@@ -1,10 +1,7 @@
-.row
-  .col-2
-  .col-8
-    %h2 Edit Program Admin
-  .col-2
-.row
-  .col-2
-  .col-8
-    = render partial: 'form'
-  .col-2
+.container
+  .row
+    .col
+      %h2 Edit Program Admin
+  .row
+    .col
+      = render partial: 'form', locals: { path: reu_program_program_admin_path(@admin) }
