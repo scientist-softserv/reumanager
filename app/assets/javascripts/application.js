@@ -2,7 +2,7 @@
 // which will include all the files listed below.
 
 //= require jquery
-//= require rails_ujs
+//= require rails-ujs
 // require bootstrap
 
 
