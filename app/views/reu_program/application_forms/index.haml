@@ -1,22 +1,23 @@
-.row
-  .col-3
-  .col-6
-    %table.table
-      %thead
-        %tr
-          %th Name
-          %th Status
-          %th
-            .float-right Actions
-      %tbody
-        - @forms.each do |form|
+.container
+  .row
+    .col
+      %table.table
+        %thead
           %tr
-            %td= form.name
-            %td= form.status
-            %td
-              .float-right.actions
-                = link_to 'Edit', edit_reu_program_application_form_path(form)
-                - if form.draft?
-                  = link_to 'Make Active', make_active_reu_program_application_form_path(form)
-                = link_to 'Duplicate', ''
-  .col-3
+            %th Name
+            %th Status
+            %th Created
+            %th
+              .float-right Actions
+        %tbody
+          - @forms.each do |form|
+            %tr
+              %td= form.name
+              %td= form.status
+              %td= form.created_at.strftime('%Y-%m-%d')
+              %td
+                .float-right.actions.btn-group
+                  = link_to 'Edit', edit_reu_program_application_form_path(form), class: 'btn btn-outline-secondary btn-sm'
+                  - if form.draft?
+                    = link_to 'Make Active', make_active_reu_program_application_form_path(form), class: 'btn btn-outline-secondary btn-sm'
+                  = link_to 'Duplicate', duplicate_reu_program_application_form_path(form), class: 'btn btn-outline-info btn-sm'

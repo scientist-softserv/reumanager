@@ -1,19 +1,148 @@
-= simple_form_for [:reu_program, @form] do |f|
-  = f.input :name
-  .row
+.container
+  = simple_form_for [:reu_program, @form] do |f|
+    .row
+      .col
+        = f.input :name
+      .col
+        = f.input :recommenders_count
+      .col
+        = f.submit 'Save Name', class: 'btn btn-primary float-right'
+
+  .row.border-bottom.mb-2
     .col
       %h3 Sections
+
   %table.table
     %thead
-      %th Title
-      %th.text-right Actions
+      %tr
+        %th Title
+        %th.text-right Actions
     %tbody
-      - index = 0
-      - f.object.sections.each do |section|
+      - @form.sections.each do |section|
         %tr
           %td= section.title
           %td.text-right
-            -# = link_to 'Show', reu_program_application_form_section_path(@form, section)
-            = link_to 'Edit', edit_reu_program_recommender_form_section_path(@form, section)
-  %hr
-  = f.submit 'Save Form', class: 'btn btn-primary'
+            .btn-group
+              %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="show-fields" data-section="#{section.id}") Show Fields
+              = link_to 'Edit', edit_reu_program_application_form_section_path(@form, section), class: 'btn btn-outline-secondary btn-sm'
+        - display = params[:section_id].present? && params[:section_id].to_i == section.id
+        %tr.field-row(style="#{display ? '' : 'display: none;' }" data-section="#{section.id}")
+          %td(colspan="4")
+            .card.ml-4
+              %ul.list-group.list-group-flush
+                - section.fields.each do |field|
+                  %li.list-group-item
+                    .row
+                      .col
+                        = field.title
+                      .col
+                        = field.description
+                      .col
+                        = field.default_name
+                      .col
+                        .btn-group.float-right
+                          %button.btn.btn-outline-secondary.btn-sm(type="button" data-path="#{edit_field_path(field, section)}" data-target="edit-btn" data-field="#{field.id}") Edit
+                          - unless field.important
+                            = link_to 'Delete', field_path(field, section), method: :delete, class: 'btn btn-outline-danger btn-sm', data: { confirm: 'Are you sure you want to delete this field?' }
+                          - else
+                            %button.btn.btn-outline-danger.btn-sm.disabled(type="button" disabled title="Important fields can't be deleted") Delete
+
+
+              - content = capture do
+                %p What type of field should be added?
+                %select(data-target="field-add-select" data-path="#{fields_path(section)}")
+                  %option Select a type of field
+                  - Field::TYPES.each do |label, value|
+                    %option(value=value)= label
+              :ruby
+                attrs = {
+                  type: 'button',
+                  title: 'Add Field',
+                  data: {
+                    toggle: 'popover',
+                    placement: 'top',
+                    content: content
+                  }
+                }
+              %button.btn.btn-primary{ attrs } Add Field
+
+.mt-5.mb-5
+
+.modal#fieldFormModal
+  .modal-dialog
+    .modal-content
+
+- loading = capture do
+  .d-flex.justify-content-center.mt-3.mb-3
+    .spinner-border
+    %h3.d-inline-block Loading
+
+:javascript
+  (function() {
+
+    var myWhiteList = $.fn.tooltip.Constructor.Default.whiteList
+    myWhiteList['select'] = ['data-target', 'data-path']
+    myWhiteList['option'] = ['value']
+
+    $('[data-toggle="popover"]').popover({ html: true, whiteList: myWhiteList })
+
+    var showRE = /Show/
+    var hideRE = /Hide/
+
+    $('[data-target="show-fields"]').on('click', function() {
+      var $btn = $(this)
+      var selector = '.field-row[data-section="'+ $btn.data('section') +'"]'
+      if (showRE.test($btn.text())) {
+        $btn.text('Hide Fields')
+      } else if (hideRE.test($btn.text())) {
+        $btn.text('Show Fields')
+      }
+      $(selector).toggle()
+    })
+
+    $(document).on('change', '[data-target="field-add-select"]', function(e) {
+      var $select = $(this)
+      var fieldType = $select.val()
+      var path = $select.data('path')
+      $.ajax({
+        url: path,
+        method: 'post',
+        data: { field_type: fieldType },
+        success: function(res) {
+          window.location = res.path
+        }
+      })
+    })
+
+    var $modal = $('#fieldFormModal')
+    var $modalContent = $modal.find('.modal-content')
+
+    $('[data-target="edit-btn"]').on('click', function(e) {
+      showLoadingModal()
+      var path = $(this).data('path')
+      $.ajax({
+        url: path,
+        success: function(res) {
+          $modalContent.html(res)
+          $modal.modal('handleUpdate')
+        }
+      })
+    })
+
+    $modal.on('hidden.bs.modal', function() {
+      $modalContent.empty()
+    })
+
+    function showLoadingModal() {
+      $modalContent.html("#{loading.tr("\n",'')}")
+      $modal.modal('show')
+    }
+
+    var params = new URLSearchParams(location.search)
+    if (params.has('section_id') && params.has('field_id')) {
+      var fieldId = params.get('field_id')
+      setTimeout(function() {
+        $('[data-target="edit-btn"][data-field="'+ fieldId +'"]').trigger('click')
+      }, 500)
+    }
+  })()

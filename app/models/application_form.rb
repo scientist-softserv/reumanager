@@ -14,6 +14,25 @@ class ApplicationForm < ApplicationRecord
     self.important_paths = self.set_important_paths
   end
 
+  def duplicate
+    new_form = self.dup
+    new_form.name = "#{new_form.name} Copy"
+    new_form.status = :draft
+    new_form.save
+    self.sections.each do |section|
+      new_section = section.dup
+      new_section.application_form = new_form
+      new_section.save
+      section.fields.each do |field|
+        new_field = field.dup
+        new_field.section = new_section
+        new_field.save
+      end
+    end
+    new_form.reload
+    new_form
+  end
+
   def set_important_paths
     important_sections.each_with_object({}) do |s, hash|
       hash[s.title_key] = s.important_fields.map(&:title_key)

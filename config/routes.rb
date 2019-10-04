@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get :show_schema
         get :make_active
+        get :duplicate
       end
       resources :sections, except: %i[index] do
         member do
@@ -35,6 +36,8 @@ Rails.application.routes.draw do
     resources :recommender_forms, except: %i[new create destroy] do
       member do
         get :show_schema
+        get :make_active
+        get :duplicate
       end
       resources :sections, except: %i[index] do
         member do

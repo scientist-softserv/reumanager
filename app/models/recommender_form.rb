@@ -12,6 +12,25 @@ class RecommenderForm < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  def duplicate
+    new_form = self.dup
+    new_form.name = "#{new_form.name} Copy"
+    new_form.status = :draft
+    new_form.save
+    self.sections.each do |section|
+      new_section = section.dup
+      new_section.recommender_form = new_form
+      new_section.save
+      section.fields.each do |field|
+        new_field = field.dup
+        new_field.section = new_section
+        new_field.save
+      end
+    end
+    new_form.reload
+    new_form
+  end
+
   def json_schema(section: 'recommender')
     JSON.generate(build_json_schema(section: section))
   end

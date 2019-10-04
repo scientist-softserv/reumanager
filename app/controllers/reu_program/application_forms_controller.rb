@@ -3,7 +3,7 @@ module ReuProgram
     before_action :load_form, except: %i[index]
 
     def index
-      @forms = ApplicationForm.all
+      @forms = ApplicationForm.order(status: :desc, created_at: :desc)
     end
 
     def show; end
@@ -25,6 +25,11 @@ module ReuProgram
         ApplicationForm.all.each(&:draft!)
         @form.active!
       end
+      redirect_to reu_program_application_forms_path
+    end
+
+    def duplicate
+      @form.duplicate
       redirect_to reu_program_application_forms_path
     end
 
