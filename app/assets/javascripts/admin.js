@@ -1,5 +1,5 @@
 //= require jquery
-//= require jquery-ujs
+//= require rails_ujs
 //= require nested_form_fields
 //= require popper
 //= require bootstrap
