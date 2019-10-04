@@ -1,17 +1,14 @@
 module ReuProgram
   class SettingsController < AdminController
-    before_action :authenticate_program_admin!, except: %i[index]
     before_action :load_setting, except: %i[index]
 
     def index
       @settings = Setting.order(:id)
     end
 
-    def new; end
-
-    def create; end
-
-    def edit; end
+    def edit
+      render layout: false
+    end
 
     def update
       if @setting.update(setting_params)

@@ -1,19 +1,20 @@
 module ReuProgram
   class SnippetsController < AdminController
-    before_action :authenticate_program_admin!, except: %i[index]
     before_action :load_snippet, except: %i[index]
 
     def index
       @snippets = Snippet.order(:id)
     end
 
-    def edit; end
+    def edit
+      render layout: false
+    end
 
     def update
       if @snippet.update(snippet_params)
-        redirect_to action: "index"
+        redirect_to reu_program_snippets_path
       else
-        redirect_to action: "edit"
+        redirect_to edit_reu_program_snippet_path(@snippet)
       end
     end
 

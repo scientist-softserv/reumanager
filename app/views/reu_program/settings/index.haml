@@ -1,23 +1,23 @@
-.row
-  .col-2
-  .col-6
-    %h2 Settings
-.row
-  .col-2
-  .col-8
-    %table.table
-      %thead
-        %tr
-          %th Name
-          %th Description
-          %th Value
-          %th Actions
-      %tbody
-        - @settings.each do |setting|
+.container
+  .row
+    .col
+      %h2 Settings
+  .row.mb-5
+    .col
+      %table.table
+        %thead
           %tr
-            %td= setting.name
-            %td= setting.description
-            %td= truncate(setting.value, length: 100)
-            %td.actions
-              = link_to 'Edit', edit_reu_program_setting_path(setting)
-    .col-2
+            %th Name
+            %th Description
+            %th Value
+            %th Actions
+        %tbody
+          - @settings.each do |setting|
+            %tr
+              %td= setting.name
+              %td= setting.description
+              %td= truncate(setting.value, length: 100)
+              %td.actions
+                %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="modal-btn" data-path="#{edit_reu_program_setting_path(setting)}") Edit
+
+= render 'shared/edit_modal'

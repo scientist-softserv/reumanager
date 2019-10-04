@@ -87,9 +87,9 @@ class GrantDefaultFactory
   def text_snippets
     text_snippets = [
       { name: 'General Description', description: 'This is the text used as a general description for your program. It is displayed on the front page under the main image.' },
-      { name: 'Program Highlights', description: '' },
-      { name: 'Eligibility Requirements', description: '' },
-      { name: 'Application Information', description: '' },
+      { name: 'Program Highlights', description: 'Content for the Program highlights section of the programs home page' },
+      { name: 'Eligibility Requirements', description: 'Content for the Eligibility Requirements section of the programs home page' },
+      { name: 'Application Information', description: 'Content for the Application Information section of the programs home page' },
       { name: 'Acknowledgment Of Funding Sources', description: 'Please provide text to be included on the site as acknowledgment of program funding. In addition (or instead) you may send an image of the funding agency logo.' }
     ]
     if grant.subdomain == 'test'
@@ -126,12 +126,12 @@ class GrantDefaultFactory
       { name: 'App Title', description: 'A snippet of text that describes your program (e.g. REU in Regenerative Medicine, Multi-Scale Bioengineering, and Systems Biology)' },
       { name: 'University', description: 'This is used anywhere your university name is referenced.' },
       { name: 'Department', description: 'This is used anywhere your department name is referenced.' },
-      { name: 'Department Postal Address', description: '' },
+      { name: 'Department Postal Address', description: "The postal address for the program's mail" },
       { name: 'Mail From', description: 'This will be used in the reply-to value for emails sent from the application.  This is also used in the footer as the email to contact for fields or comments about the website.' },
       { name: 'Funding Acknowlegement', description: 'Who is supporting this program?' },
-      { name: 'University Url', description: '| Main URL for the parent organization, usually a university (e.g. http://university.edu)' },
-      { name: 'Department Url', description: '| Main URL for the organization, usually a department' },
-      { name: 'Program Url', description: '| URL for the specific program' }
+      { name: 'University Url', description: 'Main URL for the parent organization, usually a university (e.g. http://university.edu)' },
+      { name: 'Department Url', description: 'Main URL for the organization, usually a department' },
+      { name: 'Program Url', description: 'URL for the specific program' }
     ]
   end
 end

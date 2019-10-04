@@ -1,26 +1,26 @@
-.row
-  .col-2
-  .col-8
-    %h2 Edit Snippet
-    = simple_form_for [:reu_program, @snippet], url: reu_program_snippet_path do |f|
-      .row
-        .col
-          %p
-            %strong Name:
-            = f.object.name
-      .row
-        .col
-          %p
-            %strong Description:
-            = f.object.description
-      .row
-        .col
-          %p
-          - case f.object
-          - when Snippets::ImageSnippet
-            = f.input :image
-          - else
-            = f.input :value
-      %hr
-      = f.submit 'Update Snippet', class: 'btn btn-primary'
-  .col-2
+= simple_form_for [:reu_program, @snippet], url: reu_program_snippet_path do |f|
+  .modal-header
+    %h5 Edit Snippet
+    %button.close(data-dismiss="modal")
+      %span== &times;
+  .modal-body
+    .row
+      .col
+        %p
+          %strong Name:
+          = f.object.name
+    .row
+      .col
+        %p
+          %strong Description:
+          = f.object.description
+    .row
+      .col
+        %p
+        - case f.object
+        - when Snippets::ImageSnippet
+          = f.input :image
+        - else
+          = f.input :value
+  .modal-footer.d-flex.justify-content-end
+    = f.submit 'Update Snippet', class: 'btn btn-primary'

@@ -1,0 +1,35 @@
+.modal#fieldFormModal
+  .modal-dialog
+    .modal-content
+
+- loading = capture do
+  .d-flex.justify-content-center.mt-3.mb-3
+    .spinner-border
+    %h3.d-inline-block Loading
+
+:javascript
+  (function() {
+    var $modal = $('#fieldFormModal')
+    var $modalContent = $modal.find('.modal-content')
+
+    $('[data-target="modal-btn"]').on('click', function(e) {
+      showLoadingModal()
+      var path = $(this).data('path')
+      $.ajax({
+        url: path,
+        success: function(res) {
+          $modalContent.html(res)
+          $modal.modal('handleUpdate')
+        }
+      })
+    })
+
+    $modal.on('hidden.bs.modal', function() {
+      $modalContent.empty()
+    })
+
+    function showLoadingModal() {
+      $modalContent.html("#{loading.tr("\n",'')}")
+      $modal.modal('show')
+    }
+  })()
