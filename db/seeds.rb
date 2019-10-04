@@ -8,8 +8,24 @@
 if Apartment::Tenant.current == 'public'
   puts 'seeding public schema'
   puts 'create test grant'
-  Grant.create(program_title: 'Test Program', subdomain: 'test')
-  Grant.create(program_title: 'Demo Program', subdomain: 'demo')
+  Grant.create(
+    program_title: 'Test Program',
+    subdomain: 'test',
+    admin_first_name: 'Admin',
+    admin_last_name: 'Test',
+    admin_email: 'admin@test.com',
+    admin_password: 'testing123',
+    admin_password_confirmation: 'testing123'
+  )
+  Grant.create(
+    program_title: 'Demo Program',
+    subdomain: 'demo',
+    admin_first_name: 'Admin',
+    admin_last_name: 'Test',
+    admin_email: 'admin@test.com',
+    admin_password: 'testing123',
+    admin_password_confirmation: 'testing123'
+  )
 
   # Super Admin
   puts 'create super admin'
@@ -26,15 +42,6 @@ end
 
 if Apartment::Tenant.current == 'test'
   puts 'seeding test schema'
-
-  User.create(
-    email: 'admin@test.com',
-    first_name: 'Test',
-    last_name: 'Admin',
-    password: 'testing123',
-    password_confirmation: 'testing123',
-    confirmed_at: Time.now
-  ).tap { |u| u.add_role(:admin) }
 
   User.create(
     email: 'User@test.com',

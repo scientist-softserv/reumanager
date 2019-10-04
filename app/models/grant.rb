@@ -6,7 +6,7 @@ class Grant < ActiveRecord::Base
   has_many :invoices
 
   validates :subdomain, exclusion: { in: %w[www admin], message: '%{value} is reserved' }
-  validates :subdomain, uniqueness: { scope: :subdomain }
+  validates :subdomain, uniqueness: true
   after_create :create_tenant
   after_destroy :destroy_tenant
   attr_accessor :admin_first_name, :admin_last_name, :admin_password, :admin_password_confirmation, :admin_email
@@ -15,15 +15,17 @@ class Grant < ActiveRecord::Base
     Apartment::Tenant.create(subdomain)
     ::GrantDefaultFactory.new(self).create!
     Apartment::Tenant.switch(subdomain) do
-      ::ProgramAdmin.create!(
+      ::User.create!(
         first_name: self.admin_first_name,
         last_name: self.admin_last_name,
         email: self.admin_email,
         password: self.admin_password,
         password_confirmation: self.admin_password_confirmation,
-        confirmed_at: Time.now,
-        super: true
-      )
+        confirmed_at: Time.now
+      ).tap do |user|
+        user.add_role(:admin)
+        user.add_role(:super_admin)
+      end
     end
   end
 

@@ -9,12 +9,12 @@ class Application < ApplicationRecord
   has_many :recommender_statuses, dependent: :destroy
 
   enum state: {
-    'Started' => 'started',
-    'Submitted' => 'submitted',
-    'Completed' => 'completed',
-    'Withdrawn' => 'withdrawn',
-    'Accepted' => 'accepted',
-    'Rejected' => 'rejected'
+    'started' => 'started',
+    'submitted' => 'submitted',
+    'completed' => 'completed',
+    'withdrawn' => 'withdrawn',
+    'accepted' => 'accepted',
+    'rejected' => 'rejected'
   }
 
   after_save :update_recommender_status
@@ -44,6 +44,10 @@ class Application < ApplicationRecord
         hash.merge!(value)
       end
     end
+  end
+
+  def full_name
+    "#{self.data.dig('profile', 'first_name')} #{self.data.dig('profile', 'last_name')}"
   end
 
   def field_value(*args)

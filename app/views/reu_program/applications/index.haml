@@ -1,30 +1,28 @@
-.row
-  .col-2
-  .col-2
-    %h2.float-left Applicants
-  .col-6
-    .btn-group.float-right
-      %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applications_path(format: 'csv')
-      %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf')
-  .col-2
-.row
-  .col-2
-  .col-8
-    %table.table
-      %thead
-        %tr
-          %th Name
-          %th Email
-          %th State
-          %th Actions
-      %tbody
-        - @applications.each do |application|
+.container
+  .row
+    .col
+      %h2.float-left Applicants
+    .col
+      .btn-group.float-right
+        %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applications_path(format: 'csv')
+        %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf')
+  .row
+    .col
+      %table.table
+        %thead
           %tr
-            %td= "#{application.field_value(*@first_name_path)} #{application.field_value(*@last_name_path)}"
-            %td= application.user.email
-            %td= application.state
-            %td.actions
-              = link_to 'Show', reu_program_application_path(application)
-              = link_to 'PDF', reu_program_application_path(application, format: 'pdf') |
-              = link_to 'CSV', reu_program_application_path(application, format: 'csv')
-    .col-2
+            %th Name
+            %th Email
+            %th State
+            %th Actions
+        %tbody
+          - @applications.each do |application|
+            %tr
+              %td= application.full_name
+              %td= application.user.email
+              %td= application.state
+              %td.actions
+                .btn-group
+                  = link_to 'Show', reu_program_application_path(application), class: 'btn btn-outline-secondary btn-sm'
+                  = link_to 'PDF', reu_program_application_path(application, format: 'pdf'), class: 'btn btn-outline-secondary btn-sm'
+                  = link_to 'CSV', reu_program_application_path(application, format: 'csv'), class: 'btn btn-outline-secondary btn-sm'
