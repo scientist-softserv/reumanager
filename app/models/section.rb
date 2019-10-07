@@ -23,10 +23,17 @@ class Section < ApplicationRecord
     end
   end
 
-  def required_fields
-    fields.each_with_object([]) do |field, array|
-      array << field.title_key if field.required
+  def dependant_fields
+    fields.each_with_object({}) do |field, hash|
+      hash.merge!(field.dependacies_config) if field.respond_to?(:dependacies_config)
     end
+  end
+
+  def required_fields
+    fields.map do |field|
+      next unless field.required
+      field.title_key
+    end.compact
   end
 
   def build_json_schema
@@ -35,6 +42,7 @@ class Section < ApplicationRecord
       type: :object,
       required: required_fields,
       properties: json_config,
+      dependencies: dependant_fields
     }.reject { |_k, v| v.blank? }
   end
 

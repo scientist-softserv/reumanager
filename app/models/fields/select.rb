@@ -10,6 +10,12 @@ module Fields
 
     validates :title, presence: true, on: :update
 
+    before_save do
+      self.dependant_config = self.dependant_config.select do |option, _value|
+        self.enum_array.include?(option)
+      end
+    end
+
     def options
       self.enum_array.join(', ')
     end
@@ -39,6 +45,18 @@ module Fields
           enum: enum_array,
           enumNames: enum_array
         }.reject { |_k, v| v.blank? }
+      }
+    end
+
+    def dependacies_config
+      {
+        title_key => {
+          oneOf: self.dependant_config.each_with_object([]) do |(key, value), array|
+            h = { properties: { title_key => { 'enum' => [key] } } }
+            h[:properties][value] = { type: :string } if value.present?
+            array << h
+          end
+        }
       }
     end
 

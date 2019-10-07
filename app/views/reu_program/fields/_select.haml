@@ -9,3 +9,68 @@
 .row
   .col
     = f.input :options, as: :text, hint: f.object.options_hint
+- show_dependants = !f.object.dependant_config.empty?
+.row
+  .col
+    .form-group.form-check
+      = check_box_tag 'use-dependent-fields', 1, show_dependants, class: 'form-check-input', id: 'useDependentFields'
+      %label(for="useDependentFields") Use Dependent Fields
+
+- style = show_dependants ? '' : 'display: none;'
+.dependant-fields(style="#{style}")
+  .row
+    .col
+      %strong Dependant Fields
+  - f.object.dependant_config.each_with_index do |(key, value), index|
+    .row.option-row(data-option="#{key}")
+      .col
+        .form-group
+          %label(for="dependant-#{index}") Option: #{key}
+          %input.form-control(id="dependant-#{index}" type="text" placeholder="Field name" value="#{value}")
+
+%template.dependant-template
+  .row.option-row
+    .col
+      .form-group
+        %label(for="")
+        %input.form-control(type="text" placeholder="Field name")
+
+:javascript
+  (function() {
+    var template = document.querySelector('template.dependant-template')
+    var $check = $('#useDependentFields')
+    var $fields = $('.dependant-fields')
+
+    $check.on('change', function() {
+      $('[name="field[options]"]').trigger('change')
+      $fields.toggle()
+    })
+
+    $('[name="field[options]"]').on('change', function() {
+      if (!$check.prop('checked')) { return }
+      var keys = $(this).val().split(',').map(function(str) { return str.trim() })
+
+      keys.forEach(function(key, index) {
+        if (!doesOptionExist(key)) {
+          var $clone = $(template.content.cloneNode(true))
+          $clone.find('.row').data('option', key)
+          $clone.find('label').attr('for', 'dependant-' + index).text('Option: ' + key)
+          $clone.find('input').attr('id', 'dependant-' + index).attr('name', 'field[dependant_config]['+ key +']')
+          $('.dependant-fields').append($clone)
+        }
+      })
+
+      $fields.find('.option-row').each(function() {
+        var $row = $(this)
+        var key = $row.data('option')
+        if (keys.indexOf(key) === -1) {
+          $row.remove()
+        }
+      })
+    })
+
+    function doesOptionExist(key) {
+      return $fields.find('[data-option="'+ key +'"]').length > 0
+    }
+  })()
+
