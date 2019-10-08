@@ -6,11 +6,11 @@ module ReuProgram
       @applications = Application.all
 
       @sum = Application.count
-      @count_started = Application.where(state: "Started").count
-      @count_completed = Application.where(state: "Completed").count
-      @count_accepted = Application.where(state: "Accepted").count
-      @count_rejected = Application.where(state: "Rejected").count
-      @count_withdrawn = Application.where(state: "Withdrawn").count
+      @count_started = Application.where(state: "started").count
+      @count_completed = Application.where(state: "completed").count
+      @count_accepted = Application.where(state: "accepted").count
+      @count_rejected = Application.where(state: "rejected").count
+      @count_withdrawn = Application.where(state: "withdrawn").count
 
       @settings = Setting.all
       @settings_start = Setting.where(name: "Application Start").first

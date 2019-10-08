@@ -22,24 +22,24 @@ module ReuProgram
       respond_to do |format|
         format.html
         format.pdf do
-          document = ApplicationPdf.new([@Application])
+          document = ApplicationPdf.new([@application])
           document.build
           send_data document.render, disposition: 'attachment; filename=Application_export.pdf', type: 'application/pdf'
         end
         format.csv do
-          document = ApplicationCsv.new([@Application])
+          document = ApplicationCsv.new([@application])
           send_data document.build, disposition: 'attachment;filename=Application_export.csv', type: 'text/csv'
         end
       end
     end
 
     def accept
-      @application.update(state: 'Accepted')
+      @application.update(state: 'accepted')
       redirect_to reu_program_applications_path
     end
 
     def reject
-      @application.update(state: 'Rejected')
+      @application.update(state: 'rejected')
       redirect_to reu_program_applications_path
     end
 
