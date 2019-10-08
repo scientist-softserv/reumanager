@@ -15,7 +15,7 @@ class ApplicationCsv
       csv << attributes
 
       applications.each do |application|
-        csv << [application.id, application.email].concat(application.data_flattened.values)
+        csv << [application.id, application.user.email].concat(application.data_flattened.values)
       end
     end
   end
