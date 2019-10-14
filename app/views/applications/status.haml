@@ -14,7 +14,7 @@
             %p
               %strong #{key}:
               = value
-          - status = @applicant.recommender_statuses.find_by_email(r['Email'])
+          - status = current_application.recommender_statuses.find_by_email(r['email'])
           - if status.submitted_at.present?
             .alert.alert-success.width-200
               %p Recommender subbmitted a recommendation.
