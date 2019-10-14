@@ -25,7 +25,7 @@
         - if user_signed_in? && current_application&.state == 'submitted'
           = link_to "Check Status", applicant_status_url, class: "btn btn-lg btn-success"
         - elsif user_signed_in?
-          = link_to "Finish Application", edit_user_registration_path, class: "btn btn-lg btn-success"
+          = link_to "Finish Application", application_path, class: "btn btn-lg btn-success"
         - else
           = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
 - else
