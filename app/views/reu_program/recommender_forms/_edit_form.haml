@@ -24,7 +24,7 @@
           %td.text-right
             .btn-group
               %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="show-fields" data-section="#{section.id}") Show Fields
-              = link_to 'Edit', edit_reu_program_application_form_section_path(@form, section), class: 'btn btn-outline-secondary btn-sm'
+              = link_to 'Edit', edit_reu_program_recommender_form_section_path(@form, section), class: 'btn btn-outline-secondary btn-sm'
         - display = params[:section_id].present? && params[:section_id].to_i == section.id
         %tr.field-row(style="#{display ? '' : 'display: none;' }" data-section="#{section.id}")
           %td(colspan="4")
