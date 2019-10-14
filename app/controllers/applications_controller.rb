@@ -48,8 +48,8 @@ class ApplicationsController < ApplicationController
   def resend
     # get the id of the recommender_status from params and fetch it from the database
     @recommender_status = RecommenderStatus.find(params[:id])
-    recommender = @applicant.recommender(@recommender_status.email)
-    Notification.recommendation_request(recommender, @recommender_status, @applicant).deliver # pass relevant arguments in here
+    @application= @recommender_status.application
+    Notification.recommendation_request(@recommender_status, @application).deliver # pass relevant arguments in here
     @recommender_status.last_sent_at = Time.current
     @recommender_status.save
     redirect_to status_path
