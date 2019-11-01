@@ -6,7 +6,8 @@ class Field < ApplicationRecord
     'Short Text' => 'Fields::ShortText',
     'Long Text' => 'Fields::LongText',
     'Checkbox' => 'Fields::Boolean',
-    'Select' => 'Fields::Select'
+    'Select' => 'Fields::Select',
+    'PDF File' => 'Fields::File'
   }.freeze
 
   class << self

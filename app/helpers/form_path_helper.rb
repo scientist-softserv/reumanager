@@ -34,7 +34,7 @@ module FormPathHelper
     case @form
     when ApplicationForm
       reu_program_application_form_section_field_path(@form, section, field)
-    when RecommederForm
+    when RecommenderForm
       reu_program_recommender_form_section_field_path(@form, section, field)
     end
   end

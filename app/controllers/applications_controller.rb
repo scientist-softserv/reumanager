@@ -34,7 +34,8 @@ class ApplicationsController < ApplicationController
   def update_recommendations
     @status.data = params.require(:data).permit!
     @status.submitted_at = Time.current
-    @status.save
+    @status.save!
+    Notification.recommendation_thanks(@status, @application).deliver
     render json: {}
   rescue ActionController::ParameterMissing
     render json: {}
@@ -48,7 +49,7 @@ class ApplicationsController < ApplicationController
   def resend
     # get the id of the recommender_status from params and fetch it from the database
     @recommender_status = RecommenderStatus.find(params[:id])
-    @application= @recommender_status.application
+    @application = @recommender_status.application
     Notification.recommendation_request(@recommender_status, @application).deliver # pass relevant arguments in here
     @recommender_status.last_sent_at = Time.current
     @recommender_status.save
@@ -70,7 +71,7 @@ class ApplicationsController < ApplicationController
     raise ActionController::RoutingError, 'Not Found' if params[:token].blank?
     @status = RecommenderStatus.find_by_token(params[:token])
     raise ActionController::RoutingError, 'Not Found' if @status.blank?
-    @applicant = @status.applicant
+    @application = @status.application
   end
 
   def load_form

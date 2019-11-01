@@ -32,7 +32,7 @@ class Application < ApplicationRecord
     Rails.logger.info current_emails
     Rails.logger.info missing_emails
     missing_emails.each do |email|
-      RecommenderStatus.create(email: email, application: self)
+      RecommenderStatus.create!(email: email, application: self)
     end
     statuses.each do |status|
       status.destroy unless emails.include?(status.email)
