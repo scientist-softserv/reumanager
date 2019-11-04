@@ -17,7 +17,7 @@
           - status = current_application.recommender_statuses.find_by_email(r['email'])
           - if status.submitted_at.present?
             .alert.alert-success.width-200
-              %p Recommender subbmitted a recommendation.
+              %p Recommender submitted a recommendation.
           - elsif status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
             .alert.alert-info.width-200
               %p Notification email sent to recommender at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}. You can only notify a recommender once every 24 hours.
