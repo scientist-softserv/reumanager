@@ -59,10 +59,6 @@ class ApplicantsDocument
     }
     pad_bottom(10){
       pad(5) {
-      text "<b>Personal Statement</b>", :size => 14, :inline_format => true
-      text "#{applicant.statement}"
-      }
-      pad(5) {
       text "<b>How did you hear about us?</b>", :size => 14, :inline_format => true
       text "#{applicant.found_us}"
       }
@@ -95,6 +91,14 @@ class ApplicantsDocument
     text "<b><u>Skills and Experience</b></u>", :size => 17, :inline_format => true
     pad_bottom(10) {
       pad(5) {
+      text "<b>Personal Statement</b>", :size => 14, :inline_format => true
+      text "#{applicant.interest.statement}"
+      }
+      pad(5) {
+      text "<b>Facing Challenges Experience</b>", :size => 14, :inline_format => true
+      text "#{applicant.interest.facing_challenges_experience}"
+      }
+      pad(5) {
       text "<b>Computer Skills</b>", :size => 14, :inline_format => true
       text "#{applicant.interest.cpu_skills}"
       }
@@ -105,10 +109,6 @@ class ApplicantsDocument
       pad(5) {
       text "<b>Leadership Experience:</b>", :size => 14, :inline_format => true
       text "#{applicant.interest.leadership_experience}"
-      }
-      pad(5) {
-      text "<b>Programming Experience</b>", :size => 14, :inline_format => true
-      text "#{applicant.interest.programming_experience}"
       }
     }
     end

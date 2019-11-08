@@ -16,3 +16,4 @@ capybara-*.html
 /vendor/bundle
 /config/database.yml
 .env.*
+node_modules

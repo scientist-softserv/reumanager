@@ -103,15 +103,6 @@
       </div>
     </div>
 
-
-    <div class="panel-heading">* Personal Statement</div>
-    <div class="panel-body">
-
-      <div class="form-group">
-        <%= f.text_area :statement, :class => 'form-control', :rows => 6, :placeholder => "Statement describing your research interests and personal goals for the internship"  %>
-      </div>
-    </div>
-
     <div class="panel-heading">How did you hear about us?</div>
     <div class="panel-body">
       <div class="form-group">
@@ -121,9 +112,8 @@
     </div>
 
     <div class="panel-heading">Program Dates</div>
-      <br>
-      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
     <div class="panel-body">
+      <p><b>Please Note:</b> We may be able to work with you if your final exams do not end before the program start date.  We are willing to proctor final exams, if your institution is willing to allow such an arrangement.  It would be up to you to arrange this with your institution.</p>
       <div class="checkbox">
         <%= f.check_box :acknowledged_dates %>
         <%= f.label :acknowledged_dates, "By checking this box I acknowledge the dates of the programs as, Program Start Date: #{format_date_string(Setting['program_start_date'])}, Program End Date: #{format_date_string(Setting['program_end_date'])}" %>
