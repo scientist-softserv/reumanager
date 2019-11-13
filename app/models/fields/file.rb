@@ -38,7 +38,7 @@ module Fields
       {
         title_key => {
           'ui:options': {
-            'accept': '.pdf'
+            'accept': '.pdf' # if more fomats are allowed update the download route's constrait
           }
         }
       }

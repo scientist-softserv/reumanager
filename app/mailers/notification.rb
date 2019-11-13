@@ -1,5 +1,5 @@
 class Notification < ActionMailer::Base
-  default from: Setting[:mail_from]
+  default from: Setting[:mail_from] || 'test@test.com'
   default content_type: 'text/plain'
 
   def recommendation_request(recommender_status, application)

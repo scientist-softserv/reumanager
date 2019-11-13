@@ -27,40 +27,44 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
-  if config.respond_to?(:action_mailer)
-    config.action_mailer.raise_delivery_errors = false
 
-    config.action_mailer.perform_caching = false
 
-    # Print deprecation notices to the Rails logger.
-    config.active_support.deprecation = :log
+  # Print deprecation notices to the Rails logger.
+  config.active_support.deprecation = :log
 
-    # Raise an error on page load if there are pending migrations.
-    config.active_record.migration_error = :page_load
+  # Raise an error on page load if there are pending migrations.
+  config.active_record.migration_error = :page_load
 
-    # Temporarily storing images locally.
-    config.active_storage.service = :local
+  # Temporarily storing images locally.
+  config.active_storage.service = :local
 
-    # Debug mode disables concatenation and preprocessing of assets.
-    # This option may cause significant delays in view rendering with a large
-    # number of complex assets.
-    config.assets.debug = true
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
+  config.assets.debug = true
 
-    # Suppress logger output for asset requests.
-    config.assets.quiet = true
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
-    Rails.application.routes.default_url_options = { host: 'localhost:3000' }
+  Rails.application.routes.default_url_options = { host: 'localhost:3000' }
 
-    config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
-    # config.action_mailer.smtp_settings = {
-    #   user_name: 'ucsd-95900766be562ebb',
-    #   password: '8965336a5247320e',
-    #   address: 'mailtrap.io',
-    #   port: '2525',
-    #   authentication: :plain
-    # }
-  end
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
+
+  # mailtrap config
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: '133465770985d17a2',
+    password: '3a16df65e72986',
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5
+  }
+
   config.time_zone = 'Pacific Time (US & Canada)'
 
   # Raises error for missing translations

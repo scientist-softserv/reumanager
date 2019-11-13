@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   get 'status' => 'applications#status'
   get '/recommenders/:id/resend' => 'applications#resend', as: 'recommenders_resend'
 
+  get 'download/:model_type/:model_id/:field' => 'download#download', constraints: { format: /pdf/ }, as: :download
+
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'
 

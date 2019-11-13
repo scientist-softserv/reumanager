@@ -76,6 +76,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    data_uri (0.1.0)
     database_cleaner (1.7.0)
     devise (4.7.0)
       bcrypt (~> 3.0)
@@ -307,6 +308,7 @@ DEPENDENCIES
   bootstrap
   capistrano
   coffee-rails
+  data_uri
   database_cleaner
   devise
   dotenv-rails

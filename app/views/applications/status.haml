@@ -7,13 +7,14 @@
     .alert.alert-warning.w-100
       %p Please fill out the information for your recommenders #{link_to 'here', recommenders_path}.
   - else
-    - info.each do |r|
+    - info.each_with_index do |r, index|
       .card.mb-2.mr-2
         .card-body
           - r.each do |key, value|
-            %p
+            - path = "recommenders_form--#{index}--#{key}"
+            %p(data-obj-path="#{path}")
               %strong #{key}:
-              = value
+              = format_value(value, 'recommender', current_application.id, path)
           - status = current_application.recommender_statuses.find_by_email(r['email'])
           - if status.submitted_at.present?
             .alert.alert-success.width-200
@@ -35,16 +36,18 @@
         %h5.card-title= key1.capitalize
         - case value1
         - when Array
-          - value1.each do |item|
+          - value1.each_with_index do |item, index|
             - item.each do |k, v|
-              %p
+              - path = "#{key1}--#{index}--#{k}"
+              %p(data-obj-path="#{path}")
                 %strong #{k}:
-                = v
+                = format_value(v, 'application', current_application.id, path)
             %hr
 
         - when Hash
           - value1.each do |k, v|
-            %p
+            - path = "#{key1}--#{k}"
+            %p(data-obj-path="#{path}")
               %strong #{k}:
-              = v
+              = format_value(v, 'application', current_application.id, path)
 = link_to 'Back', application_path, class: 'btn btn-outline-secondary'
