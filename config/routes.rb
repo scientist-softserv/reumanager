@@ -59,11 +59,11 @@ Rails.application.routes.draw do
   # recommender routes
   get 'recommenders' => 'recommender_forms#show_recommenders'
   match 'recommenders' => 'recommender_forms#update_recommenders', via: %i[put patch]
+  get '/recommenders/:id/resend' => 'recommender_forms#resend', as: 'recommenders_resend'
 
   # recommendation routes
   get 'recommendations' => 'recommendations#show_recommendations'
   match 'recommendations' => 'recommendations#update_recommendations', via: %i[put patch]
-  get '/recommenders/:id/resend' => 'recommendations#resend', as: 'recommenders_resend'
 
   # data url file download route
   get 'download/:model_type/:model_id/:field' => 'download#download', constraints: { format: /pdf/ }, as: :download

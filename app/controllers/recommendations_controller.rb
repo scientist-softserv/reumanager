@@ -1,5 +1,6 @@
 class RecommendationsController < ApplicationController
-  before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
+  before_action :redirect_withdrawn_users
+  before_action :load_status_from_token
 
   def show_recommendations
     @form = RecommenderForm.includes(sections: :fields).where(status: :active).first
@@ -20,16 +21,6 @@ class RecommendationsController < ApplicationController
         errors: @status.errors.full_messages
       }
     end
-  end
-
-  def resend
-    # get the id of the recommender_status from params and fetch it from the database
-    @recommender_status = RecommenderStatus.find(params[:id])
-    @application = @recommender_status.application
-    Notification.recommendation_request(@recommender_status, @application).deliver
-    @recommender_status.last_sent_at = Time.current
-    @recommender_status.save
-    redirect_to status_path
   end
 
   private

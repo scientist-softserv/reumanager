@@ -1,7 +1,7 @@
 class ApplicationsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show_recommendations update_recommendations]
-  before_action :setup_application, except: %i[show_recommendations update_recommendations]
-  before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
+  before_action :authenticate_user!
+  before_action :redirect_withdrawn_users
+  before_action :setup_application
 
   def show_application
     @form = ApplicationForm.includes(sections: :fields).where(status: :active).first
@@ -55,5 +55,11 @@ class ApplicationsController < ApplicationController
     end
     flash[:notice] = 'Your application has now been restarted.'
     redirect_back fallback_location: status_path
+  end
+
+  private
+
+  def redirect_withdrawn_users
+    redirect_to status_path if current_application.withdrawn?
   end
 end

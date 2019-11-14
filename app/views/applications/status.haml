@@ -7,22 +7,23 @@
       = link_to 'Withdraw', withdraw_path, class: 'btn btn-outline-warning' if current_application.can_withdraw?
       = link_to 'Restart', restart_path, class: 'btn btn-outline-success' if current_application.can_restart?
 
-.card.bg-light.mb-3
-  .card-header Current Status: #{current_application.state.titlecase}
+.card.text-white.mb-3(class="bg-#{status_class(current_application.state)}")
+  .card-header
+    %h5 Current Status: #{current_application.state.titlecase}
   .card-body
     - case current_application.state
     - when 'started'
-      %p Please complete all required fields and fill out #{current_application.current_recommender_form.recommenders_count} recommenders to be able to submit your application for consideration.
+      %p.m-0 Please complete all required fields and fill out #{current_application.current_recommender_form.recommenders_count} recommenders to be able to submit your application for consideration.
     - when 'submitted'
-      %p You have submitted your application. Your application will be completed when your recommenders have sent in their information.
+      %p.m-0 You have submitted your application. Your application will be completed when your recommenders have sent in their information.
     - when 'completed'
-      %p Your Application is complete. We will be reviewing your application.
+      %p.m-0 Your Application is complete. We will be reviewing your application.
     - when 'withdrawn'
-      %p You have withdrawn your application. If you want your applcation to be considered please restart your account and complete your application.
+      %p.m-0 You have withdrawn your application. If you want your applcation to be considered please restart your account and complete your application.
     - when 'accepted'
-      %p Congradulations you have been accepted. Please look for more communication from us about the details of the program.
+      %p.m-0 Congradulations you have been accepted. Please look for more communication from us about the details of the program.
     - when 'rejected'
-      %p We are sorry but you have not been accepted into the program.
+      %p.m-0 We are sorry but you have not been accepted into the program.
 
 
 %h3 Recommenders

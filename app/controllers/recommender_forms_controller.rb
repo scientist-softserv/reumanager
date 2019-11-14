@@ -1,5 +1,6 @@
 class RecommenderFormsController < ApplicationController
   before_action :authenticate_user!
+  before_action :redirect_withdrawn_users
   before_action :setup_application
 
   def show_recommenders
@@ -24,5 +25,25 @@ class RecommenderFormsController < ApplicationController
         errors: current_user.application.errors.full_messages
       }
     end
+  end
+
+  def resend
+    @recommender_status = RecommenderStatus.find(params[:id])
+    @application = @recommender_status.application
+    if @recommender_status.last_sent_at.present? && (@recommender_status.last_sent_at + 1.day) > Time.current
+      Notification.recommendation_request(@recommender_status, @application).deliver
+      @recommender_status.last_sent_at = Time.current
+      @recommender_status.save
+      flash[:notice] = 'Resent email to recommender'
+    else
+      flash[:alert] = 'Unable to resend email to this recommender at this time'
+    end
+    redirect_to status_path
+  end
+
+  private
+
+  def redirect_withdrawn_users
+    redirect_to status_path if current_application.withdrawn?
   end
 end

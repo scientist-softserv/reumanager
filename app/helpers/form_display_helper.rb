@@ -10,4 +10,21 @@ module FormDisplayHelper
   def format_key(key)
     key.tr('_', ' ').titlecase
   end
+
+  def status_class(application_state)
+    case application_state
+    when 'started'
+      'secondary'
+    when 'submitted'
+      'info'
+    when 'completed'
+      'success'
+    when 'withdrawn'
+      'warning'
+    when 'accepted'
+      'success'
+    when 'rejected'
+      'dark'
+    end
+  end
 end
