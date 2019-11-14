@@ -1,3 +1,5 @@
+- raise 'this should never show up'
+
 .row.mb-5
   .col-4
     %h5 Section Outline
@@ -55,7 +57,7 @@
           - if qf.object.is_a?(Fields::Select)
             = render partial: 'reu_program/fields/select', locals: { f: qf }
           %hr
-        = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
+        -# = f.input :add_field, collection: Field::TYPES, input_html: { data: { target: 'addField' } }
       %hr
       = f.submit 'Save Section', class: 'btn btn-primary'
 

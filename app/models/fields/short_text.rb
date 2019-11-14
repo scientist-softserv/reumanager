@@ -36,7 +36,7 @@ module Fields
           type: :string,
           title: title,
           description: description,
-          format: format,
+          format: format == 'test' ? nil : format,
           minLength: min_length
         }.reject { |_k, v| v.blank? }
       }

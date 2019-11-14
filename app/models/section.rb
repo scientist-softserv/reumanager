@@ -46,11 +46,19 @@ class Section < ApplicationRecord
     }.reject { |_k, v| v.blank? }
   end
 
+  def validations
+    fields.each_with_object({}) do |field, hash|
+      next unless field.required
+      hash[field.title_key] = { required: "#{field.title} is required" }
+    end
+  end
+
   def to_form
     {
       schema: build_json_schema,
       ui: build_ui_schema,
       isRepeating: repeating?,
+      validations: validations,
       count: count,
       title: title,
       singular: title.singularize,
