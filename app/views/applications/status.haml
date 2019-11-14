@@ -38,7 +38,7 @@
           - r.each do |key, value|
             - path = "recommenders_form--#{index}--#{key}"
             %p.mb-0(data-obj-path="#{path}")
-              %strong #{key}:
+              %strong #{format_key(key)}:
               = format_value(value, 'recommender', current_application.id, path)
           - status = current_application.recommender_statuses.find_by_email(r['email'])
           - if status.submitted_at.present?
@@ -72,7 +72,7 @@
             - item.each do |k, v|
               - path = "#{key1}--#{index}--#{k}"
               %p.mb-0(data-obj-path="#{path}")
-                %strong #{k}:
+                %strong #{format_key(k)}:
                 = format_value(v, 'application', current_application.id, path)
             %hr
 
@@ -80,5 +80,5 @@
           - value1.each do |k, v|
             - path = "#{key1}--#{k}"
             %p.mb-0(data-obj-path="#{path}")
-              %strong #{k}:
+              %strong #{format_key(k)}:
               = format_value(v, 'application', current_application.id, path)

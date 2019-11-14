@@ -6,4 +6,8 @@ module FormDisplayHelper
       value
     end
   end
+
+  def format_key(key)
+    key.tr('_', ' ').titlecase
+  end
 end
