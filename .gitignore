@@ -36,6 +36,7 @@ coverage
 # Public Uploads
 public/system/*
 public/packs/*
+public/packs/manifest.json
 public/themes/*
 storage/*
 
