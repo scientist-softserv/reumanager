@@ -4,10 +4,8 @@ class Snippet < ApplicationRecord
   validates_uniqueness_of :name
 
   class << self
-    attr_accessor :snippets_array
-
     def [](lookup)
-      snippets_array = self.all.to_a if snippets_array.nil?
+      snippets_array = self.all.to_a
       snippet = snippets_array.detect do |s|
         s.name == lookup || s.name.downcase.tr(' ', '_') == lookup.to_s.downcase.tr(' ', '_')
       end
@@ -19,16 +17,8 @@ class Snippet < ApplicationRecord
       end
     end
 
-    def load_from_yaml(grant = nil)
-      default_snippets = YAML.safe_load(File.open(Rails.root.join('config', 'snippets.yml')))
-      default_snippets.map do |s|
-        Snippet.find_or_create_by(name: s[1]['name']) do |snippet|
-          snippet.grant = grant
-          snippet.description = s[1]['description']
-          snippet.name = s[1]['name']
-          snippet.value = s[1]['value']
-        end
-      end
+    def all_setup?
+      self.all.all? { |s| s.value.present? || s.image.attached? }
     end
   end
 

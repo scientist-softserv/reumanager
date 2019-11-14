@@ -1,72 +1,77 @@
-.row.mb-4
-  .col-2
-  .col-8
-    - if current_grant.latest_invoice.present?
-      .d-flex
-        %h3.mr-5 Billing
-        = link_to 'Invoice Information', reu_program_invoice_path(current_grant.latest_invoice), class: 'btn btn-outline-secondary'
-    - elsif current_grant.charged_credit_card?
-      .d-flex
-        %h3.mr-5 Billing
-        %p Active Account
-    - else
-      .d-flex.alert.alert-warning.w-100
-        %h3.mr-5 Billing
-        .btn-group
-          = link_to "Request an Invoice", new_reu_program_invoice_path, class: 'btn btn-outline-secondary'
-          = link_to "Pay by Credit Card", new_reu_program_charge_path, class: 'btn btn-outline-secondary'
+.container
+  - if current_grant.latest_invoice.present?
+    .d-flex
+      %h3.mr-5 Billing
+      = link_to 'Invoice Information', reu_program_invoice_path(current_grant.latest_invoice), class: 'btn btn-outline-secondary'
+  - elsif current_grant.charged_credit_card?
+    .d-flex
+      %h3.mr-5 Billing
+      %p Active Account
+  - else
+    .d-flex.alert.alert-warning.w-100
+      %h3.mr-5 Billing
+      .btn-group
+        = link_to "Request an Invoice", new_reu_program_invoice_path, class: 'btn btn-outline-secondary'
+        = link_to "Pay by Credit Card", new_reu_program_charge_path, class: 'btn btn-outline-secondary'
 
-.row
-  .col-2
-  .col-2
-    %h2.float-left Applications
-.row
-  .col-2
-  .col-8
-    %table.table
-      %thead
-        %tr
-          %th Started
-          %th Completed
-          %th Accepted
-          %th Rejected
-          %th Withdrawn
-          %th Total
-      %tbody
-        %tr
-          %td= @count_started
-          %td= @count_completed
-          %td= @count_accepted
-          %td= @count_rejected
-          %td= @count_withdrawn
-          %td= @sum
-    .col-2
+  - unless Setting.all_setup?
+    .row
+      .col
+        .alert.alert-danger
+          All Settings are not yet configured.  Please a value to every setting.
+          = link_to 'Settings', reu_program_settings_path
 
-.row
-  .col-2
-  .col-2
-    %h2.float-left Details
-.row
-  .col-2
-  .col-8
-    %table.table
-      %thead
-        %tr
-          %th Application Start Date
-          %th Application Deadline
-          %th Notification Date
-          %th Program Start Date
-          %th Program End Date
-          %th University
-          %th Department
-      %tbody
-        %tr
-          %td= @settings_start.value
-          %td= @settings_deadline.value
-          %td= @settings_not_date .value
-          %td= @settings_prog_start.value
-          %td= @settings_prog_end.value
-          %td= @settings_university.value
-          %td= @settings_dept.value
-    .col-2
+  - unless Snippet.all_setup?
+    .row
+      .col
+        .alert.alert-danger
+          All Snippets are not yet configured.  Please a value to every Snippets.
+          = link_to 'Snippets', reu_program_snippets_path
 
+  .row
+    .col
+      %h2.float-left Details
+  .row
+    .col
+      %table.table
+        %thead
+          %tr
+            %th Application Start Date
+            %th Application Deadline
+            %th Notification Date
+            %th Program Start Date
+            %th Program End Date
+            %th University
+            %th Department
+        %tbody
+          %tr
+            %td= Setting['Application Start']
+            %td= Setting['Application Deadline']
+            %td= Setting['Notification Date']
+            %td= Setting['Program Start Date']
+            %td= Setting['Program End Date']
+            %td= Setting['University']
+            %td= Setting['Department']
+
+  .row
+    .col
+      %h2.float-left Applications
+  .row
+    .col
+      %table.table
+        %thead
+          %tr
+            %th Started
+            %th Completed
+            %th Accepted
+            %th Rejected
+            %th Withdrawn
+            %th Total
+        %tbody
+          %tr
+            %td= @count['started'] || 0
+            %td= @count['completed'] || 0
+            %td= @count['accepted'] || 0
+            %td= @count['rejected'] || 0
+            %td= @count['withdrawn'] || 0
+            %td= @sum
