@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_170337) do
+ActiveRecord::Schema.define(version: 2019_11_14_152044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,9 @@ ActiveRecord::Schema.define(version: 2019_10_04_170337) do
     t.datetime "submitted_at"
     t.datetime "completed_at"
     t.string "state"
+    t.boolean "application_valid", default: false, null: false
+    t.boolean "data_valid", default: false, null: false
+    t.boolean "recommender_info_valid", default: false, null: false
   end
 
   create_table "fields", force: :cascade do |t|
@@ -131,6 +134,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_170337) do
     t.string "token", default: -> { "md5((random())::text)" }, null: false
     t.jsonb "data", default: {}
     t.integer "application_id"
+    t.boolean "data_valid", default: false, null: false
   end
 
   create_table "roles", force: :cascade do |t|

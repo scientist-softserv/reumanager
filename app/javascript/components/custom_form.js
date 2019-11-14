@@ -17,17 +17,18 @@ function CustomForm({sections, formData, path, method}) {
       path: path,
       method: method,
       data: { data: state.formData },
-      success: () => {
-        setMsg({ msg: 'successfully saved information', type: 'success' })
-        setTimeout(() => {
-          setMsg({ msg: null, type: '' })
-        }, 5000)
+      success: (res) => {
+        if (res.success) {
+          setMsg({ msg: res.message, type: 'success' })
+        } else {
+          setMsg({ msg: `${res.message} -- ${res.errors.join(', ')}`, type: 'danger' })
+        }
+        setTimeout(() => setMsg({ msg: null, type: '' }), 5000)
       },
-      fail: () => {
-        setMsg({ msg: 'Failed to save information', type: 'danger' })
-        setTimeout(() => {
-          setMsg({ msg: null, type: '' })
-        }, 5000)
+      fail: (res) => {
+        var message = res.message ? res.message : 'There was an error saving your information'
+        setMsg({ msg: message, type: 'danger' })
+        setTimeout(() => setMsg({ msg: null, type: '' }), 5000)
       }
     })
   }

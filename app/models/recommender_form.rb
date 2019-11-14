@@ -60,4 +60,10 @@ class RecommenderForm < ApplicationRecord
     section = sections.detect { |s| Regexp.new(section).match?(s.title.downcase) }
     section.build_ui_schema
   end
+
+  def validations
+    sections.each_with_object({}) do |section, hash|
+      hash[section.title_key] = section.validations
+    end
+  end
 end

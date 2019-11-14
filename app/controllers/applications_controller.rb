@@ -4,31 +4,46 @@ class ApplicationsController < ApplicationController
   before_action :load_status_from_token, only: %i[show_recommendations update_recommendations]
 
   def show_application
-    @form = ApplicationForm.where(status: :active).first
+    @form = ApplicationForm.includes(sections: :fields).where(status: :active).first
   end
 
   def update_application
     current_user.application.data = params.require(:data).permit!
-    current_user.application.save
-    render json: {}
+    Rails.logger.info "\napplication is valid?  #{current_user.application.valid?}\n"
+    if current_user.application.valid? && current_user.application.save
+      render json: { success: true, message: 'Successfully saved the form' }
+    else
+      render json: {
+        success: false,
+        message: 'There are errors in the form',
+        errors: current_user.application.errors.full_messages
+      }
+    end
   rescue ActionController::ParameterMissing
     render json: {}
   end
 
   def show_recommenders
-    @form = RecommenderForm.where(status: :active).first
+    @form = RecommenderForm.includes(sections: :fields).where(status: :active).first
   end
 
   def update_recommenders
     current_user.application.recommender_info = params.require(:data).permit!
-    current_user.application.save
-    render json: {}
+    if current_user.application.save
+      render json: { success: true, message: 'Successfully saved the form' }
+    else
+      render json: {
+        success: false,
+        message: 'There are errors in the form',
+        errors: current_user.application.errors.full_messages
+      }
+    end
   rescue ActionController::ParameterMissing
     render json: {}
   end
 
   def show_recommendations
-    @form = RecommenderForm.where(status: :active).first
+    @form = RecommenderForm.includes(sections: :fields).where(status: :active).first
   end
 
   def update_recommendations

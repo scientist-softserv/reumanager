@@ -70,4 +70,10 @@ class ApplicationForm < ApplicationRecord
       hash.merge!(section.build_ui_schema)
     end
   end
+
+  def validations
+    sections.each_with_object({}) do |section, hash|
+      hash[section.title_key] = section.validations
+    end
+  end
 end

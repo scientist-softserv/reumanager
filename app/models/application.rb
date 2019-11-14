@@ -17,27 +17,65 @@ class Application < ApplicationRecord
     'rejected' => 'rejected'
   }
 
+  validate :run_data_validations
+  validate :run_recommender_info_validations
+
+  before_save { self.application_valid = true if data_valid && recommender_info_valid }
   after_save :update_recommender_status
 
   def update_recommender_status
     return unless self.recommender_info_previously_changed?
     return if self.recommender_info['recommenders_form'].blank?
-    Rails.logger.info 'update recommender status fired'
     emails = self.recommender_info['recommenders_form'].map { |r| r['email'] }.compact
     statuses = self.recommender_statuses.to_a
     current_emails = statuses.map(&:email)
     missing_emails = emails.difference(current_emails)
-    Rails.logger.info emails
-    Rails.logger.info statuses
-    Rails.logger.info current_emails
-    Rails.logger.info missing_emails
     missing_emails.each do |email|
       RecommenderStatus.create!(email: email, application: self)
     end
     statuses.each do |status|
       status.destroy unless emails.include?(status.email)
     end
-    Rails.logger.info "count of statuses: #{self.recommender_statuses.count}"
+  end
+
+  def run_data_validations
+    return unless self.data_changed?
+    validations = self.current_application_form.validations
+    data_is_valid = true
+    validations.each do |section_key, validation|
+      validation.each do |key, field_validations|
+        field_validations.each do |type, msg|
+          next unless type.to_s == 'required' && [nil, ''].include?(data.dig(section_key, key))
+          data_is_valid = false
+          errors.add(:base, msg)
+        end
+      end
+    end
+    self.data_valid = data_is_valid
+  end
+
+  def run_recommender_info_validations
+    return unless self.recommender_info_changed?
+    validations = current_recommender_form.validations['recommenders_form']
+    info_is_valid = true
+    form_data = recommender_info.fetch('recommenders_form', [])
+    info_is_valid = false if form_data.empty?
+    form_data.each do |form|
+      validations.each do |type, msg|
+        next unless type.to_s == 'required' && [nil, ''].include?(form[key])
+        info_is_valid = false
+        errors.add(:base, msg)
+      end
+    end
+    self.recommender_info_valid = info_is_valid
+  end
+
+  def current_application_form
+    @current_application_form ||= ApplicationForm.includes(sections: :fields).where(status: :active).first
+  end
+
+  def current_recommender_form
+    @current_recommender_form ||= RecommenderForm.includes(sections: :fields).where(status: :active).first
   end
 
   def data_flattened
