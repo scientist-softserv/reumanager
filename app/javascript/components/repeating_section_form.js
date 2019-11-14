@@ -3,7 +3,7 @@ import SectionForm from './section_form'
 
 function RepeatingSectionForm({ dispatch, section, data, ...props }) {
   var key = section.key
-  var formData = data || []
+  var formData = data === undefined || data === null ? [{}] : data
   var isFull = section.count === formData.length
 
   var handleAddForm = () => {
