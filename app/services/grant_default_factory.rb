@@ -59,7 +59,7 @@ class GrantDefaultFactory
       Fields::ShortText.create!(title: 'Last Name', format: 'text', order: 2, section: s1, important: true)
       Fields::ShortText.create!(title: 'Email', format: 'text', order: 3, section: s1, important: true)
       Fields::ShortText.create!(title: 'Organization', format: 'text', order: 4, section: s1)
-      s2 = Section.create!(title: 'Recommendation Form', repeating: true, recommender_form: rf)
+      s2 = Section.create!(title: 'Recommendation Form', repeating: false, recommender_form: rf)
       Fields::ShortText.create!(title: 'Known Applicant For', format: 'text', order: 1, section: s2)
       Fields::ShortText.create!(title: 'Applicants Promise', format: 'text', order: 2, section: s2)
       Fields::ShortText.create!(title: "Organization's Focus", format: 'text', order: 3, section: s2)

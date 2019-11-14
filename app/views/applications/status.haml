@@ -33,29 +33,62 @@
       %p Please fill out the information for your recommenders #{link_to 'here', recommenders_path}.
   - else
     - info.each_with_index do |r, index|
-      .card.mb-2.mr-2
+      :ruby
+        status = current_application.recommender_statuses.detect { |s| s.email == r['email'] }
+        classes = if status.submitted_at.present?
+                    'border-success'
+                  elsif status.last_sent_at.blank?
+                    'border-warning'
+                  else
+                    'border-dark'
+                  end
+      .card.mb-2.mr-2(class="#{classes}")
+        .card-header Recommender #{index + 1}
         .card-body
+          - if status.submitted_at.present?
+            .alert.alert-success.width-200.p-2
+              %p.m-0
+                Recommender submitted
+                %br
+                a recommendation.
+          - elsif status.last_sent_at.blank?
+            .alert.alert-warning.width-200.p-2
+              %p.m-0
+                Please complete the information
+                %br
+                for this recommender to enable
+                %br
+                them to complete your recommendation.
+          - elsif status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
+            .alert.alert-info.width-200.p-2
+              %p.m-0
+                Notification email sent to
+                %br
+                this person at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
+                %br
+                You can only notify this person
+                %br
+                once every 24 hours.
+          - elsif current_application.recommender_info_valid?
+            .alert.alert-info.width-200.p-2
+              %p.m-0
+                Notification email sent to recommender
+                %br
+                at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
+                %br
+                Please do not spam your recommender.
+                %br
+                Use this button to resend the email
+                %br
+                if your recommender cannot find it.
+            = link_to 'Resend Email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm btn-block'
+
           - r.each do |key, value|
             - path = "recommenders_form--#{index}--#{key}"
             %p.mb-0(data-obj-path="#{path}")
               %strong #{format_key(key)}:
               = format_value(value, 'recommender', current_application.id, path)
-          - status = current_application.recommender_statuses.find_by_email(r['email'])
-          - if status.submitted_at.present?
-            .alert.alert-success.width-200
-              %p Recommender submitted a recommendation.
-          - elsif status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
-            .alert.alert-info.width-200
-              %p
-                Notification email sent to recommender
-                %br
-                at #{status.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
-                %br
-                You can only notify a recommender
-                %br
-                once every 24 hours.
-          - else
-            = link_to 'Resend email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm'
+
 
 %h3 Application Information
 - if current_application.data&.empty?

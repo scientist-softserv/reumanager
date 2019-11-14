@@ -23,12 +23,12 @@ function CustomForm({sections, formData, path, method}) {
         } else {
           setMsg({ msg: `${res.message} -- ${res.errors.join(', ')}`, type: 'danger' })
         }
-        setTimeout(() => setMsg({ msg: null, type: '' }), 5000)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       },
       fail: (res) => {
         var message = res.message ? res.message : 'There was an error saving your information'
         setMsg({ msg: message, type: 'danger' })
-        setTimeout(() => setMsg({ msg: null, type: '' }), 5000)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     })
   }
@@ -37,10 +37,8 @@ function CustomForm({sections, formData, path, method}) {
   }
   var renderMessage = () => {
     if (msg.msg) {
-      var classes = 'alert alert-' + msg.type
       return (
-        <div className={classes}
-          style={{position: "fixed", top: '30px'}}>
+        <div className={'alert alert-' + msg.type} >
           {msg.msg}
         </div>
       )

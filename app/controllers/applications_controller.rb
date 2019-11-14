@@ -9,18 +9,16 @@ class ApplicationsController < ApplicationController
 
   def update_application
     current_user.application.data = params.require(:data).permit!
-    Rails.logger.info "\napplication is valid?  #{current_user.application.valid?}\n"
-    if current_user.application.valid? && current_user.application.save
+    if current_user.application.save
       render json: { success: true, message: 'Successfully saved the form' }
     else
+      current_user.application.save(validate: false)
       render json: {
         success: false,
         message: 'There are errors in the form',
         errors: current_user.application.errors.full_messages
       }
     end
-  rescue ActionController::ParameterMissing
-    render json: {}
   end
 
   def status

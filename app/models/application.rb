@@ -6,7 +6,11 @@ class Application < ApplicationRecord
     self.recommender_info = {} if self.recommender_info.blank?
   end
 
-  has_many :recommender_statuses, dependent: :destroy
+  has_many :recommender_statuses, dependent: :destroy do
+    def valid_count
+      self.map { |s| s.data_valid? ? 1 : 0 }.sum(0)
+    end
+  end
 
   enum state: {
     'started' => 'started',
@@ -28,10 +32,15 @@ class Application < ApplicationRecord
       self.started!
     end
   end
-  after_save :update_recommender_status
+
+  after_save do
+    if self.can_complete?
+      self.complete
+      self.save
+    end
+  end
 
   def update_recommender_status
-    return unless self.recommender_info_previously_changed?
     return if self.recommender_info['recommenders_form'].blank?
     emails = self.recommender_info['recommenders_form'].map { |r| r['email'] }.compact
     statuses = self.recommender_statuses.to_a
@@ -41,12 +50,12 @@ class Application < ApplicationRecord
       RecommenderStatus.create!(email: email, application: self)
     end
     statuses.each do |status|
-      status.destroy unless emails.include?(status.email)
+      status.destroy! unless emails.include?(status.email)
     end
   end
 
   def run_data_validations
-    return unless self.data_changed?
+    return unless self.changed.include?('data')
     validations = self.current_application_form.validations
     data_is_valid = true
     validations.each do |section_key, validation|
@@ -62,7 +71,7 @@ class Application < ApplicationRecord
   end
 
   def run_recommender_info_validations
-    return unless self.recommender_info_changed?
+    return unless self.changed.include?('recommender_info')
     validations = current_recommender_form.validations['recommenders_form']
     info_is_valid = true
     form_data = recommender_info.fetch('recommenders_form', [])
@@ -83,6 +92,18 @@ class Application < ApplicationRecord
 
   def current_recommender_form
     @current_recommender_form ||= RecommenderForm.includes(sections: :fields).where(status: :active).first
+  end
+
+  def complete
+    return unless can_complete?
+    self.completed!
+    self.completed_at = Time.current
+  end
+
+  def can_complete?
+    self.submitted? &&
+      self.application_valid? &&
+      self.recommender_statuses.valid_count >= count_of_recommenders
   end
 
   def submit
