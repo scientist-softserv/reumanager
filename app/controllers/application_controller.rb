@@ -86,4 +86,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def setup_application
+    current_user.application = Application.new if current_user.application.blank?
+    @application = current_user.application
+  end
 end

@@ -48,24 +48,32 @@ Rails.application.routes.draw do
     end
   end
 
+  # application routes
   get 'application' => 'applications#show_application'
   match 'application' => 'applications#update_application', via: %i[put patch]
-  get 'recommenders' => 'applications#show_recommenders'
-  match 'recommenders' => 'applications#update_recommenders', via: %i[put patch]
-  get 'recommendations' => 'applications#show_recommendations'
-  match 'recommendations' => 'applications#update_recommendations', via: %i[put patch]
   get 'status' => 'applications#status'
-  get '/recommenders/:id/resend' => 'applications#resend', as: 'recommenders_resend'
 
+  # recommender routes
+  get 'recommenders' => 'recommender_forms#show_recommenders'
+  match 'recommenders' => 'recommender_forms#update_recommenders', via: %i[put patch]
+
+  # recommendation routes
+  get 'recommendations' => 'recommendations#show_recommendations'
+  match 'recommendations' => 'recommendations#update_recommendations', via: %i[put patch]
+  get '/recommenders/:id/resend' => 'recommendations#resend', as: 'recommenders_resend'
+
+  # data url file download route
   get 'download/:model_type/:model_id/:field' => 'download#download', constraints: { format: /pdf/ }, as: :download
 
+  # welcome routes
   get 'closed' => 'welcome#closed'
   get 'thanks' => 'welcome#thanks'
+  root to: 'welcome#index'
 
+  # marketing routes
   get 'tours' => 'welcome#tours'
   get 'pricing' => 'welcome#pricing'
   get 'create_grant' => 'grants#new_program'
   get 'demo' => 'welcome#demo'
   get 'support' => 'welcome#support'
-  root to: 'welcome#index'
 end

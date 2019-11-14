@@ -14,6 +14,7 @@ function setupDefaultState() {
 
 document.addEventListener('DOMContentLoaded', () => {
   var mount = document.querySelector('#customForm')
+  if (!mount) { return }
   var initialState = setupDefaultState()
   ReactDOM.render((
     <CustomForm
