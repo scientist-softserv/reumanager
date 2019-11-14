@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   get 'application' => 'applications#show_application'
   match 'application' => 'applications#update_application', via: %i[put patch]
   get 'status' => 'applications#status'
+  get 'submit' => 'applications#sumbit'
+  get 'withdraw' => 'applications#withdraw'
+  get 'restart' => 'applications#restart'
 
   # recommender routes
   get 'recommenders' => 'recommender_forms#show_recommenders'

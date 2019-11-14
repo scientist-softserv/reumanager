@@ -20,7 +20,14 @@ class Application < ApplicationRecord
   validate :run_data_validations
   validate :run_recommender_info_validations
 
-  before_save { self.application_valid = true if data_valid && recommender_info_valid }
+  before_save do
+    self.application_valid = data_valid && recommender_info_valid
+    # revert status if user edits information where it is invalid
+    unless self.application_valid
+      self.submitted_at = nil
+      self.started!
+    end
+  end
   after_save :update_recommender_status
 
   def update_recommender_status
@@ -76,6 +83,38 @@ class Application < ApplicationRecord
 
   def current_recommender_form
     @current_recommender_form ||= RecommenderForm.includes(sections: :fields).where(status: :active).first
+  end
+
+  def submit
+    return unless can_submit?
+    self.submitted_at = Time.current
+    self.submitted!
+  end
+
+  def can_submit?
+    self.started? &&
+      self.application_valid? &&
+      current_recommender_form.recommenders_count <= count_of_recommenders
+  end
+
+  def withdraw
+    self.withdrawn!
+  end
+
+  def can_withdraw?
+    self.started? || self.submitted? || self.completed?
+  end
+
+  def restart
+    self.started!
+  end
+
+  def can_restart?
+    self.withdrawn?
+  end
+
+  def count_of_recommenders
+    recommender_info.fetch('recommenders_form', []).count
   end
 
   def data_flattened
