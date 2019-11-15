@@ -21,10 +21,6 @@ class Setting < ApplicationRecord
     end
   end
 
-  after_save do
-    self.class.settings_array = nil
-  end
-
   def display_name
     name.tr('_', ' ').titleize
   end
