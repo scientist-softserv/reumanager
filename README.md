@@ -27,6 +27,7 @@ make sure to login to `docker login registry.gitlab.com` use your gitlab credent
 once you have the containers up and running
 5. run `docker-compose exec web bash` this will give you a console in the container running rails
 6. run `rails db:create db:migrate db:seed` in the container
+7. run `./bin/webpack` in the console inside the container
 7. in a browser go to test.lvh.me:3000
 
 to get to the new admin go to http://test.lvh.me:3000/reu_program/dashboard.
