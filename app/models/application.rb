@@ -27,9 +27,9 @@ class Application < ApplicationRecord
   before_save do
     self.application_valid = data_valid && recommender_info_valid
     # revert status if user edits information where it is invalid
-    unless self.application_valid
+    unless self.application_valid? && self.started? && self.withdrawn? && self.accepted? && self.rejected?
       self.submitted_at = nil
-      self.started!
+      self.state = 'started'
     end
   end
 
