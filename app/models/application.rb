@@ -56,6 +56,7 @@ class Application < ApplicationRecord
 
   def run_data_validations
     return unless self.changed.include?('data')
+    return unless self.current_application_form
     validations = self.current_application_form.validations
     data_is_valid = true
     validations.each do |section_key, validation|
@@ -77,6 +78,7 @@ class Application < ApplicationRecord
 
   def run_recommender_info_validations
     return unless self.changed.include?('recommender_info')
+    return unless self.current_recommender_form
     validations = current_recommender_form.validations['recommenders_form']
     info_is_valid = true
     form_data = recommender_info.fetch('recommenders_form', [])

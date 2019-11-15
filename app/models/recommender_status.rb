@@ -12,6 +12,7 @@ class RecommenderStatus < ApplicationRecord
 
   def run_data_validations
     return unless self.changed.include?('data')
+    return unless current_recommender_form
     validations = current_recommender_form.validations['recommendation_form']
     data_is_valid = true
     form_data = data
