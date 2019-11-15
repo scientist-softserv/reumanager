@@ -48,8 +48,18 @@ class Section < ApplicationRecord
 
   def validations
     fields.each_with_object({}) do |field, hash|
-      next unless field.required
-      hash[field.title_key] = { required: "#{field.title} is required" }
+      hash[field.title_key] = {}
+      if field.required
+        hash[field.title_key].merge!(required: { message: "#{field.title} is required" })
+      end
+      if field.respond_to?(:max_length) && field.max_length.present?
+        hash[field.title_key].merge!(
+          max_length: {
+            max: field.max_length.to_i,
+            message: "#{field.title} is must contain less than #{field.max_length} characters"
+          }
+        )
+      end
     end
   end
 

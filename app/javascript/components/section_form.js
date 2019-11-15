@@ -56,10 +56,16 @@ function FormValidation({data, validations}) {
   var validationMsgs = []
 
   Object.keys(validations).forEach((key, index) => {
-    let value = data[key]
+    if (!data) { return }
+    var value = data[key]
     if (validations[key].required) {
       if (value === '' || value === undefined) {
-        validationMsgs.push(<p key={key + index}>{validations[key].required}</p>)
+        validationMsgs.push(<p key={key + index}>{validations[key].required.message}</p>)
+      }
+    }
+    if (validations[key].max_length) {
+      if (typeof value === 'string' && value.length > validations[key].max_length.max) {
+        validationMsgs.push(<p key={key + index}>{validations[key].max_length.message}</p>)
       }
     }
   })

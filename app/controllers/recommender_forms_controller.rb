@@ -44,6 +44,6 @@ class RecommenderFormsController < ApplicationController
   private
 
   def redirect_withdrawn_users
-    redirect_to status_path if current_application.withdrawn?
+    redirect_to status_path if current_application&.withdrawn?
   end
 end

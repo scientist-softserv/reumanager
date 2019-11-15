@@ -30,7 +30,6 @@ class Field < ApplicationRecord
     def property(property_name, opts = {})
       @current_config[property_name] = opts
     end
-
   end
 
   def title_key

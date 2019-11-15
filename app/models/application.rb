@@ -60,10 +60,15 @@ class Application < ApplicationRecord
     data_is_valid = true
     validations.each do |section_key, validation|
       validation.each do |key, field_validations|
-        field_validations.each do |type, msg|
-          next unless type.to_s == 'required' && [nil, ''].include?(data.dig(section_key, key))
-          data_is_valid = false
-          errors.add(:base, msg)
+        field_validations.each do |type, details|
+          if type.to_s == 'required' && [nil, ''].include?(data.dig(section_key, key))
+            data_is_valid = false
+            errors.add(:base, details.messages)
+          end
+          if type.to_s == 'max_length' && data.dig(section_key, key).size > details.max
+            data_is_valid = false
+            errors.add(:base, details.messages)
+          end
         end
       end
     end
@@ -77,10 +82,15 @@ class Application < ApplicationRecord
     form_data = recommender_info.fetch('recommenders_form', [])
     info_is_valid = false if form_data.empty?
     form_data.each do |form|
-      validations.each do |type, msg|
-        next unless type.to_s == 'required' && [nil, ''].include?(form[key])
-        info_is_valid = false
-        errors.add(:base, msg)
+      validations.each do |type, details|
+        if type.to_s == 'required' && [nil, ''].include?(form[key])
+          info_is_valid = false
+          errors.add(:base, details.messages)
+        end
+        if type.to_s == 'max_length' && form[key].size > details.max
+          info_is_valid = false
+          errors.add(:base, details.messages)
+        end
       end
     end
     self.recommender_info_valid = info_is_valid

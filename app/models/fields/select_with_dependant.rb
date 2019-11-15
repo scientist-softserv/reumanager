@@ -3,7 +3,7 @@ module Fields
     define_properties do
       property :title, type: :string, hint: 'Question text'
       property :description, type: :string, hint: 'Hint to user about what the field is asking for. optional'
-      property :required, type: :boolean, default: false, hint: 'Field will be required'
+      property :required, type: :boolean, default: true, hint: 'Field will be required'
       # property :type, type: :string, default: 'string', in_form: false
       property :enum_array, type: :string, array: true, default: [], hint: 'A comma separated list of options ex: option 1, option 2, other option'
       property :dependant_fields, type: :hash

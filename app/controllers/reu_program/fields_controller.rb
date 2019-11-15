@@ -12,7 +12,7 @@ module ReuProgram
       return redirect if Field::TYPES.values.exclude?(field_type)
       order = (@section.fields.to_a.map(&:order).max || 0) + 1
       klass = field_type.constantize
-      @field = klass.create(order: order, section: @section)
+      @field = klass.create(order: order, section: @section, required: true)
       render json: { success: true, path: edit_form_path(with_field: true) }
     end
 
