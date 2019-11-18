@@ -6,7 +6,10 @@
         .col
           %h2 Edit Section for #{@form.name} Form
         .col
-          = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
+          - if @section.important =~ /recommender|recommendation/
+            = link_to 'Back to Form', edit_reu_program_recommender_form_path(@form), class: 'btn btn-secondary float-right'
+          - else
+            = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
       %hr
       = render partial: 'form'
     .col-1

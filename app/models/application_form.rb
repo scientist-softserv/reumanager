@@ -1,5 +1,5 @@
 class ApplicationForm < ApplicationRecord
-  has_many :sections, dependent: :destroy
+  has_many :sections, -> { order(:order, :created_at) }, dependent: :destroy
 
   enum status: {
     draft: 0,

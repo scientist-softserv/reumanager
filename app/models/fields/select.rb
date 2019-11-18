@@ -11,9 +11,18 @@ module Fields
     validates :title, presence: true, on: :update
 
     before_save do
+      self.dependant_config = {} unless self.use_dependant_fields?
       self.dependant_config = self.dependant_config.select do |option, _value|
         self.enum_array.include?(option)
       end
+    end
+
+    def use_dependent_fields=(new_value)
+      @use_dependant_fields = ActiveModel::Type::Boolean.new.cast(new_value)
+    end
+
+    def use_dependant_fields?
+      @use_dependant_fields
     end
 
     def options

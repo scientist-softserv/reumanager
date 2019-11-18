@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_csrf_cookie
-    cookies["X-CSRF-Token"] = form_authenticity_token
+    cookies['X-CSRF-Token'] = form_authenticity_token
   end
 
   def expired?
@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   def tenant_not_found
@@ -87,7 +87,13 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_application
-    current_user.application = Application.new if current_user.application.blank?
+    not_found if current_user.blank?
+    if current_user.application.blank?
+      app = Application.new
+      app.save(validate: false) # this really needs to exist
+      current_user.application = app
+      current_user.save
+    end
     @application = current_user.application
   end
 end

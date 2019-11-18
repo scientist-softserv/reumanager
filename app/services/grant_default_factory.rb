@@ -37,8 +37,8 @@ class GrantDefaultFactory
     ApplicationForm.transaction do
       af = ApplicationForm.create!(name: 'Application Default', status: :draft)
       s1 = Section.create!(title: 'Profile', important: 'profile', application_form: af)
-      Fields::ShortText.create!(title: 'First Name', important: 'first_name', format: 'text', order: 1, section: s1)
-      Fields::ShortText.create!(title: 'Last Name', important: 'last_name', format: 'text', order: 2, section: s1)
+      Fields::ShortText.create!(title: 'First Name', important: 'profile_first_name', format: 'text', order: 1, section: s1)
+      Fields::ShortText.create!(title: 'Last Name', important: 'profile_last_name', format: 'text', order: 2, section: s1)
       Fields::ShortText.create!(title: 'Phone', format: 'text', order: 3, section: s1)
       Fields::ShortText.create!(title: 'Date of Birth', format: 'date', order: 4, section: s1)
       s2 = Section.create!(title: 'Addresses', repeating: true, application_form: af)
@@ -54,12 +54,12 @@ class GrantDefaultFactory
   def create_default_recommenders_form
     RecommenderForm.transaction do
       rf = RecommenderForm.create!(name: 'Default', status: :active)
-      s1 = Section.create!(title: 'Recommenders Form', repeating: true, recommender_form: rf)
-      Fields::ShortText.create!(title: 'First Name', format: 'text', order: 1, section: s1, important: true)
-      Fields::ShortText.create!(title: 'Last Name', format: 'text', order: 2, section: s1, important: true)
-      Fields::ShortText.create!(title: 'Email', format: 'text', order: 3, section: s1, important: true)
+      s1 = Section.create!(title: 'Recommenders Form', repeating: true, recommender_form: rf, important: 'recommender')
+      Fields::ShortText.create!(title: 'First Name', format: 'text', order: 1, section: s1, important: 'recommender_first_name')
+      Fields::ShortText.create!(title: 'Last Name', format: 'text', order: 2, section: s1, important: 'recommender_last_name')
+      Fields::ShortText.create!(title: 'Email', format: 'text', order: 3, section: s1, important: 'recommeder_email')
       Fields::ShortText.create!(title: 'Organization', format: 'text', order: 4, section: s1)
-      s2 = Section.create!(title: 'Recommendation Form', repeating: false, recommender_form: rf)
+      s2 = Section.create!(title: 'Recommendation Form', repeating: false, recommender_form: rf, important: 'recommendation')
       Fields::ShortText.create!(title: 'Known Applicant For', format: 'text', order: 1, section: s2)
       Fields::ShortText.create!(title: 'Applicants Promise', format: 'text', order: 2, section: s2)
       Fields::ShortText.create!(title: "Organization's Focus", format: 'text', order: 3, section: s2)

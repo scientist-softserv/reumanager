@@ -1,7 +1,15 @@
-.row
-  .col-1
-  .col-10.edit-application-form-container
-    %h2 New Section for #{@form.name} Form
-    %hr
-    = render partial: 'form'
-  .col-1
+.container
+  .row
+    .col-1
+    .col-10.edit-application-form-container
+      .row
+        .col
+          %h2 New Section for #{@form.name} Form
+        .col
+          - if @section.important =~ /recommender|recommendation/
+            = link_to 'Back to Form', edit_reu_program_recommender_form_path(@form), class: 'btn btn-secondary float-right'
+          - else
+            = link_to 'Back to Form', edit_reu_program_application_form_path(@form), class: 'btn btn-secondary float-right'
+      %hr
+      = render partial: 'form'
+    .col-1

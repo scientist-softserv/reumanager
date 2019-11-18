@@ -13,7 +13,8 @@
 .row
   .col
     .form-group.form-check
-      = check_box_tag 'use-dependent-fields', 1, show_dependants, class: 'form-check-input', id: 'useDependentFields'
+      = hidden_field_tag 'field[use_dependent_fields]', 0
+      = check_box_tag 'field[use_dependent_fields]', 1, show_dependants, class: 'form-check-input', id: 'useDependentFields'
       %label(for="useDependentFields") Use Dependent Fields
 
 - style = show_dependants ? '' : 'display: none;'

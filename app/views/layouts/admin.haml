@@ -18,4 +18,15 @@
         = link_to 'Snippets', reu_program_snippets_path, class: 'p-2 text-dark'
         = link_to 'Admins', reu_program_program_admins_path, class: 'p-2 text-dark'
       = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
+    .container
+      .row.mt-3.mb-2#flash
+        .col
+          - if flash[:notice]
+            .alert.alert-info#notice= flash[:notice]
+          - if flash[:success]
+            .alert.alert-success#success= flash[:success]
+          - if flash[:alert]
+            .alert.alert-warning#alert= flash[:alert]
+          - if flash[:error]
+            .alert.alert-warning#error= flash[:error]
     = yield

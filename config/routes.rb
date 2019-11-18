@@ -25,10 +25,11 @@ Rails.application.routes.draw do
         get :show_schema
         get :make_active
         get :duplicate
+        get :reorder_sections
       end
       resources :sections, except: %i[index] do
         member do
-          patch :update_attributes
+          get :reorder_fields
         end
         resources :fields, except: %i[index]
       end
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
       end
       resources :sections, except: %i[index] do
         member do
-          patch :update_attributes
+          get :reorder_fields
         end
         resources :fields, except: %i[index]
       end

@@ -44,7 +44,7 @@ class RecommenderForm < ApplicationRecord
   end
 
   def build_json_schema(section: 'recommender')
-    section = sections.detect { |s| Regexp.new(section).match?(s.title.downcase) }
+    section = sections.detect { |s| Regexp.new(section).match?(s.important.downcase) }
     { sections: [section.to_form] }
   end
 
@@ -57,7 +57,7 @@ class RecommenderForm < ApplicationRecord
   end
 
   def build_ui_schema(section: 'recommender')
-    section = sections.detect { |s| Regexp.new(section).match?(s.title.downcase) }
+    section = sections.detect { |s| Regexp.new(section).match?(s.important.downcase) }
     section.build_ui_schema
   end
 

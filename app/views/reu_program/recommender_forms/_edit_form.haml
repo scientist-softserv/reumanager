@@ -19,11 +19,13 @@
         %th.text-right Actions
     %tbody
       - @form.sections.each do |section|
+        - id = "reorderFields#{section.id}"
         %tr
           %td= section.title
           %td.text-right
             .btn-group
               %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="show-fields" data-section="#{section.id}") Show Fields
+              %button.btn.btn-outline-secondary.btn-sm(type="button" data-toggle="modal" data-target="##{id}") Reorder Fields
               = link_to 'Edit', edit_reu_program_recommender_form_section_path(@form, section), class: 'btn btn-outline-secondary btn-sm'
         - display = params[:section_id].present? && params[:section_id].to_i == section.id
         %tr.field-row(style="#{display ? '' : 'display: none;' }" data-section="#{section.id}")
@@ -67,6 +69,40 @@
               %button.btn.btn-primary{ attrs } Add Field
 
 .mt-5.mb-5
+
+- @form.sections.each do |section|
+  - id = "reorderFields#{section.id}"
+  - list_id = "reorder-fields-list-#{section.id}"
+  .modal(id="#{id}")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h5.modal-title Reorder fields
+          %button.close(type="button" data-dismiss="modal")
+            %span== &times;
+        .modal-body
+          %ul.list-group(id="#{list_id}")
+            - section.fields.each do |field|
+              %li.list-group-item(data-id="#{field.id}")
+                = icon('fas', 'grip-lines', style: 'cursor: grab;')
+                = field.title
+        .modal-footer
+          %button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+          = link_to 'Change Order', '', class: 'btn btn-primary', data: { target: 'reorder-field-btn' }
+
+    :javascript
+      ;(function() {
+        var ids = []
+        var path = '#{reorder_fields_reu_program_recommender_form_section_path(@form, section)}'
+        var sortable = new Sortable(document.getElementById('#{list_id}'), {
+          group: '#{id}',
+          onEnd: function(e) {
+            ids = $('##{id} li').map(function() { return this.dataset.id }).toArray()
+            console.log('#{id}', '#{list_id}', ids)
+            $('##{id} [data-target="reorder-field-btn"]').attr('href', path + '?reorder_fields=' + ids.join('--'))
+          }
+        })
+      })()
 
 .modal#fieldFormModal
   .modal-dialog

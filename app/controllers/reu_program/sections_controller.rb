@@ -12,7 +12,7 @@ module ReuProgram
     def create
       @section = @form.sections.build(section_params)
       if @section.save
-        redirect_to edit_reu_program_application_form_section_path(@form, @section)
+        redirect_to_section
       else
         render :new
       end
@@ -22,25 +22,28 @@ module ReuProgram
 
     def update
       if @section.update(section_params)
-        redirect_to edit_reu_program_application_form_section_path(@form, @section)
+        redirect_to_section
       else
         render :edit
       end
     end
 
-    def update_attributes
-      @section.assign_attributes(add_field_params)
-      @section.handle_add_field
-      @section.reload
-      @section.assign_attributes(section_params)
-      @section.errors.clear
-      @section.fields.each { |q| q.errors.clear }
-      @section.fields.each do |field|
-        field.update_column(:order, field.order)
+    def reorder_fields
+      if params[:reorder_fields].present? || !@section.fields.exists?
+        ids = params[:reorder_fields].split('--').map(&:to_i)
+        if ids.count == @section.fields.count
+          @section.fields.each { |f| f.update(order: (ids.index(f.id) + 1)) }
+          flash[:notice] = 'Section order updated'
+        else
+          flash[:alert] = 'Could not reorder sections, please contact an admin'
+        end
+      else
+        flash[:alert] = 'Could not reorder sections, there are no sections to reorder, please contact an admin'
       end
-      render partial: 'form', layout: false
+      redirect_to_form
     end
 
+    # only sections on application forms can be destroyed
     def destroy
       if @section.destroy
         redirect_to edit_reu_program_application_form_path(@form)
@@ -50,6 +53,22 @@ module ReuProgram
     end
 
     private
+
+    def redirect_to_form
+      if params[:application_form_id].present?
+        redirect_to edit_reu_program_application_form_path(@form)
+      elsif params[:recommender_form_id].present?
+        redirect_to edit_reu_program_recommender_form_path(@form)
+      end
+    end
+
+    def redirect_to_section
+      if params[:application_form_id].present?
+        redirect_to edit_reu_program_application_form_section_path(@form, @section)
+      elsif params[:recommender_form_id].present?
+        redirect_to edit_reu_program_recommender_form_section_path(@form, @section)
+      end
+    end
 
     def load_form
       @form = ApplicationForm.find_by_id(params[:application_form_id])

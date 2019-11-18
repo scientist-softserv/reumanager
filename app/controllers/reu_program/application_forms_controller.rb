@@ -20,6 +20,23 @@ module ReuProgram
       end
     end
 
+    def reorder_sections
+      if params[:reorder_sections].present? || !@form.sections.exists?
+        ids = params[:reorder_sections].split('--').map(&:to_i)
+        if ids.count == @form.sections.count
+          @form.sections.each do |section|
+            section.update(order: (ids.index(section.id) + 1))
+          end
+          flash[:notice] = 'Section order updated'
+        else
+          flash[:alert] = 'Could not reorder sections, please contact an admin'
+        end
+      else
+        flash[:alert] = 'Could not reorder sections, there are no sections to reorder, please contact an admin'
+      end
+      redirect_to edit_reu_program_application_form_path(@form)
+    end
+
     def make_active
       ApplicationForm.transaction do
         ApplicationForm.all.each(&:draft!)

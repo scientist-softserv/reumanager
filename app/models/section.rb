@@ -1,7 +1,7 @@
 class Section < ApplicationRecord
   belongs_to :application_form, optional: true
   belongs_to :recommender_form, optional: true
-  has_many :fields, -> { order(:order) }, dependent: :destroy, autosave: true
+  has_many :fields, -> { order(:order, :created_at) }, dependent: :destroy, autosave: true
 
   validates :title, uniqueness: { scope: :application_form_id }, if: :application_form_id?
   validates :title, uniqueness: { scope: :recommender_form_id }, if: :recommender_form_id?

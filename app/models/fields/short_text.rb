@@ -13,7 +13,7 @@ module Fields
     validates :format, inclusion: { in: %w[text email url date date-time] }
 
     before_validation do
-      self.format = 'text'
+      self.format ||= 'text'
     end
 
     def default_name

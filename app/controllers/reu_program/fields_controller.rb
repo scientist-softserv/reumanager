@@ -68,6 +68,5 @@ module ReuProgram
     def load_field
       @field = @section.fields.find(params[:id])
     end
-
   end
 end
