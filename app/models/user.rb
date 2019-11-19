@@ -9,6 +9,10 @@ class User < ApplicationRecord
 
   belongs_to :application, dependent: :destroy, optional: true
 
+  before_create do
+    self.subdomain = Apartment::Tenant.current
+  end
+
   after_save do
     self.add_role(:super_admin) if [1, '1', true].include?(self.super_admin)
   end

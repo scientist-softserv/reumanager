@@ -58,44 +58,50 @@ class Application < ApplicationRecord
     return unless self.changed.include?('data')
     return unless self.current_application_form
     validations = self.current_application_form.validations
-    data_is_valid = true
     validations.each do |section_key, validation|
       validation.each do |key, field_validations|
         field_validations.each do |type, details|
-          if type.to_s == 'required' && [nil, ''].include?(data.dig(section_key, key))
-            data_is_valid = false
-            errors.add(:base, details.messages)
-          end
-          if type.to_s == 'max_length' && data.dig(section_key, key).size > details.max
-            data_is_valid = false
-            errors.add(:base, details.messages)
+          if data[section_key].is_a?(Array)
+            data[section_key].each_with_index do |section_data, index|
+              self.add_errors(type, details, section_data[key], "#{section_key} #{index + 1}:")
+            end
+          else
+            self.add_errors(type, details, data.dig(section_key, key))
           end
         end
       end
     end
-    self.data_valid = data_is_valid
+    self.data_valid = !self.errors.empty?
   end
 
   def run_recommender_info_validations
     return unless self.changed.include?('recommender_info')
     return unless self.current_recommender_form
     validations = current_recommender_form.validations['recommenders_form']
-    info_is_valid = true
+    self.recommender_info_valid = true
     form_data = recommender_info.fetch('recommenders_form', [])
-    info_is_valid = false if form_data.empty?
+    if form_data.empty?
+      self.recommender_info_valid = false
+      return
+    end
     form_data.each do |form|
-      validations.each do |type, details|
-        if type.to_s == 'required' && [nil, ''].include?(form[key])
-          info_is_valid = false
-          errors.add(:base, details.messages)
-        end
-        if type.to_s == 'max_length' && form[key].size > details.max
-          info_is_valid = false
-          errors.add(:base, details.messages)
+      validations.each do |key, validation|
+        validation.each do |type, details|
+          self.add_errors(type, details, form[key])
         end
       end
     end
-    self.recommender_info_valid = info_is_valid
+    self.recommender_info_valid = !self.errors.empty?
+  end
+
+  def add_errors(type, details, value, append_msg = '')
+    message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
+    if type.to_s == 'required' && [nil, ''].include?(value)
+      errors.add(:base, message)
+    end
+    if type.to_s == 'max_length' && value.size > details.max
+      errors.add(:base, message)
+    end
   end
 
   def current_application_form

@@ -73,12 +73,12 @@ if Apartment::Tenant.current == 'test'
             zip: '99999'
           }
         ],
-        academic_record: {
+        academic_record: [{
           university: 'Monsters University',
           major: 'Software Engineering',
           minor: 'Scaring',
           gpa: '3.8'
-        }
+        }]
       }
     )
   )
@@ -113,12 +113,12 @@ if Apartment::Tenant.current == 'test'
             zip: '99999'
           }
         ],
-        academic_record: {
+        academic_record: [{
           university: 'Monsters University',
           major: 'Software Engineering',
           minor: 'Scaring',
           gpa: '3.9'
-        }
+        }]
       }
     )
   )
@@ -153,12 +153,12 @@ if Apartment::Tenant.current == 'test'
             zip: '99999'
           }
         ],
-        academic_record: {
+        academic_record: [{
           university: 'Monsters University',
           major: 'Software Engineering',
           minor: 'Scaring',
           gpa: '3.9'
-        }
+        }]
       }
     )
   )
