@@ -32,3 +32,6 @@
                   = link_to 'Show', reu_program_application_path(application), class: 'btn btn-outline-secondary btn-sm'
                   = link_to 'PDF', reu_program_application_path(application, format: 'pdf'), class: 'btn btn-outline-secondary btn-sm'
                   = link_to 'CSV', reu_program_application_path(application, format: 'csv'), class: 'btn btn-outline-secondary btn-sm'
+  .row
+    .col
+      = paginate @applications

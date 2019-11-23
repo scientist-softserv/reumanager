@@ -4,9 +4,9 @@ module ReuProgram
 
     def index
       @applications = if params[:state]
-                        Application.where(state: params[:state])
+                        Application.where(state: params[:state]).page(params[:page]).per(15)
                       else
-                        Application.all
+                        Application.page(params[:page]).per(15)
                       end
       respond_to do |format|
         format.html
