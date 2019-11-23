@@ -3,7 +3,11 @@ module ReuProgram
     before_action :load_application, except: %i[index]
 
     def index
-      @applications = Application.all
+      @applications = if params[:state]
+                        Application.where(state: params[:state])
+                      else
+                        Application.all
+                      end
       respond_to do |format|
         format.html
         format.pdf do

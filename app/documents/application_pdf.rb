@@ -1,56 +1,113 @@
 class ApplicationPdf
-
+  include FormDisplayHelper
   include Prawn::View
   attr_accessor :applications, :application
+
+  delegate :url_helpers, to: 'Rails.application.routes'
 
   def initialize(applications)
     @applications = applications
     font_families.update(
-    "fontawesome" => {
-    normal: "app/assets/fonts/fontawesome-webfont.ttf",
-    bold: "app/assets/fonts/fontawesome-webfont.ttf"
-    }
+      'DejaVuSans' => {
+        normal: 'app/assets/fonts/DejaVuSans.ttf',
+        bold: 'app/assets/fonts/DejaVuSans-Bold.ttf'
+      }
     )
   end
 
   def build
-      applications.each do |application|
+    applications.each do |application|
       @application = application
-      header
+      print_application(application)
+      start_new_page
+      print_recommendations(application)
+      start_new_page
     end
   end
 
- def header
-   @application.data.each do |key, value|
-    if key.match(/_/)
-      text "#{key.split('_').map(&:capitalize).join(' ')}", size: 18, inline_format: true, style: :bold
-     move_down 1
-      value.each do |key, value|
-        text "<b>#{key.capitalize}:</b> #{value}", inline_format: true
-      end
-     move_down 50
-
-    else
-      text "#{key.capitalize}", size: 18, inline_format: true, style: :bold
-      move_down 1
-      if value.is_a?(Array)
-        value.each do |key, value|
-          key.each do |key, value|
-            text "<b>#{key.capitalize}:</b> #{value}", inline_format: true
+  def print_application(application)
+    text 'Application Information', size: 22, inline_format: true, style: :bold
+    application.data.each do |key, value|
+      section 10 do
+        text format_key(key), size: 18, inline_format: true, style: :bold
+        move_down 1
+        section 10 do
+          case value
+          when Array
+            value.each_with_index do |item, index|
+              item.each do |k, v|
+                path = "#{key}--#{index}--#{k}"
+                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'application', application.id, path)}", inline_format: true
+              end
+            end
+          when Hash
+            value.each do |k, v|
+              path = "#{key}--#{k}"
+              text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'application', application.id, path)}", inline_format: true
+            end
           end
         end
-      move_down 6
-      else
-        value.each do |key, value|
-          if key.downcase == "date_of_birth"
-            text "<b>#{key.split('_').map(&:capitalize).join(' ')}:</b> #{value.to_date}", inline_format: true
-          else
-            text "<b>#{key.split('_').map(&:capitalize).join(' ')}:</b> #{value}", inline_format: true
-          end
-        end
-      move_down 6
       end
     end
-   end
+  end
+
+  def print_recommendations(application)
+    text 'Recommenders', size: 18, inline_format: true, style: :bold
+    info = application.recommender_info.fetch('recommenders_form', {})
+    if info.empty?
+      text 'User has not entered their recommenders information', inline_format: true
+    else
+      info.each_with_index do |r, index|
+        status = application.recommender_statuses.detect { |s| s.email == r['email'] }
+        color = if status.submitted_at.present?
+                  '28a745' # bootstrap success
+                elsif status.last_sent_at.blank?
+                  'ffc107' # bootstrap warning
+                else
+                  '343a40' # bootstrap dark
+                end
+        span 400 do
+          section 10 do
+            section 10 do
+              text 'Recommender', size: 14, inline_format: true, style: :bold
+              pad 5 do
+                indent 10 do
+                  message = status.submitted_at.present? ? 'Recommender submitted a recommendation.' : 'Recommender has not yet submitted a recommendation.'
+                  text message, color: color
+                end
+              end
+              r.each do |k, v|
+                path = "recommenders_form--#{index}--#{k}"
+                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommender', @application.id, path)}", inline_format: true
+              end
+              move_down 10
+              text "Recommender's Response", size: 14, inline_format: true, style: :bold
+              move_down 5
+              status.data['recommendation_form'].each do |k, v|
+                path = "recommendation_form--#{k}"
+                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', status.id, path)}", inline_format: true
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def section(value)
+    pad value do
+      indent value do
+        yield if block_given?
+      end
+    end
+  end
+
+  def format_value_for_pdf(value, model, model_id, access_path)
+    if value =~ /^data:/
+      url = url_helpers.download_url(model, model_id, access_path, format: :pdf, subdomain: @application.user.subdomain)
+      "<u><link href='#{url}'>Download\<\/link><\/u>"
+    else
+      value
+    end
   end
 end

@@ -25,6 +25,10 @@ class RecommendationsController < ApplicationController
 
   private
 
+  def redirect_withdrawn_users
+    redirect_to status_path if current_application&.withdrawn?
+  end
+
   def load_status_from_token
     raise ActionController::RoutingError, 'Not Found' if params[:token].blank?
     @status = RecommenderStatus.find_by_token(params[:token])

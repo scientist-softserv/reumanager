@@ -30,7 +30,7 @@ class RecommenderFormsController < ApplicationController
   def resend
     @recommender_status = RecommenderStatus.find(params[:id])
     @application = @recommender_status.application
-    if @recommender_status.last_sent_at.present? && (@recommender_status.last_sent_at + 1.day) > Time.current
+    if can_send_email?
       Notification.recommendation_request(@recommender_status, @application).deliver
       @recommender_status.last_sent_at = Time.current
       @recommender_status.save
@@ -45,5 +45,11 @@ class RecommenderFormsController < ApplicationController
 
   def redirect_withdrawn_users
     redirect_to status_path if current_application&.withdrawn?
+  end
+
+  def can_send_email?
+    @recommender_status.last_sent_at.blank? ||
+      @recommender_status.last_sent_at.present? &&
+      (@recommender_status.last_sent_at + 1.day) > Time.current
   end
 end

@@ -10,6 +10,8 @@ class ApplicationForm < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  scope :active, -> { where(status: :active).first }
+
   before_save do
     self.important_paths = self.set_important_paths
   end
@@ -75,5 +77,9 @@ class ApplicationForm < ApplicationRecord
     sections.each_with_object({}) do |section, hash|
       hash[section.title_key] = section.validations
     end
+  end
+
+  def csv_column_headers
+    self.sections.map(&:csv_column_headers).flatten
   end
 end

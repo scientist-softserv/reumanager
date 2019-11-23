@@ -82,4 +82,17 @@ class Section < ApplicationRecord
       hash.merge!(field.ui_config)
     end
   end
+
+  def csv_column_headers
+    field_names = self.fields.map(&:title_key)
+    if !repeating?
+      field_names
+    else
+      headers = []
+      count.times do |i|
+        headers.concat(field_names.map { |n| "#{n}_#{i + 1}" })
+      end
+      headers
+    end
+  end
 end

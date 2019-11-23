@@ -46,7 +46,7 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  Rails.application.routes.default_url_options = { host: 'localhost:3000' }
+  Rails.application.routes.default_url_options = { host: 'lvh.me:3000' }
 
 
   config.action_mailer.perform_deliveries = true

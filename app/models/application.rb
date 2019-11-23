@@ -16,18 +16,21 @@ class Application < ApplicationRecord
     'started' => 'started',
     'submitted' => 'submitted',
     'completed' => 'completed',
-    'withdrawn' => 'withdrawn',
     'accepted' => 'accepted',
-    'rejected' => 'rejected'
+    'rejected' => 'rejected',
+    'withdrawn' => 'withdrawn'
   }
 
   validate :run_data_validations
   validate :run_recommender_info_validations
 
   before_save do
-    self.application_valid = data_valid && recommender_info_valid
+    self.data_valid = self.data_valid?
+    self.recommender_info_valid = self.recommenders_valid?
+    self.application_valid = self.data_valid? && self.recommenders_valid?
+
     # revert status if user edits information where it is invalid
-    unless self.application_valid? && self.started? && self.withdrawn? && self.accepted? && self.rejected?
+    if !self.application_valid? && self.started? || self.withdrawn? || self.accepted? || self.rejected?
       self.submitted_at = nil
       self.state = 'started'
     end
@@ -56,6 +59,35 @@ class Application < ApplicationRecord
 
   def run_data_validations
     return unless self.changed.include?('data')
+    validate_data
+  end
+
+  def run_recommender_info_validations
+    return unless self.changed.include?('recommender_info')
+    validate_recommenders
+  end
+
+  def add_errors(type, details, value, append_msg = '')
+    message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
+    errors.add(:base, message) if type.to_s == 'required' && [nil, ''].include?(value)
+    errors.add(:base, message) if type.to_s == 'max_length' && value.size > details[:max]
+  end
+
+  def data_valid?
+    return @data_valid unless @data_valid.nil?
+    self.errors.clear
+    validate_data
+    @data_valid = self.errors.empty?
+  end
+
+  def recommenders_valid?
+    return @recommenders_valid unless @recommenders_valid.nil?
+    self.errors.clear
+    validate_recommenders
+    @recommenders_valid = self.errors.empty?
+  end
+
+  def validate_data
     return unless self.current_application_form
     validations = self.current_application_form.validations
     validations.each do |section_key, validation|
@@ -71,11 +103,9 @@ class Application < ApplicationRecord
         end
       end
     end
-    self.data_valid = !self.errors.empty?
   end
 
-  def run_recommender_info_validations
-    return unless self.changed.include?('recommender_info')
+  def validate_recommenders
     return unless self.current_recommender_form
     validations = current_recommender_form.validations['recommenders_form']
     self.recommender_info_valid = true
@@ -91,17 +121,6 @@ class Application < ApplicationRecord
         end
       end
     end
-    self.recommender_info_valid = !self.errors.empty?
-  end
-
-  def add_errors(type, details, value, append_msg = '')
-    message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
-    if type.to_s == 'required' && [nil, ''].include?(value)
-      errors.add(:base, message)
-    end
-    if type.to_s == 'max_length' && value.size > details.max
-      errors.add(:base, message)
-    end
   end
 
   def current_application_form
@@ -113,7 +132,6 @@ class Application < ApplicationRecord
   end
 
   def complete
-    return unless can_complete?
     self.completed!
     self.completed_at = Time.current
   end
@@ -125,14 +143,14 @@ class Application < ApplicationRecord
   end
 
   def submit
-    return unless can_submit?
     self.submitted_at = Time.current
-    self.submitted!
+    self.state = :submitted
   end
 
   def can_submit?
     self.started? &&
-      self.application_valid? &&
+      self.data_valid? &&
+      self.recommenders_valid? &&
       current_recommender_form.recommenders_count <= count_of_recommenders
   end
 
@@ -157,13 +175,15 @@ class Application < ApplicationRecord
   end
 
   def data_flattened
-    data.each_with_object({}) do |(_, value), hash|
-      if value.is_a?(Array)
-        value.each_with_index do |v, i|
-          hash.merge!(v.transform_keys { |k| k + (i + 1).to_s })
+    data.each_with_object({}) do |(title, section), hash|
+      if section.is_a?(Hash)
+        hash.merge!(section.each_with_object({}) { |(k, v), h| h[k] = { value: v, path: "#{title}--#{k}" } })
+      elsif section.is_a?(Array)
+        section.each_with_index do |sub_section, index|
+          hash.merge!(sub_section.each_with_object({}) do |(k, v), h|
+            h["#{k}_#{index + 1}"] = { value: v, path: "#{title}--#{index}--#{k}" }
+          end)
         end
-      else
-        hash.merge!(value)
       end
     end
   end

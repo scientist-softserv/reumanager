@@ -28,11 +28,9 @@ class ApplicationsController < ApplicationController
 
   def submit
     if current_application.can_submit?
-      unless current_application.submitted?
-        current_application.submit
-        current_application.save
-      end
-      flash[:notice] = 'Your application has now been submitted'
+      current_application.submit
+      current_application.save
+      flash[:notice] = 'Your application has been submitted'
     else
       flash[:alert] = 'Your application can not be at this time submitted'
     end

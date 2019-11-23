@@ -52,14 +52,6 @@
                 Recommender submitted
                 %br
                 a recommendation.
-          - elsif status.last_sent_at.blank?
-            .alert.alert-warning.width-200.p-2
-              %p.m-0
-                Please complete the information
-                %br
-                for this recommender to enable
-                %br
-                them to complete your recommendation.
           - elsif status.last_sent_at.present? && (status.last_sent_at + 1.day) > Time.current
             .alert.alert-info.width-200.p-2
               %p.m-0
@@ -70,7 +62,9 @@
                 You can only notify this person
                 %br
                 once every 24 hours.
-          - elsif current_application.recommender_info_valid?
+          - elsif current_application.recommenders_valid? && status.last_sent_at.blank?
+            = link_to 'Send Email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm btn-block'
+          - elsif current_application.recommenders_valid?
             .alert.alert-info.width-200.p-2
               %p.m-0
                 Notification email sent to recommender
@@ -83,7 +77,6 @@
                 %br
                 if your recommender cannot find it.
             = link_to 'Resend Email', recommenders_resend_path(status.id), class: 'btn btn-info btn-sm btn-block'
-
           - r.each do |key, value|
             - path = "recommenders_form--#{index}--#{key}"
             %p.mb-0(data-obj-path="#{path}")
@@ -99,7 +92,7 @@
   - current_application.data.each do |key1, value1|
     .card.mb-2
       .card-body
-        %h5.card-title= key1.capitalize
+        %h5.card-title= format_key(key1)
         - case value1
         - when Array
           - value1.each_with_index do |item, index|

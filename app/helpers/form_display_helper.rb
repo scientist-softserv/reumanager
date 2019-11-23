@@ -18,7 +18,7 @@ module FormDisplayHelper
     when 'submitted'
       'info'
     when 'completed'
-      'success'
+      'primary'
     when 'withdrawn'
       'warning'
     when 'accepted'

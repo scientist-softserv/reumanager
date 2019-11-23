@@ -1,33 +1,94 @@
 .container
   .row
-    .col.d-flex.justify-content-end
-      .btn-group
-        - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
-        = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
-        - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
-        =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
-  .row
     .col
-      - @application.data.each do |key, value|
-        - if key.match(/_/)
-          %h3 #{key.split('_').map(&:capitalize).join(' ')}
-        - else
-          %h3= key.capitalize
-        - if value.is_a?(Array)
-          - value.each do |key, value|
-            - key.each do |key, value|
-              %strong #{key.capitalize}:
-              = value
-              %br
-            %br
-        - else
-          - value.each do |key, value|
-            %p
-              %strong #{key.split('_').map(&:capitalize).join(' ')}:
-              - if key.downcase == "date_of_birth"
-                = value.to_date
-              - else
-                = value
-        %hr
-      %br
-      %p= link_to 'Back', reu_program_applications_path
+      %h3 Application Information
+    - if @application.completed?
+      .col.d-flex.justify-content-end
+        .btn-group
+          - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
+          = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+          - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
+          =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+
+  .card.text-white.mb-3(class="bg-#{status_class(@application.state)}")
+    .card-header
+      %h5 Current Status: #{@application.state.titlecase}
+    .card-body
+      - case @application.state
+      - when 'started'
+        %p.m-0 User has started thier application
+      - when 'submitted'
+        %p.m-0 User has submitted thier application but their recommendations have not yet come in
+      - when 'completed'
+        %p.m-0 User has completed thier application and can now be accepted or rejected
+      - when 'withdrawn'
+        %p.m-0 User has withdrawn thier application
+      - when 'accepted'
+        %p.m-0 This application has been accepted
+      - when 'rejected'
+        %p.m-0 This application has been rejected
+
+
+  - if @application.data&.empty?
+    .alert.alert-warning.w-100
+      %p Please fill out the information for your application #{link_to 'here', application_path}.
+  - else
+    - @application.data.each do |key, value|
+      .card.mb-2
+        .card-body
+          %h5.card-title= key.capitalize
+          - case value
+          - when Array
+            - value.each_with_index do |item, index|
+              - item.each do |k, v|
+                - path = "#{key}--#{index}--#{k}"
+                %p.mb-0(data-obj-path="#{path}")
+                  %strong #{format_key(k)}:
+                  = format_value(v, 'application', @application.id, path)
+              %hr
+
+          - when Hash
+            - value.each do |k, v|
+              - path = "#{key}--#{k}"
+              %p.mb-0(data-obj-path="#{path}")
+                %strong #{format_key(k)}:
+                = format_value(v, 'application', @application.id, path)
+
+  %h3 Recommenders
+  - info = @application.recommender_info.fetch('recommenders_form', {})
+  - if info.empty?
+    .alert.alert-warning.w-100
+      %p User has not entered their recommenders information
+  - else
+    - info.each_with_index do |r, index|
+      :ruby
+        status = @application.recommender_statuses.detect { |s| s.email == r['email'] }
+        classes = if status.submitted_at.present?
+                    'border-success'
+                  elsif status.last_sent_at.blank?
+                    'border-warning'
+                  else
+                    'border-dark'
+                  end
+      .card.mb-2.mr-2(class="#{classes}")
+        .card-header Recommender #{index + 1}
+        .card-body
+          - if status.submitted_at.present?
+            .alert.alert-success.p-2
+              %p.m-0 Recommender submitted a recommendation.
+          - else
+            .alert.alert-warning.p-2
+              %p.m-0 Recommender has not yet submitted a recommendation.
+
+          - r.each do |key, value|
+            - path = "recommenders_form--#{index}--#{key}"
+            %p.mb-0(data-obj-path="#{path}")
+              %strong #{format_key(key)}:
+              = format_value(value, 'recommender', @application.id, path)
+          %hr
+          %h3 Recommender's Response
+          - status.data['recommendation_form'].each do |key, value|
+            - path = "recommendation_form--#{key}"
+            %p.mb-0(data-obj-path="#{path}")
+              %strong #{format_key(key)}:
+              = format_value(value, 'recommendation', status.id, path)
