@@ -348,8 +348,6 @@ class Applicant < ActiveRecord::Base
       <strong>Academic Records</strong><br>
       #{self.records.map(&:for_admin).join('<br />')}
       <b>GPA Comments:</b> #{Markdown.render(self.gpa_comment)}<br>
-      <strong>Awards</strong><br>
-      #{self.awards.map(&:for_admin).join('<br />')}
     HTML
     str.html_safe
   end
