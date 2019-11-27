@@ -133,16 +133,6 @@ class ApplicantsDocument
       text "<b>GPA Comments</b>", :size => 12, :inline_format => true
       text "#{applicant.gpa_comment}"
       }
-      pad(5) {
-        text "<b>Awards</b>", :size => 12, :inline_format => true
-        applicant.awards.map do |award|
-          pad_bottom(5) {
-          text "<b>Title:</b> #{award.title}", :inline_format => true
-          text "<b>Date:</b> #{award.date}", :inline_format => true
-          text "<b>Description:</b> #{award.description}", :inline_format => true
-          }
-        end
-      }
     }
     end
   end

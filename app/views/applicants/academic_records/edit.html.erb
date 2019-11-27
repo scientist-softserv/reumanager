@@ -23,14 +23,6 @@
       <%= f.text_area :gpa_comment, :class => 'form-control', :rows => 2, :placeholder => "Do you feel your GPA accurately reflects your academic abilities? Please comment on why or why not in the space provided."  %>
     </div>
 
-    <div class="panel-heading">Awards</div>
-    <div class="panel-body">
-      <%= f.fields_for :awards do |builder| %>
-        <%= render 'award_fields', f: builder %>
-      <% end %>
-      <div class="add-container"><%= link_to_add_fields "Add award", f, :awards %></div>
-    </div>
-
     <%= render "applicants/shared/nav" %>
 
     <div class="panel-body">

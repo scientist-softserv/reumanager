@@ -107,10 +107,6 @@
       <%- end -%>
 
       <li><b>GPA Comments:</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %></li>
-
-      <%- current_applicant.awards.each do |award| -%>
-        <li><b>Award:</b> <%= award %></li>
-      <%- end -%>
     </ul>
   </div>
 

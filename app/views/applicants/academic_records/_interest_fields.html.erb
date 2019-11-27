@@ -1,23 +1,21 @@
 <fieldset>
   <div class="panel-heading">Research Interest</div>
   <div class="panel-body">
-    <%= link_to "Click here to view the full list of mentors and projects for Summer 2020.", 'https://www.seti.org/seti-institute-reu-mentors-2019' %>
+    <%= link_to "Click here to view the full list of mentors and projects for Summer 2020.", 'https://www.seti.org/seti-institute-reu-mentors-2020' %>
     <div class="small-font">
       <ul>
-        <li><strong>Pascal Lee:</strong>  Study of Noctis Landing as a proposed first landing site / exploration zone for humans on Mars</li>
-        <li><strong>Ann Marie Cody:</strong>  Exoplanets and their Formation: the Kepler View</li>
-        <li><strong>Uma Gorti:</strong>  Surface density distributions of gas and dust in disks from  ALMA emission maps and line profiles</li>
-        <li><strong>Virginia Gulick:</strong>  Fluvial and hydrothermal studies using high-resolution images, Digital Elevation Maps, and spectral data</li>
-        <li><strong>Virginia Gulick:</strong>  Developing science analysis algorithms for future planetary missions</li>
-        <li><strong>Virginia Gulick:</strong>  Developing collaborative science and crowdsourcing websites</li></li>
-        <li><strong>Peter Jenniskens:</strong>  How the comet crumbles</li>
-        <li><strong>Friedemann Freund:</strong>  Electrostatic Charging: a Universal Problem</li>
-        <li><strong>David Summers:</strong>  Microbial detection at low levels by iodine-125 radiolabeling</li>
-        <li><strong>David Summers:</strong>  Biosignature detection</li>
-        <li><strong>Franck Marchis:</strong>  The Study of Asteroids with the eVscope Network</li>
-        <li><strong>Kathryn Bywater:</strong>  Nanopore technology for the detection of biosignatures</li>
-        <li><strong>Andrew Siemion:</strong>  SETI research</li>
-        <li><strong>Matthew Tiscareno:</strong>  Cassini imaging of Saturn’s rings</li>
+        <li><strong>Peter Jenniskens</strong>: How the comet crumbles</li>
+        <li><strong>Kathryn Bywaters</strong>: New flight hardware for monitoring microbial growth</li>
+        <li><strong>Pascal Lee</strong>: Pits and caves on the Moon and Mars: Science potential and significance for astrobiology and human exploration</li>
+        <li><strong>Janice Bishop</strong>: Remote detection of aqueous minerals on Mars as indicators of the geochemical environment</li>
+        <li><strong>Ann Marie Cody and Doug Caldwell</strong>: Finding the youngest stars in the sky with TESS data</li>
+        <li><strong>Cristina Dalle Ore</strong>: A study of ice on Rhea as a tool to measure the age of Saturn’s icy satellites</li>
+        <li><strong>Chloe Beddingfield</strong>: Thermal properties of Saturn’s moon Rhea</li>
+        <li><strong>Alex Pollak and Andrew Siemion</strong>: Instrumentation development for radio technosignature searches at the ATA</li>
+        <li><strong>David Summers</strong>: Microbial detection at low levels by iodine-125 radiolabeling</li>
+        <li><strong>Friedemann Freund</strong>: Electrostatic charging of dust</li>
+        <li><strong>Virginia Gulick</strong>: Fluvial studies using high-resolution images and Digital Terrain Maps</li>
+        <li><strong>Matthew Tiscareno</strong>: Mesoscale structures in Saturn's rings</li>
       </ul>
     </div>
     <br>
@@ -32,16 +30,16 @@
 
   <div class="panel-heading">Background and Goals</div>
   <div class="panel-body">
-    <%= f.label :personal_statement %>
+    <%= f.label :personal_statement, "Personal Statement" %>
     <%= f.text_area :statement, :class => 'form-control', :rows => 2, :placeholder => " Please describe your career goals, how your background has shaped your goals and prepared you to meet your goals, and how a SETI Institute REU internship fits into your plan."  %>
 
-    <%= f.label :facing_challenges_experience %>
+    <%= f.label :facing_challenges_experience, "Facing Challenges Experience" %>
     <%= f.text_area :facing_challenges_experience, :class => 'form-control', :rows => 2, :placeholder => "Please write about an experience of overcoming adversity or an obstacle in your life.  For tips, see the short (1.5 minutes) video at https://www.youtube.com/watch?v=p7HFxWI6YVg"  %>
 
-    <%= f.label :research_experience %>
+    <%= f.label :research_experience, "Research Experience" %>
     <%= f.text_area :research_experience, :class => 'form-control', :rows => 2, :placeholder => " Please describe any research or related experience.  Please be aware that you may have a competitive application, even without research experience."  %>
 
-    <%= f.label :leadership_experience %>
+    <%= f.label :leadership_experience, "Leadership Experience" %>
     <%= f.text_area :leadership_experience, :class => 'form-control', :rows => 2, :placeholder => "Please describe one or more times in your life where you needed to exercise leadership (it does not need to be academic)."  %>
 
     <%= f.label :cpu_skills, 'Computer Skills' %>
