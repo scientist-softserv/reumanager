@@ -4,6 +4,7 @@ class Application < ApplicationRecord
   after_initialize do
     self.data = {} if self.data.blank?
     self.recommender_info = {} if self.recommender_info.blank?
+    self.state = 'started' if self.state.blank?
   end
 
   has_many :recommender_statuses, dependent: :destroy do
@@ -25,10 +26,6 @@ class Application < ApplicationRecord
   validate :run_recommender_info_validations
 
   before_save do
-    self.data_valid = self.data_valid?
-    self.recommender_info_valid = self.recommenders_valid?
-    self.application_valid = self.data_valid? && self.recommenders_valid?
-
     # revert status if user edits information where it is invalid
     if !self.application_valid? && self.started? || self.withdrawn? || self.accepted? || self.rejected?
       self.submitted_at = nil
@@ -70,6 +67,7 @@ class Application < ApplicationRecord
   def add_errors(type, details, value, append_msg = '')
     message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
     errors.add(:base, message) if type.to_s == 'required' && [nil, ''].include?(value)
+    return if value.nil?
     errors.add(:base, message) if type.to_s == 'max_length' && value.size > details[:max]
   end
 
@@ -85,6 +83,10 @@ class Application < ApplicationRecord
     self.errors.clear
     validate_recommenders
     @recommenders_valid = self.errors.empty?
+  end
+
+  def application_valid?
+    data_valid? && recommenders_valid?
   end
 
   def validate_data
@@ -108,10 +110,8 @@ class Application < ApplicationRecord
   def validate_recommenders
     return unless self.current_recommender_form
     validations = current_recommender_form.validations['recommenders_form']
-    self.recommender_info_valid = true
     form_data = recommender_info.fetch('recommenders_form', [])
     if form_data.empty?
-      self.recommender_info_valid = false
       return
     end
     form_data.each do |form|

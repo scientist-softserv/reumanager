@@ -9,7 +9,7 @@
           = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
           - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
           =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
-
+  - @application.state ||= 'started'
   .card.text-white.mb-3(class="bg-#{status_class(@application.state)}")
     .card-header
       %h5 Current Status: #{@application.state.titlecase}
@@ -31,7 +31,7 @@
 
   - if @application.data&.empty?
     .alert.alert-warning.w-100
-      %p Please fill out the information for your application #{link_to 'here', application_path}.
+      %p Applicant has not provided any information
   - else
     - @application.data.each do |key, value|
       .card.mb-2
@@ -87,7 +87,7 @@
               = format_value(value, 'recommender', @application.id, path)
           %hr
           %h3 Recommender's Response
-          - status.data['recommendation_form'].each do |key, value|
+          - status.data.fetch('recommendation_form', {}).each do |key, value|
             - path = "recommendation_form--#{key}"
             %p.mb-0(data-obj-path="#{path}")
               %strong #{format_key(key)}:

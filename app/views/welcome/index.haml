@@ -4,7 +4,7 @@
 .row.mb-5
   .col-md-5
     - if Snippet[:home_page_image]
-      = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block')
+      = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block', style: 'max-width: 100%;')
     - else
       %strong No Image selected, please select a image in to snippets section of the Admin portal.
   .col-md-7
