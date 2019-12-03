@@ -9,6 +9,7 @@
   .row
     .col
       .btn-group.mb-3
+        = link_to 'All', reu_program_applications_path, class: "btn btn-outline-secondary #{'active' if params[:state].blank?}"
         - Application.states.each do |state|
           - s = state.first
           = link_to s.capitalize, reu_program_applications_path(state: s), class: "btn btn-outline-#{status_class(s)} #{'active' if s == params[:state]}"

@@ -83,7 +83,7 @@ class ApplicationPdf
               move_down 10
               text "Recommender's Response", size: 14, inline_format: true, style: :bold
               move_down 5
-              recommendation.data['recommendation_form'].each do |k, v|
+              recommendation.data.fetch('recommendation_form', {}).each do |k, v|
                 path = "recommendation_form--#{k}"
                 text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', recommendation.id, path)}", inline_format: true
               end

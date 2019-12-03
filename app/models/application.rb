@@ -27,7 +27,7 @@ class Application < ApplicationRecord
 
   before_save do
     # revert status if user edits information where it is invalid
-    if self.submitted? || self.completed? && !self.application_valid?
+    if (self.submitted? || self.completed?) && !self.application_valid?
       self.submitted_at = nil
       self.state = 'started'
     end
