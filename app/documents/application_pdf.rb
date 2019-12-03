@@ -58,10 +58,10 @@ class ApplicationPdf
       text 'User has not entered their recommenders information', inline_format: true
     else
       info.each_with_index do |r, index|
-        status = application.recommender_statuses.detect { |s| s.email == r['email'] }
-        color = if status.submitted_at.present?
+        recommendation = application.recommendations.detect { |s| s.email == r['email'] }
+        color = if recommendation.submitted_at.present?
                   '28a745' # bootstrap success
-                elsif status.last_sent_at.blank?
+                elsif recommendation.last_sent_at.blank?
                   'ffc107' # bootstrap warning
                 else
                   '343a40' # bootstrap dark
@@ -72,7 +72,7 @@ class ApplicationPdf
               text 'Recommender', size: 14, inline_format: true, style: :bold
               pad 5 do
                 indent 10 do
-                  message = status.submitted_at.present? ? 'Recommender submitted a recommendation.' : 'Recommender has not yet submitted a recommendation.'
+                  message = recommendation.submitted_at.present? ? 'Recommender submitted a recommendation.' : 'Recommender has not yet submitted a recommendation.'
                   text message, color: color
                 end
               end
@@ -83,9 +83,9 @@ class ApplicationPdf
               move_down 10
               text "Recommender's Response", size: 14, inline_format: true, style: :bold
               move_down 5
-              status.data['recommendation_form'].each do |k, v|
+              recommendation.data['recommendation_form'].each do |k, v|
                 path = "recommendation_form--#{k}"
-                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', status.id, path)}", inline_format: true
+                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', recommendation.id, path)}", inline_format: true
               end
             end
           end

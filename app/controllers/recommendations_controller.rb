@@ -7,18 +7,18 @@ class RecommendationsController < ApplicationController
   end
 
   def update_recommendations
-    @status.data = params.require(:data).permit!
-    if @status.valid?
-      @status.submitted_at = Time.current
-      @status.save(validate: false)
-      Notification.recommendation_thanks(@status, @application).deliver
+    @recommendation.data = params.require(:data).permit!
+    if @recommendation.valid?
+      @recommendation.submitted_at = Time.current
+      @recommendation.save(validate: false)
+      Notification.recommendation_thanks(@recommendation, @application).deliver
       render json: { success: true, message: 'Thank you for submitting your recommendation'}
     else
-      @status.save(validate: false)
+      @recommendation.save(validate: false)
       render json: {
         success: false,
         message: 'Please address these issues',
-        errors: @status.errors.full_messages
+        errors: @recommendation.errors.full_messages
       }
     end
   end
@@ -31,9 +31,9 @@ class RecommendationsController < ApplicationController
 
   def load_status_from_token
     raise ActionController::RoutingError, 'Not Found' if params[:token].blank?
-    @status = RecommenderStatus.find_by_token(params[:token])
-    raise ActionController::RoutingError, 'Not Found' if @status.blank?
-    @application = @status.application
+    @recommendation = Recommendation.find_by_token(params[:token])
+    raise ActionController::RoutingError, 'Not Found' if @recommendation.blank?
+    @application = @recommendation.application
   end
 
   class NoEmailError < StandardError; end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_234952) do
+ActiveRecord::Schema.define(version: 2019_12_03_215647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,17 @@ ActiveRecord::Schema.define(version: 2019_12_02_234952) do
     t.index ["grant_id"], name: "index_invoices_on_grant_id"
   end
 
+  create_table "recommendations", force: :cascade do |t|
+    t.string "email"
+    t.datetime "last_sent_at"
+    t.datetime "submitted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "token", default: -> { "md5((random())::text)" }, null: false
+    t.jsonb "data", default: {}
+    t.integer "application_id"
+  end
+
   create_table "recommender_forms", force: :cascade do |t|
     t.integer "status"
     t.string "name"
@@ -120,17 +131,6 @@ ActiveRecord::Schema.define(version: 2019_12_02_234952) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recommenders_count", default: 1, null: false
-  end
-
-  create_table "recommender_statuses", force: :cascade do |t|
-    t.string "email"
-    t.datetime "last_sent_at"
-    t.datetime "submitted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "token", default: -> { "md5((random())::text)" }, null: false
-    t.jsonb "data", default: {}
-    t.integer "application_id"
   end
 
   create_table "roles", force: :cascade do |t|

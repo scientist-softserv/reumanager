@@ -7,7 +7,7 @@ class Application < ApplicationRecord
     self.state = 'started' if self.state.blank?
   end
 
-  has_many :recommender_statuses, dependent: :destroy do
+  has_many :recommendations, dependent: :destroy do
     def valid_count
       self.map { |s| s.data_valid? ? 1 : 0 }.sum(0)
     end
@@ -40,17 +40,17 @@ class Application < ApplicationRecord
     end
   end
 
-  def update_recommender_status
+  def update_recommendation
     return if self.recommender_info['recommenders_form'].blank?
     emails = self.recommender_info['recommenders_form'].map { |r| r['email'] }.compact
-    statuses = self.recommender_statuses.to_a
-    current_emails = statuses.map(&:email)
+    recommendations = self.recommendations.to_a
+    current_emails = recommendations.map(&:email)
     missing_emails = emails.difference(current_emails)
     missing_emails.each do |email|
-      RecommenderStatus.create!(email: email, application: self)
+      Recommendation.create!(email: email, application: self)
     end
-    statuses.each do |status|
-      status.destroy! unless emails.include?(status.email)
+    recommendations.each do |recommendation|
+      recommendation.destroy! unless emails.include?(recommendation.email)
     end
   end
 
@@ -144,7 +144,7 @@ class Application < ApplicationRecord
   def can_complete?
     self.submitted? &&
       self.application_valid? &&
-      self.recommender_statuses.valid_count >= count_of_recommenders
+      self.recommendations.valid_count >= count_of_recommenders
   end
 
   def submit

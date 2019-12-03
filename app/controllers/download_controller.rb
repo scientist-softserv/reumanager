@@ -30,7 +30,7 @@ class DownloadController < ApplicationController
     when 'recommender'
       Application
     when 'recommendation'
-      RecommenderStatus
+      Recommendation
     else
       not_found
     end

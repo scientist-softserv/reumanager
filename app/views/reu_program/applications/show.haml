@@ -62,10 +62,10 @@
   - else
     - info.each_with_index do |r, index|
       :ruby
-        status = @application.recommender_statuses.detect { |s| s.email == r['email'] }
-        classes = if status.submitted_at.present?
+        recommendation = @application.recommendations.detect { |s| s.email == r['email'] }
+        classes = if recommendation.submitted_at.present?
                     'border-success'
-                  elsif status.last_sent_at.blank?
+                  elsif recommendation.last_sent_at.blank?
                     'border-warning'
                   else
                     'border-dark'

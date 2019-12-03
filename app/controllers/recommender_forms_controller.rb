@@ -10,11 +10,11 @@ class RecommenderFormsController < ApplicationController
   def update_recommenders
     current_user.application.recommender_info = params.require(:data).permit!
     if current_user.application.save
-      current_user.application.update_recommender_status
-      current_user.application.recommender_statuses.each do |status|
-        next if status.last_sent_at.present?
-        status.update(last_sent_at: Time.current)
-        Notification.recommendation_request(status, current_user.application).deliver
+      current_user.application.update_recommendation
+      current_user.application.recommendations.each do |recommendation|
+        next if recommendation.last_sent_at.present?
+        recommendation.update(last_sent_at: Time.current)
+        Notification.recommendation_request(recommendation, current_user.application).deliver
       end
       render json: { success: true, message: 'Successfully saved the form' }
     else
@@ -28,12 +28,12 @@ class RecommenderFormsController < ApplicationController
   end
 
   def resend
-    @recommender_status = RecommenderStatus.find(params[:id])
-    @application = @recommender_status.application
+    @recommendation = Recommendation.find(params[:id])
+    @application = @recommendation.application
     if can_send_email?
-      Notification.recommendation_request(@recommender_status, @application).deliver
-      @recommender_status.last_sent_at = Time.current
-      @recommender_status.save
+      Notification.recommendation_request(@recommendation, @application).deliver
+      @recommendation.last_sent_at = Time.current
+      @recommendation.save
       flash[:notice] = 'Resent email to recommender'
     else
       flash[:alert] = 'Unable to resend email to this recommender at this time'
@@ -48,8 +48,8 @@ class RecommenderFormsController < ApplicationController
   end
 
   def can_send_email?
-    @recommender_status.last_sent_at.blank? ||
-      @recommender_status.last_sent_at.present? &&
-      (@recommender_status.last_sent_at + 1.day) > Time.current
+    @recommendation.last_sent_at.blank? ||
+      @recommendation.last_sent_at.present? &&
+        (@recommendation.last_sent_at + 1.day) > Time.current
   end
 end
