@@ -27,7 +27,7 @@ class Application < ApplicationRecord
 
   before_save do
     # revert status if user edits information where it is invalid
-    if !self.application_valid? && self.started? || self.withdrawn? || self.accepted? || self.rejected?
+    if self.submitted? || self.completed? && !self.application_valid?
       self.submitted_at = nil
       self.state = 'started'
     end
@@ -92,6 +92,10 @@ class Application < ApplicationRecord
   def validate_data
     return unless self.current_application_form
     validations = self.current_application_form.validations
+    if data.blank? || data.empty?
+      self.errors.add(:base, 'Fill out application information')
+      return
+    end
     validations.each do |section_key, validation|
       validation.each do |key, field_validations|
         field_validations.each do |type, details|
@@ -111,7 +115,8 @@ class Application < ApplicationRecord
     return unless self.current_recommender_form
     validations = current_recommender_form.validations['recommenders_form']
     form_data = recommender_info.fetch('recommenders_form', [])
-    if form_data.empty?
+    if form_data.blank? || form_data.empty?
+      self.errors.add(:base, "Fill out recommender's information")
       return
     end
     form_data.each do |form|
@@ -155,7 +160,7 @@ class Application < ApplicationRecord
   end
 
   def withdraw
-    self.withdrawn!
+    self.state = :withdrawn
   end
 
   def can_withdraw?
@@ -163,7 +168,7 @@ class Application < ApplicationRecord
   end
 
   def restart
-    self.started!
+    self.state = :started
   end
 
   def can_restart?

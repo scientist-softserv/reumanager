@@ -7,8 +7,9 @@
       = link_to "Welcome", root_path, class: class_names
       - unless params[:token].present?
         - if user_signed_in?
-          = link_to 'Application', application_path, class: class_names
-          = link_to 'Recommenders', recommenders_path, class: class_names
+          - unless current_application&.withdrawn?
+            = link_to 'Application', application_path, class: class_names
+            = link_to 'Recommenders', recommenders_path, class: class_names
           = link_to 'Status', status_path, class: class_names
           = link_to "Logout", destroy_user_session_path, method: :delete, class: class_names
           - if current_user.has_role?(:admin)

@@ -5,8 +5,9 @@
         =link_to "Welcome", root_path
         - unless params[:token].present?
           - if user_signed_in?
-            = link_to 'Application', application_path
-            = link_to 'Recommenders', recommenders_path
+            - unless current_application&.withdrawn?
+              = link_to 'Application', application_path
+              = link_to 'Recommenders', recommenders_path
             = link_to 'Status', status_path
             = link_to "Logout", destroy_user_session_path, method: :delete
           - else

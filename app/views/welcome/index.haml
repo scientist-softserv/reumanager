@@ -23,7 +23,7 @@
     .col-md-12
       .text-center
         - if user_signed_in? && current_application&.state == 'submitted'
-          = link_to "Check Status", applicant_status_url, class: "btn btn-lg btn-success"
+          = link_to "Check Status", status_path, class: "btn btn-lg btn-success"
         - elsif user_signed_in?
           = link_to "Finish Application", application_path, class: "btn btn-lg btn-success"
         - else

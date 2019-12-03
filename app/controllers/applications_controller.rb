@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :redirect_withdrawn_users
+  before_action :redirect_withdrawn_users, except: %i[status withdraw restart]
   before_action :setup_application
 
   def show_application
@@ -38,21 +38,26 @@ class ApplicationsController < ApplicationController
   end
 
   def withdraw
-    unless current_application.withdrawn?
+    if current_application.can_withdraw?
       current_application.withdraw
       current_application.save
+      flash[:notice] = 'Your application has now been withdrawn. You will need to restart and complete your application to be considered.'
+    else
+      flash[:alert] = 'You cannot withdraw your application'
     end
-    flash[:notice] = 'Your application has now been withdrawn. You will need to restart and complete your application to be considered.'
-    redirect_back fallback_location: status_path
+
+    redirect_to status_path
   end
 
   def restart
-    unless current_application.started?
+    if current_application.can_restart?
       current_application.restart
       current_application.save
+      flash[:notice] = 'Your application has now been restarted.'
+    else
+      flash[:alert] = 'Unable to restart your application at this time.'
     end
-    flash[:notice] = 'Your application has now been restarted.'
-    redirect_back fallback_location: status_path
+    redirect_to status_path
   end
 
   private

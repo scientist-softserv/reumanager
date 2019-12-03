@@ -82,7 +82,11 @@ class ApplicationController < ActionController::Base
     elsif resource.has_role?(:admin)
       reu_program_dashboard_path
     else
-      root_path
+      if resource.application.blank? || resource.application.started?
+        application_path
+      else
+        status_path
+      end
     end
   end
 
