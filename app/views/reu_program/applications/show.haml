@@ -73,7 +73,7 @@
       .card.mb-2.mr-2(class="#{classes}")
         .card-header Recommender #{index + 1}
         .card-body
-          - if status.submitted_at.present?
+          - if recommendation.submitted_at.present?
             .alert.alert-success.p-2
               %p.m-0 Recommender submitted a recommendation.
           - else
@@ -87,8 +87,8 @@
               = format_value(value, 'recommender', @application.id, path)
           %hr
           %h3 Recommender's Response
-          - status.data.fetch('recommendation_form', {}).each do |key, value|
+          - recommendation.data.fetch('recommendation_form', {}).each do |key, value|
             - path = "recommendation_form--#{key}"
             %p.mb-0(data-obj-path="#{path}")
               %strong #{format_key(key)}:
-              = format_value(value, 'recommendation', status.id, path)
+              = format_value(value, 'recommendation', recommendation.id, path)
