@@ -35,4 +35,8 @@ class Field < ApplicationRecord
   def title_key
     title.downcase.tr(' ', '_')
   end
+
+  def dependancy_config
+    {}
+  end
 end

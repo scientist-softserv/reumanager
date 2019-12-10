@@ -1,16 +1,15 @@
 module Fields
-  class ShortText < Field
+  class Date < Field
     define_properties do
       property :title, type: :string, hint: 'Question text'
       property :description, type: :string, hint: 'Hint to user about what the question is asking for. optional'
       property :required, type: :boolean, default: true, hint: 'Field will be required'
-      property :min_length, type: :integer, hint: 'Specify a minimum length of for in input value'
     end
 
     validates :title, presence: true, on: :update
 
     def default_name
-      'Short Text Field'
+      'Date Field'
     end
 
     def json_config
@@ -19,8 +18,7 @@ module Fields
           type: :string,
           title: title,
           description: description,
-          format: :text,
-          minLength: min_length
+          format: :date
         }.reject { |_k, v| v.blank? }
       }
     end

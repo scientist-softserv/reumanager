@@ -15,5 +15,7 @@
       = render partial: 'select', locals: { f: f }
     - if f.object.is_a?(Fields::File)
       = render partial: 'file', locals: { f: f }
+    - if f.object.is_a?(Fields::Date)
+      = render partial: 'date', locals: { f: f }
   .modal-footer.d-flex.justify-content-end
     = f.submit 'Save Field', class: 'btn btn-primary'
