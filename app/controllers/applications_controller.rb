@@ -5,6 +5,7 @@ class ApplicationsController < ApplicationController
 
   def show_application
     @form = ApplicationForm.includes(sections: :fields).where(status: :active).first
+    @data = current_application&.data.blank? ? @form.default_data : current_application&.data
   end
 
   def update_application

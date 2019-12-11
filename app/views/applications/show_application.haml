@@ -6,7 +6,7 @@
       style: "display: none;",
       data: {
         schema: @form.json_schema,
-        data: JSON.generate(current_application&.data || {}),
+        data: JSON.generate(@data),
         path: application_path,
         method: 'PATCH'
       }

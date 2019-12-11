@@ -45,6 +45,16 @@ class ApplicationForm < ApplicationRecord
     sections.where.not(important: nil)
   end
 
+  def default_data
+    sections.each_with_object({}) do |section, hash|
+      if section.repeating
+        hash[section.title_key] = [{}]
+      else
+        hash[section.title_key] = {}
+      end
+    end
+  end
+
   def json_schema
     JSON.generate(build_json_schema)
   end
