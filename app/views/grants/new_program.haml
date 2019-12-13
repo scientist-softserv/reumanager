@@ -1,21 +1,22 @@
-.row
-  .col-2
-  .col-8
-    = simple_form_for(:grant, url: { action: 'create_program' }, html: { id: 'payment-form' }) do |f|
-      - if @grant.errors.any?
-        #error_explanation
-          %h2
-            = pluralize(@grant.errors.count, "error")
-            prohibited this grant from being saved:
-          %ul
-            - @grant.errors.full_messages.each do |message|
-              %li= message
-      = f.input :program_title, :placeholder => "Your Program's Title"
-      = f.input :subdomain, :placeholder => 'This will display as "yoursubdomain.reumanager.com"'
-      = f.input :admin_first_name, :placeholder => "Your first name"
-      = f.input :admin_last_name, :placeholder => "Your last name"
-      = f.input :admin_password, :placeholder => "Your password"
-      = f.input :admin_password_confirmation, :placeholder => "Confirm your password"
-      = f.input :admin_email, :placeholder => "Your email"
-      = f.submit 'Begin Sign Up', :class => 'btn btn-ar btn-primary'
-  .col-2
+.container.mt-4
+  .row
+    .col
+      %h1 Create Your Program
+  .row
+    .col
+      = simple_form_for(:grant, url: create_program_grants_path) do |f|
+        - if @grant.errors.any?
+          .alert.alert-danger
+            %h4.alert-heading
+              Please correct these issues
+            %ul
+              - @grant.errors.full_messages.each do |message|
+                %li= message
+        = f.input :program_title, placeholder: "Your Program's Title"
+        = f.input :subdomain, placeholder: 'This will display as "yoursubdomain.reumanager.com"'
+        = f.input :admin_first_name, placeholder: "Your first name"
+        = f.input :admin_last_name, placeholder: "Your last name"
+        = f.input :admin_password, placeholder: "Your password"
+        = f.input :admin_password_confirmation, placeholder: "Confirm your password"
+        = f.input :admin_email, placeholder: "Your email"
+        = f.submit 'Begin Sign Up', class: 'btn btn-ar btn-primary'

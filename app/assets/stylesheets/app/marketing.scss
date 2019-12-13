@@ -6,15 +6,25 @@ $reu-blue: #6695e2;
     color: $reu-blue;
   }
 
-  .jumbotron {
+  .jumbo-container {
     background-image: image-url("img/back_profile.jpg");
     background-size: cover;
-    color: white !important;
 
-    h1 {
-      color: #cdff76 !important;
+    .jumbotron {
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white !important;
+
+      h1 {
+        color: #cdff76 !important;
+        font-size: 60px;
+      }
+
+      p {
+        font-size: 24px;
+      }
     }
   }
+
 
   .info-banner {
     list-style: none;

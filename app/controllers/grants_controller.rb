@@ -1,8 +1,8 @@
 class GrantsController < ApplicationController
   before_action :authenticate_user!, except: %i[new_program create_program new_billing create_billing]
-  before_action :set_grant, only: [:show, :edit, :update, :destroy]
+  before_action :set_grant, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token
-  layout "user"
+  layout 'user'
 
   def index
     @grants = Grant.all
@@ -18,8 +18,7 @@ class GrantsController < ApplicationController
     @grant = Grant.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @grant = Grant.new(grant_params)
@@ -67,22 +66,28 @@ class GrantsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_grant
     @grant = Grant.find(params[:id])
   end
 
   def amount
-    @amount ||= 75000
+    @amount ||= 35_000
   end
 
-  # Only allow a trusted parameter "white list" through.
   def grant_params
     params.require(:grant).permit(:program_title, :subdomain, :coupon_code)
   end
 
   def initial_grant_params
-    params.require(:grant).permit(:program_title, :subdomain, :coupon_code, :admin_first_name, :admin_last_name, :admin_password, :admin_password_confirmation, :admin_email)
+    params.require(:grant).permit(
+      :program_title,
+      :subdomain,
+      :coupon_code,
+      :admin_first_name,
+      :admin_last_name,
+      :admin_password,
+      :admin_password_confirmation,
+      :admin_email
+    )
   end
-
 end

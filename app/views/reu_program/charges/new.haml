@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-4
+    .col-4
+      .card.border-dark
+        .card-header
+          %h4 Credit Card Payment
+        .card-body.text-dark
+          %p Payment is for a year long subscription to REU Manager.
+          %label.amount
+            %h5 Amount: #{number_to_currency(BigDecimal(@amount) / 100)}
+          = form_tag reu_program_charges_path do
+            %script.stripe-button{"data-amount": @amount, "data-description": "REU Manager Subscription", "data-key": Rails.configuration.stripe[:publishable_key], "data-locale": "auto", src: "https://checkout.stripe.com/checkout.js"}

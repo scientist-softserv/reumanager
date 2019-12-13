@@ -18,7 +18,7 @@ class Snippet < ApplicationRecord
     end
 
     def all_setup?
-      self.all.all? { |s| s.value.present? || s.image.attached? }
+      self.all.all? { |s| s.value.present? || (s.respond_to?(:image) && s.image.attached?) }
     end
   end
 

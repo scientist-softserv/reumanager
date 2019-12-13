@@ -2,9 +2,10 @@
   .container-fluid
     .row.mt-5
       .col
-        .jumbotron
-          %h1 A One Stop Application Manager
-          %p Your Entire Application Process In One Convenient Location
+        .jumbo-container
+          .jumbotron
+            %h1 A One Stop Application Manager
+            %p Your Entire Application Process In One Convenient Location
 
   .container.mb-4
     .d-flex.justify-content-around
@@ -27,35 +28,6 @@
         = icon('far', 'check-square', class: 'fa-3x outline')
         %h4.mt-2 Automatic Alerts
         %p Applicants are kept in the loop from start to finish. Email alerts are sent throughout each step of the application process.
-
-  .container-fluid.standout.border-top.border-bottom.p-2
-    .d-flex.align-items-center.justify-content-center
-      .info-banner.w-25
-        %h4.reu-blue REU manager will simplify your workflow so you can do the job you were hired to do
-        .icon-row.d-flex
-          %ul.icon-devices
-          %li.active
-            %a{"aria-expanded" => "true","data-toggle" => "tab", :href => "#desktop"}
-              %em.fas.fa-3x.mr-2.fa-desktop
-          %li
-            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#laptop"}
-              %em.fas.fa-3x.mr-2.fa-laptop
-          %li
-            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#tablet"}
-              %em.fas.fa-3x.mr-2.fa-tablet-alt
-          %li
-            %a{"aria-expanded" => "false","data-toggle" => "tab", :href => "#mobile"}
-              %em.fas.fa-3x.mr-2.fa-mobile-alt
-      .col-md-8
-        .tab-content
-          #desktop.tab-pane.active
-            %img.img-responsive{:src => "assets/img/demo/mac.png"}/
-          #laptop.tab-pane
-            %img.img-responsive{:src => "assets/img/demo/macpro.png"}/
-          #tablet.tab-pane
-            %img.img-responsive{:src => "assets/img/demo/ipad.png"}/
-          #mobile.tab-pane
-            %img.img-responsive{:src => "assets/img/demo/iphone.png"}/
 
   .container.mt-3
     .row.m-5
