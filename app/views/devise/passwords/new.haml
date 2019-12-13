@@ -1,0 +1,11 @@
+.row
+  .col
+    .card
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+        .card-header Forgot your password?
+        .card-body
+          = f.input :email
+          = f.submit 'Send me reset password instructions', class: 'btn btn-primary'
+          .mt-4
+            = render partial: 'devise/shared/links'
+

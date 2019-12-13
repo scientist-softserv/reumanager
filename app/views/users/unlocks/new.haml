@@ -1,0 +1,13 @@
+.row
+  .col-3
+  .col-6
+    .card
+      .card-header
+        %h4 Resend unlock instructions
+      .card-body
+        = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+          = render 'devise/shared/error_messages', resource: resource
+          = f.input :email, autofocus: true, autocomplete: 'email'
+          = f.submit 'Resend unlock instructions', class: 'btn btn-primary'
+        .mt-4
+          = render 'devise/shared/links'
