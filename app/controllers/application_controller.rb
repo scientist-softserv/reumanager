@@ -12,7 +12,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
 
+  before_action :authenticate_for_staging
   after_action :set_csrf_cookie
+
+  def authenticate_for_staging
+    return unless %w[staging].include?(Rails.env)
+    authenticate_or_request_with_http_basic do |username, password|
+      username == 'reuadmin' && password == 'reutesting123'
+    end
+  end
 
   def admin_user?
     current_user.has_role?(:admin)
