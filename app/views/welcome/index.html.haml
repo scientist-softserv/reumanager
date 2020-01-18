@@ -6,12 +6,12 @@
       = image_tag('seti-reu-2019.jpg', class: 'pull-left img-responsive center-block')
     .col-md-6
       = raw Snippet[:general_description]
-      %p 
+      %p
         It is wise to apply to many internship programs, not just ours!
-      %p 
+      %p
         %strong
         = link_to "Here is a list of REU programs", "https://www.nsf.gov/crssprgm/reu/reu_search.jsp"
-      %p 
+      %p
         %strong
         = link_to "Here is a list of NASA internship opportunities", "https://intern.nasa.gov"
     .col-md-12
@@ -20,6 +20,10 @@
           The deadline for applications has passed. Please sign in to see existing application status.
       - elsif started?
         %h3.deadline
+          Due to the recent earthquakes, the deadline is extended to Monday, Feb 10
+          %strong for Puerto Rico residents only.
+          %br/
+          %br/
           Application Deadline #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]}
         .app_button
           - if applicant_signed_in? && current_applicant.state == 'submitted'
@@ -31,9 +35,9 @@
       - else
         %h3.deadline
           Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2019 Program. Applications will be due at 11:59pm Pacific Time on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b %d")}.
-        %br  
+        %br
         %p
-          <strong> Program Dates: </strong> #{Setting[:program_start_date].to_date.strftime("%B %d, %Y")} - #{Setting[:program_end_date].to_date.strftime("%B %d, %Y")} 
+          <strong> Program Dates: </strong> #{Setting[:program_start_date].to_date.strftime("%B %d, %Y")} - #{Setting[:program_end_date].to_date.strftime("%B %d, %Y")}
           <br>
           %strong
             Please Note:
