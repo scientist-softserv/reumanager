@@ -59,10 +59,6 @@ class ApplicantsDocument
     }
     pad_bottom(10){
       pad(5) {
-      text "<b>Personal Statement</b>", :size => 14, :inline_format => true
-      text "#{applicant.statement}"
-      }
-      pad(5) {
       text "<b>How did you hear about us?</b>", :size => 14, :inline_format => true
       text "#{applicant.found_us}"
       }
@@ -95,6 +91,14 @@ class ApplicantsDocument
     text "<b><u>Skills and Experience</b></u>", :size => 17, :inline_format => true
     pad_bottom(10) {
       pad(5) {
+      text "<b>Personal Statement</b>", :size => 14, :inline_format => true
+      text "#{applicant.interest.statement}"
+      }
+      pad(5) {
+      text "<b>Facing Challenges Experience</b>", :size => 14, :inline_format => true
+      text "#{applicant.interest.facing_challenges_experience}"
+      }
+      pad(5) {
       text "<b>Computer Skills</b>", :size => 14, :inline_format => true
       text "#{applicant.interest.cpu_skills}"
       }
@@ -105,10 +109,6 @@ class ApplicantsDocument
       pad(5) {
       text "<b>Leadership Experience:</b>", :size => 14, :inline_format => true
       text "#{applicant.interest.leadership_experience}"
-      }
-      pad(5) {
-      text "<b>Programming Experience</b>", :size => 14, :inline_format => true
-      text "#{applicant.interest.programming_experience}"
       }
     }
     end
@@ -126,22 +126,12 @@ class ApplicantsDocument
         text "<b>Major:</b> #{record.major}", :inline_format => true
         text "<b>Minor:</b> #{record.minor}", :inline_format => true
         text "<b>GPA:</b> #{record.gpa} out of #{record.gpa_range}", :inline_format => true
-        text "<b>Transcript:</b> <a href='#{record.transcript.url}'>Download</a>", :inline_format => true
+        text "<b>Transcript:</b> <a href='#{URI.join("https://" + Rails.application.routes.default_url_options[:host].to_s, record.transcript.url)}'>Download</a>", :inline_format => true
         }
       end
       pad(5) {
       text "<b>GPA Comments</b>", :size => 12, :inline_format => true
       text "#{applicant.gpa_comment}"
-      }
-      pad(5) {
-        text "<b>Awards</b>", :size => 12, :inline_format => true
-        applicant.awards.map do |award|
-          pad_bottom(5) {
-          text "<b>Title:</b> #{award.title}", :inline_format => true
-          text "<b>Date:</b> #{award.date}", :inline_format => true
-          text "<b>Description:</b> #{award.description}", :inline_format => true
-          }
-        end
       }
     }
     end
@@ -178,8 +168,8 @@ class ApplicantsDocument
         text "<b>Known Capacity:</b> #{recommendation.known_capacity}", :inline_format => true
         text "<b>Overall Promise:</b> #{recommendation.overall_promise}", :inline_format => true
         text "<b>Undergraduate Institution:</b> #{recommendation.undergraduate_institution}", :inline_format => true
-        text "<b>Received At:</b> #{applicant.recommendation.received_at}", :inline_format => true
-        text "<b>Body:</b> #{applicant.recommendation.body}", :inline_format => true
+        text "<b>Received At:</b> #{recommendation.received_at}", :inline_format => true
+        text "<b>Body:</b> #{recommendation.body}", :inline_format => true
         }
       end
     }

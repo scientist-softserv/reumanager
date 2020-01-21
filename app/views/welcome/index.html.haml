@@ -34,7 +34,7 @@
             = link_to "Apply Now", new_applicant_registration_path, :class => "btn btn-lg btn-success"
       - else
         %h3.deadline
-          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2019 Program. Applications will be due at 11:59pm Pacific Time on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b %d")}.
+          Applications will be available in #{Setting[:application_start].to_date.strftime("%A, %b %d")} for the Summer 2020 Program. Applications will be due at 11:59pm Pacific Time on #{Setting[:application_deadline].to_date.strftime("%A, %b %d") if Setting[:application_deadline]} and Decisions sent to applicants by #{Setting[:notification_date].to_date.strftime("%A, %b %d")}.
         %br
         %p
           <strong> Program Dates: </strong> #{Setting[:program_start_date].to_date.strftime("%B %d, %Y")} - #{Setting[:program_end_date].to_date.strftime("%B %d, %Y")}
@@ -47,7 +47,7 @@
   .col-md-12
     %section.col-md-4
       %h3 Program Highlights
-      = link_to "Click here to view the full list of mentors and projects for Summer 2019.", "https://www.seti.org/seti-institute-reu-mentors-2019"
+      = link_to "Click here to view the full list of mentors and projects for Summer 2020.", "https://www.seti.org/seti-institute-reu-mentors-2020"
       %p
       = raw Snippet[:highlights]
 
