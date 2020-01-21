@@ -61,14 +61,6 @@
     </ul>
   </div>
 
-  <div class="panel-heading">Personal Statement</div>
-    <div class="panel-body">
-
-    <ul class="form-group">
-      <li><%= current_applicant.statement if current_applicant.statement %></li>
-    </ul>
-  </div>
-
   <div class="panel-heading">How did you hear about us?</div>
     <div class="panel-body">
 
@@ -115,10 +107,6 @@
       <%- end -%>
 
       <li><b>GPA Comments:</b> <%= raw(Markdown.render(current_applicant.gpa_comment)) if current_applicant.gpa_comment %></li>
-
-      <%- current_applicant.awards.each do |award| -%>
-        <li><b>Award:</b> <%= award %></li>
-      <%- end -%>
     </ul>
   </div>
 
@@ -126,9 +114,10 @@
   <div class="panel-body">
 
     <ul class="form-group">
+      <li><b>Personal Statement:</b> <%= raw(Markdown.render(current_applicant.interest.statement)) if current_applicant.interest %>
+      <li><b>Facing Challenges Experience:</b> <%= raw(Markdown.render(current_applicant.interest.facing_challenges_experience)) if current_applicant.interest %>
       <li><b>Research Experience:</b> <%= raw(Markdown.render(current_applicant.interest.research_experience)) if current_applicant.interest %>
       <li><b>Leadership Experience:</b> <%=raw(Markdown.render(current_applicant.interest.leadership_experience)) if current_applicant.interest %></li>
-      <li><b>Programming Experience:</b> <%= raw(Markdown.render(current_applicant.interest.programming_experience)) if current_applicant.interest %>
       <li><b>Computer Skills:</b> <%= raw(Markdown.render(current_applicant.interest.cpu_skills)) if current_applicant.interest %>
     </ul>
   </div>

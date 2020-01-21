@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181130153330) do
+ActiveRecord::Schema.define(version: 20191106223449) do
 
   create_table "academic_records", force: true do |t|
     t.string   "university"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20181130153330) do
     t.string   "race"
     t.string   "academic_level"
     t.text     "lab_skills"
-    t.text     "statement"
     t.datetime "submitted_at"
     t.datetime "completed_at"
     t.string   "email",                     default: "",    null: false
@@ -119,10 +118,11 @@ ActiveRecord::Schema.define(version: 20181130153330) do
     t.text     "cpu_skills"
     t.text     "research_experience"
     t.text     "leadership_experience"
-    t.text     "programming_experience"
     t.integer  "applicant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "statement"
+    t.text     "facing_challenges_experience"
   end
 
   create_table "rails_admin_histories", force: true do |t|
