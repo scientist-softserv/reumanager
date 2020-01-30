@@ -297,15 +297,6 @@ class Applicant < ActiveRecord::Base
     end
   end
 
-  def transcript
-    current_record = self.records.last
-    if current_record
-      current_record.transcript
-    else
-      nil
-    end
-  end
-
   def university
     current_record = self.records.last
     if current_record
