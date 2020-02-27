@@ -12,14 +12,8 @@ RSpec.describe Section, type: :model do
     expect(subject.handle_add_field(field: )).to be_nil
   end
 
-  # we need to feed this method Field::TYPES.values.exclude?(add_field) in order for it to return anything other than nil
-  it "#handle_add_field returns new field if fed data from Field::TYPES" do
-
-  end
-
   it "#title_key" do
-    section = FactoryBot.create :section, title: "this is a Profile"
-    expect(section.title_key).to eq("this_is_a_profile")
+    expect(subject.title_key).to eq("this_is_a_profile")
   end
 
   it "#fields_json_config" do
