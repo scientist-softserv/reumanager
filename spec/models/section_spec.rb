@@ -1,51 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe Section, type: :model do
-  subject {FactoryBot.create :section}
+  subject { FactoryBot.create :section }
 
-  it "#important_fields" do
-    section = FactoryBot.create :section, important: nil
-    expect(section.important).to be_nil
+  it '#important_fields' do
+    subject.fields.first.update(important: 'test')
+    expect(subject.important_fields.count).to eq(1)
   end
 
-  it "#handle_add_field returns nil if not getting any data from Field::TYPES" do
-    expect(subject.handle_add_field(field: )).to be_nil
+  it '#title_key' do
+    expect(subject.title_key).to eq('profile')
   end
 
-  it "#title_key" do
-    expect(subject.title_key).to eq("this_is_a_profile")
+  it '#json_config' do
+    section = Section.new(
+      title: 'profiles',
+      fields: [
+        Fields::ShortText.new(
+          title: 'First Name'
+        )
+      ]
+    )
+    expect(section.json_config).to eq(
+      'first_name'=>{:format=>:text, :title=>'First Name', :type=>:string}
+    )
   end
 
-  it "#fields_json_config" do
-    expect(subject.fields_json_config).to eq({"First Name"=>{:type=>:string, :format=>"text"}})
+  it '#build_ui_schema' do
   end
 
-  it "method #build_json_schema returns nested data if nested is set to true" do
-    expect(subject.build_json_schema(nested: true)).to eq({"profile"=>{:title=>"profile", :type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}})
+  it '#dependant_fields' do
   end
 
-  it "method #build_json_schema returns non-nested if nested is set to false" do
-    expect(subject.build_json_schema(nested: false)).to eq({:properties=>{"First Name"=>{:format=>"text", :type=>:string}}, :type=>:object})
+  it '#required_fields' do
   end
 
-  it "#unnested_schema" do
-    expect(subject.unnested_schema).to eq({:type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}})
+  it '#build_ui_schema' do
   end
 
-  it "#repeating_schema" do
-    expect(subject.repeating_schema).to eq({"profile"=>{:title=>"profile", :type=>:array, :items=>{:type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}}})
+  it '#validations' do
   end
 
-  it "#non_repeating_schema" do
-    expect(subject.non_repeating_schema).to eq({"profile"=>{:title=>"profile", :type=>:object, :properties=>{"First Name"=>{:type=>:string, :format=>"text"}}}})
+  it '#csv_column_headers' do
   end
-
-  it "#required_fields" do
-    expect(subject.required_fields).to be_empty
-  end
-
-  it "#build_ui_schema" do
-    expect(subject.build_ui_schema).to be_empty
-  end
-
 end
