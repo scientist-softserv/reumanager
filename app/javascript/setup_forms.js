@@ -25,3 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     />
   ), mount)
 })
+
+import FormWrapper from './components/form_wrapper'
+document.addEventListener('DOMContentLoaded', () => {
+  var mount = document.querySelector('.react_playground')
+  if (!mount) { return }
+  ReactDOM.render((
+    <div>
+      <p>we are using react</p>
+      <FormWrapper />
+    </div>
+  ), mount)
+})

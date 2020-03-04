@@ -1,11 +1,14 @@
 class WelcomeController < ApplicationController
-  after_action :handle_subdomain, except: %i[index thanks]
+  after_action :handle_subdomain, except: %i[index thanks react_playground]
   layout 'marketing', except: %i[index thanks]
 
   def index
     unless subdomain?
       render :marketing_index, layout: "marketing"
     end
+  end
+
+  def react_playground
   end
 
   def tours; end

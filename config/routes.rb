@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'react_playground' => 'welcome#react_playground'
   # marketing routes
   get 'tours' => 'welcome#tours'
   get 'pricing' => 'welcome#pricing'
