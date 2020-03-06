@@ -38,6 +38,7 @@ gem 'whenever', require: false
 group :development, :test do
   gem 'faker'
   gem 'pry'
+  gem 'rubocop'
 end
 
 group :development do
