@@ -1,6 +1,5 @@
 class Snippet < ApplicationRecord
   self.inheritance_column = :kind
-
   validates_uniqueness_of :name
 
   class << self
