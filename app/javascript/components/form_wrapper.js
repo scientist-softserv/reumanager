@@ -7,6 +7,7 @@ export default function FormWrapper() {
   const [data1, setData1] = useState('')
   const [data2, setData2] = useState('')
   const [data3, setData3] = useState('')
+  const [data4, setData4] = useState(false)
 
   const changeData1 = (value) => {
     console.log(value)
@@ -19,6 +20,11 @@ export default function FormWrapper() {
   const changeData3 = (value) => {
     console.log(value)
     setData3(value)
+  }
+
+  const changeData4 = (value) => {
+    console.log(value)
+    setData4(value)
   }
 
   return (
@@ -49,11 +55,13 @@ export default function FormWrapper() {
         required
         minLength={5}
         />
-
+        
+      <pre>{data4}</pre>
       <Checkbox
-        label = "click here. ▷  "
+        label = "click here. "
         name = {"Checkbox"}
-        value = {false}
+        value = {data4} 
+        onChange = {changeData4}
       />
    </div>
   )

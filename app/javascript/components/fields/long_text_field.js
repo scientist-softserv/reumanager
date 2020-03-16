@@ -25,7 +25,6 @@ export default function LongTextField({label, value, onChange, required, minLeng
     <div className="form-group">
       <label>{label}{required ? '*' : ''}</label>
       <textarea 
-      class = "form-control rounded-0" 
       className={`form-control ${errorMessage ? 'is-invalid' : ''}`} 
       onChange={handleChange} 
       value={value} 
