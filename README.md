@@ -1,8 +1,8 @@
 # Docker development setup
 
-1) Install Docker.app
+1) Install the Docker desktop application for your OS (https://www.docker.com/products/docker-desktop)
 
-2) gem install stack_car
+2) install stack_car: `gem install stack_car` in the terminal
 
 3) We recommend committing .env to your repo with good defaults. .env.development, .env.production etc can be used for local overrides and should not be in the repo.
 
@@ -20,18 +20,23 @@ first make sure that you have docker installed. On Mac OS use docker for mac and
 Once you start it check the preferences and make sure that is has at least 3 gb of ram allocated to it.
 make sure to login to `docker login registry.gitlab.com` use your gitlab credentials to login.
 
-1. git clone the repo from https://gitlab.com/notch8/reumanager and switch to the v3 branch
-2. get a .env file for the project from someone on the team
-3. run `docker-compose pull web`
-4. run `docker-compose up`
-once you have the containers up and running
+1. git clone the repo from https://gitlab.com/notch8/reumanager and make sure you're on `master`
+2. run `sc pull`
+3. run `sc up`
+4. once you have the containers up and running, open a new tab/winmdow in your terminal
 5. run `docker-compose exec web bash` this will give you a console in the container running rails
 6. run `rails db:create db:migrate db:seed` in the container
-7. run `./bin/webpack` in the console inside the container
 7. in a browser go to test.lvh.me:3000
 
 to get to the new admin go to http://test.lvh.me:3000/reu_program/dashboard.
 the seeds setup a program admin for you. email: admin@test.com password: testing123
+
+To see the applicant flow:
+1. Log in as an admin, and make sure the settings have the application start at some time in the past and the application deadline at a future date
+2. Go to test.lvh.me:3000 and click the big green button to create a new user
+3. once the form is submitted, go to either the terminal window running your docker instance, or `/log/development.log` and look a page or two from the bottom for something like an email, which should have a confirmation link in the form "http://lvh.me:3000/users/confirmation?confirmation_token=<token>"
+4. visit that adress in your browser
+5. log in as that applicant
 
 # REU Manager v2
 
