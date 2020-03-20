@@ -24,11 +24,11 @@ export default function LongTextField({label, value, onChange, required, minLeng
   return (
     <div className="form-group">
       <label>{label}{required ? '*' : ''}</label>
-      <textarea 
-      className={`form-control ${errorMessage ? 'is-invalid' : ''}`} 
-      onChange={handleChange} 
-      value={value} 
-      /> 
+      <textarea
+        className={`form-control ${errorMessage ? 'is-invalid' : ''}`}
+        onChange={handleChange}
+        value={value}
+      />
       {errorMessage !== undefined ? <div className="invalid-feedback">{errorMessage}</div> : null}
     </div>
   )
