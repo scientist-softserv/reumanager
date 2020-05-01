@@ -12,8 +12,12 @@
 - if expired?
   .row
     .col-md-12
-      %h3.deadline.text-center
-        The deadline for applications has passed. Please sign in to see existing application status.
+      %h2.deadline.text-center
+        The deadline for applications has passed. 
+      %h4.deadline.text-center
+        Please sign in to see existing application status.
+        %br
+        Your information should be reviewed by #{Setting[:check_back_date]&.strftime("%A, %b %d")}
 - elsif started?
   .row
     .col-md-12
