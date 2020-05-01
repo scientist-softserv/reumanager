@@ -16,7 +16,10 @@ class RecommenderFormsController < ApplicationController
         recommendation.update(last_sent_at: Time.current)
         Notification.recommendation_request(recommendation, current_user.application).deliver
       end
-      render json: { success: true, message: 'Successfully saved the form' }
+      render json: {
+        success: true,
+        message: 'Successfully saved your recommenders information. You can have the system ask for their recommendation via email from the status page.'
+      }
     else
       current_user.application.save(validate: false)
       render json: {

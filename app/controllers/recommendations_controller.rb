@@ -12,7 +12,7 @@ class RecommendationsController < ApplicationController
       @recommendation.submitted_at = Time.current
       @recommendation.save(validate: false)
       Notification.recommendation_thanks(@recommendation, @application).deliver
-      render json: { success: true, message: 'Thank you for submitting your recommendation'}
+      render json: { success: true, message: 'Thank you for submitting your recommendation' }
     else
       @recommendation.save(validate: false)
       render json: {
