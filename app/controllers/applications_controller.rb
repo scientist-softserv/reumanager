@@ -11,7 +11,10 @@ class ApplicationsController < ApplicationController
   def update_application
     current_user.application.data = params.require(:data).permit!
     if current_user.application.save
-      render json: { success: true, message: 'Successfully saved the form' }
+      render json: {
+        success: true,
+        message: 'Successfully saved your information. Please review your information on the status page or provide information about your recommenders on the recommenders page.'
+      }
     else
       current_user.application.save(validate: false)
       render json: {

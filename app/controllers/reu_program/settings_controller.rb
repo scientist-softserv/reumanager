@@ -7,7 +7,7 @@ module ReuProgram
     end
 
     def edit
-      render layout: false
+      render :edit_modal, layout: false
     end
 
     def update

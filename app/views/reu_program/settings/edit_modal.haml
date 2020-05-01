@@ -1,10 +1,9 @@
-.container
-  %h2 Edit #{@setting.name}
-
-  = simple_form_for [:reu_program, @setting], as: :setting, url: reu_program_setting_path do |f|
-    .row
-      .col
-        %h5 Edit #{f.object.name} Setting
+= simple_form_for [:reu_program, @setting], as: :setting, url: reu_program_setting_path do |f|
+  .modal-header
+    %h5 Edit #{f.object.name} Setting
+    %button.close(data-dismiss="modal")
+      %span== &times;
+  .modal-body
     .row
       .col
         %p
@@ -20,6 +19,5 @@
             $('.datepicker').flatpickr()
         - else
           = f.input :value
-    .row
-      .col
-        = f.submit 'Update Setting', class: 'btn btn-primary'
+  .modal-footer.d-flex.justify-content-end
+    = f.submit 'Update Setting', class: 'btn btn-primary'

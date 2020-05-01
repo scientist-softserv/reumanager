@@ -91,6 +91,7 @@ class GrantDefaultFactory
     Setting.transaction do
       Settings::DateSetting.create!(date_settings)
       Settings::TextSetting.create!(text_settings)
+      Settings::UrlSetting.create!(url_settings)
     end
     Rails.logger.info("New default settings created: #{Setting.pluck(:name, :value).map { |e| e.join('-') }.join(', ')}")
   end
@@ -139,7 +140,12 @@ class GrantDefaultFactory
       { name: 'Department', description: 'This is used anywhere your department name is referenced.' },
       { name: 'Department Postal Address', description: "The postal address for the program's mail" },
       { name: 'Mail From', description: 'This will be used in the reply-to value for emails sent from the application.  This is also used in the footer as the email to contact for fields or comments about the website.' },
-      { name: 'Funding Acknowlegement', description: 'Who is supporting this program?' },
+      { name: 'Funding Acknowlegement', description: 'Who is supporting this program?' }
+    ]
+  end
+
+  def url_settings
+    [
       { name: 'University Url', description: 'Main URL for the parent organization, usually a university (e.g. http://university.edu)' },
       { name: 'Department Url', description: 'Main URL for the organization, usually a department' },
       { name: 'Program Url', description: 'URL for the specific program' }
