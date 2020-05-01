@@ -49,4 +49,8 @@ module ApplicationHelper
     return unless date_string.present?
     Date.parse(date_string)&.strftime('%m/%d/%Y')
   end
+
+  def app_title
+    Setting[:app_title] || 'REU Program'
+  end
 end
