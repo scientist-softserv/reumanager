@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '5.2.3'
+gem 'rails', '~> 5.2'
 
-gem 'apartment'
+gem 'apartment', '2.2.1'
 gem 'bootsnap'
 gem 'bootstrap', '~> 4.5'
 gem 'capistrano'
@@ -29,10 +29,12 @@ gem 'sassc-rails'
 gem 'simple_form'
 gem 'sortable-rails'
 gem 'stripe', '~> 1.57'
+gem 'thin'
 gem 'tzinfo-data'
 gem 'uglifier'
 gem 'webpacker'
 gem 'whenever', require: false
+gem 'view_component'
 
 # development and test gems
 group :development, :test do

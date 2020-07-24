@@ -5,16 +5,20 @@
     attrs = {
       style: "display: none;",
       data: {
-        schema: @form.json_schema,
-        data: JSON.generate(@data),
+        schema: @form.build_json_schema,
+        data: @data,
         path: application_path,
         method: 'PATCH'
       }
     }
 
-  .form-data{ attrs }
+  = form_tag(url: application_path, method: :patch) do
+    %p form
 
-  #customForm
+  .form-data{ attrs }
+  %pre= JSON.pretty_generate(attrs)
+
+  -# #customForm
 - else
   .alert.alert-warning
     %p There is no active form please alert the administrators.
