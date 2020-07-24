@@ -5,7 +5,7 @@ gem 'rails', '5.2.3'
 
 gem 'apartment'
 gem 'bootsnap'
-gem 'bootstrap'
+gem 'bootstrap', '~> 4.5'
 gem 'capistrano'
 gem 'coffee-rails'
 gem 'data_uri'
