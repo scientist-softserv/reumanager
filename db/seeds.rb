@@ -6,9 +6,10 @@
 # end
 
 if Apartment::Tenant.current == 'public'
+  Grant.destroy_all
   puts 'seeding public schema'
   puts 'create test grant'
-  Grant.create(
+  test = Grant.create!(
     program_title: 'Test Program',
     subdomain: 'test',
     admin_first_name: 'Admin',
@@ -17,7 +18,7 @@ if Apartment::Tenant.current == 'public'
     admin_password: 'testing123',
     admin_password_confirmation: 'testing123'
   )
-  Grant.create(
+  demo = Grant.create!(
     program_title: 'Demo Program',
     subdomain: 'demo',
     admin_first_name: 'Admin',
@@ -29,7 +30,8 @@ if Apartment::Tenant.current == 'public'
 
   # Super Admin
   puts 'create super admin'
-  User.create(
+  User.destroy_all
+  User.create!(
     email: 'super-admin@test.com',
     first_name: 'super',
     last_name: 'admin',
