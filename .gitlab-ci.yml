@@ -33,7 +33,9 @@ test:
     TEST_DB: reumanager
     SITE_URI_BASE: TODO
   script:
-    - bundle exec rake db:create db:schema:load spec
+    - ls -l
+    - cd /app && rails db:create db:schema:load
+    - cd /app && rspec
   tags:
     - docker
   variables:
