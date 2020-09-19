@@ -34,7 +34,7 @@ services:
       service: app
     command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
-      - "${WEB_PORT}"
+      - "${WEB_PORT:-3000}"
     environment:
       - VIRTUAL_HOST=reumanager.docker
       - VIRTUAL_PORT=3000
