@@ -41,13 +41,13 @@ spec:
           imagePullPolicy: IfNotPresent
           # Use sub-path for individual folders
           volumeMounts:
-            - mountPath: /home/app/webapp/public/assets
+            - mountPath: /app/public/assets
               name: shared
               subPath: assets
-            - mountPath: /home/app/webapp/public/packs
+            - mountPath: /app/public/packs
               name: shared
               subPath: packs
-            - mountPath: /home/app/webapp/public/system
+            - mountPath: /app/public/system
               name: shared
               subPath: system
           command: ["/bin/bash", "./ops/entrypoint.sh"]

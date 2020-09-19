@@ -35,13 +35,13 @@ spec:
         - name: setup
           image: {{ .Values.rails.image.repository }}:{{ .Values.rails.image.tag }}
           volumeMounts:
-            - mountPath: /home/app/webapp/public/assets
+            - mountPath: /app/public/assets
               name: shared
               subPath: assets
-            - mountPath: /home/app/webapp/public/packs
+            - mountPath: /app/public/packs
               name: shared
               subPath: packs
-            - mountPath: /home/app/webapp/public/system
+            - mountPath: /app/public/system
               name: shared
               subPath: system
           command: ["/bin/bash"]

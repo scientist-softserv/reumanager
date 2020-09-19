@@ -2,7 +2,7 @@
 set -e
 
 # Remove a potentially pre-existing server.pid for Rails.
-rm -f /webapp/tmp/pids/server.pid
+rm -f /app/tmp/pids/server.pid
 
 yarn install
 bundle install
