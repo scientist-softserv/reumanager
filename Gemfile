@@ -53,3 +53,4 @@ group :test do
   gem 'rspec-rails'
   gem 'timecop'
 end
+gem 'activerecord-nulldb-adapter'

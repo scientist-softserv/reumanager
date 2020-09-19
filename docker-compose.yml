@@ -1,38 +1,47 @@
----
-version: '2.1'
+version: '2.3'
 services:
   postgres:
-    image: postgres
-    env_file:
-      - .env
-      - .env.development
+    image: postgres:11.1
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=DatabaseFTW
+      - POSTGRES_DB=reumanager
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - 'postgres:/var/lib/postgresql/data'
-  web:
-    # build: .
-    image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
-    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/webapp
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
     env_file:
       - .env
       - .env.development
+    volumes:
+      - .:/home/app/webapp:cached
+      - node_modules:/home/app/webapp/node_modules
+      - tmp_cache:/home/app/webapp/tmp/cache
+    # Keep the stdin open, so we can attach to our app container's process
+    # and do things such as byebug, etc:
     stdin_open: true
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
     tty: true
+
+  web:
+    extends:
+      service: app
+    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
-      - "3000:3000"
+      - "${WEB_PORT}"
+    environment:
+      - VIRTUAL_HOST=reumanager.docker
+      - VIRTUAL_PORT=3000
     depends_on:
       - postgres
-  # webpacker:
-  #   image: "${REGISTRY_HOST}${REGISTRY_URI}/${TAG}"
-  #   command: bash -c "./bin/webpack --watch --colors --progress"
-  #   volumes:
-  #     - .:/webapp
-  #   env_file:
-  #     - .env
-  #     - .env.development
 
 volumes:
   postgres:
+  tmp_cache:
+  node_modules:
