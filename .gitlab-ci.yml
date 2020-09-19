@@ -5,19 +5,9 @@ stages:
 
 before_script:
 - export TAG=${CI_COMMIT_SHORT_SHA}
-- export BRANCH=${CI_COMMIT_REF_NAME}
+- export BRANCH=${CI_COMMIT_REF_SLUG}
 - export REGISTRY_HOST=${CI_REGISTRY}
 - export REGISTRY_URI="/${CI_PROJECT_PATH}"
-
-base:
-  stage: build
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - sc build -s base
-    - sc push -s base
-  when: manual
-  tags:
-    - local
 
 build:
   stage: build
@@ -25,24 +15,22 @@ build:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc build
     - sc push
-    - docker tag $CI_REGISTRY_IMAGE:$TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - docker tag $CI_REGISTRY_IMAGE:$TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   tags:
     - local
-
 
 test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   services:
         - name: postgres:11.1
-                        
   variables:
-      POSTGRES_DB: reumanager
+    POSTGRES_DB: reumanager
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: password
     POSTGRES_HOST: postgres
-        TEST_DB: reumanager
+    TEST_DB: reumanager
     SITE_URI_BASE: TODO
   script:
     - cd /home/app/webapp && bundle exec rake db:create db:schema:load spec
@@ -51,39 +39,12 @@ test:
   variables:
     GIT_STRATEGY: none
 
-review:
-  stage: review
-  type: deploy
-  environment:
-    name: $CI_COMMIT_REF_SLUG
-    url: http://web.$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.staging.$SITE_URI_BASE
-    on_stop: stop_review
-  only:
-    - branches
-  except:
-    - master
-  script:
-    - ./chart/bin/deploy review $CI_COMMIT_REF_SLUG
- tags:
-    - local
-
-stop_review:
-  stage: review
-  script:
-    - ./chart/bin/remove review $CI_COMMIT_REF_SLUG
-
-  when: manual
-  environment:
-    name: $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-    action: stop
-
 staging:
   stage: staging
   type: deploy
   script:
-  - ./chart/bin/deploy staging $CI_COMMIT_REF_SLUG
-  only:
-    - master
+  - ./chart/bin/deploy staging $CI_COMMIT_REF_SLUG $STAGING_CONFIG_FILE
+  when: manual
   tags:
     - local
 
@@ -91,9 +52,7 @@ production:
   stage: production
   type: deploy
   script:
-  - ./chart/bin/deploy production $CI_COMMIT_REF_SLUG
+  - ./chart/bin/deploy production $CI_COMMIT_REF_SLUG $STAGING_CONFIG_FILE
   when: manual
-  only:
-    - master
   tags:
     - local
