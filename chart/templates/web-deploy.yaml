@@ -50,7 +50,8 @@ spec:
             - mountPath: /home/app/webapp/public/system
               name: shared
               subPath: system
-          command: ["/data/build/entrypoint.sh", "bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+          command: ["/bin/bash", "./ops/entrypoint.sh"]
+          args: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
           readinessProbe:
             tcpSocket:
               port: 3000
