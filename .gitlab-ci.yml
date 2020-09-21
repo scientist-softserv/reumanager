@@ -26,12 +26,17 @@ test:
   services:
         - name: postgres:11.1
   variables:
+    DATABASE_ADAPTER: postgresql
+    DATABASE_HOST: postgres
+    DATABASE_NAME: reumanager
+    DATABASE_PASSWORD: password
+    DATABASE_USER: postgres
     POSTGRES_DB: reumanager
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: password
     POSTGRES_HOST: postgres
-    TEST_DB: reumanager
+    POSTGRES_PASSWORD: password
+    POSTGRES_USER: postgres
     SITE_URI_BASE: TODO
+    TEST_DB: reumanager
   script:
     - ls -l
     - cd /app && rails db:create db:schema:load
