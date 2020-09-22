@@ -1,14 +1,65 @@
-#!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd $DIR/../../chart
+#!/usr/bin/env ruby
+require 'yaml'
+require 'rainbow'
 
-REPO=$(basename $(git config --get remote.origin.url))
-NAMESPACE=${REPO%.git} 
+def blank?(string)
+  # rubocop:disable Rails/Blank
+  !string || string.empty?
+  # rubocop:enable Rails/Blank
+end
 
-if [ -z "$1" ] || [ -z "$2" ]
-then
-    echo './chart/bin/deploy ENVIRONMENT TAG'
+
+def environment_name
+  @environment_name ||= ARGV[0]&.downcase
+end
+
+def tag_name
+  @tag_name ||= ARGV[1]
+end
+
+def config_filename
+  @config_filename = if blank?(ARGV[2])
+    config_dir = File.join(__dir__, '..')
+     File.join(config_dir, "#{environment_name}-values.yaml")
+  else
+    ARGV[2]
+  end
+end
+
+def namespace
+  config = YAML.load_file(config_filename)
+  @namespace = config['env']['configmap']['NAMESPACE']
+end
+
+def check_config
+  if blank?(environment_name) || blank?(tag_name) || ['-h', '--help'].include?(environment_name)
+    puts './chart/bin/deploy ENVIRONMENT TAG (CONFIG_FILE)'
     exit 1
-fi
+  end
 
-helm upgrade --install --namespace $1-$NAMESPACE $1 . -f $1-values.yaml --set rails.image.tag=$2
+  if !File.exists?(config_filename)
+    puts Rainbow('Missing config file: ').red + config_filename
+  end
+
+  if blank?(namespace)
+    puts Rainbow('Missing NAMESPACE key in config: ').red + 'Configure under env.configmap.NAMESPACE'
+  end
+end
+
+Dir.chdir(File.join(__dir__, '..', '..', 'chart')) do
+  check_config
+
+  command = "helm upgrade --install --namespace #{namespace} #{environment_name} . -f #{config_filename} --set rails.image.tag=#{tag_name}"
+
+  puts Rainbow('Deploying ').blue + Rainbow(tag_name).cyan + Rainbow(' to ').blue + Rainbow(environment_name).cyan + Rainbow(' ...').blue
+  puts Rainbow('Executing: ').blue + command
+
+  case system(command)
+  when nil
+    puts Rainbow('Error: ').red + 'Command not found. Is helm installed?'
+  when false
+    puts Rainbow('Error: ').red + "Command exited with status code: #{$?.exitstatus}"
+  else
+    puts Rainbow('Deployment complete').green
+  end
+end
