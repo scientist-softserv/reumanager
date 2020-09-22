@@ -31,6 +31,7 @@ test:
     DATABASE_NAME: reumanager
     DATABASE_PASSWORD: password
     DATABASE_USER: postgres
+    GIT_STRATEGY: none
     POSTGRES_DB: reumanager
     POSTGRES_HOST: postgres
     POSTGRES_PASSWORD: password
@@ -43,8 +44,6 @@ test:
     - cd /app && rspec
   tags:
     - docker
-  variables:
-    GIT_STRATEGY: none
 
 staging:
   stage: deploy
