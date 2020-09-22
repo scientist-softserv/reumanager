@@ -5,7 +5,6 @@ stages:
 
 before_script:
 - export TAG=${CI_COMMIT_SHORT_SHA}
-- export BRANCH=${CI_COMMIT_REF_SLUG}
 - export REGISTRY_HOST=${CI_REGISTRY}
 - export REGISTRY_URI="/${CI_PROJECT_PATH}"
 
@@ -15,8 +14,6 @@ build:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc build
     - sc push
-    - docker tag $CI_REGISTRY_IMAGE:$TAG $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   tags:
     - local
 
@@ -49,7 +46,7 @@ staging:
   stage: deploy
   type: deploy
   script:
-  - ./chart/bin/deploy staging $CI_COMMIT_REF_SLUG $STAGING_CONFIG_FILE
+    - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
   when: manual
   tags:
     - local
@@ -58,7 +55,7 @@ production:
   stage: deploy
   type: deploy
   script:
-  - ./chart/bin/deploy production $CI_COMMIT_REF_SLUG $STAGING_CONFIG_FILE
+  - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
   when: manual
   tags:
     - local
