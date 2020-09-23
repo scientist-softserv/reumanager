@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
 
+  before_action :set_raven_context
   before_action :authenticate_for_staging
   after_action :set_csrf_cookie
 
@@ -107,5 +108,10 @@ class ApplicationController < ActionController::Base
       current_user.save
     end
     @application = current_user.application
+  end
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

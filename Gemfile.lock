@@ -105,6 +105,8 @@ GEM
       railties (>= 5.0.0)
     faker (2.13.0)
       i18n (>= 1.6, < 2)
+    faraday (0.17.3)
+      multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
     flatpickr_rails (1.1.0)
       railties (>= 3.0)
@@ -161,6 +163,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.1)
     msgpack (1.3.3)
+    multipart-post (2.1.1)
     nested_form_fields (0.8.4)
       coffee-rails (>= 3.2.1)
       jquery-rails
@@ -277,6 +280,8 @@ GEM
       sprockets-rails
       tilt
     semantic_range (2.3.0)
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -365,6 +370,7 @@ DEPENDENCIES
   rubocop
   rvm-capistrano
   sassc-rails
+  sentry-raven
   simple_form
   sortable-rails
   stripe (~> 1.57)
