@@ -26,6 +26,7 @@ gem 'prawn'
 gem 'rolify'
 gem 'rvm-capistrano', require: false
 gem 'sassc-rails'
+gem 'sentry-raven'
 gem 'simple_form'
 gem 'sortable-rails'
 gem 'stripe', '~> 1.57'
