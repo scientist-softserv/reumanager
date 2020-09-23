@@ -10,9 +10,9 @@ RSpec.describe Setting, type: :model do
 
     it 'returns all configured settings' do
       setting = FactoryBot.create(:setting)
-      expect(Setting.all_setup?).not_to be false
+      expect(Setting.all_setup?).to_not be
       setting.update(value: 'aksjdfklajsd')
-      expect(Setting.all_setup?).to be true 
+      expect(Setting.all_setup?).to be
     end
   end
 

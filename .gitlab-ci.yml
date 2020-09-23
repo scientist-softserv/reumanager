@@ -1,102 +1,61 @@
-image: $CI_REGISTRY_IMAGE/builder:latest
-services:
-  - docker:dind
-  - postgres:latest
-
 stages:
-  - build
-  - test
-  - review
-  - staging
-  - production
-
-variables:
-  POSTGRES_DB: reumanager
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: password
-  POSTGRES_HOST: postgres
-  TEST_DB: reumanager
-  DOCKER_DRIVER: overlay
-  REGISTRY_HOST: registry.gitlab.com
-  REGISTRY_URI: TODO/reumanager
-  SITE_URI_BASE: TODO
-
+- build
+- test
+- deploy
 
 before_script:
-  - export REGISTRY_FULL=registry.gitlab.com/notch8/ror-site/$CI_COMMIT_REF_SLUG:${CI_COMMIT_SHA:0:8}
-  - export TAG=$CI_COMMIT_REF_SLUG
-  - eval $(ssh-agent -s)
-  - bash
-  - ssh-add <(echo "$SSH_PRIVATE_KEY") 
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+- export TAG=${CI_COMMIT_SHORT_SHA}
+- export REGISTRY_HOST=${CI_REGISTRY}
+- export REGISTRY_URI="/${CI_PROJECT_PATH}"
 
 build:
   stage: build
   script:
-    - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - sc build
     - sc push
   tags:
-    - docker
+    - local
 
 test:
   stage: test
-  image: $CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  services:
+        - name: postgres:11.1
+  variables:
+    DATABASE_ADAPTER: postgresql
+    DATABASE_HOST: postgres
+    DATABASE_NAME: reumanager
+    DATABASE_PASSWORD: password
+    DATABASE_USER: postgres
+    GIT_STRATEGY: none
+    POSTGRES_DB: reumanager
+    POSTGRES_HOST: postgres
+    POSTGRES_PASSWORD: password
+    POSTGRES_USER: postgres
+    SITE_URI_BASE: TODO
+    TEST_DB: reumanager
   script:
-    - cd /home/app/webapp && bundle exec rake db:create db:schema:load spec
+    - ls -l
+    - cd /app && rails db:create db:schema:load
+    - cd /app && rspec
   tags:
     - docker
-  variables:
-    GIT_STRATEGY: none
-
-review:
-  stage: review
-  type: deploy
-  environment:
-    name: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
-    url: http://web.$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.staging.$SITE_URI_BASE
-    on_stop: stop_review
-  only:
-    - branches
-  except:
-    - master
-  script:
-    - export RANCHER_ENVIRONMENT=staging
-    - sc provision ci
-
- tags:
-    - docker
-    - mysql
-
-stop_review:
-  stage: review
-  script:
-    - export RANCHER_ENVIRONMENT=staging
-    - rancher rm $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-
-  when: manual
-  environment:
-    name: $CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-    action: stop
 
 staging:
-  stage: staging
+  stage: deploy
   type: deploy
   script:
-    - sc deploy staging 
-  only:
-    - master
+    - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
+  when: manual
   tags:
-    - docker
+    - local
 
 production:
-  stage: production
+  stage: deploy
   type: deploy
   script:
-    - sc deploy production
+  - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
   when: manual
-  only:
-    - master
   tags:
-    - docker
+    - local

@@ -12,8 +12,8 @@ SHELL [ "/bin/bash", "-l", "-c" ]
 RUN useradd -u 1000 --create-home --home-dir /app --shell /bin/bash app \
       && adduser app sudo
 
-ENV APP_HOME /webapp
-RUN mkdir $APP_HOME
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile Gemfile.lock package.json yarn.lock ./
