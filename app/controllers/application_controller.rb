@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery prepend: true
+  protect_from_forgery prepend: true, with: :reset_session
 
   helper_method :expired?,
                 :started?,
