@@ -17,4 +17,4 @@ spec:
       paths:
       - backend:
           serviceName: {{ template "app.web.name" . }}
-          servicePort: 80
+          servicePort: 3000
