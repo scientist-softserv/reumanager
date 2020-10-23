@@ -16,9 +16,9 @@
     %p form
 
   .form-data{ attrs }
-  %pre= JSON.pretty_generate(attrs)
+  -# %pre= JSON.pretty_generate(attrs)
 
-  -# #customForm
+  #customForm
 - else
   .alert.alert-warning
     %p There is no active form please alert the administrators.
