@@ -11,6 +11,7 @@ function CustomForm({sections, formData, path, method}) {
   var initialState = { formData: formData || {}, path, method }
   var [state, dispatch] = useReducer(formReducer, initialState)
   var [msg, setMsg] = useState({ msg: null, type: '' })
+  console.log(state)
 
   var onFormSubmit = () => {
     saveData({
