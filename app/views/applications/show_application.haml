@@ -22,6 +22,8 @@
     %pre(style="border: 1px solid black; background: lightgrey; padding: 10px; border-radius: 5px;")
       = JSON.pretty_generate(attrs)
       = "\n"
+      = JSON.pretty_generate(@data)
+      = "\n"
       = @form.pretty_json_schema
     %hr
 - else

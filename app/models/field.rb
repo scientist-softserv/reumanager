@@ -36,6 +36,38 @@ class Field < ApplicationRecord
     title.downcase.tr(' ', '_')
   end
 
+  def validate_data(value, index = nil)
+    [
+      required_applies? ? validate_required(value, index) : nil,
+      min_length_applies? ? validate_min_length(value, index) : nil,
+      max_length_applies? ? validate_max_length(value, index) : nil
+    ].compact
+  end
+
+  def required_applies?
+    self.respond_to?(:required) && self.required
+  end
+
+  def validate_required(value, index = nil)
+    value.present? ? nil : "#{title}#{" #{index + 1}" if index.present?} is required"
+  end
+
+  def min_length_applies?
+    self.respond_to?(:min_length) && self.min_length.present? && self.min_length > 0
+  end
+
+  def validate_min_length(value, index = nil)
+    value.size > self.min_length ? nil : "#{title}#{" #{index + 1}" if index.present?} must be at least #{min_length} characters long"
+  end
+
+  def max_length_applies?
+    self.respond_to?(:max_length) && self.max_length.present? && self.max_length > 0
+  end
+
+  def validate_max_length(value, index = nil)
+    value.size < self.max_length ? nil : "#{title}#{" #{index + 1}" if index.present?} cannot use more than #{max_length} characters"
+  end
+
   def dependancy_config
     {}
   end
