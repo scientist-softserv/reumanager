@@ -35,6 +35,16 @@ class ApplicationForm < ApplicationRecord
     new_form
   end
 
+  def validate_data(data)
+    error_messages = []
+    sections = self.sections.to_a
+    data.each do |title_key, values|
+      section = sections.detect { |s| s.title_key == title_key }
+      error_messages.concat(section.validate_data(values))
+    end
+    error_messages
+  end
+
   def set_important_paths
     important_sections.each_with_object({}) do |s, hash|
       hash[s.title_key] = s.important_fields.map(&:title_key)
@@ -47,11 +57,7 @@ class ApplicationForm < ApplicationRecord
 
   def default_data
     sections.each_with_object({}) do |section, hash|
-      if section.repeating
-        hash[section.title_key] = [{}]
-      else
-        hash[section.title_key] = {}
-      end
+      hash[section.title_key] = section.repeating ? [{}] : {}
     end
   end
 

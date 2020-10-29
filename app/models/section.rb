@@ -17,6 +17,27 @@ class Section < ApplicationRecord
     title.downcase.tr(' ', '_')
   end
 
+  def validate_data(data)
+    error_messages = []
+    fields = self.fields.to_a
+    if data.is_a?(Array)
+      data.each_with_index do |set, index|
+        set.each do |title_key, value|
+          field = fields.detect { |f| f.title_key == title_key }
+          next if field.nil?
+          error_messages.concat(field.validate_data(value, index))
+        end
+      end
+    else
+      data.each do |title_key, value|
+        field = fields.detect { |f| f.title_key == title_key }
+        next if field.nil?
+        error_messages.concat(field.validate_data(value))
+      end
+    end
+    error_messages
+  end
+
   def json_config
     fields.each_with_object({}) do |field, hash|
       hash.merge!(field.json_config)

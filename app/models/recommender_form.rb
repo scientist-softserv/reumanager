@@ -35,6 +35,20 @@ class RecommenderForm < ApplicationRecord
     new_form
   end
 
+  def validate_data(data)
+    error_messages = []
+    sections = self.sections.to_a
+    data.each do |title_key, values|
+      section = sections.detect { |s| s.title_key == title_key }
+      error_messages.concat(section.validate_data(values))
+    end
+    error_messages
+  end
+
+  def recommender_section
+    @recommender_section ||= self.sections.where("title = 'Recommenders Form' OR important='recommender'").first
+  end
+
   def json_schema(section: 'recommender')
     JSON.generate(build_json_schema(section: section))
   end

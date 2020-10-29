@@ -5,20 +5,27 @@
     attrs = {
       style: "display: none;",
       data: {
-        schema: @form.build_json_schema,
-        data: @data,
+        schema: @form.json_schema,
+        data: @data.to_json,
         path: application_path,
         method: 'PATCH'
       }
     }
 
-  = form_tag(url: application_path, method: :patch) do
-    %p form
-
   .form-data{ attrs }
-  -# %pre= JSON.pretty_generate(attrs)
 
   #customForm
+
+  - if Rails.env.development?
+    %hr
+    %h3 this is only in dev
+    %pre(style="border: 1px solid black; background: lightgrey; padding: 10px; border-radius: 5px;")
+      = JSON.pretty_generate(attrs)
+      = "\n"
+      = JSON.pretty_generate(@data)
+      = "\n"
+      = @form.pretty_json_schema
+    %hr
 - else
   .alert.alert-warning
     %p There is no active form please alert the administrators.

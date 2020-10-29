@@ -64,13 +64,6 @@ class Application < ApplicationRecord
     validate_recommenders
   end
 
-  def add_errors(type, details, value, append_msg = '')
-    message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
-    errors.add(:base, message) if type.to_s == 'required' && [nil, ''].include?(value)
-    return if value.nil?
-    errors.add(:base, message) if type.to_s == 'max_length' && value.size > details[:max]
-  end
-
   def data_valid?
     return @data_valid unless @data_valid.nil?
     self.errors.clear
@@ -91,41 +84,26 @@ class Application < ApplicationRecord
 
   def validate_data
     return unless self.current_application_form
-    validations = self.current_application_form.validations
     if data.blank? || data.empty?
       self.errors.add(:base, 'Fill out application information')
       return
     end
-    validations.each do |section_key, validation|
-      validation.each do |key, field_validations|
-        field_validations.each do |type, details|
-          if data[section_key].is_a?(Array)
-            data[section_key].each_with_index do |section_data, index|
-              self.add_errors(type, details, section_data[key], "#{section_key} #{index + 1}:")
-            end
-          else
-            self.add_errors(type, details, data.dig(section_key, key))
-          end
-        end
-      end
-    end
+    self.current_application_form
+        .validate_data(data)
+        .each { |msg| errors.add(:base, msg) }
   end
 
   def validate_recommenders
     return unless self.current_recommender_form
-    validations = current_recommender_form.validations['recommenders_form']
     form_data = recommender_info.fetch('recommenders_form', [])
     if form_data.blank? || form_data.empty?
       self.errors.add(:base, "Fill out recommender's information")
       return
     end
-    form_data.each do |form|
-      validations.each do |key, validation|
-        validation.each do |type, details|
-          self.add_errors(type, details, form[key])
-        end
-      end
-    end
+    self.current_recommender_form
+        .recommender_section
+        .validate_data(recommender_data)
+        .each { |msg| errors.add(:base, msg) }
   end
 
   def current_application_form
