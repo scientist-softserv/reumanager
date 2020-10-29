@@ -84,9 +84,17 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  config.action_mailer.default_url_options = { protocol: 'https', host: 'reumanager.com' }
-  config.action_mailer.smtp_settings = { enable_starttls_auto: false, host: 'localhost' }
-  Rails.application.routes.default_url_options = { protocol: 'https',  host: 'reumanager.com' }
+  # TODO(dlim87): change these back to .com when we have a real prod deploy, and switch from mailtrap
+  config.action_mailer.default_url_options = { protocol: 'https', host: ENV['MAIL_HOST'] }
+  config.action_mailer.smtp_settings = {
+    user_name: ENV['MAILTRAP_USER'],
+    password: ENV['MAILTRAP_PASS'],
+    address: 'smtp.mailtrap.io',
+    domain: 'smtp.mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5
+  }
+  Rails.application.routes.default_url_options = { protocol: 'https',  host: ENV['MAIL_HOST'] }
 
   config.action_controller.relative_url_root = '/'
 

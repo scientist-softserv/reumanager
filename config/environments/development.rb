@@ -46,21 +46,21 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  Rails.application.routes.default_url_options = { host: 'lvh.me:3000' }
+  Rails.application.routes.default_url_options = { host: ENV['MAIL_HOST'] }
 
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['MAIL_HOST'] }
   config.action_mailer.default_options = { from: 'no-reply@reumanager.com' }
 
   # mailtrap config
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: '133465770985d17a2',
-    password: '3a16df65e72986',
+    user_name: ENV['MAILTRAP_USER'],
+    password: ENV['MAILTRAP_PASS'],
     address: 'smtp.mailtrap.io',
     domain: 'smtp.mailtrap.io',
     port: '2525',
