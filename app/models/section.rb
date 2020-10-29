@@ -24,12 +24,14 @@ class Section < ApplicationRecord
       data.each_with_index do |set, index|
         set.each do |title_key, value|
           field = fields.detect { |f| f.title_key == title_key }
+          next if field.nil?
           error_messages.concat(field.validate_data(value, index))
         end
       end
     else
       data.each do |title_key, value|
         field = fields.detect { |f| f.title_key == title_key }
+        next if field.nil?
         error_messages.concat(field.validate_data(value))
       end
     end

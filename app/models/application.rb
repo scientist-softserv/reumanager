@@ -89,7 +89,6 @@ class Application < ApplicationRecord
       return
     end
     self.current_application_form
-        .recommender_section
         .validate_data(data)
         .each { |msg| errors.add(:base, msg) }
   end
@@ -102,6 +101,7 @@ class Application < ApplicationRecord
       return
     end
     self.current_recommender_form
+        .recommender_section
         .validate_data(recommender_data)
         .each { |msg| errors.add(:base, msg) }
   end

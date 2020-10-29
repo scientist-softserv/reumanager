@@ -48,7 +48,7 @@ class GrantDefaultFactory
       Fields::ShortText.create!(title: 'City', order: 3, section: s2)
       Fields::ShortText.create!(title: 'State', order: 4, section: s2)
       Fields::ShortText.create!(title: 'Zip', order: 5, section: s2)
-      s3 = Section.create!(title: 'Acedemic Record', repeating: true, application_form: af)
+      s3 = Section.create!(title: 'Academic Record', repeating: true, application_form: af)
       Fields::ShortText.create!(title: 'University', order: 1, section: s3)
       Fields::Select.create!(title: 'GPA', enum_array: %w[4.0 3.9 3.8 3.7 3.6 3.5 3.4 3.3 3.2 3.1 3.0 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2 2.1 1.0 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 0.1 0.0], order: 2, section: s3)
       Fields::Date.create!(title: 'Started University', order: 3, section: s3)
