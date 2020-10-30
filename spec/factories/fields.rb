@@ -9,6 +9,11 @@ FactoryBot.define do
     config { { title: Faker::Games::Pokemon.name.parameterize } }
   end
 
+  factory :file_field, class: Fields::File do
+    # we need a differnet name for each field so ... pokemon names
+    config { { title: Faker::Games::Pokemon.name.parameterize } }
+  end
+
   factory :select_field, class: Fields::Select do
     config do
       {

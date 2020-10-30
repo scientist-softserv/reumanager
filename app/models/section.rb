@@ -50,18 +50,10 @@ class Section < ApplicationRecord
     end
   end
 
-  def required_fields
-    fields.map do |field|
-      next unless field.required
-      field.title_key
-    end.compact
-  end
-
   def build_json_schema
     {
       title: title,
       type: :object,
-      required: required_fields,
       properties: json_config,
       dependencies: dependant_fields
     }.reject { |_k, v| v.blank? }
@@ -71,16 +63,19 @@ class Section < ApplicationRecord
     fields.each_with_object({}) do |field, hash|
       hash[field.title_key] = {}
       if field.required
-        hash[field.title_key].merge!(required: { message: "#{field.title} is required" })
+        hash[field.title_key][:required] = { message: "#{field.title} is required" }
       end
-      if field.respond_to?(:max_length) && field.max_length.present?
-        hash[field.title_key].merge!(
-          max_length: {
-            max: field.max_length.to_i,
-            message: "#{field.title} is must contain less than #{field.max_length} characters"
-          }
-        )
+      if field.respond_to?(:min_length) && field.min_length.present?
+        hash[field.title_key][:min_length] = {
+          min: field.min_length.to_i,
+          message: "#{field.title} must contain more than #{field.min_length} characters"
+        }
       end
+      next unless field.respond_to?(:max_length) && field.max_length.present?
+      hash[field.title_key][:max_length] = {
+        max: field.max_length.to_i,
+        message: "#{field.title} must contain less than #{field.max_length} characters"
+      }
     end
   end
 
