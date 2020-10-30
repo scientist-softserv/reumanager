@@ -1,21 +1,27 @@
 = simple_form_for([:reu_program, @invoice]) do |f|
-  - if @invoice.errors.any?
-    #error_explanation
-      %h4
-        = pluralize(@invoice.errors.count, "error")
-        prohibited this invoice from being saved:
-      %ul
-        - @invoice.errors.full_messages.each do |message|
-          %li= message
-  = f.input :university_or_institution, placeholder: "University or Institution"
-  = f.input :department, placeholder: "Department"
-  = f.input :program_title, placeholder: "Program Title"
-  = f.input :contact_name, placeholder: "Contact Name"
-  = f.input :email, placeholder: "Email"
-  = f.input :phone, placeholder: "Phone"
-  = f.input :billing_name, placeholder: "Name"
-  = f.input :billing_address, placeholder: "Address"
-  = f.input :billing_email, placeholder: "Email"
-  = f.input :billing_phone, placeholder: "Phone #"
-  = f.input :po_number, placeholder: "PO #"
-  = f.submit 'Submit', class: 'btn btn-ar btn-primary mb-5'
+  .row
+    .col-md-4
+      = f.input :university_or_institution, placeholder: 'University or Institution'
+    .col-md-4
+      = f.input :department, placeholder: 'Department'
+    .col-md-4
+      = f.input :program_title, label: 'Program Title', placeholder: 'Program Title'
+  .row
+    .col-md-6
+      %fieldset
+        %legend Contact Person
+        = f.input :contact_name, label: 'Name', placeholder: 'Name'
+        = f.input :email, placeholder: 'Email'
+        = f.input :phone, placeholder: 'Phone'
+    .col-md-6
+      %fieldset
+        %legend Billing Details
+        = f.input :billing_name, placeholder: 'Name'
+        = f.input :billing_address, placeholder: 'Address'
+        = f.input :billing_email, placeholder: 'Email'
+        = f.input :billing_phone, placeholder: 'Phone #'
+  .row
+    .col-md-12
+      = f.input :po_number, placeholder: 'PO #'
+  .d-flex.justify-content-end
+    = f.submit 'Submit', class: 'btn btn-ar btn-primary mb-5'

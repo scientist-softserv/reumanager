@@ -1,37 +1,39 @@
 .container
   %h2 Dashboard
+  %hr
   - if current_grant.latest_invoice.present?
-    .d-flex
-      %h3.mr-5 Billing
-      = link_to 'Invoice Information', reu_program_invoice_path(current_grant.latest_invoice), class: 'btn btn-outline-secondary'
+    .d-flex.justify-content-between
+      %h4.mr-5 Billing
+      = link_to 'View Invoice Details', reu_program_invoice_path(current_grant.latest_invoice)
+    %hr
   - elsif current_grant.charged_credit_card?
-    .d-flex
-      %h3.mr-5 Billing
+    .d-flex.justify-content-between.pb-3
+      %h4.mr-5 Billing
       %p Active Account
   - else
-    .d-flex.alert.alert-warning.w-100
-      %h3.mr-5 Billing
+    .d-flex.alert.alert-warning.justify-content-between
+      %h4.mr-5 Billing
       .btn-group
-        = link_to "Request an Invoice", new_reu_program_invoice_path, class: 'btn btn-outline-secondary'
-        = link_to "Pay by Credit Card", new_reu_program_charge_path, class: 'btn btn-outline-secondary'
+        = link_to 'Request an Invoice', new_reu_program_invoice_path, class: 'btn btn-warning'
+        = link_to 'Pay by Credit Card', new_reu_program_charge_path, class: 'btn btn-warning'
 
   - unless Setting.all_setup?
     .row
       .col
-        .alert.alert-danger
+        .alert.alert-danger.d-flex.justify-content-between
           All Settings are not yet configured.  Please a value to every setting.
-          = link_to 'Settings', reu_program_settings_path
+          = link_to 'Update Settings', reu_program_settings_path
 
   - unless Snippet.all_setup?
     .row
       .col
-        .alert.alert-danger
+        .alert.alert-danger.d-flex.justify-content-between
           All Snippets are not yet configured.  Please a value to every Snippets.
-          = link_to 'Snippets', reu_program_snippets_path
+          = link_to 'Update Snippets', reu_program_snippets_path
 
   .row
     .col
-      %h2.float-left Details
+      %h4.float-left Details
   .row
     .col
       %table.table
@@ -56,7 +58,7 @@
 
   .row
     .col
-      %h2.float-left Applications
+      %h4.float-left Applications
   .row
     .col
       %table.table
