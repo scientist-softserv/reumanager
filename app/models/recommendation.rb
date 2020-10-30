@@ -17,13 +17,11 @@ class Recommendation < ApplicationRecord
 
   def validate_data
     return unless current_recommender_form
-    validations = current_recommender_form.validations['recommendation_form']
     form_data = data.fetch('recommendation_form', {})
-    validations.each do |field, validation|
-      validation.each do |type, details|
-        add_errors(type, details, form_data[field])
-      end
-    end
+    self.current_recommender_form
+        .recommender_section
+        .validate_data(form_data)
+        .each { |msg| errors.add(:base, msg) }
   end
 
   def data_valid?
