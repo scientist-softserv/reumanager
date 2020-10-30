@@ -15,14 +15,10 @@ RSpec.describe Section, type: :model do
   it '#json_config' do
     section = Section.new(
       title: 'profiles',
-      fields: [
-        Fields::ShortText.new(
-          title: 'First Name'
-        )
-      ]
+      fields: [Fields::ShortText.new(title: 'First Name')]
     )
     expect(section.json_config).to eq(
-      'first_name'=>{:format=>:text, :title=>'First Name', :type=>:string}
+      'first_name' => { format: :text, title: 'First Name', type: :string }
     )
   end
 
