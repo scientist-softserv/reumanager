@@ -102,7 +102,7 @@ class Application < ApplicationRecord
     end
     self.current_recommender_form
         .recommender_section
-        .validate_data(recommender_data)
+        .validate_data(form_data)
         .each { |msg| errors.add(:base, msg) }
   end
 
