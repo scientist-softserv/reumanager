@@ -1,15 +1,31 @@
 %h1 Recommenders
-:ruby
-  attrs = {
-    style: "display: none;",
-    data: {
-      schema: @form.json_schema(section: 'recommender'),
-      data: JSON.generate(current_application&.recommender_info || {}),
-      path: recommenders_path,
-      method: 'PATCH'
+
+- if @form
+  :ruby
+    attrs = {
+      style: "display: none;",
+      data: {
+        schema: @form.json_schema(section: 'recommender'),
+        data: JSON.generate(current_application&.recommender_info || {}),
+        path: recommenders_path,
+        method: 'PATCH'
+      }
     }
-  }
 
-.form-data{ attrs }
+  .form-data{ attrs }
 
-#customForm
+  #customForm
+
+  - if Rails.env.development?
+    %hr
+    %h3 this is only in dev
+    %pre(style="border: 1px solid black; background: lightgrey; padding: 10px; border-radius: 5px;")
+      = JSON.pretty_generate(attrs)
+      = "\n"
+      = JSON.pretty_generate(current_application&.recommender_info || {})
+      = "\n"
+      = @form.pretty_json_schema
+    %hr
+- else
+  .alert.alert-warning
+    %p There is no active form please alert the administrators.
