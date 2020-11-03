@@ -85,12 +85,16 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # TODO(dlim87): change these back to .com when we have a real prod deploy, and switch from mailtrap
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+
   config.action_mailer.default_url_options = { protocol: 'https', host: ENV['MAIL_HOST'] }
   config.action_mailer.smtp_settings = {
-    user_name: ENV['MAILTRAP_USER'],
-    password: ENV['MAILTRAP_PASS'],
-    address: 'smtp.mailtrap.io',
-    domain: 'smtp.mailtrap.io',
+    user_name: ENV['MAIL_USER'],
+    password: ENV['MAIL_PASS'],
+    address: ENV['MAIL_ADDRESS'],
+    domain: ENV['MAIL_DOMAIN'],
     port: '2525',
     authentication: :cram_md5
   }
