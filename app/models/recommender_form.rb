@@ -49,6 +49,12 @@ class RecommenderForm < ApplicationRecord
     @recommender_section ||= self.sections.where("title = 'Recommenders Form' OR important='recommender'").first
   end
 
+  def recommendation_section
+    @recommendation_section ||= self.sections.detect do |section|
+      section.title == 'Recommendation Form' || section.important == 'recommendation'
+    end
+  end
+
   def json_schema(section: 'recommender')
     JSON.generate(build_json_schema(section: section))
   end

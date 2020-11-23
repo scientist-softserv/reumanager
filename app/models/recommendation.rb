@@ -19,7 +19,7 @@ class Recommendation < ApplicationRecord
     return unless current_recommender_form
     form_data = data.fetch('recommendation_form', {})
     self.current_recommender_form
-        .recommender_section
+        .recommendation_section
         .validate_data(form_data)
         .each { |msg| errors.add(:base, msg) }
   end
@@ -29,13 +29,6 @@ class Recommendation < ApplicationRecord
     self.errors.clear
     validate_data
     @data_valid = self.errors.empty?
-  end
-
-  def add_errors(type, details, value, append_msg = '')
-    message = append_msg.present? ? "#{append_msg} #{details[:message]}" : details[:message]
-    errors.add(:base, message) if type.to_s == 'required' && [nil, ''].include?(value)
-    return if value.nil?
-    errors.add(:base, message) if type.to_s == 'max_length' && value.size > details[:max]
   end
 
   def current_recommender_form
