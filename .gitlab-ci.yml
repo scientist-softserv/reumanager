@@ -46,7 +46,10 @@ staging:
   stage: deploy
   type: deploy
   script:
-    - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
+    - ./chart/bin/decrypt staging
+    - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA
+  after_script:
+    - rm ./chart/*-values.yaml
   when: manual
   tags:
     - local
@@ -55,7 +58,10 @@ production:
   stage: deploy
   type: deploy
   script:
-  - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA $STAGING_CONFIG_FILE
+    - ./chart/bin/decrypt production
+    - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA
+  after_script:
+    - rm ./chart/*-values.yaml
   when: manual
   tags:
     - local
