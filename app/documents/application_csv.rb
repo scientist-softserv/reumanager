@@ -19,15 +19,20 @@ class ApplicationCsv
       applications.each do |application|
         row = RowBuilder.new(headers)
         data = application.data_flattened
-        data.each { |k, v| row.add k, format_value_for_csv(v[:value], 'application', application.id, v[:path]) }
+        data.each do |k, v|
+          row.add(
+            k,
+            format_value_for_csv(v[:value], 'application', application.id, v[:path], application.user.subdomain)
+          )
+        end
         csv << row.raw_values
       end
     end
   end
 
-  def format_value_for_csv(value, model, model_id, access_path)
+  def format_value_for_csv(value, model, model_id, access_path, subdomain)
     if value =~ /^data:/
-      url_helpers.download_url(model, model_id, access_path, format: :pdf, subdomain: @application.user.subdomain)
+      url_helpers.download_url(model, model_id, access_path, format: :pdf, subdomain: subdomain)
     else
       value
     end
