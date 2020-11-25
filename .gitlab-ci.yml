@@ -46,6 +46,7 @@ staging:
   stage: deploy
   type: deploy
   script:
+    - keybase oneshot
     - ./chart/bin/decrypt staging
     - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA
   after_script:
@@ -58,6 +59,7 @@ production:
   stage: deploy
   type: deploy
   script:
+    - keybase oneshot
     - ./chart/bin/decrypt production
     - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA
   after_script:
