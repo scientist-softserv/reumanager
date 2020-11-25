@@ -60,12 +60,14 @@ function FormValidation({data, validations}) {
     var value = data[key]
     if (validations[key].required) {
       if (value === '' || value === undefined) {
-        validationMsgs.push(<p key={key + index}>{validations[key].required.message}</p>)
+        validationMsgs.push(<span key={key + index}>{validations[key].required.message}</span>)
+        validationMsgs.push(<br />)
       }
     }
     if (validations[key].max_length) {
       if (typeof value === 'string' && value.length > validations[key].max_length.max) {
-        validationMsgs.push(<p key={key + index}>{validations[key].max_length.message}</p>)
+        validationMsgs.push(<span key={key + index}>{validations[key].max_length.message}</span>)
+        validationMsgs.push(<br />)
       }
     }
   })

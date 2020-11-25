@@ -1,7 +1,7 @@
 class Recommendation < ApplicationRecord
   belongs_to :application
 
-  validate :run_data_validations
+  validate :run_data_validations, on: :update
 
   after_commit do
     if self.application.can_complete?
@@ -18,6 +18,10 @@ class Recommendation < ApplicationRecord
   def validate_data
     return unless current_recommender_form
     form_data = data.fetch('recommendation_form', {})
+    if form_data.blank?
+      errors.add(:base, 'Recommendation not filled out')
+      return
+    end
     self.current_recommender_form
         .recommendation_section
         .validate_data(form_data)
