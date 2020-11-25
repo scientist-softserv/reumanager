@@ -139,7 +139,7 @@
           onEnd: function(e) {
             ids = $('##{id} li').map(function() { return this.dataset.id }).toArray()
             console.log('#{id}', '#{list_id}', ids)
-            $('##{id} [data-target="reorder-section-btn"]').attr('href', path + '?reorder_sections=' + ids.join('--'))
+            $('##{id} [data-target="reorder-field-btn"]').attr('href', path + '?reorder_fields=' + ids.join('--'))
           }
         })
       })()

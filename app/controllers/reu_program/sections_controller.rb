@@ -38,7 +38,7 @@ module ReuProgram
           flash[:alert] = 'Could not reorder sections, please contact an admin'
         end
       else
-        flash[:alert] = 'Could not reorder sections, there are no sections to reorder, please contact an admin'
+        flash[:alert] = 'Could not reorder fields, there are no fields to reorder, please contact an admin'
       end
       redirect_to_form
     end
