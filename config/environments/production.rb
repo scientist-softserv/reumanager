@@ -97,7 +97,7 @@ Rails.application.configure do
     password: ENV['MAIL_PASS'],
     address: ENV['MAIL_ADDRESS'],
     domain: ENV['MAIL_DOMAIN'],
-    port: '2525',
+    port: ENV['MAIL_PORT'],
     authentication: :cram_md5
   }
   Rails.application.routes.default_url_options = { protocol: 'https',  host: ENV['MAIL_HOST'] }

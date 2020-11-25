@@ -12,7 +12,7 @@ if Apartment::Tenant.current == 'public'
       u.last_name = 'admin',
       u.password = 'testing123',
       u.confirmed_at = Time.now
-  ).tap { |u| u.add_role(:super) unless u.has_role?(:super) }
+  end.tap { |u| u.add_role(:super) unless u.has_role?(:super) }
 end
 
 unless Rails.env.production?
