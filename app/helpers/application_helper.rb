@@ -20,6 +20,10 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def format_date(date, alt_text)
+    date&.strftime('%A, %b %-d') || alt_text
+  end
+
   # def link_to_add_fields(name, f, association)
   #   new_object = f.object.send(association).klass.new
   #   id = new_object.object_id

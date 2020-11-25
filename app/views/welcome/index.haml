@@ -13,16 +13,16 @@
   .row
     .col-md-12
       %h2.deadline.text-center
-        The deadline for applications has passed. 
+        The deadline for applications has passed.
       %h4.deadline.text-center
         Please sign in to see existing application status.
         %br
-        Your information should be reviewed by #{Setting[:check_back_date]&.strftime("%A, %b %d")}
+        Your information should be reviewed by #{format_date(Setting[:check_back_date], 'Missing Checkback date')}
 - elsif started?
   .row
     .col-md-12
       %h3.deadline.text-center
-        Application Deadline #{Setting[:application_deadline]&.strftime("%A, %b %d") || 'Missing Deadline'}
+        Application Deadline #{format_date(Setting[:application_deadline], 'Missing Deadline')}
   .row
     .col-md-12
       .text-center
@@ -33,19 +33,14 @@
         - else
           = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
 - else
-  :ruby
-    start_date = Setting[:application_start]&.strftime("%A, %b %d") || 'Missing Start Date'
-    deadline = Setting[:application_deadline]
-    deadline_str = deadline&.month.to_i >= 7 ? deadline&.year.to_i + 1 : deadline&.year
-    notification_date = Setting[:notification_date]&.strftime("%A, %b, %d")
   .row
     .col-md-12
       %h3.deadline.text-center
-        Applications will be available in #{start_date} for the Summer #{deadline} Program. Applications will be due on #{deadline&.strftime("%A, %b %d")} and Decisions sent to applicants by #{notification_date}.
-.row.mt-4.mb-4
-  .col
-    %h3 Program Highlights
-    = sanitize(Snippet[:program_highlights])
+        Applications will be available on #{format_date(Setting[:application_start], 'Missing Start Date')} for the #{Setting[:program_start_date]&.year || 'Missing Program Start Date'} Program. Applications will be due on #{format_date(Setting[:application_deadline], 'Missing Deadline Date')} and Decisions sent to applicants by #{format_date(Setting[:notification_date], 'Missing Notification Date')}.
+  .row.mt-4.mb-4
+    .col
+      %h3 Program Highlights
+      = sanitize(Snippet[:program_highlights])
 
   .col
     %h3 Eligibility Requirements
