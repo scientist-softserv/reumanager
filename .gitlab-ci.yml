@@ -46,7 +46,7 @@ staging:
   stage: deploy
   type: deploy
   script:
-    - keybase status | grep "Logged in:     no" && keybase oneshot
+    - "keybase status | grep 'Logged in:     no' && keybase oneshot"
     - ./chart/bin/decrypt staging
     - ./chart/bin/deploy staging $CI_COMMIT_SHORT_SHA
   after_script:
@@ -61,7 +61,7 @@ production:
   type: deploy
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS
-    - keybase status | grep "Logged in:     no" && keybase oneshot
+    - "keybase status | grep 'Logged in:     no' && keybase oneshot"
     - ./chart/bin/decrypt production
     - ./chart/bin/deploy production $CI_COMMIT_SHORT_SHA
   after_script:
