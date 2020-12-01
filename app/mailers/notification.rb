@@ -1,6 +1,6 @@
 class Notification < ActionMailer::Base
   default from: 'info@reumanager.co'
-  default reply_to: Setting['Mail From'].present? ? Setting['Mail From'] : 'test@test.com'
+  default reply_to: (Setting['Mail From'].present? ? Setting['Mail From'] : 'test@test.com')
   default content_type: 'text/plain'
 
   def recommendation_request(recommendation, application)
