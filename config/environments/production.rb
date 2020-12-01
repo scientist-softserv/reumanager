@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { protocol: 'https', host: ENV['MAIL_HOST'] }
-  config.action_mailer.default_options = { from: 'no-reply@reumanager.com' }
+  config.action_mailer.default_options = { from: 'no-reply@reumanager.co' }
 
   config.action_mailer.smtp_settings = {
     user_name: ENV['MAIL_USER'],

@@ -1,6 +1,6 @@
 # Docker development setup
 
-1) Install Docker.app 
+1) Install Docker.app
 
 2) gem install stack_car
 
@@ -40,7 +40,7 @@ sc up
 # REU Manager v3
 
 ### Development setup
-first make sure that you have docker installed. On Mac OS use docker for mac and on Windows use docker for windows.  
+first make sure that you have docker installed. On Mac OS use docker for mac and on Windows use docker for windows.
 Once you start it check the preferences and make sure that is has at least 3 gb of ram allocated to it.
 make sure to login to `docker login registry.gitlab.com` use your gitlab credentials to login.
 
@@ -84,7 +84,7 @@ sc deploy {staging | production} # deployes those tags to the server
 Releaese and Deployment are handled by the gitlab ci by default. See ops/deploy-app to deploy from locally, but note all Rancher install pull the currently tagged registry image
 NSF REU Manager
 ==========
-https://reumanager.com
+https://reumanager.co
 
 ## Setup
 Use Ruby 2.1.1
@@ -96,7 +96,7 @@ If you're having trouble with event_machine during bundle - use '''bundle config
 ## Info
 This program facilitates the application process for science oriented [NSF REU programs](http://www.nsf.gov/crssprgm/reu/) and is developed by the IT staff of the [UC San Diego Institute of Engineering in Medicine](https://iem.ucsd.edu/).
 
-[REU Manager](https://reumanager.com) is built with [Ruby on Rails](http://rubyonrails.org/) and is completely free to host/maintain yourself.   You can see a demonstration of the site at: https://reumanager.com/new_demo .  You may login as the administrative user with the email admin@reumanager.com and the password DemoApp.
+[REU Manager](https://reumanager.co) is built with [Ruby on Rails](http://rubyonrails.org/) and is completely free to host/maintain yourself.   You can see a demonstration of the site at: https://reumanager.co/new_demo .  You may login as the administrative user with the email admin@reumanager.co and the password DemoApp.
 
 Below are instructions for those who wish to install and maintain the application using their own equipment.
 

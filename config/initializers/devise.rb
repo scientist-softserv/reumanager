@@ -7,7 +7,7 @@ Devise.setup do |config|
   begin #if Setting && Setting.first
     config.mailer_sender = Setting[:mail_from]
   rescue
-    config.mailer_sender = 'no-reply@reumanager.com'
+    config.mailer_sender = 'no-reply@reumanager.co'
   end
 
   # Configure the class responsible to send e-mails.
