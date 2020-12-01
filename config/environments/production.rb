@@ -98,8 +98,9 @@ Rails.application.configure do
     address: ENV['MAIL_ADDRESS'],
     domain: ENV['MAIL_DOMAIN'],
     port: ENV['MAIL_PORT'],
-    authentication: :cram_md5
+    authentication: ENV['MAIL_AUTHENITCATION']
   }
+  config.action_mailer.smtp_settings[:enable_starttls_auto] = true if ENV['MAIL_TLS'].to_s == 'true'
   Rails.application.routes.default_url_options = { protocol: 'https',  host: ENV['MAIL_HOST'] }
 
   config.action_controller.relative_url_root = '/'
