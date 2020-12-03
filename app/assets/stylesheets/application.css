@@ -42,4 +42,9 @@
   text-align: left;
   font-weight: normal;
   color:#fff;
-} */
+}*/
+
+.instructions {
+  font-weight: bold;
+  padding-top: 1rem;
+}

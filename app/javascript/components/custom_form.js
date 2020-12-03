@@ -71,9 +71,10 @@ function CustomForm({sections, formData, path, method}) {
 
   return (
     <div>
+      <p className="instructions">Be sure to Save Application before navigating away from the current page</p>
       {renderMessage()}
       {renderSectionForms()}
-      <button className="btn btn-info" onClick={onFormSubmit}>Submit</button>
+      <button className="btn btn-info" onClick={onFormSubmit}>Save Application</button>
     </div>
   )
 }
