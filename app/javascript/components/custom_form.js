@@ -11,7 +11,19 @@ function CustomForm({sections, formData, path, method}) {
   var initialState = { formData: formData || {}, path, method }
   var [state, dispatch] = useReducer(formReducer, initialState)
   var [msg, setMsg] = useState({ msg: null, type: '' })
-  console.log(state)
+  var [serverErr, setServerErr] = useState(null)
+
+
+  var saveFail = (res) => {
+    var message
+    if (res.message) {
+      message = `An Error occured on the server, please pass this message to support: "${res.message}"`
+    } else {
+      message = 'There was an error saving your information, please try again.  If this error persists, contact support'
+    }
+    setServerErr(message)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   var onFormSubmit = () => {
     saveData({
@@ -21,32 +33,21 @@ function CustomForm({sections, formData, path, method}) {
       success: (res) => {
         if (res.success) {
           setMsg({ msg: res.message, type: 'success' })
+        } else if (res.errors) {
+          setMsg({ msg: `${res.message} -- ${res.errors.join(', ')}`, type: 'warning' })
         } else {
-          setMsg({ msg: `${res.message} -- ${res.errors.join(', ')}`, type: 'danger' })
+          saveFail(res)
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
       },
-      fail: (res) => {
-        var message = res.message ? res.message : 'There was an error saving your information'
-        setMsg({ msg: message, type: 'danger' })
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
+      fail: saveFail
     })
   }
+
   var onFormError = (data) => {
     console.log('Error', data)
   }
-  var renderMessage = () => {
-    if (msg.msg) {
-      return (
-        <div className={'alert alert-' + msg.type} >
-          {msg.msg}
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
+
   var renderSectionForms = () => {
     return sections.map((section) => {
       if (section.isRepeating) {
@@ -72,7 +73,8 @@ function CustomForm({sections, formData, path, method}) {
   return (
     <div>
       <p className="instructions">Be sure to Save Application before navigating away from the current page</p>
-      {renderMessage()}
+      {serverErr ? <div className="alert alert-danger server-error" >{serverErr}</div> : null}
+      {msg.msg ? <div className={`app-messages alert alert-${msg.type}`}>{msg.msg}</div> : null}
       {renderSectionForms()}
       <button className="btn btn-info" onClick={onFormSubmit}>Save Application</button>
     </div>

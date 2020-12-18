@@ -17,16 +17,15 @@ RSpec.describe Recommendation do
       allow(recommendation).to receive(:current_recommender_form).and_return(recommender_form)
     end
 
-    it 'returns errors for invalid data' do
-      recommendation.data = {
-        'recommender_form' => recommender_form.recommendation_section.fields.each_with_object({}) do |field, hash|
-          hash[field.title_key] = ''
-        end
-      }
-      binding.pry
+    xit 'returns errors for invalid data' do
+      # recommendation.data = {
+      #   'recommender_form' => recommender_form.recommendation_section.fields.each_with_object({}) do |field, hash|
+      #     hash[field.title_key] = ''
+      #   end
+      # }
     end
 
-    it 'returns not errors for valid data' do
+    xit 'returns not errors for valid data' do
 
     end
   end
