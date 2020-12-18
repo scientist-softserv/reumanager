@@ -114,4 +114,21 @@ class ApplicationController < ActionController::Base
     Raven.user_context(id: session[:current_user_id]) # or anything else in session
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
+
+  def handle_error_json_return(exception)
+    Raven.capture_exception(exception)
+
+    err = { message: exception.message, success: false }
+
+    if Rails.env.development? && exception.is_a?(Exception)
+      err[:backtrace] = exception.backtrace.select do |line|
+        # filter out non-significant lines:
+        %w[/gems/ /rubygems/ /lib/ruby/].all? do |litter|
+          !line.include?(litter)
+        end
+      end
+    end
+
+    render json: err, status: 500
+  end
 end

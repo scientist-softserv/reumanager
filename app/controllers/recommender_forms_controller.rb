@@ -28,6 +28,8 @@ class RecommenderFormsController < ApplicationController
         errors: current_user.application.errors.full_messages
       }
     end
+  rescue StandardError => e
+    handle_error_json_return(e)
   end
 
   def resend

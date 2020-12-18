@@ -61,21 +61,21 @@ function FormValidation({data, validations}) {
     if (validations[key].required) {
       if (value === '' || value === undefined) {
         validationMsgs.push(<span key={key + index}>{validations[key].required.message}</span>)
-        validationMsgs.push(<br />)
+        validationMsgs.push(<br key={key + '-br'} />)
       }
     }
     if (validations[key].max_length) {
       if (typeof value === 'string' && value.length > validations[key].max_length.max) {
         validationMsgs.push(<span key={key + index}>{validations[key].max_length.message}</span>)
-        validationMsgs.push(<br />)
+        validationMsgs.push(<br key={key + '-br'} />)
       }
     }
   })
 
   if (validationMsgs.length > 0) {
     return (
-      <div className="alert alert-danger mb-3">
-        <h5 className="alert-header">Errors</h5>
+      <div className="alert alert-secondary mb-3">
+        <h5 className="alert-header">Please address these issues</h5>
         <hr />
         {validationMsgs}
       </div>
