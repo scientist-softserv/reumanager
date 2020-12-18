@@ -40,6 +40,12 @@ class Application < ApplicationRecord
     end
   end
 
+  def update_data(new_data)
+    keys = new_data.keys - self.current_application_form.sections.map(&:title_key)
+    keys.each { |key| new_data.delete(key) } if keys.any?
+    self.data = new_data
+  end
+
   def update_recommendation
     return if self.recommender_info['recommenders_form'].blank?
     emails = self.recommender_info['recommenders_form'].map { |r| r['email'] }.compact

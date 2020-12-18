@@ -215,11 +215,11 @@
       $modal.modal('show')
     }
 
-    var params = new URLSearchParams(location.search)
-    if (params.has('section_id') && params.has('field_id')) {
-      var fieldId = params.get('field_id')
-      setTimeout(function() {
-        $('[data-target="edit-btn"][data-field="'+ fieldId +'"]').trigger('click')
-      }, 500)
-    }
+    // var params = new URLSearchParams(location.search)
+    // if (params.has('section_id') && params.has('field_id')) {
+    //   var fieldId = params.get('field_id')
+    //   setTimeout(function() {
+    //     $('[data-target="edit-btn"][data-field="'+ fieldId +'"]').trigger('click')
+    //   }, 500)
+    // }
   })()
