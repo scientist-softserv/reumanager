@@ -9,7 +9,7 @@ class ApplicationsController < ApplicationController
   end
 
   def update_application
-    current_user.application.data = params.require(:data).permit!
+    current_user.application.update_data(params.require(:data).permit!)
     if current_user.application.save
       render json: {
         success: true,
