@@ -7,6 +7,8 @@
       = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block', style: 'max-width: 100%;')
     - elsif Apartment::Tenant.current == 'ires'
       = image_tag 'Stockholm_resized.jpg'
+    - elseif Apartment::Tenant.curretn = 'mrsec'
+      = image_tag 'IMG_4299.jpeg'
     - else
       %strong No Image selected, please select a image in to snippets section of the Admin portal.
   .col-md-7
@@ -37,7 +39,7 @@
 
 .row
   .col-md-12
-    %h3.deadline.text-center
+    %h6.deadline.text-center
       Applications will be available on #{format_date(Setting[:application_start], 'Missing Start Date')} for the #{Setting[:program_start_date]&.year || 'Missing Program Start Date'} Program. Applications will be due on #{format_date(Setting[:application_deadline], 'Missing Deadline Date')} and Decisions sent to applicants by #{format_date(Setting[:notification_date], 'Missing Notification Date')}.
 .row.mt-4.mb-4
   .col
