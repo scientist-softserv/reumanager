@@ -7,6 +7,8 @@
       = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block', style: 'max-width: 100%;')
     - elsif Apartment::Tenant.current == 'ires'
       = image_tag 'Stockholm_resized.jpg'
+    - elseif Apartment::Tenant.curretn = 'mrsec'
+      = image_tag 'IMG_4299.jpeg'
     - else
       %strong No Image selected, please select a image in to snippets section of the Admin portal.
   .col-md-7
