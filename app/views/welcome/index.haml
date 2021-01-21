@@ -9,6 +9,8 @@
       = image_tag 'Stockholm_resized.jpg'
     - elsif Apartment::Tenant.current == 'mrsec'
       = image_tag 'IMG_4299.jpeg', style: 'width: 400px; height: auto;'
+    - elsif Apartment::Tenant.current == 'surf'
+      = image_tag 'Group_picture.jpg', style: 'width: 400px; height: auto;'
     - else
       %strong No Image selected, please select a image in to snippets section of the Admin portal.
   .col-md-7
