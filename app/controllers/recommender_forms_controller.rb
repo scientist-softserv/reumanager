@@ -1,6 +1,7 @@
 class RecommenderFormsController < ApplicationController
   before_action :authenticate_user!
   before_action :redirect_withdrawn_users
+  before_action :redirect_completed_users
   before_action :setup_application
 
   def show_recommenders
@@ -50,6 +51,12 @@ class RecommenderFormsController < ApplicationController
 
   def redirect_withdrawn_users
     redirect_to status_path if current_application&.withdrawn?
+  end
+
+  def redirect_completed_users
+    redirect_to status_path if (current_application&.completed? ||
+      current_application&.accepted? ||
+      current_application&.rejected?)
   end
 
   def can_send_email?

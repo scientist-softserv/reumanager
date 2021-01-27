@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!
   before_action :redirect_withdrawn_users, except: %i[status withdraw restart]
+  before_action :redirect_submitted_users, except: %i[status withdraw restart]
   before_action :setup_application
 
   def show_application
@@ -70,5 +71,12 @@ class ApplicationsController < ApplicationController
 
   def redirect_withdrawn_users
     redirect_to status_path if current_application&.withdrawn?
+  end
+
+  def redirect_submitted_users
+    redirect_to status_path if (current_application&.submitted? ||
+                                current_application&.completed? ||
+                                current_application&.accepted? ||
+                                current_application&.rejected?)
   end
 end
