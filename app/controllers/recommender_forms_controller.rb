@@ -62,6 +62,6 @@ class RecommenderFormsController < ApplicationController
   def can_send_email?
     @recommendation.last_sent_at.blank? ||
       @recommendation.last_sent_at.present? &&
-        (@recommendation.last_sent_at + 1.day) > Time.current
+        (@recommendation.last_sent_at + 1.day) < Time.current
   end
 end
