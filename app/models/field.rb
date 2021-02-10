@@ -7,7 +7,8 @@ class Field < ApplicationRecord
     'Long Text' => 'Fields::LongText',
     'Checkbox' => 'Fields::Boolean',
     'Select' => 'Fields::Select',
-    'PDF File' => 'Fields::File'
+    'PDF File' => 'Fields::File',
+    'Date' => 'Fields::Date'
   }.freeze
 
   class << self
