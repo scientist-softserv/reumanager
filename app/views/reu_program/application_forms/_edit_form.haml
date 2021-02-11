@@ -18,6 +18,7 @@
     %thead
       %tr
         %th Title
+        %th Description
         %th Repeating
         %th Required Count
         %th.text-right Actions
@@ -26,6 +27,7 @@
         - id = "reorderFields#{section.id}"
         %tr
           %td= section.title
+          %td= section.description
           %td= section.repeating ? 'Yes' : 'No'
           %td= section.repeating ? section.count : ''
           %td.text-right

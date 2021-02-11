@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_215647) do
+ActiveRecord::Schema.define(version: 2021_02_10_225816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_215647) do
     t.string "important"
     t.integer "count", default: 1, null: false
     t.integer "order"
+    t.text "description"
     t.index ["application_form_id"], name: "index_sections_on_application_form_id"
   end
 
