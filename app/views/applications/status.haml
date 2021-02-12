@@ -24,7 +24,7 @@
       %p.m-0 Congratulations you have been accepted. Please look for more communication from us about the details of the program.
     - when 'rejected'
       %p.m-0 We are sorry but you have not been accepted into the program.
-
+ 
 
 %h3 Recommenders
 .d-flex.flex-wrap
@@ -77,7 +77,8 @@
                 %br
                 if your recommender cannot find it.
             = link_to 'Resend Email', recommenders_resend_path(recommendation.id), class: 'btn btn-info btn-sm btn-block'
-          - r.each do |key, value|
+          - current_application.current_recommender_form.recommender_section.fields.map(&:title_key).each do |key|
+            - value = r[key]        
             - path = "recommenders_form--#{index}--#{key}"
             %p.mb-0(data-obj-path="#{path}")
               %strong #{format_key(key)}:
