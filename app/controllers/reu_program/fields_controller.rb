@@ -26,7 +26,7 @@ module ReuProgram
       else
         flash[:alert] = 'Failed to update field'
       end
-      redirect_to edit_form_path(with_field: true)
+      redirect_to edit_form_path
     end
 
     def destroy
