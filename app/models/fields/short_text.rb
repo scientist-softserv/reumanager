@@ -8,7 +8,7 @@ module Fields
     end
 
     validates :title, presence: true, on: :update
-
+ 
     def default_name
       'Short Text Field'
     end
@@ -17,7 +17,7 @@ module Fields
       {
         title_key => {
           type: :string,
-          title: title,
+          title: "#{title}#{' *' if required}",
           description: description,
           format: :text,
           minLength: min_length

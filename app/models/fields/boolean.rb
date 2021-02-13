@@ -17,7 +17,7 @@ module Fields
       {
         title_key => {
           type: :boolean,
-          title: title,
+          title: "#{title}#{' *' if required}",
           description: description
         }.reject { |_k, v| v.blank? }
       }

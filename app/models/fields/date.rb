@@ -16,7 +16,7 @@ module Fields
       {
         title_key => {
           type: :string,
-          title: title,
+          title: "#{title}#{' *' if required}",
           description: description,
           format: :date
         }.reject { |_k, v| v.blank? }
