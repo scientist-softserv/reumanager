@@ -3,7 +3,6 @@ class Section < ApplicationRecord
   belongs_to :recommender_form, optional: true
   has_many :fields, -> { order(:order, :created_at) }, dependent: :destroy, autosave: true
 
-
   validates :title, uniqueness: { scope: :application_form_id }, if: :application_form_id?
   validates :title, uniqueness: { scope: :recommender_form_id }, if: :recommender_form_id?
   validates :count, inclusion: { in: [1, 2, 3], message: 'must be greater than 0 and less than 4' }
