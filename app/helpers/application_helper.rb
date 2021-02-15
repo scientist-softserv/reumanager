@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def format_date(date, alt_text)
-    date&.strftime('%A, %b %-d') || alt_text
+    date&.strftime('%A, %B %-d') || alt_text
   end
 
   # def link_to_add_fields(name, f, association)
