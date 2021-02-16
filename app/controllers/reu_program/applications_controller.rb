@@ -20,6 +20,8 @@ module ReuProgram
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end
+      @sum = Application.count
+      @count = Application.group('state').count
     end
 
     def show
