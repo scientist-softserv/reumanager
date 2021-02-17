@@ -2,6 +2,7 @@
   .row-1.p-2
     .container
       .menu.d-flex.mt-2.mb-2
+      %center
         =link_to "Welcome", root_path
         - unless params[:token].present?
           - if user_signed_in?
@@ -17,7 +18,7 @@
             = link_to 'Admin', reu_program_dashboard_path
       .row.mt-3
         .col
-          %p
+          %center
             The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
 
   .row-2.p-2
