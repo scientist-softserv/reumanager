@@ -6,6 +6,7 @@ class Section < ApplicationRecord
   validates :title, uniqueness: { scope: :application_form_id }, if: :application_form_id?
   validates :title, uniqueness: { scope: :recommender_form_id }, if: :recommender_form_id?
   validates :count, inclusion: { in: [1, 2, 3], message: 'must be greater than 0 and less than 4' }
+  
 
   accepts_nested_attributes_for :fields, allow_destroy: true
 
@@ -54,6 +55,7 @@ class Section < ApplicationRecord
     {
       title: title,
       type: :object,
+      description: description,
       properties: json_config,
       dependencies: dependant_fields
     }.reject { |_k, v| v.blank? }
@@ -86,6 +88,7 @@ class Section < ApplicationRecord
       isRepeating: repeating?,
       validations: validations,
       count: count,
+      description: description,
       title: title,
       singular: title.singularize,
       key: title_key,

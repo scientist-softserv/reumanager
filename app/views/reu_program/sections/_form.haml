@@ -3,6 +3,9 @@
     .row
       .col
         = f.input :title, as: :string
+    .row 
+      .col
+        = f.input :description, as: :text
     - unless f.object.important =~ /recommendation/
       .row
         .col

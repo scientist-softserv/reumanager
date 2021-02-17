@@ -5,6 +5,9 @@
   .row
     .col
       %h3 Section: #{@section.title}
+  .row
+    .col
+      %p Description: #{@section.description}
   .d-flex.justify-content-end
     - content = capture do
       %p What type of field should be added?
