@@ -1,8 +1,7 @@
 %footer.main-footer.mt-3
   .row-1.p-2
     .container
-      .menu.d-flex.mt-2.mb-2
-      %center
+      .menu.d-flex.justify-content-center.mt-2.mb-2
         =link_to "Welcome", root_path
         - unless params[:token].present?
           - if user_signed_in?
@@ -16,11 +15,9 @@
               = link_to "Apply Now", new_user_registration_path
               = link_to "Login", new_user_session_path
             = link_to 'Admin', reu_program_dashboard_path
-      .row.mt-3
-        .col
-          %center
-            The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
-
+      .row.text-center.mt-3
+        %p
+          The REU Manager online application management system is freely available for use by other undergraduate research programs. Development for this project is supported by NSF EEC-1062979.
   .row-2.p-2
     .d-flex.justify-content-center
       %p
