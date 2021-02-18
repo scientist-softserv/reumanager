@@ -40,20 +40,20 @@
     %h3 General Info
     %p= sanitize(Snippet[:general_description])
 
-.row.mt-4.mb-4
-  .col
+.row.px-5.pt-5
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Program Highlights
     = sanitize(Snippet[:program_highlights])
 
-  .col
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Eligibility Requirements
     = sanitize(Snippet[:eligibility_requirements])
 
-  .col
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Application Information
     = sanitize(Snippet[:application_information])
 
-.row.mt-4.px-5
+.row.px-5
   .col.text-center.my-5
     %h3 Acknowledgment Of Funding Sources
     - ack_text =  Snippet[:Acknowledgment_of_funding_sources]
