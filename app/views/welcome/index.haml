@@ -23,7 +23,7 @@
             %br
             Your information should be reviewed by #{format_date(Setting[:check_back_date], 'Missing Checkback date')}
         - elsif started?
-          %h3.deadline.text-center.mt-5.pt-3
+          %h4.deadline.text-center.mt-5.pt-3
             Application Deadline #{format_date(Setting[:application_deadline], 'Missing Deadline')}
             .text-center.mb-3.mt-3
               - if user_signed_in? && current_application&.state == 'submitted'
