@@ -1,0 +1,10 @@
+
+
+.transparent-background-container{
+    background-color: rgba(245, 245, 245, 0.822);
+}
+@include media-breakpoint-down(md) {
+    .transparent-background-container {
+        background-color: white;
+    }
+  }
