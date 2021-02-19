@@ -1,63 +1,60 @@
-.row
+-# stylesheet for this page is welcome
+.container.mt-5
+  .row.mb-5.mx-auto
+    .col-lg-8
+      .container-fluid.mr-lg-n5.mr-sm-0
+        - if Snippet[:home_page_image]
+          = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block', style: 'max-width: 100%;')
+        - elsif Apartment::Tenant.current == 'ires'
+          = image_tag 'Stockholm_resized.jpg'
+        - elsif Apartment::Tenant.current == 'mrsec'
+          = image_tag 'IMG_4299.jpeg', style: 'width: 400px; height: auto;'
+        - elsif Apartment::Tenant.current == 'surf'
+          = image_tag 'Group_picture.jpg', style: 'width: 400px; height: auto;'
+        - else
+          %strong No Image selected, please select a image in to snippets section of the Admin portal.
+    .col-lg-4
+      .container.ml-lg-n5.ml-sm-0.transparent-background-container
+        - if expired?
+          %h2.deadline.text-center.mt-5
+            The deadline for applications has passed.
+          %h4.deadline.text-center
+            Please sign in to see existing application status.
+            %br
+            Your information should be reviewed by #{format_date(Setting[:check_back_date], 'Missing Checkback date')}
+        - elsif started?
+          %h4.deadline.text-center.mt-5.pt-3
+            Application Deadline #{format_date(Setting[:application_deadline], 'Missing Deadline')}
+            .text-center.mb-3.mt-3
+              - if user_signed_in? && current_application&.state == 'submitted'
+                = link_to "Check Status", status_path, class: "btn btn-lg btn-success"
+              - elsif user_signed_in?
+                = link_to "Finish Application", application_path, class: "btn btn-lg btn-success"
+              - else
+                = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
+          %p.deadline.text-center.pb-3
+            Applications will be available on <b>#{format_date(Setting[:application_start], 'Missing Start Date')} </b>for the #{Setting[:program_start_date]&.year || 'Missing Program Start Date'} Program.<br/>Applications will be due on <b>#{format_date(Setting[:application_deadline], 'Missing Deadline Date')}</b> and decisions sent to applicants by <b>#{format_date(Setting[:notification_date], 'Missing Notification Date')}.</b>
+   
+.row.px-5
   .col-md-12
     %h3 General Info
-.row.mb-5
-  .col-md-5
-    - if Snippet[:home_page_image]
-      = image_tag(url_for(Snippet[:home_page_image]), class: 'pull-left img-responsive center-block', style: 'max-width: 100%;')
-    - elsif Apartment::Tenant.current == 'ires'
-      = image_tag 'Stockholm_resized.jpg'
-    - elsif Apartment::Tenant.current == 'mrsec'
-      = image_tag 'IMG_4299.jpeg', style: 'width: 400px; height: auto;'
-    - elsif Apartment::Tenant.current == 'surf'
-      = image_tag 'Group_picture.jpg', style: 'width: 400px; height: auto;'
-    - else
-      %strong No Image selected, please select a image in to snippets section of the Admin portal.
-  .col-md-7
-    = sanitize(Snippet[:general_description])
-- if expired?
-  .row
-    .col-md-12
-      %h2.deadline.text-center
-        The deadline for applications has passed.
-      %h4.deadline.text-center
-        Please sign in to see existing application status.
-        %br
-        Your information should be reviewed by #{format_date(Setting[:check_back_date], 'Missing Checkback date')}
-- elsif started?
-  .row
-    .col-md-12
-      %h3.deadline.text-center
-        Application Deadline #{format_date(Setting[:application_deadline], 'Missing Deadline')}
-  .row
-    .col-md-12
-      .text-center
-        - if user_signed_in? && current_application&.state == 'submitted'
-          = link_to "Check Status", status_path, class: "btn btn-lg btn-success"
-        - elsif user_signed_in?
-          = link_to "Finish Application", application_path, class: "btn btn-lg btn-success"
-        - else
-          = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
+    %p= sanitize(Snippet[:general_description])
 
-.row
-  .col-md-12
-    %h6.deadline.text-center
-      Applications will be available on #{format_date(Setting[:application_start], 'Missing Start Date')} for the #{Setting[:program_start_date]&.year || 'Missing Program Start Date'} Program. Applications will be due on #{format_date(Setting[:application_deadline], 'Missing Deadline Date')} and Decisions sent to applicants by #{format_date(Setting[:notification_date], 'Missing Notification Date')}.
-.row.mt-4.mb-4
-  .col
+.row.px-5.pt-5
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Program Highlights
     = sanitize(Snippet[:program_highlights])
 
-  .col
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Eligibility Requirements
     = sanitize(Snippet[:eligibility_requirements])
 
-  .col
+  .col-lg.bg-light.homepage-card.mx-3.p-4.mb-4
     %h3 Application Information
     = sanitize(Snippet[:application_information])
 
-.row.mt-4
-  .col
+.row.px-5
+  .col.text-center.my-5
     %h3 Acknowledgment Of Funding Sources
     - ack_text =  Snippet[:Acknowledgment_of_funding_sources]
     = ack_text
