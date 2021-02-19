@@ -34,7 +34,7 @@ module Fields
     def json_config
       {
         title_key => {
-          title: title,
+          title: "#{title}#{' *' if required}",
           type: :string,
           description: description,
           enum: enum_array,

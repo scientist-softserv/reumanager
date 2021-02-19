@@ -18,7 +18,7 @@ RSpec.describe Section, type: :model do
       fields: [Fields::ShortText.new(title: 'First Name')]
     )
     expect(section.json_config).to eq(
-      'first_name' => { format: :text, title: 'First Name', type: :string }
+      'first_name' => { format: :text, title: 'First Name *', type: :string }
     )
   end
 
