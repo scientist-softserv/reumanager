@@ -19,9 +19,7 @@ class WelcomeController < ApplicationController
     redirect_to subdomain: 'demo', controller: 'welcome', action: 'index'
   end
 
-  def support
-    redirect_to ('https://github.com/notch8/reumanager')
-  end
+  def support; end
 
   def thanks
   end
