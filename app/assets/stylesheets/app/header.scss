@@ -18,11 +18,37 @@
   }
 }
 
-.main-header {
-  background: $primary-color;
-  color: white;
+.img-container {
+  background-image: url("reu-banner.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 70% 35%;
+  width: 100%;
+  height: 300px;
+}
 
-  a {
-    color: white;
-  }
+.overlay {
+  width: 100%;
+  height: 300px;
+  top: 20rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(254, 254, 254, 0.25);
+  z-index: -100;
+}
+
+.heading-text {
+  color: black;
+}
+
+a {
+  color: rgb(67, 67, 67);
+  transition: 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #6c6c6c;
+  text-decoration: none;
+  transform: scale(0.95);
 }
