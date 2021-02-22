@@ -39,68 +39,10 @@
   .row
     .col
       %center
-        - if params[:state].blank? && @sum == 1
-          = "#{@sum} Application" 
-        - if params[:state].blank? && @sum == nil
-          = "0 Applications" 
-        - if params[:state].blank? && @sum != 1 && @sum != nil
-          = "#{@sum} Applications"
-        - if params[:state] == 'started' && @count['started'] == 1
-          = "#{@count['started']} Application Started" 
-        - if params[:state] == 'started' && @count['started'] == nil
-          = "0 Applications Started" 
-        - if params[:state] == 'started' && @count['started'] != 1 && @count['started'] != nil
-          = "#{@count['started']} Applications Started" 
-        - if params[:state] == 'completed' && @count['completed'] == 1
-          = "#{@count['completed']} Application Completed" 
-        - if params[:state] == 'completed' && @count['completed'] == nil
-          = "0 Applications Completed" 
-        - if params[:state] == 'completed' && @count['completed'] != 1 && @count['completed'] != nil
-          = "#{@count['completed']} Applications Completed" 
-        - if params[:state] == 'accepted' && @count['accepted'] == 1
-          = "#{@count['accepted']} Application Accepted" 
-        - if params[:state] == 'accepted' && @count['accepted'] == nil
-          = "0 Applications Accepted" 
-        - if params[:state] == 'accepted' && @count['accepted'] != 1 && @count['accepted'] != nil
-          = "#{@count['accepted']} Applications Accepted" 
-        - if params[:state] == 'rejected' && @count['rejected'] == 1
-          = "#{@count['rejected']} Application Rejected" 
-        - if params[:state] == 'rejected' && @count['rejected'] == nil
-          = "0 Applications Rejected" 
-        - if params[:state] == 'rejected' && @count['rejected'] != 1 && @count['rejected'] != nil
-          = "#{@count['rejected']} Applications Rejected" 
-        - if params[:state] == 'withdrawn' && @count['withdrawn'] == 1
-          = "#{@count['withdrawn']} Application Withdrawn" 
-        - if params[:state] == 'withdrawn' && @count['withdrawn'] == nil
-          = "0 Applications Withdrawn" 
-        - if params[:state] == 'withdrawn' && @count['withdrawn'] != 1 && @count['withdrawn'] != nil
-          = "#{@count['withdrawn']} Applications Withdrawn" 
-        - if params[:state] == 'submitted' && @count['submitted'] == 1
-          = "#{@count['submitted']} Application Submitted" 
-        - if params[:state] == 'submitted' && @count['submitted'] == nil
-          = "0 Applications Submitted" 
-        - if params[:state] == 'submitted' && @count['submitted'] != 1 && @count['submitted'] != nil
-          = "#{@count['submitted']} Applications Submitted" 
-        
-        -# - Application.states.each do |state|
-        -#   - s = state.first
-        -#   = link_to s.capitalize, reu_program_applications_path(state: s), class: "btn btn-outline-#{status_class(s)} #{'active' if s == params[:state]}"
-      -# %table.table
-      -#   %thead
-      -#     %tr
-      -#       %th Started
-      -#       %th Completed
-      -#       %th Accepted
-      -#       %th Rejected
-      -#       %th Withdrawn
-      -#       %th Total
-      -#   %tbody
-      -#     %tr
-      -#       %td= @count['started'] || 0
-      -#       %td= @count['completed'] || 0
-      -#       %td= @count['accepted'] || 0
-      -#       %td= @count['rejected'] || 0
-      -#       %td= @count['withdrawn'] || 0
-      -#       %td= @sum
-
-    
+        - if params[:state].blank?
+          = "#{@sum} Application".pluralize(@sum)
+        - Application.states.each do |state|
+          - application_state = state[0]
+          - application_count = @count[state[0]] || 0
+          - if params[:state] == application_state
+            = "#{application_count} #{"Application".pluralize(application_count)} #{application_state.capitalize}"
