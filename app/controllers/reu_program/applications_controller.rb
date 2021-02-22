@@ -11,12 +11,12 @@ module ReuProgram
       respond_to do |format|
         format.html
         format.pdf do
-          document = ApplicationPdf.new(@applications)
+          document = ApplicationPdf.new(all_applications)
           document.build
           send_data document.render, disposition: 'attachment; filename=applications_export.pdf', type: 'application/pdf'
         end
         format.csv do
-          document = ApplicationCsv.new(@applications)
+          document = ApplicationCsv.new(all_applications)
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end
@@ -53,6 +53,14 @@ module ReuProgram
 
     def load_application
       @application = Application.find(params[:id])
+    end
+
+    def all_applications
+      if params[:state]
+        Application.where(state: params[:state])
+      else
+        Application.all
+      end
     end
   end
 end

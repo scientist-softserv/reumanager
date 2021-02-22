@@ -4,8 +4,8 @@
       %h2.float-left Applicants
     .col
       .btn-group.float-right
-        %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applications_path(format: 'csv')
-        %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf')
+        %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applications_path(format: 'csv', state: params[:state])
+        %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf', state: params[:state])
   .row
     .col
       .btn-group.mb-3
