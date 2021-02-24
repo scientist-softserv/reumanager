@@ -66,6 +66,9 @@ Rails.application.routes.draw do
   get 'recommendations' => 'recommendations#show_recommendations'
   match 'recommendations' => 'recommendations#update_recommendations', via: %i[put patch]
 
+  # support page route
+  post "send_support_email" => "support#send_support_email"
+
   # data url file download route
   get 'download/:model_type/:model_id/:field' => 'download#download', constraints: { format: /pdf/ }, as: :download
 

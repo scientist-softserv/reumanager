@@ -1,7 +1,41 @@
 .support
-    -#  .container.mt-4
-    -#    .d-flex.flex-column.align-items-center
-    -#     .card.w-75.mb-3
-    -#         .card-header
-    -#             %h3.card-title The Basics
-        
+.container.mx-auto
+    %div.my-5.text-center
+        %h1
+            Get Support for REUmanager
+    %form.mb-5{ :action => "/send_support_email", :method => "post"}
+        %div.form-row
+            .col
+                %div.form-group
+                    %label{:for => 'first_name', :class => "font-weight-bold"} First Name:
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'first_name', :placeholder => 'Jane'}
+            .col
+                %div.form-group
+                    %label{:for => 'last_name', :class => "font-weight-bold"} Last Name:
+                    %input{:type => 'text', :class => "form-control form-control-sm", :name => 'last_name', :placeholder => 'Doe'}
+        %div.form-row
+            .col
+                %div.form-group
+                    %label{:for => 'email', :class => "font-weight-bold"} Email:
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'email', :placeholder => 'jane.doe@gmail.com'}
+            .col
+                %div.form-group
+                    %label{:for => 'phone', :class => "font-weight-bold"} Phone:
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'phone', :placeholder => '(619) 555-5555'}
+        %div.form-group
+            %label{:for => 'program_name', :class => "font-weight-bold"} If your issue is related to an existing REU Manager program, please provide the program name:
+            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'program_name', :placeholder => 'Your Program (if applicable)'}
+        %div.form-group
+            %label{:for => 'subject', :class => "font-weight-bold"} Subject:
+            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'subject', :placeholder => 'Your Subject Here'}
+        %div.form-group
+            %label{:for => 'message', :class => "font-weight-bold"} How can we help? Let us know your question or describe your issue:
+            %textarea{:type => 'text', :class => "form-control form-control-sm",:name => 'message', :rows =>"3",  :placeholder => 'Your Message Here'}
+        %div
+        - if flash[:notice]
+            .alert.alert-info#notice= flash[:notice]
+        - if flash[:alert]
+            .alert.alert-warning#alert= flash[:alert]
+        = yield
+        %div.form-group.text-center
+            %input{:type => "submit", :class => "btn btn-secondary btn-lg",:value => "Send"}
