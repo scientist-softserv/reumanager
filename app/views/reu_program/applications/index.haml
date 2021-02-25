@@ -13,6 +13,9 @@
         - Application.states.each do |state|
           - s = state.first
           = link_to s.capitalize, reu_program_applications_path(state: s), class: "btn btn-outline-#{status_class(s)} #{'active' if s == params[:state]}"
+      = form_tag reu_program_applications_path, method: 'get' do
+        = text_field_tag :search, params[:search]
+        = submit_tag 'Search', class: 'btn btn-primary' 
   .row
     .col
       %table.table
@@ -46,3 +49,4 @@
           - application_count = @count[state[0]] || 0
           - if params[:state] == application_state
             = "#{application_count} #{"Application".pluralize(application_count)} #{application_state.capitalize}"
+          

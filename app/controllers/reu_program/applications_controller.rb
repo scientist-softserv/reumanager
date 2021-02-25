@@ -8,6 +8,9 @@ module ReuProgram
                       else
                         Application.page(params[:page]).per(15)
                       end
+                      if params[:search]
+                        @applications = @applications.where("CONCAT(data -> 'profile' ->> 'first_name', ' ', data -> 'profile' ->> 'last_name', ' ', data -> 'profile' ->> 'contact_email') LIKE ?", "%#{params[:search]}%")
+                      end      
       respond_to do |format|
         format.html
         format.pdf do
