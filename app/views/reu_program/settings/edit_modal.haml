@@ -16,8 +16,10 @@
         - when Settings::DateSetting
           = f.input :value, input_html: { class: :datepicker }
           :javascript
-            $('.datepicker').flatpickr()
+            $('.datepicker').
+            flatpickr()
+          -# = f.time_zone_select(:time_zone)
+          = f.input :time_zone, priority: /US/
         - else
-          = f.input :value
   .modal-footer.d-flex.justify-content-end
     = f.submit 'Update Setting', class: 'btn btn-primary'
