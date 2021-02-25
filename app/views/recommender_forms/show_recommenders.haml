@@ -1,33 +1,35 @@
-%h1 Recommenders
+.container
+  .col.mx-2
+    %h1 Recommenders
 
-- if @form
-  :ruby
-    attrs = {
-      style: "display: none;",
-      data: {
-        schema: @form.json_schema(section: 'recommender'),
-        data: JSON.generate(current_application&.recommender_info || {}),
-        path: recommenders_path,
-        method: 'PATCH'
-      }
-    }
+    - if @form
+      :ruby
+        attrs = {
+          style: "display: none;",
+          data: {
+            schema: @form.json_schema(section: 'recommender'),
+            data: JSON.generate(current_application&.recommender_info || {}),
+            path: recommenders_path,
+            method: 'PATCH'
+          }
+        }
 
-  .form-data{ attrs }
+      .form-data{ attrs }
 
-  #customForm
-  %p.instructions Be sure to Save Application before navigating away from the current page
-  %p.instructions Select #{link_to('Status', status_path)} from the top menu to finalize your application
+      #customForm
+      %p.instructions Be sure to Save Application before navigating away from the current page
+      %p.instructions Select #{link_to('Status', status_path)} from the top menu to finalize your application
 
-  - if Rails.env.development?
-    %hr
-    %h3 this is only in dev
-    %pre(style="border: 1px solid black; background: lightgrey; padding: 10px; border-radius: 5px;")
-      = JSON.pretty_generate(attrs)
-      = "\n"
-      = JSON.pretty_generate(current_application&.recommender_info || {})
-      = "\n"
-      = @form.pretty_json_schema
-    %hr
-- else
-  .alert.alert-warning
-    %p There is no active form please alert the administrators.
+      - if Rails.env.development?
+        %hr
+        %h3 this is only in dev
+        %pre(style="border: 1px solid black; background: lightgrey; padding: 10px; border-radius: 5px;")
+          = JSON.pretty_generate(attrs)
+          = "\n"
+          = JSON.pretty_generate(current_application&.recommender_info || {})
+          = "\n"
+          = @form.pretty_json_schema
+        %hr
+    - else
+      .alert.alert-warning
+        %p There is no active form please alert the administrators.
