@@ -40,7 +40,7 @@ class GrantDefaultFactory
       Fields::ShortText.create!(title: 'First Name', important: 'profile_first_name', order: 1, section: s1)
       Fields::ShortText.create!(title: 'Last Name', important: 'profile_last_name', order: 2, section: s1)
       Fields::ShortText.create!(title: 'Phone', order: 3, section: s1)
-      Fields::ShortText.create!(title: 'Contact Email', order: 4, section: s1)
+      Fields::ShortText.create!(title: 'Contact Email', order: 4, section: s1, important: 'profile_contact_email')
       Fields::Date.create!(title: 'Date of Birth', order: 5, section: s1)
       s2 = Section.create!(title: 'Addresses', repeating: true, application_form: af)
       Fields::ShortText.create!(title: 'Type', order: 1, section: s2)

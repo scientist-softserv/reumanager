@@ -3,25 +3,28 @@ module ReuProgram
     before_action :load_application, except: %i[index]
 
     def index
-      @applications = if params[:state]
-                        Application.where(state: params[:state]).page(params[:page]).per(15)
+      @applications = if params[:search].present?
+                        Application.search(params[:search])
                       else
-                        Application.page(params[:page]).per(15)
+                        Application.all
                       end
+      @applications = @applications.where(state: params[:state]) if params[:state].present?
+
       respond_to do |format|
-        format.html
+        format.html do
+          @applications = @applications.page(params[:page]).per(15)
+          @application_count = @applications.count
+        end
         format.pdf do
-          document = ApplicationPdf.new(all_applications)
+          document = ApplicationPdf.new(@application)
           document.build
           send_data document.render, disposition: 'attachment; filename=applications_export.pdf', type: 'application/pdf'
         end
         format.csv do
-          document = ApplicationCsv.new(all_applications)
+          document = ApplicationCsv.new(@application)
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end
-      @sum = Application.count
-      @count = Application.group('state').count
     end
 
     def show
@@ -53,14 +56,6 @@ module ReuProgram
 
     def load_application
       @application = Application.find(params[:id])
-    end
-
-    def all_applications
-      if params[:state]
-        Application.where(state: params[:state])
-      else
-        Application.all
-      end
     end
   end
 end
