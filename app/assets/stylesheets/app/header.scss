@@ -1,6 +1,9 @@
+
+
 .main-nav {
   background: linear-gradient(to top, #ececec, #f4f4f4);
   font-family: "Muli", sans-serif;
+  }
 
   .navbar-brand {
     font-size: 28px;
@@ -13,15 +16,25 @@
     color: #000;
   }
 
+  a {
+    color: rgb(67, 67, 67);
+    transition: 0.2s ease-in-out;
+  }
+  
+  a:hover {
+    color: #6c6c6c;
+    text-decoration: none;
+    transform: scale(0.95);
+  }
+
   a.text-dark {
     font-size: 1.4em;
   }
-}
 
 .img-container {
   background-image: url("reu-banner.jpeg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-position: 70% 35%;
   width: 100%;
   height: 300px;
@@ -42,13 +55,27 @@
   color: black;
 }
 
-a {
-  color: rgb(67, 67, 67);
-  transition: 0.2s ease-in-out;
+.h1-responsive {
+  @include media-breakpoint-down(sm) {
+    font-size: 8vw;
+  }
 }
 
-a:hover {
-  color: #6c6c6c;
-  text-decoration: none;
-  transform: scale(0.95);
+.h2-responsive {
+  @include media-breakpoint-down(sm) {
+    font-size: 6vw;
+  }
 }
+
+.h3-responsive {
+  @include media-breakpoint-down(sm) {
+    font-size: 5vw;
+  }
+}
+
+.h4-responsive {
+  @include media-breakpoint-down(sm) {
+    font-size: 4vw;
+  }
+}
+
