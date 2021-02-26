@@ -3,14 +3,21 @@ module ReuProgram
     before_action :load_application, except: %i[index]
 
     def index
-      @applications = if params[:state]
-                        Application.where(state: params[:state]).page(params[:page]).per(15)
+      search_query = "CONCAT(data -> 'profile' ->> 'first_name', ' ', data -> 'profile' ->> 'last_name', ' ', data -> 'profile' ->> 'contact_email') LIKE ?"
+      @applications = if params[:search].present?
+                        if params[:state].present?
+                          Application.where(state: params[:state]).where(search_query, "%#{params[:search]}%").page(params[:page]).per(15)
+                        else
+                          Application.where(search_query, "%#{params[:search]}%").page(params[:page]).per(15)
+                        end
                       else
-                        Application.page(params[:page]).per(15)
+                        if params[:state].present?
+                          Application.where(state: params[:state]).page(params[:page]).per(15)
+                        else
+                          Application.page(params[:page]).per(15)
+                        end
                       end
-                      if params[:search]
-                        @applications = @applications.where("CONCAT(data -> 'profile' ->> 'first_name', ' ', data -> 'profile' ->> 'last_name', ' ', data -> 'profile' ->> 'contact_email') LIKE ?", "%#{params[:search]}%")
-                      end      
+      @application_count = @applications.count
       respond_to do |format|
         format.html
         format.pdf do
