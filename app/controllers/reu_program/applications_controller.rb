@@ -6,7 +6,7 @@ module ReuProgram
       @applications = if params[:search].present?
                         Application.search(params[:search])
                       else
-                        Application
+                        Application.all
                       end
       @applications = @applications.where(state: params[:state]) if params[:state].present?
 
@@ -25,8 +25,6 @@ module ReuProgram
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end
-      @sum = Application.count
-      @count = Application.group('state').count
     end
 
     def show

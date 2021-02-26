@@ -13,10 +13,15 @@
         - Application.states.each do |state|
           - s = state.first
           = link_to s.capitalize, reu_program_applications_path(state: s), class: "btn btn-outline-#{status_class(s)} #{'active' if s == params[:state]}"
+  .row.mb-3
+    .col-6
+    .col-6
       = form_tag reu_program_applications_path, method: 'get' do
-        = text_field_tag :search, params[:search]
         = hidden_field_tag :state, params[:state]
-        = submit_tag 'Search', class: 'btn btn-primary'
+        .input-group
+          - message = "Search #{"#{params[:state].capitalize} " if params[:state].present?}Applicants"
+          = text_field_tag :search, params[:search], class: 'form-control', 'aria-describedby': "search-submit", placeholder: message
+          %buttion.btn.btn-outline-secondary#search-submit(type="submit") Search
   .row
     .col
       %table.table
@@ -30,7 +35,7 @@
           - @applications.each do |application|
             %tr
               %td= application.full_name
-              %td= application.user.email
+              %td= application.email
               %td= application.state
               %td.actions
                 .btn-group
