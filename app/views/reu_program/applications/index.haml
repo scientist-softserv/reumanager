@@ -8,7 +8,7 @@
         %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf', state: params[:state])
   .row
     .col
-      .btn-group.mb-3
+      .btn-group.mb-3.d-flex.flex-wrap
         = link_to 'All', reu_program_applications_path, class: "btn btn-outline-secondary #{'active' if params[:state].blank?}"
         - Application.states.each do |state|
           - s = state.first
