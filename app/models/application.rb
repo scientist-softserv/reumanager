@@ -1,5 +1,6 @@
 class Application < ApplicationRecord
   has_one :user
+  has_one :application_search_record, dependent: :destroy
 
   after_initialize do
     self.data = {} if self.data.blank?
@@ -38,6 +39,37 @@ class Application < ApplicationRecord
       self.complete
       self.save
     end
+  end
+
+  after_commit :update_application_search_record
+
+  scope :search, lambda { |query|
+    where(
+      id: ApplicationSearchRecord.where("(first_name || ' ' || last_name) ILIKE :q OR email ILIKE :q", q: "%#{query}%").select(:application_id)
+    )
+  }
+
+  def update_application_search_record
+    return if data.blank?
+
+    record = self.application_search_record
+    record ||= self.build_application_search_record
+    record.first_name = first_name
+    record.last_name = last_name
+    record.email = email
+    record.save
+  end
+
+  def first_name
+    self.data.dig('profile', 'first_name')
+  end
+
+  def last_name
+    self.data.dig('profile', 'last_name')
+  end
+
+  def email
+    self.data.dig('profile', 'contact_email').presence || user.email
   end
 
   def update_data(new_data)

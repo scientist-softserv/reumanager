@@ -16,7 +16,7 @@
       = form_tag reu_program_applications_path, method: 'get' do
         = text_field_tag :search, params[:search]
         = hidden_field_tag :state, params[:state]
-        = submit_tag 'Search', class: 'btn btn-primary' 
+        = submit_tag 'Search', class: 'btn btn-primary'
   .row
     .col
       %table.table
@@ -43,8 +43,4 @@
   .row
     .col
       %center
-        - if params[:state].blank?
-          = "#{@sum} Application".pluralize(@sum)
-        - else
-          = "#{@application_count} #{"Application".pluralize(@application_count)} #{params[:state].capitalize}"
-          
+        = "#{@application_count} #{"Application".pluralize(@application_count)} #{params[:state].capitalize if params[:state]}"
