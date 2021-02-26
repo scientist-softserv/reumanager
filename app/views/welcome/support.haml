@@ -7,16 +7,16 @@
         %div.form-row
             .col
                 %div.form-group
-                    %label{:for => 'first_name', :class => "font-weight-bold"} First Name:
+                    %label{:for => 'first_name', :class => "font-weight-bold"} First Name:*
                     %input{:type => 'text', :class => "form-control form-control-sm",:name => 'first_name', :placeholder => 'Jane'}
             .col
                 %div.form-group
-                    %label{:for => 'last_name', :class => "font-weight-bold"} Last Name:
+                    %label{:for => 'last_name', :class => "font-weight-bold"} Last Name:*
                     %input{:type => 'text', :class => "form-control form-control-sm", :name => 'last_name', :placeholder => 'Doe'}
         %div.form-row
             .col
                 %div.form-group
-                    %label{:for => 'email', :class => "font-weight-bold"} Email:
+                    %label{:for => 'email', :class => "font-weight-bold"} Email:*
                     %input{:type => 'text', :class => "form-control form-control-sm",:name => 'email', :placeholder => 'jane.doe@gmail.com'}
             .col
                 %div.form-group
@@ -26,10 +26,10 @@
             %label{:for => 'program_name', :class => "font-weight-bold"} If your issue is related to an existing REU Manager program, please provide the program name:
             %input{:type => 'text', :class => "form-control form-control-sm",:name => 'program_name', :placeholder => 'Your Program (if applicable)'}
         %div.form-group
-            %label{:for => 'subject', :class => "font-weight-bold"} Subject:
+            %label{:for => 'subject', :class => "font-weight-bold"} Subject:*
             %input{:type => 'text', :class => "form-control form-control-sm",:name => 'subject', :placeholder => 'Your Subject Here'}
         %div.form-group
-            %label{:for => 'message', :class => "font-weight-bold"} How can we help? Let us know your question or describe your issue:
+            %label{:for => 'message', :class => "font-weight-bold"} How can we help? Let us know your question or describe your issue:*
             %textarea{:type => 'text', :class => "form-control form-control-sm",:name => 'message', :rows =>"3",  :placeholder => 'Your Message Here'}
         %div
         - if flash[:notice]
