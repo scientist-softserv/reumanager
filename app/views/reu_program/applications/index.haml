@@ -4,15 +4,24 @@
       %h2.float-left Applicants
     .col
       .btn-group.float-right
-        %button.btn.btn-light.float-right= link_to 'Export All as CSV', reu_program_applications_path(format: 'csv', state: params[:state])
-        %button.btn.btn-light.float-right= link_to 'Export All as PDF', reu_program_applications_path(format: 'pdf', state: params[:state])
+        %button.btn.btn-light.float-right= link_to "Export #{params[:state]&.capitalize.presence || 'All'} as CSV", reu_program_applications_path(format: 'csv', state: params[:state])
+        %button.btn.btn-light.float-right= link_to "Export #{params[:state]&.capitalize.presence || 'All'} as PDF", reu_program_applications_path(format: 'pdf', state: params[:state])
   .row
     .col
-      .btn-group.mb-3
+      .btn-group.mb-3.d-flex.flex-wrap
         = link_to 'All', reu_program_applications_path, class: "btn btn-outline-secondary #{'active' if params[:state].blank?}"
         - Application.states.each do |state|
           - s = state.first
           = link_to s.capitalize, reu_program_applications_path(state: s), class: "btn btn-outline-#{status_class(s)} #{'active' if s == params[:state]}"
+  .row.mb-3
+    .col-6
+    .col-6
+      = form_tag reu_program_applications_path, method: 'get' do
+        = hidden_field_tag :state, params[:state]
+        .input-group
+          - message = "Search #{"#{params[:state].capitalize} " if params[:state].present?}Applicants"
+          = text_field_tag :search, params[:search], class: 'form-control', 'aria-describedby': "search-submit", placeholder: message
+          %button.btn.btn-outline-secondary#search-submit(type="submit") Search
   .row
     .col
       %table.table
@@ -26,7 +35,7 @@
           - @applications.each do |application|
             %tr
               %td= application.full_name
-              %td= application.user.email
+              %td= application.email
               %td= application.state
               %td.actions
                 .btn-group
@@ -39,10 +48,4 @@
   .row
     .col
       %center
-        - if params[:state].blank?
-          = "#{@sum} Application".pluralize(@sum)
-        - Application.states.each do |state|
-          - application_state = state[0]
-          - application_count = @count[state[0]] || 0
-          - if params[:state] == application_state
-            = "#{application_count} #{"Application".pluralize(application_count)} #{application_state.capitalize}"
+        = "#{@application_count} #{"Application".pluralize(@application_count)} #{params[:state].capitalize if params[:state]}"

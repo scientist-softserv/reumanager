@@ -1,111 +1,113 @@
-.row
-  .col
-    %h1 Status
-  .col.d-flex.justify-content-end.align-items-baseline
-    .btn-group
-      = link_to 'Submit', submit_path, class: 'btn btn-outline-info' if current_application.can_submit?
-      = link_to 'Withdraw', withdraw_path, class: 'btn btn-outline-warning' if current_application.can_withdraw?
-      = link_to 'Restart', restart_path, class: 'btn btn-outline-success' if current_application.can_restart?
+.container
+  .col.mx-2
+    .row
+      .col
+        %h1 Status
+      .col.d-flex.justify-content-end.align-items-baseline
+        .btn-group
+          = link_to 'Submit', submit_path, class: 'btn btn-outline-info' if current_application.can_submit?
+          = link_to 'Withdraw', withdraw_path, class: 'btn btn-outline-warning' if current_application.can_withdraw?
+          = link_to 'Restart', restart_path, class: 'btn btn-outline-success' if current_application.can_restart?
 
-.card.text-white.mb-3(class="bg-#{status_class(current_application.state)}")
-  .card-header
-    %h5 Current Status: #{current_application.state.titlecase}
-  .card-body
-    - case current_application.state
-    - when 'started'
-      %p.m-0 Please complete all required fields and fill out #{current_application.current_recommender_form.recommenders_count} recommenders to be able to submit your application for consideration.
-    - when 'submitted'
-      %p.m-0 You have submitted your application. Your application will be completed when your recommenders have sent in their information.
-    - when 'completed'
-      %p.m-0 Your Application is complete. We will be reviewing your application.
-    - when 'withdrawn'
-      %p.m-0 You have withdrawn your application. If you want your applcation to be considered please restart your account and complete your application.
-    - when 'accepted'
-      %p.m-0 Congratulations you have been accepted. Please look for more communication from us about the details of the program.
-    - when 'rejected'
-      %p.m-0 We are sorry but you have not been accepted into the program.
- 
-%h3 Recommenders
-.d-flex.flex-wrap
-  - info = current_application.recommender_info.fetch('recommenders_form', {})
-  - if info.empty?
-    .alert.alert-warning.w-100
-      %p Please fill out the information for your recommenders #{link_to 'here', recommenders_path}.
-  - else
-    - info.each_with_index do |r, index|
-      :ruby
-        recommendation = current_application.recommendations.detect { |s| s.email == r['email'] }
-        classes = if recommendation.submitted_at.present?
-                    'border-success'
-                  elsif recommendation.last_sent_at.blank?
-                    'border-warning'
-                  else
-                    'border-dark'
-                  end
-      .card.mb-2.mr-2(class="#{classes}")
-        .card-header Recommender #{index + 1}
-        .card-body
-          - if recommendation.submitted_at.present?
-            .alert.alert-success.width-200.p-2
-              %p.m-0
-                Recommender submitted
-                %br
-                a recommendation.
-          - elsif recommendation.last_sent_at.present? && (recommendation.last_sent_at + 1.day) > Time.current
-            .alert.alert-info.width-200.p-2
-              %p.m-0
-                Notification email sent to
-                %br
-                this person at #{recommendation.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
-                %br
-                You can only notify this person
-                %br
-                once every 24 hours.
-          - elsif current_application.recommenders_valid? && recommendation.last_sent_at.blank?
-            = link_to 'Send Email', recommenders_resend_path(recommendation.id), class: 'btn btn-info btn-sm btn-block'
-          - elsif current_application.recommenders_valid?
-            .alert.alert-info.width-200.p-2
-              %p.m-0
-                Notification email sent to recommender
-                %br
-                at #{recommendation.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
-                %br
-                Please do not spam your recommender.
-                %br
-                Use this button to resend the email
-                %br
-                if your recommender cannot find it.
-            = link_to 'Resend Email', recommenders_resend_path(recommendation.id), class: 'btn btn-info btn-sm btn-block'
-          - current_application.current_recommender_form.recommender_section.fields.map(&:title_key).each do |key|
-            - value = r[key]        
-            - path = "recommenders_form--#{index}--#{key}"
-            %p.mb-0(data-obj-path="#{path}")
-              %strong #{format_key(key)}:
-              = format_value(value, 'recommender', current_application.id, path)
-
-
-%h3 Application Information
-- if current_application.data&.empty?
-  .alert.alert-warning.w-100
-    %p Please fill out the information for your application #{link_to 'here', application_path}.
-- else
-  - current_application.data.each do |key1, value1|
-    .card.mb-2
+    .card.text-white.mb-3(class="bg-#{status_class(current_application.state)}")
+      .card-header
+        %h5 Current Status: #{current_application.state.titlecase}
       .card-body
-        %h5.card-title= format_key(key1)
-        - case value1
-        - when Array
-          - value1.each_with_index do |item, index|
-            - item.each do |k, v|
-              - path = "#{key1}--#{index}--#{k}"
-              %p.mb-0(data-obj-path="#{path}")
-                %strong #{format_key(k)}:
-                = format_value(v, 'application', current_application.id, path)
-            %hr
+        - case current_application.state
+        - when 'started'
+          %p.m-0 Please complete all required fields and fill out #{current_application.current_recommender_form.recommenders_count} recommenders to be able to submit your application for consideration.
+        - when 'submitted'
+          %p.m-0 You have submitted your application. Your application will be completed when your recommenders have sent in their information.
+        - when 'completed'
+          %p.m-0 Your Application is complete. We will be reviewing your application.
+        - when 'withdrawn'
+          %p.m-0 You have withdrawn your application. If you want your applcation to be considered please restart your account and complete your application.
+        - when 'accepted'
+          %p.m-0 Congratulations you have been accepted. Please look for more communication from us about the details of the program.
+        - when 'rejected'
+          %p.m-0 We are sorry but you have not been accepted into the program.
+    
+    %h3 Recommenders
+    .d-flex.flex-wrap
+      - info = current_application.recommender_info.fetch('recommenders_form', {})
+      - if info.empty?
+        .alert.alert-warning.w-100
+          %p Please fill out the information for your recommenders #{link_to 'here', recommenders_path}.
+      - else
+        - info.each_with_index do |r, index|
+          :ruby
+            recommendation = current_application.recommendations.detect { |s| s.email == r['email'] }
+            classes = if recommendation.submitted_at.present?
+                        'border-success'
+                      elsif recommendation.last_sent_at.blank?
+                        'border-warning'
+                      else
+                        'border-dark'
+                      end
+          .card.mb-2.mr-2(class="#{classes}")
+            .card-header Recommender #{index + 1}
+            .card-body
+              - if recommendation.submitted_at.present?
+                .alert.alert-success.width-200.p-2
+                  %p.m-0
+                    Recommender submitted
+                    %br
+                    a recommendation.
+              - elsif recommendation.last_sent_at.present? && (recommendation.last_sent_at + 1.day) > Time.current
+                .alert.alert-info.width-200.p-2
+                  %p.m-0
+                    Notification email sent to
+                    %br
+                    this person at #{recommendation.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
+                    %br
+                    You can only notify this person
+                    %br
+                    once every 24 hours.
+              - elsif current_application.recommenders_valid? && recommendation.last_sent_at.blank?
+                = link_to 'Send Email', recommenders_resend_path(recommendation.id), class: 'btn btn-info btn-sm btn-block'
+              - elsif current_application.recommenders_valid?
+                .alert.alert-info.width-200.p-2
+                  %p.m-0
+                    Notification email sent to recommender
+                    %br
+                    at #{recommendation.last_sent_at.strftime('%d/%m/%Y %H:%M')}.
+                    %br
+                    Please do not spam your recommender.
+                    %br
+                    Use this button to resend the email
+                    %br
+                    if your recommender cannot find it.
+                = link_to 'Resend Email', recommenders_resend_path(recommendation.id), class: 'btn btn-info btn-sm btn-block'
+              - current_application.current_recommender_form.recommender_section.fields.map(&:title_key).each do |key|
+                - value = r[key]        
+                - path = "recommenders_form--#{index}--#{key}"
+                %p.mb-0(data-obj-path="#{path}")
+                  %strong #{format_key(key)}:
+                  = format_value(value, 'recommender', current_application.id, path)
 
-        - when Hash
-          - value1.each do |k, v|
-            - path = "#{key1}--#{k}"
-            %p.mb-0(data-obj-path="#{path}")
-              %strong #{format_key(k)}:
-              = format_value(v, 'application', current_application.id, path)
+
+    %h3 Application Information
+    - if current_application.data&.empty?
+      .alert.alert-warning.w-100
+        %p Please fill out the information for your application #{link_to 'here', application_path}.
+    - else
+      - current_application.data.each do |key1, value1|
+        .card.mb-2
+          .card-body
+            %h5.card-title= format_key(key1)
+            - case value1
+            - when Array
+              - value1.each_with_index do |item, index|
+                - item.each do |k, v|
+                  - path = "#{key1}--#{index}--#{k}"
+                  %p.mb-0(data-obj-path="#{path}")
+                    %strong #{format_key(k)}:
+                    = format_value(v, 'application', current_application.id, path)
+                %hr
+
+            - when Hash
+              - value1.each do |k, v|
+                - path = "#{key1}--#{k}"
+                %p.mb-0(data-obj-path="#{path}")
+                  %strong #{format_key(k)}:
+                  = format_value(v, 'application', current_application.id, path)

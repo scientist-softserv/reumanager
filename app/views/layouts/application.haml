@@ -21,6 +21,7 @@
           .alert.alert-warning#alert= flash[:alert]
         - if flash[:error]
           .alert.alert-warning#error= flash[:error]
-    = yield
+    .container
+      = yield
 
     = render '/layouts/footer'

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_225816) do
+ActiveRecord::Schema.define(version: 2021_02_26_205155) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -176,6 +177,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_225816) do
     t.datetime "updated_at"
     t.integer "grant_id"
     t.string "kind"
+    t.string "time_zone"
     t.index ["name"], name: "index_settings_on_name"
   end
 

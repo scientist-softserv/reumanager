@@ -10,7 +10,8 @@ class Setting < ApplicationRecord
       end
       case setting
       when Settings::DateSetting
-        setting&.value&.to_date
+        setting&.value&.in_time_zone(setting.time_zone)&.to_datetime&.end_of_day
+        # raise 'test'
       else
         setting&.value
       end

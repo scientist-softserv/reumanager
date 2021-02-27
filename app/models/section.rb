@@ -6,7 +6,7 @@ class Section < ApplicationRecord
   validates :title, uniqueness: { scope: :application_form_id }, if: :application_form_id?
   validates :title, uniqueness: { scope: :recommender_form_id }, if: :recommender_form_id?
   validates :count, inclusion: { in: [1, 2, 3], message: 'must be greater than 0 and less than 4' }
-  
+
 
   accepts_nested_attributes_for :fields, allow_destroy: true
 
@@ -20,20 +20,17 @@ class Section < ApplicationRecord
 
   def validate_data(data)
     error_messages = []
-    fields = self.fields.to_a
     if data.is_a?(Array)
       data.each_with_index do |set, index|
-        set.each do |title_key, value|
-          field = fields.detect { |f| f.title_key == title_key }
-          next if field.nil?
-          error_messages.concat(field.validate_data(value, index))
+        self.fields.each do |field|
+          errors = field.validate_data(set.fetch(field.title_key, nil), index)
+          error_messages.concat(errors)
         end
       end
     else
-      data.each do |title_key, value|
-        field = fields.detect { |f| f.title_key == title_key }
-        next if field.nil?
-        error_messages.concat(field.validate_data(value))
+      self.fields.each do |field|
+        errors = field.validate_data(data.fetch(field.title_key, nil))
+        error_messages.concat(errors)
       end
     end
     error_messages

@@ -16,12 +16,13 @@
     .col-lg-4
       .container.ml-lg-n5.ml-sm-0.transparent-background-container
         - if expired?
-          %h2.deadline.text-center.mt-5
+          %h4.deadline.text-center.mt-5.pt-3
             The deadline for applications has passed.
-          %h4.deadline.text-center
+          %h4.deadline.text-center.py-3
             Please sign in to see existing application status.
             %br
-            Your information should be reviewed by #{format_date(Setting[:check_back_date], 'Missing Checkback date')}
+          %h5.mb-3.pb-3.text-center
+            Your information should be reviewed by <b>#{format_date(Setting[:check_back_date], 'Missing Checkback date')}</b>
         - elsif started?
           %h4.deadline.text-center.mt-5.pt-3
             Application Deadline #{format_date(Setting[:application_deadline], 'Missing Deadline')}
@@ -33,7 +34,7 @@
               - else
                 = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
           %p.deadline.text-center.pb-3
-            Applications will be available on <b>#{format_date(Setting[:application_start], 'Missing Start Date')} </b>for the #{Setting[:program_start_date]&.year || 'Missing Program Start Date'} Program.<br/>Applications will be due on <b>#{format_date(Setting[:application_deadline], 'Missing Deadline Date')}</b> and decisions sent to applicants by <b>#{format_date(Setting[:notification_date], 'Missing Notification Date')}.</b>
+            Applications will be available on <b>#{format_date(Setting[:application_start], 'Missing Start Date')} </b>for the <b>#{Setting[:program_start_date]&.year || 'Missing Program Start Date'}</b> Program.<br/>Applications will be due on <b>#{format_date(Setting[:application_deadline], 'Missing Deadline Date')}</b> and decisions sent to applicants by <b>#{format_date(Setting[:notification_date], 'Missing Notification Date')}.</b>
    
 .row.px-5
   .col-md-12
