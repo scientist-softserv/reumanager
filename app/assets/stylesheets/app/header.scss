@@ -3,7 +3,6 @@
 .main-nav {
   background: linear-gradient(to top, #ececec, #f4f4f4);
   font-family: "Muli", sans-serif;
-  }
 
   .navbar-brand {
     font-size: 28px;
@@ -15,6 +14,10 @@
     padding-left: 45px;
     color: #000;
   }
+  a.text-dark {
+    font-size: 1.4em;
+  }
+}
 
   a {
     color: rgb(67, 67, 67);
@@ -27,9 +30,6 @@
     transform: scale(0.95);
   }
 
-  a.text-dark {
-    font-size: 1.4em;
-  }
 
 .img-container {
   background-image: url("reu-banner.jpeg");
