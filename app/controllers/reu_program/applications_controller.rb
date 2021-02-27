@@ -16,12 +16,12 @@ module ReuProgram
           @application_count = @applications.count
         end
         format.pdf do
-          document = ApplicationPdf.new(@application)
+          document = ApplicationPdf.new(@applications)
           document.build
           send_data document.render, disposition: 'attachment; filename=applications_export.pdf', type: 'application/pdf'
         end
         format.csv do
-          document = ApplicationCsv.new(@application)
+          document = ApplicationCsv.new(@applications)
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end
