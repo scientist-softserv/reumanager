@@ -66,6 +66,7 @@ class Field < ApplicationRecord
   end
 
   def validate_max_length(value, index = nil)
+    value = "" if value.nil?
     value.size < self.max_length ? nil : "#{title}#{" #{index + 1}" if index.present?} cannot use more than #{max_length} characters"
   end
 
