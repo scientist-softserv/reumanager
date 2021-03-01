@@ -4,11 +4,11 @@ class SupportController < ApplicationController
         
         @support_email = SupportMailer.support_email(params)
 
-        @support_email.deliver
         if (params[:subject].blank?) || (params[:first_name].blank?) || (params[:last_name].blank?) || (params[:email].blank?) || (params[:message].blank?)
             redirect_to support_path
             flash[:alert] = "Please fill in all required fields"
         else
+            @support_email.deliver
             redirect_to support_path
             flash[:notice] = "Message Sent"
         end
