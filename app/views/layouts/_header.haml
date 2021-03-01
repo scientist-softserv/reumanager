@@ -1,30 +1,18 @@
 %div.img-container
   %div.overlay
     .col.py-4.px-4
-      %h1.heading-text
+      .h1.h1-responsive.heading-text
         :ruby
           title = Setting[:app_title].present? ? Setting[:app_title] : 'Program Title'
         #{title}
-      %h3
+      .h3.h3-responsive
         :ruby
           university = Setting[:university].present? ? Setting[:university] : 'University Name'
           university_url = Setting[:university_url].present? ? Setting[:university_url] : '/'
         #{link_to university, university_url}
-      %h4
+      .h4.h4-responsive
         :ruby
           department = Setting[:department].present? ? Setting[:department] : 'Department Name'
           department_url = Setting[:department_url].present? ? Setting[:department_url] : '/'
         #{link_to department, department_url}
 
-
-
-
-  -# .row.pb-1
-  -#       .col
-  -#         %h2
-  -#           :ruby
-  -#             title = Setting[:app_title].present? ? Setting[:app_title] : 'Program Title'
-  -#             start = Setting[:program_start_date].present? ? Setting[:program_start_date] : 'Program Start Date'
-  -#             ending = Setting[:program_end_date].present? ? Setting[:program_end_date] : 'Program End Date'
-  -#             str = "#{title} (#{start} - #{ending})"
-  -#           = link_to(str, Setting[:program_url] || '/')
