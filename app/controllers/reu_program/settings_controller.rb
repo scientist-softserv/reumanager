@@ -21,7 +21,7 @@ module ReuProgram
     private
 
     def setting_params
-      params.require(:setting).permit(:name, :description, :value)
+      params.require(:setting).permit(:name, :description, :value, :time_zone)
     end
 
     def load_setting

@@ -19,5 +19,6 @@
             $('.datepicker').flatpickr()
           = f.input :time_zone, priority: /US/
         - else
+          = f.input :value
   .modal-footer.d-flex.justify-content-end
     = f.submit 'Update Setting', class: 'btn btn-primary'
