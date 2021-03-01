@@ -2,10 +2,10 @@ class SupportController < ApplicationController
 
     def send_support_email
         
-        @support_email = SupportMailer.support_email(params[:subject], params[:first_name], params[:last_name], params[:email], params[:phone], params[:program_name], params[:message])
+        @support_email = SupportMailer.support_email(params)
 
         @support_email.deliver
-        if (params[:subject] == "") || (params[:first_name] == "") || (params[:last_name] == "") || (params[:email] == "") || (params[:phone] == "") || (params[:message] == "")
+        if (params[:subject].blank?) || (params[:first_name].blank?) || (params[:last_name].blank?) || (params[:email].blank?) || (params[:message].blank?)
             redirect_to support_path
             flash[:alert] = "Please fill in all required fields"
         else
