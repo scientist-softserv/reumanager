@@ -16,7 +16,9 @@
             %tr
               %td= setting.name
               %td= setting.description
-              %td= truncate(setting.value, length: 100)
+              %td
+                = truncate(setting.value, length: 100)
+                = setting.time_zone
               %td.actions
                 %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="modal-btn" data-path="#{edit_reu_program_setting_path(setting)}") Edit
 

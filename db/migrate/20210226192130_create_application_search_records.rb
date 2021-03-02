@@ -9,10 +9,10 @@ class CreateApplicationSearchRecords < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    execute <<~SQL
-      CREATE INDEX applicant_search_name_index ON application_search_records USING gin ((first_name || ' ' || last_name) public.gin_trgm_ops);
-      CREATE INDEX applicant_search_email_index ON application_search_records USING gin (email public.gin_trgm_ops);
-    SQL
+    # execute <<~SQL
+    #   CREATE INDEX applicant_search_name_index ON application_search_records USING gin ((first_name || ' ' || last_name) public.gin_trgm_ops);
+    #   CREATE INDEX applicant_search_email_index ON application_search_records USING gin (email public.gin_trgm_ops);
+    # SQL
   end
 
   def down

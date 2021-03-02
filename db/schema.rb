@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 2021_02_26_205155) do
     t.jsonb "important_paths"
   end
 
+  create_table "application_search_records", force: :cascade do |t|
+    t.integer "application_id"
+    t.text "first_name"
+    t.text "last_name"
+    t.text "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "(((first_name || ' '::text) || last_name)) gin_trgm_ops", name: "applicant_search_name_index", using: :gin
+    t.index ["application_id"], name: "index_application_search_records_on_application_id"
+    t.index ["email"], name: "applicant_search_email_index", opclass: :gin_trgm_ops, using: :gin
+  end
+
   create_table "applications", force: :cascade do |t|
     t.json "data"
     t.datetime "created_at", null: false
