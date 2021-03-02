@@ -5,7 +5,7 @@
     .col
       - if super_admin_user?
         = link_to 'New Admin', new_reu_program_program_admin_path, class: 'btn btn-primary float-right'
-  .row
+  .row.overflow-auto.mx-1
     .col
       %table.table
         %thead
