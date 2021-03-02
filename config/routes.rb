@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       member do
         patch :accept
         patch :reject
+        patch :change_state
       end
     end
 

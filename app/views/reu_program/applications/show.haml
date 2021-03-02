@@ -1,14 +1,16 @@
 .container
-  .row
+  .row.mb-3
     .col
       %h3 Application Information
-    - if @application.completed?
-      .col.d-flex.justify-content-end
-        .btn-group
-          - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
-          = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
-          - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
-          =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+    -# - if @application.completed?
+    .col.d-flex.justify-content-end
+      = simple_form_for @application, url: change_state_reu_program_application_path, html: { class: "input-group"} do |f|
+        = f.select :state, Application.states.map, class: 'form-control form-control'
+        = f.submit 'Change Application State', class: 'btn btn-outline-secondary ml-2'
+        -# - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
+        -# = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+        -# - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
+        -# =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
   - @application.state ||= 'started'
   .card.text-white.mb-3(class="bg-#{status_class(@application.state)}")
     .card-header
@@ -16,13 +18,13 @@
     .card-body
       - case @application.state
       - when 'started'
-        %p.m-0 User has started thier application
+        %p.m-0 User has started their application
       - when 'submitted'
-        %p.m-0 User has submitted thier application but their recommendations have not yet come in
+        %p.m-0 User has submitted their application but their recommendations have not yet come in
       - when 'completed'
-        %p.m-0 User has completed thier application and can now be accepted or rejected
+        %p.m-0 User has completed their application and can now be accepted or rejected
       - when 'withdrawn'
-        %p.m-0 User has withdrawn thier application
+        %p.m-0 User has withdrawn their application
       - when 'accepted'
         %p.m-0 This application has been accepted
       - when 'rejected'

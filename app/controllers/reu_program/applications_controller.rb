@@ -52,6 +52,11 @@ module ReuProgram
       redirect_to reu_program_applications_path
     end
 
+    def change_state
+      @application.update(state: 'submitted')
+      redirect_to reu_program_applications_path
+    end
+
     private
 
     def load_application
