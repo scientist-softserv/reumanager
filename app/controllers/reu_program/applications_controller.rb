@@ -12,8 +12,8 @@ module ReuProgram
 
       respond_to do |format|
         format.html do
-          @applications = @applications.page(params[:page]).per(15)
           @application_count = @applications.count
+          @applications = @applications.page(params[:page]).per(15)
         end
         format.pdf do
           document = ApplicationPdf.new(@applications)
