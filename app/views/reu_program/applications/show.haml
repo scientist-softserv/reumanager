@@ -4,17 +4,19 @@
       %h3 Application Information
     -# - if @application.completed?
     .col.d-flex.justify-content-end
-      = simple_form_for @application, url: change_state_reu_program_application_path, html: { class: "input-group"} do |f|
-        = f.select :state, Application.states.map, class: 'form-control form-control'
-        = f.submit 'Change Application State', class: 'btn btn-outline-secondary ml-2'
-        -# - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
-        -# = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
-        -# - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
-        -# =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+      - btn_class = @application.accepted? ? 'btn-success' : 'btn-outline-success'
+      = link_to'Accept Applicant', accept_reu_program_application_path, method: :patch, class: "btn #{btn_class}"
+      - btn_class = @application.rejected? ? 'btn-danger' : 'btn-outline-danger'
+      =link_to 'Reject Applicant', reject_reu_program_application_path, method: :patch, class: "btn #{btn_class} ml-2"
   - @application.state ||= 'started'
   .card.text-white.mb-3(class="bg-#{status_class(@application.state)}")
     .card-header
-      %h5 Current Status: #{@application.state.titlecase}
+      .col.mb-3
+        %h5 Current Status: #{@application.state.titlecase}
+      .col
+        = simple_form_for @application, url: change_state_reu_program_application_path, html: { class: "input-group"} do |f|
+          = f.select :state, Application.states.map, class: 'form-control'
+          = f.submit 'Change Application State', class: 'btn btn-light ml-2'
     .card-body
       - case @application.state
       - when 'started'

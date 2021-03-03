@@ -53,8 +53,8 @@ module ReuProgram
     end
 
     def change_state
-      @application.update(state: 'submitted')
-      redirect_to reu_program_applications_path
+      @application.update(state: params["application"]["state"])
+      redirect_to reu_program_application_path
     end
 
     private
