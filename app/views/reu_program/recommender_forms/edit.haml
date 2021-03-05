@@ -1,15 +1,9 @@
-.row
-  .col-2
-  .col-8
-    .row
-      .col
-        %h2 Edit Recommender Form
-      .col
-        .btn-group.float-right
-          = link_to 'Show Schema', show_schema_reu_program_recommender_form_path(@form), class: 'btn btn-light'
-  .col-2
-.row
-  .col-2
-  .col-8.edit-application-form-container
+.row.mx-2.mb-5
+  .col
+    %h2 Edit Recommender Form
+  .col
+    .btn-group.float-right
+      = link_to 'Show Schema', show_schema_reu_program_recommender_form_path(@form), class: 'btn btn-light'
+.row.overflow-auto.mx-1
+  .col.edit-application-form-container
     = render partial: 'edit_form'
-  .col-2
