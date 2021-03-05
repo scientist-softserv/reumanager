@@ -29,9 +29,6 @@ class Application < ApplicationRecord
   before_save do
     # revert status if user edits information where it is invalid
     if
-    #   @current_user.has_role? :admin or @current_user.has_role? :super_admin
-    #   self.save
-    # else
       (self.submitted? || self.completed?) && !self.application_valid?
       self.submitted_at = nil
       self.state = 'started'
