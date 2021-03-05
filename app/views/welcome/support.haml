@@ -8,29 +8,29 @@
             .col
                 %div.form-group
                     %label{:for => 'first_name', :class => "font-weight-bold"} First Name:*
-                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'first_name', :placeholder => 'Jane'}
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'first_name', :placeholder => 'Jane', :value => params[:first_name]}
             .col
                 %div.form-group
                     %label{:for => 'last_name', :class => "font-weight-bold"} Last Name:*
-                    %input{:type => 'text', :class => "form-control form-control-sm", :name => 'last_name', :placeholder => 'Doe'}
+                    %input{:type => 'text', :class => "form-control form-control-sm", :name => 'last_name', :placeholder => 'Doe', :value => params[:last_name]}
         %div.form-row
             .col
                 %div.form-group
                     %label{:for => 'email', :class => "font-weight-bold"} Email:*
-                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'email', :placeholder => 'jane.doe@gmail.com'}
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'email', :placeholder => 'jane.doe@gmail.com', :value => params[:email]}
             .col
                 %div.form-group
                     %label{:for => 'phone', :class => "font-weight-bold"} Phone:
-                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'phone', :placeholder => '(619) 555-5555'}
+                    %input{:type => 'text', :class => "form-control form-control-sm",:name => 'phone', :placeholder => '(619) 555-5555', :value => params[:phone]}
         %div.form-group
             %label{:for => 'program_name', :class => "font-weight-bold"} If your issue is related to an existing REU Manager program, please provide the program name:
-            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'program_name', :placeholder => 'Your Program (if applicable)'}
+            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'program_name', :placeholder => 'Your Program (if applicable)', :value => params[:program_name]}
         %div.form-group
             %label{:for => 'subject', :class => "font-weight-bold"} Subject:*
-            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'subject', :placeholder => 'Your Subject Here'}
+            %input{:type => 'text', :class => "form-control form-control-sm",:name => 'subject', :placeholder => 'Your Subject Here', :value => params[:subject]}
         %div.form-group
             %label{:for => 'message', :class => "font-weight-bold"} How can we help? Let us know your question or describe your issue:*
-            %textarea{:type => 'text', :class => "form-control form-control-sm",:name => 'message', :rows =>"3",  :placeholder => 'Your Message Here'}
+            %textarea{:type => 'text', :class => "form-control form-control-sm",:name => 'message', :rows =>"3",  :placeholder => 'Your Message Here', :value => params[:message]}
         %div
         - if flash[:notice]
             .alert.alert-info#notice= flash[:notice]

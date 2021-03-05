@@ -3,13 +3,13 @@ class SupportController < ApplicationController
     def send_support_email
 
         if (params[:subject].blank?) || (params[:first_name].blank?) || (params[:last_name].blank?) || (params[:email].blank?) || (params[:message].blank?)
-            redirect_to support_path
-            flash[:alert] = "Please fill in all required fields"
+            redirect_to support_path(params.to_unsafe_h)
+            flash[:alert] = "Your message was not sent because there was information missing in your submission. Please fill in all required fields before pressing send."
         else
             @support_email = SupportMailer.support_email(params)
             @support_email.deliver
             redirect_to support_path
-            flash[:notice] = "Message Sent"
+            flash[:notice] = "Message Sent!"
         end
     end
 
