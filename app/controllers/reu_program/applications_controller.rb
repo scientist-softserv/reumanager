@@ -53,7 +53,7 @@ module ReuProgram
     end
 
     def change_state
-      @application.update(state: params["application"]["state"])
+      @application.update_column(:state, params["application"]["state"])
       redirect_to reu_program_application_path
     end
 
