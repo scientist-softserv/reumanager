@@ -65,11 +65,12 @@
       %p User has not entered their recommenders information
   - else
     - info.each_with_index do |r, index|
+      - recommendation = @application.recommendations.detect { |s| s.email == r['email'] }
+      - next if recommendation.blank?
       :ruby
-        recommendation = @application.recommendations.detect { |s| s.email == r['email'] }
-        classes = if recommendation.submitted_at.present?
+        classes = if recommendation&.submitted_at.present?
                     'border-success'
-                  elsif recommendation.last_sent_at.blank?
+                  elsif recommendation&.last_sent_at.blank?
                     'border-warning'
                   else
                     'border-dark'
@@ -77,7 +78,7 @@
       .card.mb-2.mr-2(class="#{classes}")
         .card-header Recommender #{index + 1}
         .card-body
-          - if recommendation.submitted_at.present?
+          - if recommendation&.submitted_at.present?
             .alert.alert-success.p-2
               %p.m-0 Recommender submitted a recommendation.
           - else

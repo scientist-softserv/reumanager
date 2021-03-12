@@ -59,6 +59,7 @@ class ApplicationPdf
     else
       info.each_with_index do |r, index|
         recommendation = application.recommendations.detect { |s| s.email == r['email'] }
+        next if recommendation.blank?
         color = if recommendation.submitted_at.present?
                   '28a745' # bootstrap success
                 elsif recommendation.last_sent_at.blank?
