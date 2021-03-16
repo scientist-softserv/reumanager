@@ -72,6 +72,10 @@ class Application < ApplicationRecord
     self.data.dig('profile', 'contact_email').presence || user.email
   end
 
+  def profile_exists?
+    first_name.present? && last_name.present?
+  end
+
   def update_data(new_data)
     keys = new_data.keys - self.current_application_form.sections.map(&:title_key)
     keys.each { |key| new_data.delete(key) } if keys.any?

@@ -14,8 +14,7 @@ class RecommenderFormsController < ApplicationController
       current_user.application.update_recommendation
       current_user.application.recommendations.each do |recommendation|
         next if recommendation.last_sent_at.present?
-        recommendation.update(last_sent_at: Time.current)
-        Notification.recommendation_request(recommendation, current_user.application).deliver
+        recommendation.update_columns(last_sent_at: Time.current)
       end
       render json: {
         success: true,
@@ -37,7 +36,7 @@ class RecommenderFormsController < ApplicationController
     @recommendation = Recommendation.find(params[:id])
     @application = @recommendation.application
     if can_send_email?
-      Notification.recommendation_request(@recommendation, @application).deliver
+      Notification.recommendation_request(@recommendation, @application).deliver if current_user.application.profile_exists?
       @recommendation.last_sent_at = Time.current
       @recommendation.save
       flash[:notice] = 'Resent email to recommender'
@@ -54,12 +53,14 @@ class RecommenderFormsController < ApplicationController
   end
 
   def redirect_completed_users
-    redirect_to status_path if (current_application&.completed? ||
-      current_application&.accepted? ||
-      current_application&.rejected?)
+    redirect_to status_path if current_application&.completed? ||
+                               current_application&.accepted? ||
+                               current_application&.rejected?
   end
 
   def can_send_email?
+    return false unless current_user.application.profile_exists?
+
     @recommendation.last_sent_at.blank? ||
       @recommendation.last_sent_at.present? &&
         (@recommendation.last_sent_at + 1.day) < Time.current

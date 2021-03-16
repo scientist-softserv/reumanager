@@ -40,6 +40,7 @@ class ApplicationForm < ApplicationRecord
     sections = self.sections.to_a
     data.each do |title_key, values|
       section = sections.detect { |s| s.title_key == title_key }
+      next if section.nil?
       error_messages.concat(section.validate_data(values))
     end
     error_messages
