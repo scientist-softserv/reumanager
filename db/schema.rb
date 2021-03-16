@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_205155) do
+ActiveRecord::Schema.define(version: 2021_03_16_204406) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -68,9 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_205155) do
     t.text "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index "(((first_name || ' '::text) || last_name)) gin_trgm_ops", name: "applicant_search_name_index", using: :gin
     t.index ["application_id"], name: "index_application_search_records_on_application_id"
-    t.index ["email"], name: "applicant_search_email_index", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "applications", force: :cascade do |t|
