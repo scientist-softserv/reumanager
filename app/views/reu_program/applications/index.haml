@@ -2,11 +2,18 @@
   .row
     .col
       %h2.float-left Applicants
-    .col
-      .btn-group.float-right
-        %button.btn.btn-light.float-right= link_to "Export #{params[:state]&.capitalize.presence || 'All'} as CSV", reu_program_applications_path(format: 'csv', state: params[:state])
-        %button.btn.btn-light.float-right= link_to "Export #{params[:state]&.capitalize.presence || 'All'} as PDF", reu_program_applications_path(format: 'pdf', state: params[:state])
-  .row
+  .d-flex.justify-content-end
+    :ruby
+      base_label = "Export #{params[:state]&.capitalize.presence || 'All'}#{" Searched for" if params[:search]} as"
+      export_csv_label = "#{base_label} CSV"
+      export_pdf_label = "#{base_label} PDF"
+    .btn-group
+      - if current_user.notch8?
+        = link_to 'NUKE THEM ALL', nuke_them_all_reu_program_applications_path, class: 'btn btn-outline-danger', data: { confirm: 'this cannot be undone, are you sure?' }
+        = link_to 'Show Discarded Applications', reu_program_applications_path(show_deleted: true, state: params[:state], search: params[:search]), class: 'btn btn-outline-primary'
+      = link_to export_csv_label, reu_program_applications_path(format: 'csv', state: params[:state], search: params[:search]), class: 'btn btn-outline-secondary'
+      = link_to export_pdf_label, reu_program_applications_path(format: 'pdf', state: params[:state], search: params[:search]), class: 'btn btn-outline-secondary'
+  .row.mt-3
     .col
       .btn-group.mb-3.d-flex.flex-wrap
         = link_to 'All', reu_program_applications_path, class: "btn btn-outline-secondary #{'active' if params[:state].blank?}"
@@ -42,6 +49,10 @@
                   = link_to 'Show', reu_program_application_path(application), class: 'btn btn-outline-secondary btn-sm'
                   = link_to 'PDF', reu_program_application_path(application, format: 'pdf'), class: 'btn btn-outline-secondary btn-sm'
                   = link_to 'CSV', reu_program_application_path(application, format: 'csv'), class: 'btn btn-outline-secondary btn-sm'
+                  - if application.kept?
+                    = link_to 'Remove', reu_program_application_path(application), method: :delete, data: { confirm: 'Are you sure you want to remove this application?'}, class: 'btn btn-outline-danger btn-sm'
+                  - else
+                    = link_to 'Restore', restore_reu_program_application_path(application), class: 'btn btn-outline-info btn-sm'
   .row
     .col
       = paginate @applications

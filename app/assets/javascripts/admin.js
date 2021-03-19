@@ -6,3 +6,7 @@
 //= require flatpickr
 //= require sortable-rails
 //= require admin/delete_button
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
+})

@@ -1,13 +1,15 @@
 module ReuProgram
   class ApplicationsController < AdminController
-    before_action :load_application, except: %i[index]
+    before_action :load_application, except: %i[index nuke_them_all]
 
     def index
-      @applications = if params[:search].present?
-                        Application.search(params[:search])
+      @applications = if params[:show_deleted] && current_user.notch8?
+                        Application.discarded
                       else
-                        Application.all
+                        Application.kept
                       end
+
+      @applications = @applications.search(params[:search]) if params[:search].present?
       @applications = @applications.where(state: params[:state]) if params[:state].present?
 
       respond_to do |format|
@@ -53,8 +55,23 @@ module ReuProgram
     end
 
     def change_state
-      @application.update_column(:state, params["application"]["state"])
-      redirect_to reu_program_application_path
+      @application.update_column(:state, params['application']['state'])
+      redirect_to reu_program_applications_path
+    end
+
+    def destroy
+      @application.discard
+      redirect_to reu_program_applications_path
+    end
+
+    def restore
+      @application.undiscard
+      redirect_to reu_program_applications_path
+    end
+
+    def nuke_them_all
+      Application.destroy_all
+      redirect_to reu_program_applications_path
     end
 
     private

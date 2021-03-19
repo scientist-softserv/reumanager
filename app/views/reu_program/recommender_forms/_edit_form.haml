@@ -5,8 +5,14 @@
         = f.input :name
       .col
         = f.input :recommenders_count
-      .col
-        = f.submit 'Save', class: 'btn btn-primary float-right'
+      .col.d-flex.justify-content-end.align-items-center
+        = f.submit 'Save', class: 'btn btn-primary'
+    .row
+      .col-4
+        - msg = 'When checked REU Manager will send emails to the recommenders that applicants submit and allow the applicants to resend that email. When uncheck REU Manager will still get recommender info from the applicant but will not send emails to the recommenders. Once this is unchecked you will have to contact support to enable this feature.'
+        - hint = capture do
+          %span.text-muted(data-toggle="tooltip" data-placement="bottom" title="#{msg}") Help
+        = f.input :handle_recommendations, as: :boolean, label: "Handle Recommendations - #{hint}".html_safe, disabled: !f.object.handle_recommendations?
 
   .row.border-bottom.mb-2
     .col
@@ -19,6 +25,7 @@
         %th.text-right Actions
     %tbody
       - @form.sections.each do |section|
+        - next if !@form.handle_recommendations && section.important == 'recommendation'
         - id = "reorderFields#{section.id}"
         %tr
           %td= section.title

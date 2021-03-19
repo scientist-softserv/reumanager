@@ -40,7 +40,7 @@ module ReuProgram
 
     def form_params
       params.require(:recommender_form)
-            .permit(:name, :recommenders_count)
+            .permit(:name, :recommenders_count, :handle_recommendations)
     end
 
     def load_form

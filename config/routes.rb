@@ -13,11 +13,15 @@ Rails.application.routes.draw do
     end
     resources :settings, except: %i[destroy]
     resources :snippets, except: %i[destroy]
-    resources :applications, except: %i[destroy] do
+    resources :applications do
+      collection do
+        get :nuke_them_all
+      end
       member do
         patch :accept
         patch :reject
         patch :change_state
+        get :restore
       end
     end
 

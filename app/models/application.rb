@@ -1,4 +1,6 @@
 class Application < ApplicationRecord
+  include Discard::Model
+
   has_one :user
   has_one :application_search_record, dependent: :destroy
 
@@ -41,7 +43,15 @@ class Application < ApplicationRecord
     end
   end
 
-  after_commit :update_application_search_record
+  after_commit :update_application_search_record, if: :persisted?
+
+  after_discard do
+    recommendations.discard_all
+  end
+
+  after_undiscard do
+    recommendations.undiscard_all
+  end
 
   scope :search, lambda { |query|
     where(

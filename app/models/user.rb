@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
+
+  def notch8?
+    email.match?('@notch8.com')
+  end
 end

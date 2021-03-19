@@ -1,18 +1,19 @@
 %div.img-container
   %div.overlay
-    .col.py-4.px-4
-      .h1.h1-responsive.heading-text
-        :ruby
-          title = Setting[:app_title].present? ? Setting[:app_title] : 'Program Title'
-        #{title}
-      .h3.h3-responsive
-        :ruby
-          university = Setting[:university].present? ? Setting[:university] : 'University Name'
-          university_url = Setting[:university_url].present? ? Setting[:university_url] : '/'
-        #{link_to university, university_url}
-      .h4.h4-responsive
-        :ruby
-          department = Setting[:department].present? ? Setting[:department] : 'Department Name'
-          department_url = Setting[:department_url].present? ? Setting[:department_url] : '/'
-        #{link_to department, department_url}
-
+    .container
+      .row
+        .col.py-4.px-4
+          .h1.h1-responsive.heading-text
+            = Setting[:app_title].present? ? Setting[:app_title] : 'Program Title'
+          .h3.h3-responsive
+            - university = Setting[:university].present? ? Setting[:university] : 'University Name'
+            - if Setting[:university_url].present?
+              = link_to university, Setting[:university_url], class: 'text-dark'
+            - else
+              = university
+          .h4.h4-responsive
+            - department = Setting[:department].present? ? Setting[:department] : 'Department Name'
+            - if Setting[:department_url].present?
+              = link_to department, Setting[:department_url], class: 'text-dark'
+            - else
+              = department

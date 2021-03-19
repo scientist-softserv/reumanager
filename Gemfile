@@ -11,6 +11,7 @@ gem 'capistrano'
 gem 'coffee-rails'
 gem 'data_uri'
 gem 'devise'
+gem 'discard', '~> 1.2'
 gem 'dotenv-rails'
 gem 'flatpickr_rails'
 gem 'font-awesome-sass', '~> 5.9.0'
@@ -34,9 +35,9 @@ gem 'stripe', '~> 1.57'
 gem 'thin'
 gem 'tzinfo-data'
 gem 'uglifier'
+gem 'view_component'
 gem 'webpacker'
 gem 'whenever', require: false
-gem 'view_component'
 
 # development and test gems
 group :development, :test do
