@@ -1,15 +1,15 @@
-
 $grid-float-breakpoint: "992px";
 
 .transparent-background-container{
-    background-color: rgba(245, 245, 245, 0.822);
+  background-color: rgba(245, 245, 245, 0.822);
 }
+
 @include media-breakpoint-down(md) {
-    .transparent-background-container {
-        background-color: white;
-    }
+  .transparent-background-container {
+    background-color: white;
   }
+}
 
 .homepage-card{
-    box-shadow: 15px -15px #9BBCEE;
+  box-shadow: 15px -15px #9BBCEE;
 }

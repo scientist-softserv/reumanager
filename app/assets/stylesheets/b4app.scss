@@ -19,3 +19,12 @@ $primary-color: #6f95dc;
 body {
   line-height: 1.75em;
 }
+
+a {
+  color: #007bff;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

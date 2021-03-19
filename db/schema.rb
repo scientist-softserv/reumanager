@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_204406) do
+ActiveRecord::Schema.define(version: 2021_03_19_173126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_204406) do
     t.datetime "submitted_at"
     t.datetime "completed_at"
     t.string "state"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_applications_on_discarded_at"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -130,6 +132,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_204406) do
     t.string "token", default: -> { "md5((random())::text)" }, null: false
     t.jsonb "data", default: {}
     t.integer "application_id"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_recommendations_on_discarded_at"
   end
 
   create_table "recommender_forms", force: :cascade do |t|
@@ -141,6 +145,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_204406) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recommenders_count", default: 1, null: false
+    t.boolean "handle_recommendations", default: true, null: false
   end
 
   create_table "roles", force: :cascade do |t|

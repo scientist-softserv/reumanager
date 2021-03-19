@@ -1,4 +1,6 @@
 class Recommendation < ApplicationRecord
+  include Discard::Model
+
   belongs_to :application
 
   validate :run_data_validations, on: :update
