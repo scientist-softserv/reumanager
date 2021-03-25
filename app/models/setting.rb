@@ -11,14 +11,13 @@ class Setting < ApplicationRecord
       case setting
       when Settings::DateSetting
         setting&.value&.in_time_zone(setting.time_zone)&.to_datetime&.end_of_day
-        # raise 'test'
       else
         setting&.value
       end
     end
 
     def all_setup?
-      self.all.all? { |s| s.value.present? }
+      self.all.all? { |s| s.value.present? || s.optional? }
     end
   end
 

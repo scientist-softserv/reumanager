@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_173126) do
+ActiveRecord::Schema.define(version: 2021_03_25_212735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 2021_03_19_173126) do
     t.integer "grant_id"
     t.string "kind"
     t.string "time_zone"
+    t.boolean "optional", default: false, null: false
     t.index ["name"], name: "index_settings_on_name"
   end
 

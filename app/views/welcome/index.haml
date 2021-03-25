@@ -34,8 +34,10 @@
               - else
                 = link_to "Apply Now", new_user_registration_path, class: "btn btn-lg btn-success"
           %p.deadline.text-center.pb-3
-            Applications will be available on <b>#{format_date(Setting[:application_start], 'Missing Start Date')} </b>for the <b>#{Setting[:program_start_date]&.year || 'Missing Program Start Date'}</b> Program.<br/>Applications will be due on <b>#{format_date(Setting[:application_deadline], 'Missing Deadline Date')}</b> and decisions sent to applicants by <b>#{format_date(Setting[:notification_date], 'Missing Notification Date')}.</b>
-   
+            Applications will be available on <b>#{format_date(Setting[:application_start], 'Missing Start Date')} </b>for the <b>#{Setting[:program_start_date]&.year || 'Missing Program Start Date'}</b> Program.<br/>Applications will be due on <b>#{format_date(Setting[:application_deadline], 'Missing Deadline Date')}</b>
+            - if Setting[:notification_date].present?
+              and decisions sent to applicants by <b>#{format_date(Setting[:notification_date], 'Missing Notification Date')}.</b>
+
 .row.px-5
   .col-md-12
     %h3 General Info

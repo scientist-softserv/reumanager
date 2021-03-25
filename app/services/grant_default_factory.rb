@@ -43,14 +43,15 @@ class GrantDefaultFactory
       Fields::ShortText.create!(title: 'Contact Email', order: 4, section: s1, important: 'profile_contact_email')
       Fields::Date.create!(title: 'Date of Birth', order: 5, section: s1)
       s2 = Section.create!(title: 'Addresses', repeating: true, application_form: af)
-      Fields::ShortText.create!(title: 'Type', order: 1, section: s2)
+      Fields::Select.create!(title: 'Type', enum_array: %w[Primary Secondary], order: 2, section: s3)
       Fields::ShortText.create!(title: 'Street', order: 2, section: s2)
       Fields::ShortText.create!(title: 'City', order: 3, section: s2)
       Fields::ShortText.create!(title: 'State', order: 4, section: s2)
       Fields::ShortText.create!(title: 'Zip', order: 5, section: s2)
       s3 = Section.create!(title: 'Academic Record', repeating: true, application_form: af)
       Fields::ShortText.create!(title: 'University', order: 1, section: s3)
-      Fields::Select.create!(title: 'GPA', enum_array: %w[4.0 3.9 3.8 3.7 3.6 3.5 3.4 3.3 3.2 3.1 3.0 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2 2.1 2.0 1.9 1.8 1.7 1.6 1.5 1.4 1.3 1.2 1.1 1.0 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 0.1 0.0], order: 2, section: s3)
+      gpa_array = (BigDecimal('1.0')..BigDecimal('4.0')).step(BigDecimal('0.1')).to_a.map(&:to_s).reverse
+      Fields::Select.create!(title: 'GPA', enum_array: gpa_array, order: 2, section: s3)
       Fields::Date.create!(title: 'Started University', order: 3, section: s3)
       Fields::Date.create!(title: 'Estimated Graduation Date', order: 3, section: s3)
       Fields::File.create!(title: 'Transcript', order: 4, section: s3)
@@ -124,12 +125,12 @@ class GrantDefaultFactory
       application_deadline = 2.months.from_now.strftime('%Y-%m-%d')
     end
     [
-      { name: 'Application Start', description: "This is the 'opening date' for the application system.  After this date, students can apply.  This also controls what buttons are displayed in the navbar and on the homepage (e.g. Apply Now and Login).", value: application_start },
-      { name: 'Application Deadline', description: 'This date determines when applications can no longer be created or updated. Similar to the above value, buttons to apply are removed after this date.', value: application_deadline },
-      { name: 'Notification Date', description: 'This date is used to let the applicants know when to expect a response.  This is used in the confirmation emails.' },
-      { name: 'Program Start Date', description: 'This date is used in the header and confirmation emails to set when the NSFREU program begins.' },
-      { name: 'Program End Date', description: 'Similar to the above value, this marks the end date for your NSFREU program.' },
-      { name: 'Check Back Date', description: "Once the application process is closed (after the application deadline), this value will inform students when to check back for information about next year's application." }
+      { name: 'Application Start', description: "This is the 'opening date' for the application system.  After this date, students can apply.  This also controls what buttons are displayed in the navbar and on the homepage (e.g. Apply Now and Login).", value: application_start, time_zone: 'Pacific Time (US & Canada) ' },
+      { name: 'Application Deadline', description: 'This date determines when applications can no longer be created or updated. Similar to the above value, buttons to apply are removed after this date.', value: application_deadline, time_zone: 'Pacific Time (US & Canada) ' },
+      { name: 'Notification Date', description: 'This date is used to let the applicants know when to expect a response.  This is used in the confirmation emails.', optional: true },
+      { name: 'Program Start Date', description: 'This date is used in the header and confirmation emails to set when the NSFREU program begins.', time_zone: 'Pacific Time (US & Canada) ' },
+      { name: 'Program End Date', description: 'Similar to the above value, this marks the end date for your NSFREU program.', time_zone: 'Pacific Time (US & Canada) ' },
+      { name: 'Check Back Date', description: "Once the application process is closed (after the application deadline), this value will inform students when to check back for information about next year's application.", time_zone: 'Pacific Time (US & Canada) ' }
     ]
   end
 
