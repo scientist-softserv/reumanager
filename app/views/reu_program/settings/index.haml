@@ -14,7 +14,11 @@
         %tbody
           - @settings.each do |setting|
             %tr
-              %td= setting.name
+              %td
+                = setting.name
+                - if setting.optional?
+                  %br
+                  (Optional)
               %td= setting.description
               %td
                 = truncate(setting.value, length: 100)
