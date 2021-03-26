@@ -11,7 +11,7 @@
       - if current_user.notch8?
         = link_to 'NUKE THEM ALL', nuke_them_all_reu_program_applications_path, class: 'btn btn-outline-danger', data: { confirm: 'this cannot be undone, are you sure?' }
         = link_to 'Show Discarded Applications', reu_program_applications_path(show_deleted: true, state: params[:state], search: params[:search]), class: 'btn btn-outline-primary'
-      = link_to export_csv_label, reu_program_applications_path(format: 'csv', state: params[:state], search: params[:search]), class: 'btn btn-outline-secondary'
+      %button.btn.btn-outline-secondary(data-target="#csvModal" data-toggle="modal" type="button")= export_csv_label
       = link_to export_pdf_label, reu_program_applications_path(format: 'pdf', state: params[:state], search: params[:search]), class: 'btn btn-outline-secondary'
   .row.mt-3
     .col
@@ -28,7 +28,9 @@
         .input-group
           - message = "Search #{"#{params[:state].capitalize} " if params[:state].present?}Applicants"
           = text_field_tag :search, params[:search], class: 'form-control', 'aria-describedby': "search-submit", placeholder: message
-          %button.btn.btn-outline-secondary#search-submit(type="submit") Search
+          .input-group-append
+            %button.btn.btn-outline-info(type="submit") Search
+            = link_to 'Clear', reu_program_applications_path, class: 'btn btn-outline-secondary'
   .row
     .col
       %table.table
@@ -60,3 +62,29 @@
     .col
       %center
         = "#{@application_count} #{"Application".pluralize(@application_count)} #{params[:state].capitalize if params[:state]}"
+/ Modal
+#csvModal.modal.fade(aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1")
+  .modal-dialog
+    .modal-content
+      = form_for :csv_fields, url: reu_program_applications_path(format: 'csv', state: params[:state], search: params[:search]), method: :get do |f|
+        .modal-header
+          %h5#exampleModalLabel.modal-title Pick Fields for CSV
+          %button.close(aria-label="Close" data-dismiss="modal" type="button")
+            %span(aria-hidden="true") ×
+        .modal-body
+          - @form = ApplicationForm.active
+          - @form.sections.each do |section|
+            .row.border-bottom.mt-2
+              .col
+                %p
+                  %strong= section.title
+              .col
+                = f.fields_for section.title_key do |sf|
+                  - section.fields.each do |field|
+                    .form-group.form-check.mb-0
+                      = sf.check_box field.title_key, class: 'form-check-input', checked: true
+                      = sf.label field.title_key, field.title
+
+        .modal-footer
+          %button.btn.btn-secondary(data-dismiss="modal" type="button") Close
+          %button.btn.btn-primary Download CSV

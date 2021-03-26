@@ -10,6 +10,8 @@ Style/RedundantSelf:
 # Layout
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+Layout/LineLength:
+  Enabled: false
 
 # Metrics
 Metrics/CyclomaticComplexity:
@@ -21,6 +23,4 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Enabled: false
 Metrics/BlockLength:
-  Enabled: false
-Metrics/LineLength:
   Enabled: false

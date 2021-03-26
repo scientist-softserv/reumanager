@@ -99,8 +99,12 @@ class Section < ApplicationRecord
     end
   end
 
-  def csv_column_headers
-    field_names = self.fields.map(&:title_key)
+  def csv_column_headers(selected_fields = nil)
+    field_names = if selected_fields.nil?
+                    self.fields.map(&:title_key)
+                  else
+                    self.fields.map(&:title_key).select { |field| selected_fields[field] == '1' }
+                  end
     if !repeating?
       field_names
     else
