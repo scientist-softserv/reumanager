@@ -11,7 +11,11 @@ Rails.application.routes.draw do
         get :unlock
       end
     end
-    resources :settings, except: %i[destroy]
+    resources :settings, except: %i[destroy] do
+      member do
+        get :clear
+      end
+    end
     resources :snippets, except: %i[destroy]
     resources :applications do
       collection do

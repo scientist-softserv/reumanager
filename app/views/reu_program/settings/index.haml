@@ -24,6 +24,8 @@
                 = truncate(setting.value, length: 100)
                 = setting.time_zone
               %td.actions
-                %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="modal-btn" data-path="#{edit_reu_program_setting_path(setting)}") Edit
+                .btn-group
+                  %button.btn.btn-outline-secondary.btn-sm(type="button" data-target="modal-btn" data-path="#{edit_reu_program_setting_path(setting)}") Edit
+                  = link_to 'Clear', clear_reu_program_setting_path(setting), class: 'btn btn-outline-secondary btn-sm'
 
 = render 'shared/edit_modal'

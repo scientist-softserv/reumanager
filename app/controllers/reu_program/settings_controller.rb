@@ -18,6 +18,11 @@ module ReuProgram
       end
     end
 
+    def clear
+      @setting.update(value: nil, time_zone: nil)
+      redirect_to action: 'index'
+    end
+
     private
 
     def setting_params
