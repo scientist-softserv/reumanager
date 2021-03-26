@@ -23,7 +23,7 @@ module ReuProgram
           send_data document.render, disposition: 'attachment; filename=applications_export.pdf', type: 'application/pdf'
         end
         format.csv do
-          document = ApplicationCsv.new(@applications)
+          document = ApplicationCsv.new(@applications, params.require(:csv_fields).permit!)
           send_data document.build, disposition: 'attachment;filename=applications_export.csv', type: 'text/csv'
         end
       end

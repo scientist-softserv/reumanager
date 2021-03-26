@@ -209,18 +209,8 @@ class Application < ApplicationRecord
     recommender_info.fetch('recommenders_form', []).count
   end
 
-  def data_flattened
-    data.each_with_object({}) do |(title, section), hash|
-      if section.is_a?(Hash)
-        hash.merge!(section.each_with_object({}) { |(k, v), h| h[k] = { value: v, path: "#{title}--#{k}" } })
-      elsif section.is_a?(Array)
-        section.each_with_index do |sub_section, index|
-          hash.merge!(sub_section.each_with_object({}) do |(k, v), h|
-            h["#{k}_#{index + 1}"] = { value: v, path: "#{title}--#{index}--#{k}" }
-          end)
-        end
-      end
-    end
+  def data_flattened(selected_fields)
+    DataFlattener.new(data, selected_fields).flatten
   end
 
   def full_name

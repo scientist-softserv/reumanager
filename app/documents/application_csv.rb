@@ -1,32 +1,44 @@
 require 'csv'
 
 class ApplicationCsv
-  attr_accessor :applications
+  attr_accessor :applications, :selected_fields
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  def initialize(applications)
+  def initialize(applications, selected_fields)
     @applications = applications
+    @selected_fields = selected_fields
+  end
+
+  def all_headers
+    @all_headers ||= ApplicationForm.first.csv_column_headers
   end
 
   def headers
-    @headers ||= ApplicationForm.first.csv_column_headers
+    @headers ||= ApplicationForm.first.csv_column_headers(selected_fields)
   end
 
   def build
     CSV.generate(headers: true) do |csv|
       csv << headers
-      applications.each do |application|
-        row = RowBuilder.new(headers)
-        data = application.data_flattened
-        data.each do |k, v|
-          row.add(
-            k,
-            format_value_for_csv(v[:value], 'application', application.id, v[:path], application.user.subdomain)
-          )
-        end
-        csv << row.raw_values
+      rows = build_rows
+      rows.each do |row|
+        csv << row.raw_values.reject(&:blank?)
       end
+    end
+  end
+
+  def build_rows
+    applications.map do |application|
+      row = RowBuilder.new(all_headers)
+      data = application.data_flattened(selected_fields)
+      data.each do |k, v|
+        row.add(
+          k,
+          format_value_for_csv(v[:value], 'application', application.id, v[:path], application.user.subdomain)
+        )
+      end
+      row
     end
   end
 
