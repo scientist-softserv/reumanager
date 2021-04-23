@@ -1,6 +1,7 @@
 .container
   .col.mx-2
     %h1 Recommenders
+    .h5.text-center.instructions.mt-3.mb-5 Select #{link_to('Status', status_path)} from the top menu to finalize your application.
 
     - if @form
       :ruby
@@ -17,8 +18,9 @@
       .form-data{ attrs }
 
       #customForm
-      %p.instructions Be sure to Save Application before navigating away from the current page
-      %p.instructions Select #{link_to('Status', status_path)} from the top menu to finalize your application
+      .p.text-center.instructions.mt-5 Be sure to save your application before navigating away from the current page.
+      .container.mt-3.d-flex.justify-content-center
+        %a.text-centered.btn.btn-primary.mb-3{:href => status_path} View Application Status & Finalize Application
 
       - if Rails.env.development?
         %hr
