@@ -43,7 +43,7 @@ class GrantDefaultFactory
       Fields::ShortText.create!(title: 'Contact Email', order: 4, section: s1, important: 'profile_contact_email')
       Fields::Date.create!(title: 'Date of Birth', order: 5, section: s1)
       s2 = Section.create!(title: 'Addresses', repeating: true, application_form: af)
-      Fields::Select.create!(title: 'Type', enum_array: %w[Primary Secondary], order: 2, section: s3)
+      Fields::Select.create!(title: 'Type', enum_array: %w[Primary Secondary], order: 2, section: s2)
       Fields::ShortText.create!(title: 'Street', order: 2, section: s2)
       Fields::ShortText.create!(title: 'City', order: 3, section: s2)
       Fields::ShortText.create!(title: 'State', order: 4, section: s2)
@@ -125,12 +125,12 @@ class GrantDefaultFactory
       application_deadline = 2.months.from_now.strftime('%Y-%m-%d')
     end
     [
-      { name: 'Application Start', description: "This is the 'opening date' for the application system.  After this date, students can apply.  This also controls what buttons are displayed in the navbar and on the homepage (e.g. Apply Now and Login).", value: application_start, time_zone: 'Pacific Time (US & Canada) ' },
-      { name: 'Application Deadline', description: 'This date determines when applications can no longer be created or updated. Similar to the above value, buttons to apply are removed after this date.', value: application_deadline, time_zone: 'Pacific Time (US & Canada) ' },
+      { name: 'Application Start', description: "This is the 'opening date' for the application system.  After this date, students can apply.  This also controls what buttons are displayed in the navbar and on the homepage (e.g. Apply Now and Login).", value: application_start, time_zone: 'Pacific Time (US & Canada)' },
+      { name: 'Application Deadline', description: 'This date determines when applications can no longer be created or updated. Similar to the above value, buttons to apply are removed after this date.', value: application_deadline, time_zone: 'Pacific Time (US & Canada)' },
       { name: 'Notification Date', description: 'This date is used to let the applicants know when to expect a response.  This is used in the confirmation emails.', optional: true },
-      { name: 'Program Start Date', description: 'This date is used in the header and confirmation emails to set when the NSFREU program begins.', time_zone: 'Pacific Time (US & Canada) ' },
-      { name: 'Program End Date', description: 'Similar to the above value, this marks the end date for your NSFREU program.', time_zone: 'Pacific Time (US & Canada) ' },
-      { name: 'Check Back Date', description: "Once the application process is closed (after the application deadline), this value will inform students when to check back for information about next year's application.", time_zone: 'Pacific Time (US & Canada) ' }
+      { name: 'Program Start Date', description: 'This date is used in the header and confirmation emails to set when the NSFREU program begins.', time_zone: 'Pacific Time (US & Canada)' },
+      { name: 'Program End Date', description: 'Similar to the above value, this marks the end date for your NSFREU program.', time_zone: 'Pacific Time (US & Canada)' },
+      { name: 'Check Back Date', description: "Once the application process is closed (after the application deadline), this value will inform students when to check back for information about next year's application.", time_zone: 'Pacific Time (US & Canada)' }
     ]
   end
 
