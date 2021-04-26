@@ -59,10 +59,9 @@ class ApplicationPdf
     else
       info.each_with_index do |r, index|
         recommendation = application.recommendations.detect { |s| s.email == r['email'] }
-        next if recommendation.blank?
-        color = if recommendation.submitted_at.present?
+        color = if recommendation&.submitted_at.present?
                   '28a745' # bootstrap success
-                elsif recommendation.last_sent_at.blank?
+                elsif recommendation&.last_sent_at.blank?
                   'ffc107' # bootstrap warning
                 else
                   '343a40' # bootstrap dark
@@ -71,22 +70,26 @@ class ApplicationPdf
           section 10 do
             section 10 do
               text 'Recommender', size: 14, inline_format: true, style: :bold
-              pad 5 do
-                indent 10 do
-                  message = recommendation.submitted_at.present? ? 'Recommender submitted a recommendation.' : 'Recommender has not yet submitted a recommendation.'
-                  text message, color: color
+              if recommendation.present?
+                pad 5 do
+                  indent 10 do
+                    message = recommendation.submitted_at.present? ? 'Recommender submitted a recommendation.' : 'Recommender has not yet submitted a recommendation.'
+                    text message, color: color
+                  end
                 end
               end
               r.each do |k, v|
                 path = "recommenders_form--#{index}--#{k}"
                 text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommender', @application.id, path)}", inline_format: true
               end
-              move_down 10
-              text "Recommender's Response", size: 14, inline_format: true, style: :bold
-              move_down 5
-              recommendation.data.fetch('recommendation_form', {}).each do |k, v|
-                path = "recommendation_form--#{k}"
-                text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', recommendation.id, path)}", inline_format: true
+              if recommendation.present?
+                move_down 10
+                text "Recommender's Response", size: 14, inline_format: true, style: :bold
+                move_down 5
+                recommendation.data.fetch('recommendation_form', {}).each do |k, v|
+                  path = "recommendation_form--#{k}"
+                  text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', recommendation.id, path)}", inline_format: true
+                end
               end
             end
           end
