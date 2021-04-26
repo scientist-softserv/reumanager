@@ -9,11 +9,18 @@ class RecommenderFormsController < ApplicationController
 
   def update_recommenders
     current_user.application.recommender_info = params.require(:data).permit!
-    if current_user.application.save
+    if current_user.application.save && @form.handle_recommendations == true
       current_user.application.update_recommendation if @form.handle_recommendations?
       render json: {
         success: true,
         message: 'Successfully saved your recommenders information. You can have the system ask for their recommendation via email from the status page.'
+      }
+    elsif 
+      current_user.application.save && @form.handle_recommendations == false
+      current_user.application.update_recommendation if @form.handle_recommendations?
+      render json: {
+        success: true,
+        message: 'Successfully saved your recommenders information.'
       }
     else
       current_user.application.save(validate: false)
