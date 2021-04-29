@@ -2,7 +2,7 @@ class DataFlattener
   attr_reader :data, :selected_fields
   attr_accessor :section_selected_fields
 
-  def initialize(data, selected_fields)
+  def initialize(data, selected_fields = {})
     @data = data
     @selected_fields = selected_fields
   end

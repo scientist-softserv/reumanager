@@ -63,7 +63,7 @@
       %center
         = "#{@application_count} #{"Application".pluralize(@application_count)} #{params[:state].capitalize if params[:state]}"
 
-= render partial: 'csv_modal', locals: { modalId: 'csvModal', url: reu_program_applications_path(format: 'csv', state: params[:state], search: params[:search]) }
+= render partial: 'csv_modal', locals: { modalId: 'csvModal', url: index_csv_reu_program_applications_path(format: 'csv', state: params[:state], search: params[:search]) }
 
 - @applications.each do |application|
-  = render partial: 'csv_modal', locals: { modalId: "csvModal-#{application.id}", url: reu_program_application_path(application, format: 'csv') }
+  = render partial: 'csv_modal', locals: { modalId: "csvModal-#{application.id}", url: show_csv_reu_program_application_path(application, format: 'csv') }

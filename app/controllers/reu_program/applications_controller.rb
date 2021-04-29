@@ -1,6 +1,6 @@
 module ReuProgram
   class ApplicationsController < AdminController
-    before_action :load_application, except: %i[index nuke_them_all]
+    before_action :load_application, except: %i[index index_csv nuke_them_all]
 
     def index
       @applications = if params[:show_deleted] && current_user.notch8?
@@ -29,6 +29,12 @@ module ReuProgram
       end
     end
 
+    # this is to handle the csv downloads as a post request becuase of the
+    # amount of data required to specify fields to include
+    def index_csv
+      index
+    end
+
     def show
       respond_to do |format|
         format.html
@@ -42,6 +48,10 @@ module ReuProgram
           send_data document.build, disposition: 'attachment;filename=Application_export.csv', type: 'text/csv'
         end
       end
+    end
+
+    def show_csv
+      show
     end
 
     def accept

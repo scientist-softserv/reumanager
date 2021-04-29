@@ -20,12 +20,14 @@ Rails.application.routes.draw do
     resources :applications do
       collection do
         get :nuke_them_all
+        post :index_csv, defaults: { format: :csv }
       end
       member do
         patch :accept
         patch :reject
         patch :change_state
         get :restore
+        post :show_csv, defaults: { format: :csv }
       end
     end
 
