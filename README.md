@@ -39,6 +39,25 @@ To see the applicant flow:
 4. visit that address in your browser
 5. you should now be able to log in as that applicant
 
+To play with data in the rails console:
+1.  Go into the container
+    ``` bash
+    docker compose exec web bash
+    ```
+2.  Get into the rails console
+    ``` bash
+    rails c
+    ```
+2. Change to the correct tenant: useful commands
+    change to the test tenant in dev
+    ``` bash
+    Grant.first.switch!
+    ```
+    to change to any other tenant (replace 'test' with tenant name)
+    ``` bash
+    Grant.find_by_subdomian('test').switch!
+    ```
+
 # Deploy a new release
 
 ``` bash

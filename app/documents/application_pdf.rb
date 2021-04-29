@@ -108,7 +108,7 @@ class ApplicationPdf
 
   def format_value_for_pdf(value, model, model_id, access_path)
     if value =~ /^data:/
-      url = url_helpers.download_url(model, model_id, access_path, format: :pdf, subdomain: @application.user.subdomain)
+      url = url_helpers.download_url(model, model_id, access_path.tr('.', ''), format: :pdf, subdomain: @application.user.subdomain)
       "<u><link href='#{url}'>Download\<\/link><\/u>"
     else
       value

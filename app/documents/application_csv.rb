@@ -44,7 +44,7 @@ class ApplicationCsv
 
   def format_value_for_csv(value, model, model_id, access_path, subdomain)
     if value =~ /^data:/
-      url_helpers.download_url(model, model_id, access_path, format: :pdf, subdomain: subdomain)
+      url_helpers.download_url(model, model_id, access_path.tr('.', ''), format: :pdf, subdomain: subdomain)
     else
       value
     end
