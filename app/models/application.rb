@@ -209,7 +209,7 @@ class Application < ApplicationRecord
     recommender_info.fetch('recommenders_form', []).count
   end
 
-  def data_flattened(selected_fields)
+  def data_flattened(selected_fields = {})
     DataFlattener.new(data, selected_fields).flatten
   end
 

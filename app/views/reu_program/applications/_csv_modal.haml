@@ -2,7 +2,7 @@
 .modal.fade(id="#{modalId}" aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1")
   .modal-dialog
     .modal-content
-      = form_for :csv_fields, url: url , method: :get do |f|
+      = form_for :csv_fields, url: url , method: :post do |f|
         .modal-header
           %h5#exampleModalLabel.modal-title Pick Fields for CSV
           %button.close(aria-label="Close" data-dismiss="modal" type="button")

@@ -5,7 +5,7 @@ class ApplicationCsv
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  def initialize(applications, selected_fields)
+  def initialize(applications, selected_fields = {})
     @applications = applications
     @selected_fields = selected_fields
   end
