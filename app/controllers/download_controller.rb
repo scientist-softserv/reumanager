@@ -4,12 +4,29 @@ class DownloadController < ApplicationController
   def download
     data = @model.send(access_method)
     not_found if data.blank? || !data.respond_to?(:dig)
-    url = data.dig(*fields)
+    url = data_url(data)
+    not_found if url.blank?
     uri = URI::Data.new(url)
     send_data uri.data, filename: filename(url), type: uri.content_type, disposition: :attachment
   end
 
   private
+
+  def data_url(data)
+    f = fields
+    url = data.dig(*f)
+    return url if url.present?
+
+    param_key = f.pop
+    section = data.dig(*f)
+    url = nil
+    section.each do |key, value|
+      next if param_key != key.tr('.', '')
+      url = value
+      break
+    end
+    url
+  end
 
   def check_params
     params[:model_id].present? &&
@@ -48,7 +65,7 @@ class DownloadController < ApplicationController
   end
 
   def fields
-    @fields ||= params[:field].split('--').map { |e| e =~ /\d+/ ? e.to_i : e }
+    @fields ||= params[:field].split('--').map { |e| e =~ /^\d+$/ ? e.to_i : e }
   end
 
   def extract_filename(data)
