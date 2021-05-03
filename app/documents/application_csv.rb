@@ -23,7 +23,7 @@ class ApplicationCsv
       csv << headers
       rows = build_rows
       rows.each do |row|
-        csv << row.raw_values.reject(&:blank?)
+        csv << row.raw_values
       end
     end
   end
