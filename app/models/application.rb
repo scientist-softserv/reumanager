@@ -209,10 +209,6 @@ class Application < ApplicationRecord
     recommender_info.fetch('recommenders_form', []).count
   end
 
-  def data_flattened(selected_fields = {})
-    DataFlattener.new(data, selected_fields).flatten
-  end
-
   def full_name
     "#{self.data.dig('profile', 'first_name')} #{self.data.dig('profile', 'last_name')}"
   end

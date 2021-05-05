@@ -37,26 +37,25 @@
     .alert.alert-warning.w-100
       %p Applicant has not provided any information
   - else
-    - @application.data.each do |key, value|
+    - @application.current_application_form.sections.each do |section|
       .card.mb-2
         .card-body
-          %h5.card-title= key.capitalize
-          - case value
-          - when Array
-            - value.each_with_index do |item, index|
-              - item.each do |k, v|
-                - path = "#{key}--#{index}--#{k}"
+          %h5.card-title= section.title
+          - if section.repeating?
+            - section_data = @application.data[section.title_key]
+            - section_data.each_with_index do |set, index|
+              - section.fields.each do |field|
+                - path = "#{section.title_key}--#{index}--#{field.title_key}"
                 %p.mb-0(data-obj-path="#{path}")
-                  %strong #{format_key(k)}:
-                  = format_value(v, 'application', @application.id, path)
-              %hr
-
-          - when Hash
-            - value.each do |k, v|
-              - path = "#{key}--#{k}"
+                  %strong #{field.title}:
+                  = format_value(set[field.title_key], 'application', @application.id, path)
+          - else
+            - section_data = @application.data[section.title_key]
+            - section.fields.each do |field|
+              - path = "#{section.title_key}--#{field.title_key}"
               %p.mb-0(data-obj-path="#{path}")
-                %strong #{format_key(k)}:
-                = format_value(v, 'application', @application.id, path)
+                %strong #{field.title}:
+                = format_value(section_data[field.title_key], 'application', @application.id, path)
 
   %h3 Recommenders
   - info = @application.recommender_info.fetch('recommenders_form', {})
