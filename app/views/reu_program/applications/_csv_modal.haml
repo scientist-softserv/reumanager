@@ -2,7 +2,7 @@
 .modal.fade(id="#{modalId}" aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1")
   .modal-dialog
     .modal-content
-      = form_for :csv_fields, url: url , method: :post do |f|
+      = form_for :csv_fields, url: url , method: :post do
         .modal-header
           %h5#exampleModalLabel.modal-title Pick Fields for CSV
           %button.close(aria-label="Close" data-dismiss="modal" type="button")
@@ -15,11 +15,11 @@
                 %p
                   %strong= section.title
               .col
-                = f.fields_for section.title_key do |sf|
-                  - section.fields.each do |field|
-                    .form-group.form-check.mb-0
-                      = sf.check_box field.title_key, class: 'form-check-input', checked: true
-                      = sf.label field.title_key, field.title
+                - section.fields.each do |field|
+                  .form-group.form-check.mb-0
+                    - name = "csv_fields[#{section.id}][]"
+                    = check_box_tag name, field.id, true, class: 'form-check-input'
+                    = label_tag name, field.title
 
         .modal-footer
           %button.btn.btn-secondary(data-dismiss="modal" type="button") Close

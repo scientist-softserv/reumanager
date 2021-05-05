@@ -9,13 +9,14 @@ class ApplicationPdf
     @applications = applications
     font_families.update(
       'DejaVuSans' => {
-        normal: 'app/assets/fonts/DejaVuSans.ttf',
-        bold: 'app/assets/fonts/DejaVuSans-Bold.ttf'
+        normal: 'app/assets/fonts/dejavu-sans/DejaVuSans.ttf',
+        bold: 'app/assets/fonts/dejavu-sans/DejaVuSans-Bold.ttf'
       }
     )
   end
 
   def build
+    font('DejaVuSans')
     applications.each do |application|
       @application = application
       print_application(application)
@@ -58,14 +59,18 @@ class ApplicationPdf
       text 'User has not entered their recommenders information', inline_format: true
     else
       info.each_with_index do |r, index|
-        recommendation = application.recommendations.detect { |s| s.email == r['email'] }
-        color = if recommendation&.submitted_at.present?
-                  '28a745' # bootstrap success
-                elsif recommendation&.last_sent_at.blank?
-                  'ffc107' # bootstrap warning
-                else
-                  '343a40' # bootstrap dark
-                end
+        recommendation = application.recommendations.find { |s| s.email == r['email'] }
+        color =
+          if recommendation&.submitted_at.present?
+            # bootstrap success
+            '28a745'
+          elsif recommendation&.last_sent_at.blank?
+            # bootstrap warning
+            'ffc107'
+          else
+            # bootstrap dark
+            '343a40'
+          end
         span 400 do
           section 10 do
             section 10 do
@@ -83,9 +88,9 @@ class ApplicationPdf
                 text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommender', @application.id, path)}", inline_format: true
               end
               if recommendation.present?
-                move_down 10
+                move_down(10)
                 text "Recommender's Response", size: 14, inline_format: true, style: :bold
-                move_down 5
+                move_down(5)
                 recommendation.data.fetch('recommendation_form', {}).each do |k, v|
                   path = "recommendation_form--#{k}"
                   text "<b>#{format_key(k)}:</b> #{format_value_for_pdf(v, 'recommendation', recommendation.id, path)}", inline_format: true

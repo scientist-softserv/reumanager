@@ -39,7 +39,7 @@
             %th Name
             %th Email
             %th State
-            %th Actions
+            %th.text-right Actions
         %tbody
           - @applications.each do |application|
             %tr
@@ -47,14 +47,15 @@
               %td= application.email
               %td= application.state
               %td.actions
-                .btn-group
-                  = link_to 'Show', reu_program_application_path(application), class: 'btn btn-outline-secondary btn-sm'
-                  = link_to 'PDF', reu_program_application_path(application, format: 'pdf'), class: 'btn btn-outline-secondary btn-sm'
-                  %button.btn.btn-outline-secondary.btn-sm(data-target="#csvModal-#{application.id}" data-toggle="modal" type="button") CSV
-                  - if application.kept?
-                    = link_to 'Remove', reu_program_application_path(application), method: :delete, data: { confirm: 'Are you sure you want to remove this application?'}, class: 'btn btn-outline-danger btn-sm'
-                  - else
-                    = link_to 'Restore', restore_reu_program_application_path(application), class: 'btn btn-outline-info btn-sm'
+                .w-100.d-flex.justify-content-end
+                  .btn-group
+                    = link_to 'Show', reu_program_application_path(application), class: 'btn btn-outline-secondary btn-sm'
+                    = link_to 'PDF', reu_program_application_path(application, format: 'pdf'), class: 'btn btn-outline-secondary btn-sm'
+                    %button.btn.btn-outline-secondary.btn-sm(data-target="#csvModal-#{application.id}" data-toggle="modal" type="button") CSV
+                    - if application.kept?
+                      = link_to 'Remove', reu_program_application_path(application), method: :delete, data: { confirm: 'Are you sure you want to remove this application?'}, class: 'btn btn-outline-danger btn-sm'
+                    - else
+                      = link_to 'Restore', restore_reu_program_application_path(application), class: 'btn btn-outline-info btn-sm'
   .row
     .col
       = paginate @applications

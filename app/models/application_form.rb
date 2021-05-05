@@ -95,15 +95,4 @@ class ApplicationForm < ApplicationRecord
       hash[section.title_key] = section.validations
     end
   end
-
-  def csv_column_headers(selected_fields = nil)
-    if selected_fields.nil?
-      self.sections.map(&:csv_column_headers).flatten
-    else
-      self.sections.map do |section|
-        section_selected_fields = selected_fields[section.title_key]
-        section.csv_column_headers(section_selected_fields)
-      end.flatten
-    end
-  end
 end
