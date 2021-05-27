@@ -17,7 +17,10 @@
         - when 'started'
           %p.m-0 Please complete all required fields and fill out #{current_application.current_recommender_form.recommenders_count} recommenders to be able to submit your application for consideration.
         - when 'submitted'
-          %p.m-0 You have submitted your application. Your application will be completed when your recommenders have sent in their information.
+          - if !handle_recommendations?
+            %p.m-0 You have submitted your application.
+          - else
+            %p.m-0 You have submitted your application. Your application will be completed when your recommenders have sent in their information.
         - when 'completed'
           %p.m-0 Your Application is complete. We will be reviewing your application.
         - when 'withdrawn'
@@ -26,7 +29,6 @@
           %p.m-0 Congratulations you have been accepted. Please look for more communication from us about the details of the program.
         - when 'rejected'
           %p.m-0 We are sorry but you have not been accepted into the program.
-
     %h3 Recommenders
     .d-flex.flex-wrap
       - info = current_application.recommender_info.fetch('recommenders_form', {})
