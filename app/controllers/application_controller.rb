@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
                 :super_user?,
                 :super_admin_user?,
                 :current_grant,
-                :current_application
+                :current_application,
+                :handle_recommendations?
 
   rescue_from Apartment::TenantNotFound, with: :tenant_not_found
 
@@ -131,4 +132,9 @@ class ApplicationController < ActionController::Base
 
     render json: err, status: 500
   end
+
+  def handle_recommendations?
+    @handle_recommendations ||= RecommenderForm.includes(sections: :fields).where(status: :active).first.handle_recommendations?
+  end
+
 end
