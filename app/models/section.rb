@@ -7,8 +7,12 @@ class Section < ApplicationRecord
   validates :title, uniqueness: { scope: :recommender_form_id }, if: :recommender_form_id?
   validates :count, inclusion: { in: [1, 2, 3], message: 'must be greater than 0 and less than 4' }
 
-
   accepts_nested_attributes_for :fields, allow_destroy: true
+
+  def self.active
+    left_outer_joins(:application_form, :recommender_form)
+      .where('application_forms.status = 1 OR recommender_forms.status = 1')
+  end
 
   def important_fields
     fields.where.not(important: nil)
@@ -16,6 +20,10 @@ class Section < ApplicationRecord
 
   def title_key
     title.downcase.tr(' ', '_')
+  end
+
+  def recommender?
+    important == 'recommender'
   end
 
   def validate_data(data)

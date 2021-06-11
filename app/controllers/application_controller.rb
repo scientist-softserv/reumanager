@@ -134,7 +134,6 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_recommendations?
-    @handle_recommendations ||= RecommenderForm.includes(sections: :fields).where(status: :active).first.handle_recommendations?
+    @handle_recommendations ||= RecommenderForm.active.handle_recommendations?
   end
-
 end
