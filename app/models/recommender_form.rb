@@ -16,6 +16,8 @@ class RecommenderForm < ApplicationRecord
     self.sections.update_all(count: self.recommenders_count) if self.recommenders_count_previously_changed?
   end
 
+  scope :active, -> { where(status: :active).first }
+
   def duplicate
     new_form = self.dup
     new_form.name = "#{new_form.name} Copy"
@@ -39,7 +41,7 @@ class RecommenderForm < ApplicationRecord
     error_messages = []
     sections = self.sections.to_a
     data.each do |title_key, values|
-      section = sections.detect { |s| s.title_key == title_key }
+      section = sections.find { |s| s.title_key == title_key }
       error_messages.concat(section.validate_data(values))
     end
     error_messages
@@ -50,9 +52,10 @@ class RecommenderForm < ApplicationRecord
   end
 
   def recommendation_section
-    @recommendation_section ||= self.sections.detect do |section|
-      section.title == 'Recommendation Form' || section.important == 'recommendation'
-    end
+    @recommendation_section ||=
+      self.sections.find do |section|
+        section.title == 'Recommendation Form' || section.important == 'recommendation'
+      end
   end
 
   def json_schema(section: 'recommender')
@@ -64,7 +67,7 @@ class RecommenderForm < ApplicationRecord
   end
 
   def build_json_schema(section: 'recommender')
-    section = sections.detect { |s| Regexp.new(section).match?(s.important.downcase) }
+    section = sections.find { |s| Regexp.new(section).match?(s.important.downcase) }
     { sections: [section.to_form] }
   end
 
@@ -77,7 +80,7 @@ class RecommenderForm < ApplicationRecord
   end
 
   def build_ui_schema(section: 'recommender')
-    section = sections.detect { |s| Regexp.new(section).match?(s.important.downcase) }
+    section = sections.find { |s| Regexp.new(section).match?(s.important.downcase) }
     section.build_ui_schema
   end
 
