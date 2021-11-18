@@ -6,7 +6,7 @@ class Recommendation < ApplicationRecord
   validate :run_data_validations, on: :update
 
   after_commit do
-    if self.application.can_complete?
+    if self.application&.can_complete?
       self.application.complete
       self.application.save
     end
