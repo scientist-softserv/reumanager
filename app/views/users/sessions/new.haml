@@ -3,7 +3,7 @@
   .col-6
     .card
       .card-header
-        %h4 Log in
+        %h4.text-center Log in
       .card-body
         = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = f.input :email,
@@ -14,7 +14,7 @@
             required: false,
             input_html: { autocomplete: "current-password" }
           = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-          = f.button :submit, "Log in", class: 'btn btn-primary'
-          .mt-4
+          = f.button :submit, "Log in", class: 'btn btn-primary mx-auto d-block'
+          .mt-4.text-center
             = render "users/shared/links"
   .col-3

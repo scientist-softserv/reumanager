@@ -3,7 +3,7 @@
   .col-6
     .card
       .card-header
-        %h4 Sign up
+        %h4.text-center Sign up
       .card-body
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = f.error_notification
@@ -18,7 +18,8 @@
           = f.input :password_confirmation,
             required: true,
             input_html: { autocomplete: "new-password" }
-          = f.button :submit, "Sign up", class: 'btn btn-primary'
-        .mt-4
+          = f.button :submit, "Sign up", class: 'btn btn-primary mx-auto d-block'
+        %p.mt-3.text-center Please check your spam or junk folder for the confirmation email.
+        .mt-3.text-center
           = render "users/shared/links"
   .col-3
