@@ -48,7 +48,7 @@ spec:
           args:
             - "-l"
             - "-c"
-            - "(bundle check || bundle install) && bundle exec rails db:create db:migrate db:seed && RAILS_ENV=production bundle exec rails assets:precompile DATABASE_ADAPTER=nulldb && echo SETUP COMPLETE"
+            - "(bundle check || bundle install) && sleep 15m && bundle exec rails db:create db:migrate db:seed && RAILS_ENV=production bundle exec rails assets:precompile DATABASE_ADAPTER=nulldb && echo SETUP COMPLETE"
           envFrom:
             - configMapRef:
                 name: {{ template "app.rails-env.name" . }}
