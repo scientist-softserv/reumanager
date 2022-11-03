@@ -44,7 +44,6 @@ test:
 
 staging:
   stage: deploy
-  type: deploy
   script:
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
     - ./chart/bin/decrypt staging
@@ -58,7 +57,7 @@ staging:
 
 production:
   stage: deploy
-  type: deploy
+
   script:
     - export KUBECONFIG=$KUBECONFIG_PALS
     - "keybase status | grep 'Logged in:     no' && keybase oneshot"
