@@ -6,5 +6,3 @@ Rails.configuration.stripe = {
 }
 require "stripe"
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
-
-# Stripe.api_key = "sk_test_zO6UjE4YsjNNGCCMZ3k0gM1y"
